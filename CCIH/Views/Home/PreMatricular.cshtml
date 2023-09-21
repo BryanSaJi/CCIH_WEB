@@ -1,0 +1,138 @@
+﻿@model CCIH.Entities.PreMatriculaEnt
+
+@{
+    ViewBag.Title = "PreMatricular";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("PreMatricularCurso", "Home", FormMethod.Post))
+{
+    <section id="hero">
+        <div class="container position-relative" data-aos="zoom-in" data-aos-delay="100">
+            <div class="row justify-content-center align-items-center h-1">
+                <div class="col-12 col-md-8 col-lg-6 col-xl-5" style="margin-top: -30px; width: 100%;">
+                    <div class="card-body p-2 text-center" style="background-color: rgba(255, 255, 255, 0.7); ">
+
+
+                        <div class="mb-md-5 mt-md-4 pb-1">
+                            <h2 class="fw-bold text-uppercase" style="color:black">Proceso de PreMatricula</h2>
+                            <br>
+                            <p class="text-black-70 mb-5">Por favor ingrese la informacion del curso que desea pre-matricular!</p>
+
+
+                            <div class="row justify-content-center align-items-center">
+                                <div class="col-3 form-outline form-white">
+                                    @Html.TextBoxFor(
+                                            m => m.CorreoElectronico,
+                                            new
+                                                 {
+                                                     @type = "text",
+                                                @placeholder = "Correo Electronico",
+                                                @style = "text-align: center",
+                                                @class = "form-control form-control-lg"
+                                            })
+                                </div>
+
+                                <div class="col-2 form-outline form-white">
+                                    @Html.TextBoxFor(
+                                            m => m.Telefono,
+                                            new
+                                                 {
+                                                     @type = "text",
+                                                @placeholder = "Telefono",
+                                                @style = "text-align: center",
+                                                @class = "form-control form-control-lg"
+                                            })
+                                </div>
+
+                                <div class="col-2 form-outline form-white">
+                                    @Html.TextBoxFor(
+                                            m => m.Nombre,
+                                            new
+                                                 {
+                                                     @type = "text",
+                                                @placeholder = "Nombre",
+                                                @style = "text-align: center",
+                                                @class = "form-control form-control-lg"
+                                            })
+                                </div>
+
+                                <div class="col-2 form-outline form-white">
+                                    @Html.TextBoxFor(
+                                            m => m.Apellido1,
+                                            new
+                                                 {
+                                                     @type = "text",
+                                                @placeholder = "Primer Apellido",
+                                                @style = "text-align: center",
+                                                @class = "form-control form-control-lg"
+                                            })
+                                </div>
+
+                                <div class="col-2 form-outline form-white">
+                                    @Html.TextBoxFor(
+                                            m => m.Apellido2,
+                                            new
+                                                 {
+                                                     @type = "text",
+                                                @placeholder = "Segundo Apellido",
+                                                @style = "text-align: center",
+                                                @class = "form-control form-control-lg"
+                                            })
+                                </div>
+
+                            </div>
+
+                            <br>
+
+                            <div class="row justify-content-center align-items-center">
+
+                                <div class="col-3 form-outline form-white">
+                                    @Html.DropDownListFor(m => m.IdCurso, ViewBag.Cruso as List<SelectListItem>, "Selecione el Curso de interes", new { @type = "text", @style = "text-align: center", @class = "form-control form-control-lg" })
+                                </div>
+
+                                <div class="col-3 form-outline form-white">
+                                    @Html.DropDownListFor(m => m.IdModalidad, ViewBag.Modalidad as List<SelectListItem>, "Selecione la Modalidad", new { @type = "text", @style = "text-align: center", @class = "form-control form-control-lg" })
+                                </div>
+
+                                <div class="col-3 form-outline form-white">
+                                    @Html.DropDownListFor(m => m.IdNivel, ViewBag.Nivel as List<SelectListItem>, "Selecione el nivel que desea", new { @type = "text", @style = "text-align: center", @class = "form-control form-control-lg" })
+                                </div>
+
+                            </div>
+                        </div>
+                        <p class="text-black mb-5" style="text-decoration: underline;">Una vez complete su prematricula, sera contactado por nuestros representes para concluir con su Matricula!</p>
+
+                        <!-- Modal -->
+                        <button type="button" class="btn btn-outline-success btn-lg px-5" data-bs-toggle="modal" data-bs-target="#basicModal">
+                            PreMatricular!
+                        </button>
+                        <br>
+                        <br>
+
+                        
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section><!-- End Hero -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="basicModal" tabindex="-1">
+        <div class="modal-dialog justify-content-center align-items-center" style="margin-top: 15%">
+            <div class="modal-content justify-content-center align-items-center">
+                <div class="modal-header align-items-center">
+                    <h5 class="modal-title justify-content-center align-items-center"><i class="bi bi-award-fill text-success"></i>  Felicidades  <i class="bi bi-award-fill text-success"></i></h5>
+                </div>
+                <div class="modal-body" style="text-align:center">
+                    Muchas Feliciades, ha completado el proceso de prematricula, nuestros representantes se estaran contactando con su persona para brindarle mas informacion y poder completar el proceso de matricula
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div><!-- End Modal-->
+}

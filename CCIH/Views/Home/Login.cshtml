@@ -1,0 +1,66 @@
+@model CCIH.Entities.UsuarioEnt
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<section id="hero">
+    <div class="container position-relative" data-aos="zoom-in" data-aos-delay="100">
+        <div class="row justify-content-center align-items-center h-1">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5" style="margin-top: -30px">
+                <div class="card-body p-2 text-center" style="background-color: rgba(0, 0, 0, 0.5);">
+
+                    @using (Html.BeginForm("IniciarSesion", "Home", FormMethod.Post))
+                    {
+                        <div class="mb-md-5 mt-md-4 pb-1">
+                            <h2 class="fw-bold mb-2 text-uppercase">Inicio de sesion</h2>
+                            <p class="text-white-50 mb-5">Por favor ingrese su usuario y contraseña!</p>
+
+                            <div class="form-outline form-white mb-4" style="width: 60%; margin: auto;">
+                                @Html.TextBoxFor(
+                                        m => m.Usuario,
+                                        new
+                                             {
+                                                 @type = "text",
+                                            @placeholder = "Ingrese Usuario",
+                                            @style = "text-align: center",
+                                            @class = "form-control form-control-lg",
+                                            @required = "true"
+                                        })
+                                <label class="text-white" for="LoginUsuario">Usuario</label>
+                            </div>
+
+                            <div class="form-outline form-white mb-4" style="width: 60%; margin: auto;">
+                                @Html.TextBoxFor(
+                                        m => m.PwUsuario,
+                                        new
+                                             {
+                                                 @type = "password",
+                                            @placeholder = "Ingrese Contraseña",
+                                            @style = "text-align: center",
+                                            @class = "form-control form-control-lg",
+                                            required = "true"
+                                        })
+                                <label class="text-white" for="LoginContraseña">Contraseña</label>
+                            </div>
+
+                            <button class="btn btn-outline-light btn-lg px-5" id="btn" type="submit">Entrar!</button>
+                            <br />
+                            <br />
+                            <a class="text-white-50 mb-2" href="/Home/loginReset">Olvide mi contraseña?</a>
+
+                            @if (ViewBag.MsjPantalla != null)
+                            {
+                                <div style="text-align:center" class="alert alert-warning" role="alert">
+                                    @ViewBag.MsjPantalla
+                                </div>
+                            }
+
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section><!-- End Hero -->

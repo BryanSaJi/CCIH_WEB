@@ -1,0 +1,139 @@
+
+
+@model CCIH.Entities.MatriculaEnt
+
+@{
+    ViewBag.Title = "Matricula";
+    Layout = "~/Views/Shared/_Layout_Administracion.cshtml";
+}
+
+
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Crear Matricula</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/Administracion/Inicio">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="#">Matricula</a></li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+
+    <section class="section">
+        <div class="row">
+
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Matricula</h5>
+
+                    <!-- General Form Elements -->
+                    @using (Html.BeginForm("RegistrarMatricula", "Matricula", FormMethod.Post))
+                    {
+                        <div class="row mb-3">
+                            <label for="inputText" class="col-sm-2 col-form-label">Cedula</label>
+                            <div class="col-sm-5">
+                                @Html.TextBoxFor(m => m.Cedula, new { @type = "text", @class = "form-control", @Value = @Session["CedulaCliente"].ToString(), @Disable = "Disable" })
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">Curso</label>
+                            <div class="col-sm-5">
+                            @Html.DropDownListFor(m => m.IdCurso, ViewBag.Cruso as List<SelectListItem>, "Selecione el Curso", new { @class = "form-control", required = "required" })
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">Modalidad</label>
+                            <div class="col-sm-3">
+                                @Html.DropDownListFor(m => m.IdModalidad, ViewBag.Modalidad as List<SelectListItem>, "Selecione la Modalidad", new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">Nivel</label>
+                            <div class="col-sm-3">
+                                @Html.DropDownListFor(m => m.IdNivel, ViewBag.Nivel as List<SelectListItem>, "Selecione el nivel", new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">Horario</label>
+                            <div class="col-sm-3">
+                                @Html.DropDownListFor(m => m.IdHorario, ViewBag.Horario as List<SelectListItem>, "Selecione el horario", new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="inputNumber" class="col-sm-2 col-form-label">Monto Mensual</label>
+                            <div class="col-sm-5">
+                                @Html.TextBoxFor(m => m.Monto, new { @type = "text", @placeholder = "Digite el Monto", @class = "form-control", required = "required" })
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="inputDate" class="col-sm-2 col-form-label">Fecha de Matricula</label>
+                            <div class="col-sm-3">
+                                @Html.TextBoxFor(m => m.FechaMatricula, new { @type = "date", @class = "form-control", required = "required" })
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputNumber" class="col-sm-2 col-form-label">Dia de Pago</label>
+                            <div class="col-sm-1">
+                                @Html.TextBoxFor(m => m.DiaPago, new { @type = "Number", @class = "form-control", required = "required" })
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">Comentario</label>
+                            <div class="col-sm-10">
+                                @Html.TextAreaFor(m => m.Comentario, new { @type = "Text", @placeholder = "Digite un comentario de ser necesario", @class = "form-control", @style = "height: 50px", required = "required" })
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">Estatus</label>
+                            <div class="col-sm-3">
+                                @Html.DropDownListFor(m => m.IdEstatus, ViewBag.Estatus as List<SelectListItem>, "Selecione el estatus", new { @class = "form-control" })
+                            </div>
+                        </div>
+
+
+
+
+                        <!-- Modal -->
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#basicModal">
+                            Matricular
+                        </button>
+                        <div class="modal fade" id="basicModal" tabindex="-1">
+                            <div class="modal-dialog" style="margin-top: 15%">
+                                <div class="modal-content">
+                                    <div class="modal-header align-items-center">
+                                        <h5 class="modal-title"><i class="bi bi-question-circle"></i>  Confirmacion  <i class="bi bi-question-circle"></i></h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body" style="text-align:center">
+                                        Esta seguro que desea matricular?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Atras</button>
+                                        <button type="submit" class="btn btn-primary">Matricular</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- End Modal-->
+                    }
+
+
+
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+</main><!-- End #main -->

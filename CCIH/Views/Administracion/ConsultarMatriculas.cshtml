@@ -1,0 +1,100 @@
+
+
+@model IEnumerable<CCIH.Entities.MatriculaEnt>
+
+@{
+    ViewBag.Title = "ConsultarMatriculas";
+    Layout = "~/Views/Shared/_Layout_Administracion.cshtml";
+}
+
+<heah>
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
+
+
+    <script defer src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script defer src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+    <script defer src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script defer src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+    <script defer src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
+    <script defer src="~/assets/Administracion/js/DataTable/DataTable.js"></script>
+
+
+</heah>
+
+
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h1>Lista de Matriculas</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/Administracion/Inicio">Dashboard</a></li>
+                <li class="breadcrumb-item">Matriculas</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+
+                <div class="card">
+                    <div class="card-body">
+
+                        <br />
+                        <div class="row">
+                            <br>
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+
+                                        <table id="eample" class="table table-hover" style="width: 100% !important;">
+                                            <thead>
+                                                <tr>
+                                                    <th>Cedula</th>
+                                                    <th>Nombre</th>
+                                                    <th>Telefono</th>
+                                                    <th>Curso</th>
+                                                    <th>Modalidad</th>
+                                                    <th>Nivel</th>
+                                                    <th>Fecha</th>
+                                                    <th>Estado</th>
+                                                    <th>Accion</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                                @foreach (var item in Model)
+                                                {
+                                                    <tr>
+                                                        <td>@item.Cedula</td>
+                                                        <td>@item.Nombre</td>
+                                                        <td>@item.Telefono</td>
+                                                        <td>@item.Curso</td>
+                                                        <td>@item.Modalidad</td>
+                                                        <td>@item.Nivel</td>
+                                                        <td>@item.FechaMatricula.ToShortDateString()</td>
+                                                        <td>@item.Estatus</td>
+                                                        <td style="text-align:center">
+                                                            <a type="submit" class="btn btn-outline-success btn-sm" href="@Url.Action("ConsultarMatricula","Matricula", new { i = item.IdMatricula })"><i class="bi bi-check-circle"></i>Detalle</a>
+                                                        </td>
+                                                    </tr>
+                                                }
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main><!-- End #main -->
