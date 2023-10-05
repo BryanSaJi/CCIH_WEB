@@ -45,6 +45,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.7.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
@@ -73,6 +79,8 @@
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Text.Encodings.Web, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Text.Encodings.Web.7.0.0\lib\net462\System.Text.Encodings.Web.dll</HintPath>
     </Reference>
@@ -157,41 +165,41 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\AdministracionController.cs" />
-    <Compile Include="Controllers\ClienteController.cs" />
-    <Compile Include="Controllers\CursosController.cs" />
-    <Compile Include="Controllers\EstatusController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\CustomerController.cs" />
+    <Compile Include="Controllers\CourseController.cs" />
+    <Compile Include="Controllers\StateController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\MatriculaController.cs" />
-    <Compile Include="Controllers\RolController.cs" />
-    <Compile Include="Controllers\UsuarioController.cs" />
-    <Compile Include="Entities\CambiarContrasennaEnt.cs" />
-    <Compile Include="Entities\ClienteEnt.cs" />
-    <Compile Include="Entities\CrusosEnt.cs" />
-    <Compile Include="Entities\GrupoEnt.cs" />
-    <Compile Include="Entities\HorarioEnt.cs" />
-    <Compile Include="Entities\MatriculaEnt.cs" />
-    <Compile Include="Entities\ContactoEnt.cs" />
-    <Compile Include="Entities\EstatusEnt.cs" />
-    <Compile Include="Entities\NivelEnt.cs" />
-    <Compile Include="Entities\PreMatriculaEnt.cs" />
-    <Compile Include="Entities\RolEnt.cs" />
-    <Compile Include="Entities\UsuarioClienteEnt.cs" />
-    <Compile Include="Entities\UsuarioEnt.cs" />
+    <Compile Include="Controllers\RegistrationController.cs" />
+    <Compile Include="Controllers\RoleController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Entities\ChangePwEnt.cs" />
+    <Compile Include="Entities\CustomerEnt.cs" />
+    <Compile Include="Entities\CourseEnt.cs" />
+    <Compile Include="Entities\GroupEnt.cs" />
+    <Compile Include="Entities\ScheduleEnt.cs" />
+    <Compile Include="Entities\RegistrationEnt.cs" />
+    <Compile Include="Entities\ContactEnt.cs" />
+    <Compile Include="Entities\StateEnt.cs" />
+    <Compile Include="Entities\LevelEnt.cs" />
+    <Compile Include="Entities\PreRegsitrationEnt.cs" />
+    <Compile Include="Entities\RoleEnt.cs" />
+    <Compile Include="Entities\UserCustomEnt.cs" />
+    <Compile Include="Entities\UserEnt.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\ClienteModel.cs" />
-    <Compile Include="Models\CursosModel.cs" />
-    <Compile Include="Models\EstatusModel.cs" />
-    <Compile Include="Entities\ModalidadEnt.cs" />
-    <Compile Include="Models\GrupoModel.cs" />
-    <Compile Include="Models\HorarioModel.cs" />
-    <Compile Include="Models\MatriculaModel.cs" />
-    <Compile Include="Models\ModalidadModel.cs" />
-    <Compile Include="Models\NivelModel.cs" />
-    <Compile Include="Models\RolModel.cs" />
-    <Compile Include="Models\UsuarioModel.cs" />
+    <Compile Include="Models\CustomerModel.cs" />
+    <Compile Include="Models\CourseModel.cs" />
+    <Compile Include="Models\StateModel.cs" />
+    <Compile Include="Entities\ModalityEnt.cs" />
+    <Compile Include="Models\GroupModel.cs" />
+    <Compile Include="Models\ScheduleModel.cs" />
+    <Compile Include="Models\RegistrationModel.cs" />
+    <Compile Include="Models\ModalityModel.cs" />
+    <Compile Include="Models\LevelModel.cs" />
+    <Compile Include="Models\RoleModel.cs" />
+    <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -632,10 +640,10 @@
     <Content Include="assets\Administracion\vendor\tinymce\composer.json" />
     <Content Include="assets\Administracion\vendor\tinymce\package.json" />
     <Content Include="assets\Administracion\vendor\tinymce\README.md" />
-    <Content Include="Views\Administracion\Cliente.cshtml" />
-    <Content Include="Views\Administracion\CrearMatricula.cshtml" />
-    <Content Include="Views\Administracion\ConsultarMatriculas.cshtml" />
-    <Content Include="Views\Administracion\Inicio.cshtml" />
+    <Content Include="Views\Admin\Customer.cshtml" />
+    <Content Include="Views\Admin\CreateRegister.cshtml" />
+    <Content Include="Views\Admin\ConsultRegister.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -697,31 +705,31 @@
     <Content Include="assets\Home\vendor\remixicon\remixicon.woff2" />
     <Content Include="assets\Home\vendor\swiper\swiper-bundle.min.js.map" />
     <Content Include="Views\Home\LoginReset.cshtml" />
-    <Content Include="Views\Shared\_Layout_Administracion.cshtml" />
-    <Content Include="Views\Rol\ListarRoles.cshtml" />
-    <Content Include="Views\Rol\RegistrarRol.cshtml" />
-    <Content Include="Views\Rol\EditarRol.cshtml" />
-    <Content Include="Views\Home\Acerca.cshtml" />
-    <Content Include="Views\Home\Contacto.cshtml" />
-    <Content Include="Views\Home\Cursos.cshtml" />
+    <Content Include="Views\Shared\_Layout_Administration.cshtml" />
+    <Content Include="Views\Role\ListRoles.cshtml" />
+    <Content Include="Views\Role\RegisterRol.cshtml" />
+    <Content Include="Views\Role\EditRole.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Courses.cshtml" />
     <Content Include="Views\Home\index.cshtml" />
-    <Content Include="Views\Home\Ing_Intensivo_P.cshtml" />
-    <Content Include="Views\Home\Ing_Intensivo_V.cshtml" />
-    <Content Include="Views\Home\Ing_Niños_V.cshtml" />
-    <Content Include="Views\Home\Ing_Semi_Intensivo_P.cshtml" />
-    <Content Include="Views\Home\Ing_Semi_Intensivo_V.cshtml" />
-    <Content Include="Views\Home\Portu_Semi_Intensivo_V.cshtml" />
-    <Content Include="Views\Home\Profesores.cshtml" />
-    <Content Include="Views\Administracion\ReporteMatricula.cshtml" />
-    <Content Include="Views\Home\PreMatricular.cshtml" />
-    <Content Include="Views\Matricula\ConsultarPreMatricula.cshtml" />
-    <Content Include="Views\Usuario\RegistrarUsuario.cshtml" />
-    <Content Include="Views\Usuario\Index.cshtml" />
-    <Content Include="Views\Usuario\CambiarContraseña.cshtml" />
-    <Content Include="Views\Usuario\EditarUsuario.cshtml" />
-    <Content Include="Views\Matricula\ConsultarMatricula.cshtml" />
-    <Content Include="Views\Matricula\ConsultarMatriculasHoy.cshtml" />
-    <Content Include="Views\Cursos\Index.cshtml" />
+    <Content Include="Views\Home\Eng_Intensive_P.cshtml" />
+    <Content Include="Views\Home\Eng_Intensive_V.cshtml" />
+    <Content Include="Views\Home\Eng_Kids_V.cshtml" />
+    <Content Include="Views\Home\Eng_Semi_Intensive_P.cshtml" />
+    <Content Include="Views\Home\Eng_Semi_Intensive_V.cshtml" />
+    <Content Include="Views\Home\Portu_Semi_Intensive_V.cshtml" />
+    <Content Include="Views\Home\Teachers.cshtml" />
+    <Content Include="Views\Admin\ReportRegistration.cshtml" />
+    <Content Include="Views\Home\PreRegister.cshtml" />
+    <Content Include="Views\Registration\ConsultPreRegister.cshtml" />
+    <Content Include="Views\User\RegisterUser.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\User\ChangePassword.cshtml" />
+    <Content Include="Views\User\EditUser.cshtml" />
+    <Content Include="Views\Registration\ConsultRegister.cshtml" />
+    <Content Include="Views\Registration\ConsultRegisterToday.cshtml" />
+    <Content Include="Views\Courses\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -852,6 +860,7 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

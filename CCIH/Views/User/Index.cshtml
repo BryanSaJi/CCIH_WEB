@@ -1,0 +1,119 @@
+﻿@model IEnumerable<CCIH.Entities.UserCustomEnt>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_Administracion.cshtml";
+}
+
+<heah>
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
+
+
+    <script defer src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script defer src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+    <script defer src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script defer src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+    <script defer src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
+    <script defer src="~/assets/Administracion/js/DataTable/DataTable.js"></script>
+
+
+
+</heah>
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Lista de Users</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/Administracion/Inicio">Dashboard</a></li>
+                <li class="breadcrumb-item">Users</li>
+                <li class="breadcrumb-item active">Listado de Users</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+        @if (ViewBag.MsjPantalla != null)
+        {
+            <div style="text-align:center" class="alert alert-warning" role="alert">
+                @ViewBag.MsjPantalla
+            </div>
+        }
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        </br>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <a href="@Url.Action("RegisterUser","User")" class="btn btn-primary">Registrar User</a>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="table-responsive">
+                                    <table id="example" class="table table-hover text-center" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Cedula</th>
+                                                <th>Nombre</th>
+                                                <th>Primer Apellido</th>
+                                                <th>Segundo Apellido</th>
+                                                <th>Teléfono</th>
+                                                <th>User</th>
+                                                <th>Rol</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model)
+                                            {
+                                                <tr>
+                                                    <td>@item.Id</td>
+                                                    <td>@item.Name</td>
+                                                    <td>@item.LastName1</td>
+                                                    <td>@item.LastName2</td>
+                                                    <td>@item.PhoneNumber</td>
+                                                    <td>@item.User</td>
+                                                    <td>@item.NameRole</td>
+                                                    <td style="text-align:center">
+                                                        <a type="submit" class="btn btn-outline-info btn-sm" href="@Url.Action("EditUser", "User", new { i = item.IdUser })"><i class="bi bi-pencil-square"></i>Editar</a>
+                                                        <a class="btn btn-outline-danger btn-sm" onclick="return confirmar('@Url.Action("DeleteUser", "User", new { i = item.IdUser })')"><i class="bi bi-trash"></i>Eliminar</a>
+
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main><!-- End #main -->
+
+@section ApiUsuario {
+    <script>
+        function confirmar(url) {
+            if (confirm("¿Estás seguro de que quieres eliminar este elemento?")) {
+                window.location.href = url;
+                alert("Elemento eliminado correctamente.");
+            }
+        }
+    </script>
+}
+
+
+
+

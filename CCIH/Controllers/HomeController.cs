@@ -14,11 +14,11 @@ namespace CCIH.Controllers
 {
     public class HomeController : Controller
     {
-        UsuarioModel model = new UsuarioModel();
-        MatriculaModel modelMatricula = new MatriculaModel();
-        CursosModel modelCurso = new CursosModel();
-        ModalidadModel modelModalidad = new ModalidadModel();
-        NivelModel modelNivel = new NivelModel();
+        UserModel model = new UserModel();
+        RegistrationModel modelRegitration = new RegistrationModel();
+        CourseModel modelCourse = new CourseModel();
+        ModalityModel modelModality = new ModalityModel();
+        LevelModel modelLevel = new LevelModel();
 
 
         public ActionResult Index()
@@ -26,22 +26,22 @@ namespace CCIH.Controllers
             return View();
         }
 
-        public ActionResult Acerca()
+        public ActionResult About()
         {
             return View();
         }
 
-        public ActionResult Contacto()
+        public ActionResult Contact()
         {
             return View();
         }
 
-        public ActionResult Cursos()
+        public ActionResult Course()
         {
             return View();
         }
 
-        public ActionResult Profesores()
+        public ActionResult Teachers()
         {
             return View();
         }
@@ -56,93 +56,94 @@ namespace CCIH.Controllers
             return View();
         }
 
-        public ActionResult Ing_Intensivo_P()
+        public ActionResult Eng_Intensive_P()
         {
             return View();
         }
 
-        public ActionResult Ing_Intensivo_V()
+        public ActionResult Eng_Intensive_V()
         {
             return View();
         }
 
-        public ActionResult Ing_Semi_Intensivo_P()
+        public ActionResult Eng_Semi_Intensive_P()
         {
             return View();
         }
 
-        public ActionResult Ing_Semi_Intensivo_V()
+        public ActionResult Eng_Semi_Intensive_V()
         {
             return View();
         }
 
-        public ActionResult Ing_Niños_V()
+        public ActionResult Eng_Kids_V()
         {
             return View();
         }
 
-        public ActionResult Portu_Semi_Intensivo_V()
+        public ActionResult Portu_Semi_Intensive_V()
         {
             return View();
         }
 
-        public ActionResult PreMatricular()
+        public ActionResult PreRegister()
         {
             //Crusos
-            var crusos = modelCurso.ConsultarCrusosListarRolesScrollDown();
-            var ComboCruso = new List<SelectListItem>();
-            foreach (var item in crusos)
+            var course = modelCourse.ConsultCourseListRolesScrollDown();
+            var ComboCourse = new List<SelectListItem>();
+            foreach (var item in course)
             {
-                ComboCruso.Add(new SelectListItem
+                ComboCourse.Add(new SelectListItem
                 {
-                    Text = item.Nombre,
-                    Value = item.IdCurso.ToString()
+                    Text = item.Name,
+                    Value = item.IdCourse.ToString()
                 });
             }
             //Modalidad
-            var modalidad = modelModalidad.ConsultarModalidadListarRolesScrollDown();
-            var ComboModalidad = new List<SelectListItem>();
-            foreach (var item in modalidad)
+            var Modality = modelModality.ConsultModalityListRolesScrollDown();
+            var ComboModality = new List<SelectListItem>();
+            foreach (var item in Modality)
             {
-                ComboModalidad.Add(new SelectListItem
+                ComboModality.Add(new SelectListItem
                 {
-                    Text = item.Nombre,
-                    Value = item.IdModalidad.ToString()
+                    Text = item.Name,
+                    Value = item.IdModality.ToString()
                 });
             }
-            //Nivel
-            var nivel = modelNivel.ConsultarNivelListarRolesScrollDown();
-            var ComboNivel = new List<SelectListItem>();
-            foreach (var item in nivel)
+
+            //level
+            var level = modelLevel.ConsultLevelListRolesScrollDown();
+            var Combolevel = new List<SelectListItem>();
+            foreach (var item in level)
             {
-                ComboNivel.Add(new SelectListItem
+                Combolevel.Add(new SelectListItem
                 {
-                    Text = item.Nombre,
-                    Value = item.IdNivelCurso.ToString()
+                    Text = item.Name,
+                    Value = item.IdLevelCourse.ToString()
                 });
             }
-            ViewBag.Nivel = ComboNivel;
-            ViewBag.Modalidad = ComboModalidad;
-            ViewBag.Cruso = ComboCruso;
+            ViewBag.level = Combolevel;
+            ViewBag.Modalidad = ComboModality;
+            ViewBag.level = Combolevel;
             return View();
         }
 
-        public ActionResult PreMatricularCurso(PreMatriculaEnt entidad)
+        public ActionResult PreRegistrationCourse(PreRegistrationEnt ent)
         {
             try
             {
-                entidad.FechaPreMatricula = DateTime.Now;
-                entidad.IdEstatus = 1;
-                var resp = modelMatricula.PreMatricularCurso(entidad);
+                ent.DatePreRegistration = DateTime.Now;
+                ent.IdState = 1;
+                var resp = modelRegitration.CreatePreRegistration(ent);
 
                 if (resp > 0)
                 {
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("index", "Home");
                 }
                 else
                 {
-                    ViewBag.MsjPantalla = "No se ha podido registrar su información";
-                    return View("PreMatricular");
+                    ViewBag.Msg = "No se ha podido registrar su información";
+                    return View("4");
                 }
             }
             catch (Exception ex)
@@ -152,48 +153,50 @@ namespace CCIH.Controllers
 
         }
         [HttpPost]
-        public ActionResult IniciarSesion(UsuarioEnt entidad)
+        public ActionResult Login(UserEnt ent)
         {
-            //Programacion
+
             try
             {
-                entidad.PwUsuario = model.Encrypt(entidad.PwUsuario);
-                var resp = model.IniciarSesion(entidad);
+                ent.UserPw = model.Encrypt(ent.UserPw);
+                var resp = model.Login(ent);
 
                 if (resp != null)
                 {
-                   
-                    Session["IdUsuario"] = resp.IdUsuario.ToString();
-                    Session["IdRolUsuario"] = resp.IdRol;
-                    Session["[Usuario]"] = resp.Usuario;
-                    Session["[NombreRol]"] = resp.NombreRol;
-                    Session["TokenUsuario"] = resp.Token;
 
-                    //var cliente = model.ConsultarCliente(Session["IdUsuario"]);
-                    return RedirectToAction("Inicio", "Administracion");
+                    Session["IdUser"] = resp.UserId.ToString();
+                    Session["IdRoleUser"] = resp.IdRol;
+                    Session["[User]"] = resp.UserName;
+                    Session["[NameRole]"] = resp.NameRol;
+                    Session["TokenUser"] = resp.Token;
+
+                    //var cliente = model.ConsultarCliente(Session["IdUser"]);
+                    return RedirectToAction("Index", "Admin");
                 }
                 else
                 {
-                    ViewBag.MsjPantalla = "No se ha podido validar su información";
+                    ViewBag.Msj = "No se ha podido validar su información";
                     return View("Login");
                 }
             }
             catch (Exception ex)
             {
+
+                ViewBag.Msj = "No se ha podido validar su información";
                 return View("Login");
             }
-            
-        }
-     
 
-            public ActionResult ContactoConsulta(ContactoEnt Entidad)
+        }
+
+
+        public ActionResult ContactConsult(ContactEnt ent)
         {
             //Programacion envio correo a institucion
 
             return RedirectToAction("", "");
         }
 
-        public ActionResult RestablecerUsuario(UsuarioEnt Entidad)
+        public ActionResult RestorerUser(UserEnt ent)
         {
             //Programacion restablecer contraseña y enviar al correo
 
@@ -201,7 +204,7 @@ namespace CCIH.Controllers
         }
 
         [HttpGet]
-        public ActionResult CerrarSesion()
+        public ActionResult SingOut()
         {
             Session.Clear();
             return RedirectToAction("Login", "Home");
