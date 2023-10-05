@@ -49,7 +49,7 @@ namespace CCIH.Models
         }
 
 
-        public List<PreRegistrationEnt> RequetPreRegistration()
+        public List<PreRegistrationEnt> RequetsPreRegistrations()
         {
             using (var custom = new HttpClient())
             {
@@ -71,7 +71,7 @@ namespace CCIH.Models
         }
 
 
-        public List<RegistrationEnt> RequetRegistration()
+        public List<RegistrationEnt> RequestRegistrations()
         {
             using (var custom = new HttpClient())
             {
@@ -92,7 +92,7 @@ namespace CCIH.Models
 
         }
 
-        public List<RegistrationEnt> RequetRegistrationsToday()
+        public List<RegistrationEnt> RequestRegistrationsToday()
         {
             using (var custom = new HttpClient())
             {

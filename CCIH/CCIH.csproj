@@ -642,7 +642,7 @@
     <Content Include="assets\Administracion\vendor\tinymce\README.md" />
     <Content Include="Views\Admin\Customer.cshtml" />
     <Content Include="Views\Admin\CreateRegister.cshtml" />
-    <Content Include="Views\Admin\ConsultRegister.cshtml" />
+    <Content Include="Views\Admin\ConsultRegistrations.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
@@ -722,7 +722,7 @@
     <Content Include="Views\Home\Teachers.cshtml" />
     <Content Include="Views\Admin\ReportRegistration.cshtml" />
     <Content Include="Views\Home\PreRegister.cshtml" />
-    <Content Include="Views\Registration\ConsultPreRegister.cshtml" />
+    <Content Include="Views\Registration\ConsultPreRegisters.cshtml" />
     <Content Include="Views\User\RegisterUser.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\ChangePassword.cshtml" />

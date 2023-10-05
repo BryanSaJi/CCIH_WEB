@@ -28,8 +28,8 @@ namespace CCIH.Controllers
 
         public ActionResult Index()
         {
-            var preRegistrationData = modelRegistration.RequetRegistration();
-            var TodayRegistrationData = modelRegistration.RequetRegistrationsToday();
+            var preRegistrationData = modelRegistration.RequetsPreRegistrations();
+            var TodayRegistrationData = modelRegistration.RequestRegistrationsToday();
 
 
             decimal total = 0;
@@ -75,8 +75,6 @@ namespace CCIH.Controllers
 
             return View();
         }
-
-
 
         public ActionResult CreateRegister(CustomerEnt ent)
         {
@@ -186,19 +184,46 @@ namespace CCIH.Controllers
 
         }
 
-
-
-
-        public ActionResult RequetRegistration()
+        public ActionResult ConsultRegistrations()
         {
-            var data = modelRegistration.RequetRegistration();
+            var data = modelRegistration.RequestRegistrations();
 
             return View(data);
 
         }
 
+        public ActionResult Customer()
+        {
 
-      
+            var roles = modelRole.RequestRolesScrollDown();
+            var ComboRoles = new List<SelectListItem>();
+            foreach (var item in roles)
+            {
+                ComboRoles.Add(new SelectListItem
+                {
+                    Text = item.Name,
+                    Value = item.IdRole.ToString()
+                });
+            }
+            ViewBag.Roles = ComboRoles;
+
+            var State = modelState.RequestStatusScrollDown();
+            var ComboState = new List<SelectListItem>();
+            foreach (var item in State)
+            {
+                ComboState.Add(new SelectListItem
+                {
+                    Text = item.Name,
+                    Value = item.IdState.ToString()
+                });
+            }
+            ViewBag.State = ComboState;
+
+
+            return View();
+        }
+
+
     }
 }
 

@@ -21,11 +21,11 @@ namespace CCIH.Entities
         public int IdLevel { get; set; }
         public int IdSchedule { get; set; }
         public Decimal Price { get; set; }
-        public DateTime DateRegistration { get; set; }
+        public DateTime RegistrationDate { get; set; }
         public int DayPay { get; set; }
         public string Coment { get; set; }
         public int IdState { get; set; }
-        public string State { get; set; }
+        public string Status { get; set; }
 
     }
 }

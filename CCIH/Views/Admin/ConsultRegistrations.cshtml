@@ -1,9 +1,7 @@
-﻿
-@model IEnumerable<CCIH.Entities.PreRegistrationEnt>
-
+@model IEnumerable<CCIH.Entities.RegistrationEnt>
 @{
-    ViewBag.Title = "ConsultarPreMatricula";
-    Layout = "~/Views/Shared/_Layout_Administracion.cshtml";
+    ViewBag.Title = "ConsultarMatriculas";
+    Layout = "~/Views/Shared/_Layout_Administration.cshtml";
 }
 
 <heah>
@@ -20,7 +18,7 @@
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
     <script defer src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
     <script defer src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
-    <script defer src="~/assets/Administracion/js/DataTable/DataTable.js"></script>
+    <script defer src="~/assets/Administration/js/DataTable/DataTable.js"></script>
 
 
 </heah>
@@ -28,12 +26,11 @@
 
 <main id="main" class="main">
     <div class="pagetitle">
-        <h1>Lista de Personas Interesadas en Matricular</h1>
+        <h1>Lista de Matriculas</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/Administracion/Inicio">Dashboard</a></li>
                 <li class="breadcrumb-item">Matriculas</li>
-                <li class="breadcrumb-item active">PreMatriculas</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -42,8 +39,8 @@
         <div class="row">
             <div class="col-lg-12">
 
-                <div class="card" >
-                    <div class="card-body" >
+                <div class="card">
+                    <div class="card-body">
 
                         <br />
                         <div class="row">
@@ -55,32 +52,33 @@
                                         <table id="eample" class="table table-hover" style="width: 100% !important;">
                                             <thead>
                                                 <tr>
+                                                    <th>Cedula</th>
                                                     <th>Nombre</th>
-                                                    <th>Apellido</th>
                                                     <th>Telefono</th>
-                                                    <th>Fecha</th>
                                                     <th>Curso</th>
                                                     <th>Modalidad</th>
                                                     <th>Nivel</th>
+                                                    <th>Fecha</th>
+                                                    <th>Estado</th>
                                                     <th>Accion</th>
                                                 </tr>
                                             </thead>
-                                            <tbody">
+                                            <tbody>
+
                                                 @foreach (var item in Model)
                                                 {
                                                     <tr>
+                                                        <td>@item.ID</td>
                                                         <td>@item.Name</td>
-                                                        <td>@item.Lastname1</td>
-                                                        <td>@item.Lastname2</td>
-                                                        <td>@item.DatePreRegistration</td>
+                                                        <td>@item.PhoneNumber</td>
                                                         <td>@item.Course</td>
                                                         <td>@item.Modality</td>
                                                         <td>@item.Level</td>
+                                                        <td>@item.RegistrationDate.ToShortDateString()</td>
+                                                        <td>@item.Status</td>
                                                         <td style="text-align:center">
-                                                            <a type="submit" class="btn btn-outline-success btn-sm" href="@Url.Action("ConsultPreRegister","Registration", new { q = item.IdPreRegistration })"><i class="bi bi-check-circle"></i>Contactado</a>
+                                                            <a type="submit" class="btn btn-outline-success btn-sm" href="@Url.Action("ConsultRegister","Registration", new { i = item.ID  })"><i class="bi bi-check-circle"></i>Detalle</a>
                                                         </td>
-
-
                                                     </tr>
                                                 }
 

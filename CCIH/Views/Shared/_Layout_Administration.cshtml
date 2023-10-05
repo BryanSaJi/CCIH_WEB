@@ -84,7 +84,7 @@
                         </li>
 
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="@Url.Action("LogOut","Home")">
+                            <a class="dropdown-item d-flex align-items-center" href="@Url.Action("SingOut","Home")">
                                 <i class="bi bi-box-arrow-right"></i>
                                 <span>Cerrar Sesion</span>
                             </a>
@@ -103,42 +103,54 @@
         <ul class="sidebar-nav" id="sidebar-nav">
 
             <li class="nav-item">
-                <a class="nav-link " href="/Administracion/Inicio">
+                <a class="nav-link " href="@Url.Action("Index","Admin")">
                     <i class="bi bi-grid"></i>
                     <span>Dashboard</span>
                 </a>
             </li><!-- End Dashboard Nav -->
 
 
-            <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-menu-button-wide"></i><span>Matriculas</span><i class="bi bi-chevron-down ms-auto"></i>
-                </a>
-                <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                    <li>
-                        <a href="/Administracion/Cliente">
-                            <i class="bi bi-circle"></i><span>Nueva</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/Administracion/ConsultarMatriculas">
-                            <i class="bi bi-circle"></i><span>Consultar</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("ConsultPreRegister","Registration")">
-                            <i class="bi bi-circle"></i><span>PreMatriculas</span>
-                        </a>
-                    </li>
-
-                </ul>
-            </li><!-- End Matriculas Nav -->
-
             @if (Session["IdRoleUser"].ToString() == "1")
             {
                 <li class="nav-item">
+                    <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+                        <i class="bi bi-menu-button-wide"></i><span>Matriculas</span><i class="bi bi-chevron-down ms-auto"></i>
+                    </a>
+                    <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+
+                        <li>
+                            <a href="@Url.Action("SeeCustomers","Registration")">
+                                <i class="bi bi-circle"></i><span>Clientes</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Customer","Admin")">
+                                <i class="bi bi-circle"></i><span>Nueva</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("ConsultRegistrations","Admin")">
+                                <i class="bi bi-circle"></i><span>Consultar</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("ConsultPreRegisters","Registration")">
+                                <i class="bi bi-circle"></i><span>PreMatriculas</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("","")">
+                                <i class="bi bi-circle"></i><span>Libros</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li><!-- End Matriculas Nav -->
+
+
+                <li class="nav-item">
                     <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-                        <i class="bi bi-journal-text"></i><span>Users</span><i class="bi bi-chevron-down ms-auto"></i>
+                        <i class="bi bi-journal-text"></i><span>Usuarios</span><i class="bi bi-chevron-down ms-auto"></i>
                     </a>
                     <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                         <li>
@@ -152,12 +164,191 @@
                             </a>
                         </li>
                         <li>
-                            <a href="@Url.Action("ListRoles","Rol")">
+                            <a href="@Url.Action("ListRoles","Role")">
                                 <i class="bi bi-circle"></i><span>Administrar Roles</span>
                             </a>
                         </li>
                     </ul>
                 </li><!-- End Usarios Nav -->
+
+
+                <li class="nav-item">
+                    <a class="nav-link collapsed" data-bs-target="#Grupos-nav" data-bs-toggle="collapse" href="#">
+                        <i class="bi bi-menu-button-wide"></i><span>Grupos</span><i class="bi bi-chevron-down ms-auto"></i>
+                    </a>
+                    <ul id="Grupos-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                        <li>
+                            <a href="@Url.Action("","")">
+                                <i class="bi bi-circle"></i><span>Nuevo</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("","")">
+                                <i class="bi bi-circle"></i><span>Consultar</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li><!-- End Matriculas Nav -->
+
+                <li class="nav-item">
+                    <a class="nav-link collapsed" data-bs-target="#Profesores-nav" data-bs-toggle="collapse" href="#">
+                        <i class="bi bi-menu-button-wide"></i><span>Profesores</span><i class="bi bi-chevron-down ms-auto"></i>
+                    </a>
+                    <ul id="Profesores-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                        <li>
+                            <a href="@Url.Action("","")">
+                                <i class="bi bi-circle"></i><span>Nuevo</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("","")">
+                                <i class="bi bi-circle"></i><span>Consultar</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("","")">
+                                <i class="bi bi-circle"></i><span>Asistencia</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("","")">
+                                <i class="bi bi-circle"></i><span>Asignaciones</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li><!-- End Matriculas Nav -->
+
+                <li class="nav-item">
+                    <a class="nav-link collapsed" data-bs-target="#Estudiante-nav" data-bs-toggle="collapse" href="#">
+                        <i class="bi bi-menu-button-wide"></i><span>Estudiante</span><i class="bi bi-chevron-down ms-auto"></i>
+                    </a>
+                    <ul id="Estudiante-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                        <li>
+                            <a href="@Url.Action("","")">
+                                <i class="bi bi-circle"></i><span>Control</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("","")">
+                                <i class="bi bi-circle"></i><span>Casos</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li><!-- End Matriculas Nav -->
+
+                <li class="nav-item">
+                    <a class="nav-link collapsed" data-bs-target="#Examenes-nav" data-bs-toggle="collapse" href="#">
+                        <i class="bi bi-menu-button-wide"></i><span>Examenes</span><i class="bi bi-chevron-down ms-auto"></i>
+                    </a>
+                    <ul id="Examenes-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                        <li>
+                            <a href="@Url.Action("","")">
+                                <i class="bi bi-circle"></i><span>Curso</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("","")">
+                                <i class="bi bi-circle"></i><span>Ubicacion</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li><!-- End Matriculas Nav -->
+
+                <li class="nav-item">
+                    <a class="nav-link collapsed" data-bs-target="#Pagos-nav" data-bs-toggle="collapse" href="#">
+                        <i class="bi bi-menu-button-wide"></i><span>Pagos</span><i class="bi bi-chevron-down ms-auto"></i>
+                    </a>
+                    <ul id="Pagos-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                        <li>
+                            <a href="@Url.Action("","")">
+                                <i class="bi bi-circle"></i><span>Ingresos</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("","")">
+                                <i class="bi bi-circle"></i><span>Egresos</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("","")">
+                                <i class="bi bi-circle"></i><span>Control Pagos CCIH</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("","")">
+                                <i class="bi bi-circle"></i><span>Control Pagos Profesores</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li><!-- End Matriculas Nav -->
+
+
+                <li class="nav-item">
+                    <a class="nav-link collapsed" data-bs-target="#Reporte-nav" data-bs-toggle="collapse" href="#">
+                        <i class="bi bi-menu-button-wide"></i><span>Reporte</span><i class="bi bi-chevron-down ms-auto"></i>
+                    </a>
+                    <ul id="Reporte-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                        <li>
+                            <a href="@Url.Action("","")">
+                                <i class="bi bi-circle"></i><span>Moras</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("","")">
+                                <i class="bi bi-circle"></i><span>Facturas</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("","")">
+                                <i class="bi bi-circle"></i><span>Notas</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li><!-- End Matriculas Nav -->
+            }
+
+            @if (Session["IdRoleUser"].ToString() == "3")
+            {
+
+                <li class="nav-item">
+                    <a class="nav-link collapsed" data-bs-target="#Perfil-nav" data-bs-toggle="collapse" href="#">
+                        <i class="bi bi-menu-button-wide"></i><span>Perfil</span><i class="bi bi-chevron-down ms-auto"></i>
+                    </a>
+                    <ul id="Perfil-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                        <li>
+                            <a href="@Url.Action("","")">
+                                <i class="bi bi-circle"></i><span>Consultar</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li><!-- End Matriculas Nav -->
+
+                <li class="nav-item">
+                    <a class="nav-link collapsed" data-bs-target="#Notas-nav" data-bs-toggle="collapse" href="#">
+                        <i class="bi bi-menu-button-wide"></i><span>Notas</span><i class="bi bi-chevron-down ms-auto"></i>
+                    </a>
+                    <ul id="Notas-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                        <li>
+                            <a href="@Url.Action("","")">
+                                <i class="bi bi-circle"></i><span>Consultar</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li><!-- End Matriculas Nav -->
+
+                <li class="nav-item">
+                    <a class="nav-link collapsed" data-bs-target="#Clase-nav" data-bs-toggle="collapse" href="#">
+                        <i class="bi bi-menu-button-wide"></i><span>Clase</span><i class="bi bi-chevron-down ms-auto"></i>
+                    </a>
+                    <ul id="Clase-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                        <li>
+                            <a href="@Url.Action("","")">
+                                <i class="bi bi-circle"></i><span>Consultar</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li><!-- End Matriculas Nav -->
+
             }
 
         </ul>
@@ -192,7 +383,7 @@
 
     <!-- Template Main JS File -->
     <script src="~/assets/Administracion/js/main.js"></script>
-    @RenderSection("ApiUser", required: false)
+    @RenderSection("ApiUsuario", required: false)
 
 </body>
 

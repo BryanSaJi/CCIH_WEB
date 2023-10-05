@@ -53,9 +53,9 @@ namespace CCIH.Controllers
         }
 
         [HttpGet]
-        public ActionResult RequetPreRegistration(PreRegistrationEnt ent)
+        public ActionResult ConsultPreRegisters(PreRegistrationEnt ent)
         {
-            var datos = modelRegistration.RequetPreRegistration();
+            var datos = modelRegistration.RequetsPreRegistrations();
             Session["PreRegisterPending"] = datos.Count;
 
 
@@ -183,8 +183,15 @@ namespace CCIH.Controllers
         [HttpGet]
         public ActionResult ConsultRegistrationToday()
         {
-            var data = modelRegistration.RequetRegistrationsToday();
+            var data = modelRegistration.RequestRegistrationsToday();
             return View(data);
+
+        }
+
+        [HttpGet]
+        public ActionResult SeeCustomers()
+        {
+            return View();
 
         }
 
