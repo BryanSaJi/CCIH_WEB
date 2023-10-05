@@ -7,7 +7,7 @@ namespace CCIH.Entities
 {
     public class CourseEnt
     {
-        public long IdCourse { get; set; }
+        public long CourseID { get; set; }
         public string Name { get; set; }
     }
 }

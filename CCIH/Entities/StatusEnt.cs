@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace API_CentroCultural.Entities
+namespace CCIH.Entities
 {
-    public class StateEnt
+    public class StatusEnt
     {
 
-        public long IdState { get; set; }
+        public long StatusId { get; set; }
         public String Name { get; set; }
     }
 }

@@ -60,7 +60,6 @@
                                                 <tr>
                                                     <th>Id Rol</th>
                                                     <th>Nombre</th>
-                                                    <th>Id Usuario</th>
                                                     <th>Acciones</th>
                                                 </tr>
                                             </thead>
@@ -71,7 +70,6 @@
                                                     <tr>
                                                         <td>@item.IdRole</td>
                                                         <td>@item.Name</td>
-                                                        <td>@item.IdUser </td>
                                                         <td style="text-align:center">
                                                             <a type="submit" class="btn btn-outline-info btn-sm" href="@Url.Action("EditRole", "Role", new { i = item.IdRole })"><i class="bi bi-pencil-square"></i>Editar</a>
                                                             <a type="submit" class="btn btn-outline-danger btn-sm" onclick="return confirmar('@Url.Action("DeleteRole", "Role", new { i = item.IdRole })')"><i class="bi bi-trash"></i>Eliminar</a>

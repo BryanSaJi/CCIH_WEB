@@ -5,9 +5,7 @@ using System.Web;
 
 namespace CCIH.Entities
 {
-    public class GroupEnt
+    public class ErrorLogEnt
     {
-        public long GroupId { get; set; }
-        public int StatusId { get; set; }
     }
 }

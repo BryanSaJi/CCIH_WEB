@@ -1,4 +1,4 @@
-﻿using API_CentroCultural.Entities;
+﻿
 using CCIH.Entities;
 using CCIH.Models;
 using System;
@@ -13,13 +13,13 @@ namespace CCIH.Controllers
     public class StateController : Controller
     {
 
-        StateModel modelState = new StateModel();
+        StateModel StatusModel = new StateModel();
 
 
         [HttpGet]
-        public List<StateEnt> ListStateScrollDown()
+        public List<StatusEnt> ListStateScrollDown()
         {
-            var data = modelState.RequestStatusScrollDown();
+            var data = StatusModel.RequestStatusScrollDown();
             return data;
         }
     }

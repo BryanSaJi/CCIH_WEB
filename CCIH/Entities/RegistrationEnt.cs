@@ -7,25 +7,26 @@ namespace CCIH.Entities
 {
     public class RegistrationEnt
     {
-        public int IdRegistration { get; set; }
+        public int RegistrationId { get; set; }
         public string ID { get; set; }
         public string Name { get; set; }
-        public string PhoneNumber { get; set; }
+        public string Phone { get; set; }
         public string Course { get; set; }
         public string Modality { get; set; }
         public string Level { get; set; }
         public string Schedule { get; set; }
 
-        public int IdCourse { get; set; }
-        public int IdModality { get; set; }
-        public int IdLevel { get; set; }
-        public int IdSchedule { get; set; }
-        public Decimal Price { get; set; }
+        public int CourseId { get; set; }
+        public int ModalityId { get; set; }
+        public int LevelCourseId { get; set; }
+        public int ScheduleId { get; set; }
+        public Decimal Amount { get; set; }
         public DateTime RegistrationDate { get; set; }
-        public int DayPay { get; set; }
-        public string Coment { get; set; }
-        public int IdState { get; set; }
+        public int PaymentDay { get; set; }
+        public string Comments { get; set; }
+        public int StatusId { get; set; }
         public string Status { get; set; }
+
 
     }
 }

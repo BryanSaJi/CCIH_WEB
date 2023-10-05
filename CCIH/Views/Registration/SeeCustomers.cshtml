@@ -1,8 +1,13 @@
-@model IEnumerable<CCIH.Entities.RegistrationEnt>
+﻿
+
+@model IEnumerable<CCIH.Entities.CustomerEnt>
+
+
 @{
-    ViewBag.Title = "ConsultarMatriculas";
+    ViewBag.Title = "SeeCustomers";
     Layout = "~/Views/Shared/_Layout_Administration.cshtml";
 }
+
 
 <heah>
 
@@ -26,11 +31,11 @@
 
 <main id="main" class="main">
     <div class="pagetitle">
-        <h1>Lista de Matriculas</h1>
+        <h1>Lista de Clientes</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/Administration/Inicio">Dashboard</a></li>
-                <li class="breadcrumb-item">Matriculas</li>
+                <li class="breadcrumb-item"><a href="@Url.Action("Index","Admin")">Dashboard</a></li>
+                <li class="breadcrumb-item">Clientes</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -64,7 +69,6 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-
                                                 @foreach (var item in Model)
                                                 {
                                                     <tr>
@@ -73,15 +77,14 @@
                                                         <td>@item.Phone</td>
                                                         <td>@item.Course</td>
                                                         <td>@item.Modality</td>
-                                                        <td>@item.Level</td>
+                                                        <td>@item.Nivel</td>
                                                         <td>@item.RegistrationDate.ToShortDateString()</td>
                                                         <td>@item.Status</td>
                                                         <td style="text-align:center">
-                                                            <a type="submit" class="btn btn-outline-success btn-sm" href="@Url.Action("ConsultRegister","Registration", new { i = item.RegistrationId})"><i class="bi bi-check-circle"></i>Detalle</a>
+                                                            <a type="submit" class="btn btn-outline-success btn-sm" href="@Url.Action("SeeCustomer","Registration", new { i = item.ID })"><i class="bi bi-check-circle"></i>Detalle</a>
                                                         </td>
                                                     </tr>
                                                 }
-
                                             </tbody>
                                         </table>
                                     </div>

@@ -6,7 +6,6 @@ using System.Linq;
 using System.Net.Http.Json;
 using System.Net.Http;
 using System.Web;
-using CCIH.Entities.Administration;
 
 namespace CCIH.Models
 {
@@ -114,11 +113,11 @@ namespace CCIH.Models
         }
 
 
-        public RegistrationEnt RequetRegistrations(long i)
+        public RegistrationEnt ConsultRegister(long i)
         {
             using (var custom = new HttpClient())
             {
-                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/RequetRegistration" + i;
+                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/RequetRegistration?i=" + i;
                 String Token = HttpContext.Current.Session["TokenUser"].ToString();
                 custom.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
                 HttpResponseMessage resp = custom.GetAsync(url).Result;
@@ -137,7 +136,7 @@ namespace CCIH.Models
         {
             using (var custom = new HttpClient())
             {
-                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/EditRegister" + ent.IdRegistration;//revisar
+                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/EditRegister?i=" + ent.RegistrationId;//revisar
                 String Token = HttpContext.Current.Session["TokenUser"].ToString();
                 custom.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
 
@@ -170,6 +169,47 @@ namespace CCIH.Models
                 }
 
                 return 0;
+            }
+        }
+
+
+        public List<CustomerEnt> SeeCustomers()
+        {
+            using (var client = new HttpClient())
+            {
+                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/SeeCustomers";
+
+                String Token = HttpContext.Current.Session["TokenUser"].ToString();
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
+
+                HttpResponseMessage resp = client.GetAsync(url).Result;
+
+                if (resp.IsSuccessStatusCode)
+                {
+                    return resp.Content.ReadFromJsonAsync<List<CustomerEnt>>().Result;
+                }
+
+                return new List<CustomerEnt>();
+            }
+
+        }
+
+
+        public CustomerEnt SeeCustomer(long i)
+        {
+            using (var client = new HttpClient())
+            {
+                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/SeeCustomer?i=" + i;
+                String Token = HttpContext.Current.Session["TokenUser"].ToString();
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
+                HttpResponseMessage resp = client.GetAsync(url).Result;
+
+                if (resp.IsSuccessStatusCode)
+                {
+                    return resp.Content.ReadFromJsonAsync<CustomerEnt>().Result;
+                }
+
+                return null;
             }
         }
 

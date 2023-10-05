@@ -173,18 +173,24 @@
     <Compile Include="Controllers\RegistrationController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="Entities\ChangePwEnt.cs" />
+    <Compile Include="Entities\ActionLogEnt.cs" />
+    <Compile Include="Entities\AssignationEnt.cs" />
+    <Compile Include="Entities\ChangePasswordEnt.cs" />
+    <Compile Include="Entities\ContactEnt.cs" />
     <Compile Include="Entities\CustomerEnt.cs" />
     <Compile Include="Entities\CourseEnt.cs" />
+    <Compile Include="Entities\ErrorLogEnt.cs" />
+    <Compile Include="Entities\GradeEnt.cs" />
     <Compile Include="Entities\GroupEnt.cs" />
+    <Compile Include="Entities\LevelCourseEnt.cs" />
+    <Compile Include="Entities\PreRegistrationEnt.cs" />
     <Compile Include="Entities\ScheduleEnt.cs" />
     <Compile Include="Entities\RegistrationEnt.cs" />
-    <Compile Include="Entities\ContactEnt.cs" />
-    <Compile Include="Entities\StateEnt.cs" />
-    <Compile Include="Entities\LevelEnt.cs" />
-    <Compile Include="Entities\PreRegsitrationEnt.cs" />
     <Compile Include="Entities\RoleEnt.cs" />
-    <Compile Include="Entities\UserCustomEnt.cs" />
+    <Compile Include="Entities\StatusEnt.cs" />
+    <Compile Include="Entities\StudentEnt.cs" />
+    <Compile Include="Entities\TeacherEnt.cs" />
+    <Compile Include="Entities\UserCustomerEnt.cs" />
     <Compile Include="Entities\UserEnt.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -719,7 +725,6 @@
     <Content Include="Views\Home\Eng_Semi_Intensive_P.cshtml" />
     <Content Include="Views\Home\Eng_Semi_Intensive_V.cshtml" />
     <Content Include="Views\Home\Portu_Semi_Intensive_V.cshtml" />
-    <Content Include="Views\Home\Teachers.cshtml" />
     <Content Include="Views\Admin\ReportRegistration.cshtml" />
     <Content Include="Views\Home\PreRegister.cshtml" />
     <Content Include="Views\Registration\ConsultPreRegisters.cshtml" />
@@ -730,6 +735,8 @@
     <Content Include="Views\Registration\ConsultRegister.cshtml" />
     <Content Include="Views\Registration\ConsultRegisterToday.cshtml" />
     <Content Include="Views\Courses\Index.cshtml" />
+    <Content Include="Views\Registration\SeeCustomers.cshtml" />
+    <Content Include="Views\Registration\SeeCustomer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

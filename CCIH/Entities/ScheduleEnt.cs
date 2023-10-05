@@ -7,7 +7,7 @@ namespace CCIH.Entities
 {
     public class ScheduleEnt
     {
-        public long IdSchedule { get; set; }
-        public string Day { get; set; }
+        public long ScheduleId { get; set; }
+        public string Description { get; set; }
     }
 }

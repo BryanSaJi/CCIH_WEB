@@ -1,6 +1,6 @@
 ﻿
+
 using CCIH.Entities;
-using CCIH.Entities.Administration;
 using CCIH.Models;
 using System;
 using System.Collections.Generic;
@@ -35,7 +35,7 @@ namespace CCIH.Controllers
             decimal total = 0;
             foreach (var item in TodayRegistrationData)
             {
-                total = item.Price;  
+                total = item.Amount;  
             }
 
             Session["PreRegisterPending"] = preRegistrationData.Count;
@@ -67,7 +67,7 @@ namespace CCIH.Controllers
                 ComboState.Add(new SelectListItem
                 {
                     Text = item.Name,
-                    Value = item.IdState.ToString()
+                    Value = item.StatusId.ToString()
                 });
             }
             ViewBag.satate = ComboState;
@@ -94,7 +94,7 @@ namespace CCIH.Controllers
                         ComboState.Add(new SelectListItem
                         {
                             Text = item.Name,
-                            Value = item.IdState.ToString()
+                            Value = item.StatusId.ToString()
                         });
                     }
 
@@ -108,7 +108,7 @@ namespace CCIH.Controllers
                         ComboCourse.Add(new SelectListItem
                         {
                             Text = item.Name,
-                            Value = item.IdCourse.ToString()
+                            Value = item.CourseID.ToString()
                         });
                     }
 
@@ -120,7 +120,7 @@ namespace CCIH.Controllers
                         ComboModality.Add(new SelectListItem
                         {
                             Text = item.Name,
-                            Value = item.IdModality.ToString()
+                            Value = item.ModalityId.ToString()
                         });
                     }
 
@@ -133,7 +133,7 @@ namespace CCIH.Controllers
                         ComboLevel.Add(new SelectListItem
                         {
                             Text = item.Name,
-                            Value = item.IdLevelCourse.ToString()
+                            Value = item.LevelCourseId.ToString()
                         });
                     }
 
@@ -145,8 +145,8 @@ namespace CCIH.Controllers
                     {
                         ComboSchudule.Add(new SelectListItem
                         {
-                            Text = item.Day,
-                            Value = item.IdSchedule.ToString()
+                            Text = item.Description,
+                            Value = item.ScheduleId.ToString()
                         });
                     }
                     //Grupo
@@ -156,18 +156,18 @@ namespace CCIH.Controllers
                     {
                         ComboGroup.Add(new SelectListItem
                         {
-                            Text = item.IdGroup.ToString(),
-                            Value = item.IdGroup.ToString()
+                            Text = item.GroupId.ToString(),
+                            Value = item.GroupId.ToString()
                         });
                     }
 
 
                     ViewBag.Group = ComboGroup;
-                    ViewBag.Schudule = ComboSchudule;
+                    ViewBag.Schedule = ComboSchudule;
                     ViewBag.Level = ComboLevel;
                     ViewBag.Modality = ComboModality;
                     ViewBag.Course = ComboCourse;
-                    ViewBag.State = ComboState;
+                    ViewBag.Status = ComboState;
                     return View();
 
                 }
@@ -214,7 +214,7 @@ namespace CCIH.Controllers
                 ComboState.Add(new SelectListItem
                 {
                     Text = item.Name,
-                    Value = item.IdState.ToString()
+                    Value = item.StatusId.ToString()
                 });
             }
             ViewBag.State = ComboState;

@@ -1,4 +1,4 @@
-﻿using API_CentroCultural.Entities;
+﻿
 using CCIH.Entities;
 using System;
 using System.Collections.Generic;

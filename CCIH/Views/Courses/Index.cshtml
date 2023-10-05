@@ -62,10 +62,10 @@
                                                 @foreach (var item in Model)
                                                 {
                                                     <tr>
-                                                        <td>@item.IdCourse</td>
+                                                        <td>@item.CourseID</td>
                                                         <td>@item.Name</td>
                                                         <td style="text-align:center">
-                                                            <a type="submit" class="btn btn-outline-success btn-sm" href="@Url.Action("ConsultRegister","Registration", new { i = item.IdCourse })"><i class="bi bi-check-circle"></i>Detalle</a>
+                                                            <a type="submit" class="btn btn-outline-success btn-sm" href="@Url.Action("ConsultRegister","Registration", new { i = item.CourseID })"><i class="bi bi-check-circle"></i>Detalle</a>
                                                         </td>
                                                     </tr>
                                                 }

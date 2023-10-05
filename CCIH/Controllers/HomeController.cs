@@ -1,4 +1,5 @@
-﻿using CCIH.Entities;
+﻿
+using CCIH.Entities;
 using CCIH.Models;
 using System;
 using System.Collections.Generic;
@@ -96,7 +97,7 @@ namespace CCIH.Controllers
                 ComboCourse.Add(new SelectListItem
                 {
                     Text = item.Name,
-                    Value = item.IdCourse.ToString()
+                    Value = item.CourseID.ToString()
                 });
             }
             //Modalidad
@@ -107,7 +108,7 @@ namespace CCIH.Controllers
                 ComboModality.Add(new SelectListItem
                 {
                     Text = item.Name,
-                    Value = item.IdModality.ToString()
+                    Value = item.ModalityId.ToString()
                 });
             }
 
@@ -119,11 +120,11 @@ namespace CCIH.Controllers
                 Combolevel.Add(new SelectListItem
                 {
                     Text = item.Name,
-                    Value = item.IdLevelCourse.ToString()
+                    Value = item.LevelCourseId.ToString()
                 });
             }
-            ViewBag.level = Combolevel;
-            ViewBag.Modalidad = ComboModality;
+            ViewBag.Course = ComboCourse;
+            ViewBag.Modality = ComboModality;
             ViewBag.level = Combolevel;
             return View();
         }
@@ -133,7 +134,7 @@ namespace CCIH.Controllers
             try
             {
                 ent.DatePreRegistration = DateTime.Now;
-                ent.IdState = 1;
+                ent.StatusId = 1;
                 var resp = modelRegitration.CreatePreRegistration(ent);
 
                 if (resp > 0)

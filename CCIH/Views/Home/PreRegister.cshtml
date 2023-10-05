@@ -36,7 +36,7 @@
 
                                 <div class="col-2 form-outline form-white">
                                     @Html.TextBoxFor(
-                                            m => m.PhoneNumber,
+                                            m => m.Phone,
                                             new
                                                  {
                                                      @type = "text",
@@ -60,7 +60,7 @@
 
                                 <div class="col-2 form-outline form-white">
                                     @Html.TextBoxFor(
-                                            m => m.Lastname1,
+                                            m => m.LastName,
                                             new
                                                  {
                                                      @type = "text",
@@ -72,7 +72,7 @@
 
                                 <div class="col-2 form-outline form-white">
                                     @Html.TextBoxFor(
-                                            m => m.Lastname2,
+                                            m => m.SecLastName,
                                             new
                                                  {
                                                      @type = "text",
@@ -89,15 +89,15 @@
                             <div class="row justify-content-center align-items-center">
 
                                 <div class="col-3 form-outline form-white">
-                                    @Html.DropDownListFor(m => m.IdCourse, ViewBag.Cruso as List<SelectListItem>, "Selecione el Curso de interes", new { @type = "text", @style = "text-align: center", @class = "form-control form-control-lg" })
+                                    @Html.DropDownListFor(m => m.CourseId, ViewBag.Course as List<SelectListItem>, "Selecione el Curso de interes", new { @type = "text", @style = "text-align: center", @class = "form-control form-control-lg" })
                                 </div>
 
                                 <div class="col-3 form-outline form-white">
-                                    @Html.DropDownListFor(m => m.IdModality, ViewBag.Modalidad as List<SelectListItem>, "Selecione la Modalidad", new { @type = "text", @style = "text-align: center", @class = "form-control form-control-lg" })
+                                    @Html.DropDownListFor(m => m.ModalityId, ViewBag.Modality as List<SelectListItem>, "Selecione la Modalidad", new { @type = "text", @style = "text-align: center", @class = "form-control form-control-lg" })
                                 </div>
 
                                 <div class="col-3 form-outline form-white">
-                                    @Html.DropDownListFor(m => m.IdLevel, ViewBag.Nivel as List<SelectListItem>, "Selecione el nivel que desea", new { @type = "text", @style = "text-align: center", @class = "form-control form-control-lg" })
+                                    @Html.DropDownListFor(m => m.LevelCourseId, ViewBag.Level as List<SelectListItem>, "Selecione el nivel que desea", new { @type = "text", @style = "text-align: center", @class = "form-control form-control-lg" })
                                 </div>
 
                             </div>

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CCIH.Entities.UserCustomEnt>
+﻿@model IEnumerable<CCIH.Entities.CustomerUserEnt>
 
 @{
     ViewBag.Title = "Index";
@@ -66,9 +66,7 @@
                                                 <th>Nombre</th>
                                                 <th>Primer Apellido</th>
                                                 <th>Segundo Apellido</th>
-                                                <th>Teléfono</th>
                                                 <th>User</th>
-                                                <th>Rol</th>
                                                 <th>Acciones</th>
                                             </tr>
                                         </thead>
@@ -78,14 +76,12 @@
                                                 <tr>
                                                     <td>@item.Id</td>
                                                     <td>@item.Name</td>
-                                                    <td>@item.LastName1</td>
-                                                    <td>@item.LastName2</td>
-                                                    <td>@item.PhoneNumber</td>
+                                                    <td>@item.LastName</td>
+                                                    <td>@item.SecLastName</td>
                                                     <td>@item.User</td>
-                                                    <td>@item.NameRole</td>
                                                     <td style="text-align:center">
-                                                        <a type="submit" class="btn btn-outline-info btn-sm" href="@Url.Action("EditUser", "User", new { i = item.IdUser })"><i class="bi bi-pencil-square"></i>Editar</a>
-                                                        <a class="btn btn-outline-danger btn-sm" onclick="return confirmar('@Url.Action("DeleteUser", "User", new { i = item.IdUser })')"><i class="bi bi-trash"></i>Eliminar</a>
+                                                        <a type="submit" class="btn btn-outline-info btn-sm" href="@Url.Action("EditUser", "User", new { i = item.UserId })"><i class="bi bi-pencil-square"></i>Editar</a>
+                                                        <a class="btn btn-outline-danger btn-sm" onclick="return confirmar('@Url.Action("DeleteUser", "User", new { i = item.UserId })')"><i class="bi bi-trash"></i>Eliminar</a>
 
                                                     </td>
                                                 </tr>

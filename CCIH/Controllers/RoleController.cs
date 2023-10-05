@@ -1,4 +1,5 @@
-﻿using CCIH.Entities;
+﻿
+using CCIH.Entities;
 using CCIH.Models;
 using System;
 using System.Collections.Generic;
@@ -55,7 +56,7 @@ namespace CCIH.Controllers
         public ActionResult EditRole(long i)
         {
             var data = model.RequetRole(i);
-            data.IdUser = long.Parse(Session["IdUser"].ToString());
+            data.UserId = long.Parse(Session["IdUser"].ToString());
             return View(data);
         }
         [HttpPost]

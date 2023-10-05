@@ -1,4 +1,4 @@
-﻿@model CCIH.Entities.UserCustomEnt
+﻿@model CCIH.Entities.CustomerUserEnt
 @{
     ViewBag.Title = "EditarUsuario";
     Layout = "~/Views/Shared/_Layout_Administration.cshtml";
@@ -26,83 +26,59 @@
                 <div class="card-body">
                     <h5 class="card-title">Formulario de Registro de Usuario</h5>
 
-                    @using (Html.BeginForm("EditUsuario", "User", FormMethod.Post))
+                    @using (Html.BeginForm("EditUser", "User", FormMethod.Post))
                     {
                         <div class="container">
-                            @Html.HiddenFor(m => m.IdUser)
+                            @Html.HiddenFor(m => m.UserId)
                             <div class="row mb-3 d-flex justify-content-center">
                                 <label for="inputNumber" class="col-sm-3 col-form-label">Cédula del usuario</label>
                                 <div class="col-sm-5">
-                                    @Html.TextBoxFor(m => m.Id, new { @type = "number", @placeholder = "Digite la cédula", @id = "cedula", @class = "form-control", @onkeydown = "return event.keyCode !== 69" })
+                                    @Html.TextBoxFor(m => m.Id, new { @type = "number", @placeholder = "Digite la cédula", @id = "cedula", @class = "form-control", disabled = "disabled" })
                                 </div>
                             </div>
                             <div id="prueba" class="row mb-3 d-flex justify-content-center">
                                 <label for="inputNumber" class="col-sm-3 col-form-label">Nombre del usuario</label>
                                 <div class="col-sm-5">
-                                    @Html.TextBoxFor(m => m.Name, new { @type = "text", @placeholder = "Digite el nombre del usuario", @id = "nombre", @class = "form-control" })
+                                    @Html.TextBoxFor(m => m.Name, new { @type = "text", @placeholder = "Digite el nombre del usuario", @id = "nombre", @class = "form-control", disabled = "disabled" })
                                 </div>
                             </div>
                             <div class="row mb-3 d-flex justify-content-center">
                                 <label for="inputNumber" class="col-sm-3 col-form-label">Primer Apellido</label>
                                 <div class="col-sm-5">
-                                    @Html.TextBoxFor(m => m.LastName1, new { @type = "text", @placeholder = "Digite el primer apellido", @id = "pApellido", @class = "form-control" })
+                                    @Html.TextBoxFor(m => m.LastName, new { @type = "text", @placeholder = "Digite el primer apellido", @id = "pApellido", @class = "form-control", disabled = "disabled" })
                                 </div>
                             </div>
                             <div class="row mb-3 d-flex justify-content-center">
                                 <label for="inputNumber" class="col-sm-3 col-form-label">Segundo Apellido</label>
                                 <div class="col-sm-5">
-                                    @Html.TextBoxFor(m => m.LastName2, new { @type = "text", @placeholder = "Digite el segundo apellido", @id = "sApellido", @class = "form-control" })
+                                    @Html.TextBoxFor(m => m.SecLastName, new { @type = "text", @placeholder = "Digite el segundo apellido", @id = "sApellido", @class = "form-control", disabled = "disabled" })
                                 </div>
                             </div>
                             <div class="row mb-3 d-flex justify-content-center">
                                 <label for="inputNumber" class="col-sm-3 col-form-label">Correo Electronico</label>
                                 <div class="col-sm-5">
-                                    @Html.TextBoxFor(m => m.Email, new { @type = "text", @placeholder = "Digite el correo electronico", @class = "form-control" })
+                                    @Html.TextBoxFor(m => m.Email, new { @type = "text", @placeholder = "Digite el correo electronico", @class = "form-control", disabled = "disabled" })
                                 </div>
                             </div>
-                            <div class="row mb-3 d-flex justify-content-center">
-                                <label for="inputNumber" class="col-sm-3 col-form-label">Telefono del Usuario</label>
-                                <div class="col-sm-5">
-                                    @Html.TextBoxFor(m => m.PhoneNumber, new { @type = "number", @placeholder = "Digite el telefono", @class = "form-control", @onkeydown = "return event.keyCode !== 69" })
-                                </div>
-                            </div>
-                            <div class="row mb-3 d-flex justify-content-center">
-                                <label for="inputNumber" class="col-sm-3 col-form-label">Fecha de Nacimiento</label>
-                                <div class="col-sm-5">
-                                    @Html.TextBoxFor(m => m.Birthday, new { @type = "text", @class = "form-control" })
-
-                                </div>
-                            </div>
-                            <div class="row mb-3 d-flex justify-content-center">
-                                <label for="inputNumber" class="col-sm-3 col-form-label">Direccion</label>
-                                <div class="col-sm-5">
-                                    @Html.TextAreaFor(m => m.Address, new { @type = "datetime-local", @placeholder = "Digite la direccion del usuario", @class = "form-control" })
-
-                                </div>
-                            </div>
+                            
                             <div class="row mb-3 d-flex justify-content-center">
                                 <label for="inputNumber" class="col-sm-3 col-form-label">Estado</label>
                                 <div class="col-sm-5">
-                                    @Html.DropDownListFor(m => m.IdState, ViewBag.Estatus as List<SelectListItem>, "Selecione el estatus", new { @class = "form-control" })
+                                    @Html.DropDownListFor(m => m.StatusId, ViewBag.Status as List<SelectListItem>, "Selecione el estatus", new { @class = "form-control" })
                                 </div>
                             </div>
+
                             <div class="row mb-3 d-flex justify-content-center">
                                 <label for="inputNumber" class="col-sm-3 col-form-label">Seleccione el Rol</label>
                                 <div class="col-sm-5">
-                                    @Html.DropDownListFor(m => m.IdRole, ViewBag.Combo as List<SelectListItem>, new { @class = "form-control" })
+                                    @Html.DropDownListFor(m => m.IdRol, ViewBag.Rol as List<SelectListItem>, new { @class = "form-control" })
                                 </div>
                             </div>
+
                             <div class="row mb-3 d-flex justify-content-center">
                                 <label for="inputNumber" class="col-sm-3 col-form-label">Digite el nombre de usuario</label>
                                 <div class="col-sm-5">
                                     @Html.TextBoxFor(m => m.User, new { @type = "text", @placeholder = "Digite el nombre de usuario", @class = "form-control" })
-                                </div>
-                            </div>
-
-                            <div class="row mb-3 d-flex justify-content-center">
-                                <label for="inputNumber" class="col-sm-3 col-form-label">Token</label>
-                                <div class="col-sm-5">
-                                    <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.QRcode))" height="150" width="150" />
                                 </div>
                             </div>
 

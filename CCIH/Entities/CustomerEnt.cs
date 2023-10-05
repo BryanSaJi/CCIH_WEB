@@ -3,21 +3,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace CCIH.Entities.Administration
+namespace CCIH.Entities
 {
     public class CustomerEnt
     {
-        public long IdCustom { get; set; }
-        public String ID { get; set; }
+        public int CustomerId { get; set; }
+        public String ID { get; set;}
         public String Email { get; set; }
-        public string Name { get; set; }
-        public string LastName1 { get; set; }
-        public string LastName2 { get; set; }
-        public DateTime Birthday { get; set; }
-        public string PhoneNumber { get; set; }
+        public string Name { get; set;}
+        public string LastName { get; set; }
+        public string SecLastName { get; set; }
+        public DateTime Birthdate { get; set; }
+        public string Phone { get; set; }
         public string Address { get; set; }
-        public int IdState { get; set; }
-        public int IdRole { get; set; }
+        public int StatusId { get; set; }
+        public string Status { get; set; }
+        public int IdRol { get; set; }
+        public DateTime RegistrationDate { get; set; }
+
+        public string Course { get; set; }
+        public string Modality { get; set; }
+        public string Nivel { get; set; }
+        public string Schedule { get; set; }
+
+        public int CourseId { get; set; }
+        public int ModalityId { get; set; }
+        public int LevelCourseId { get; set; }
 
     }
 }

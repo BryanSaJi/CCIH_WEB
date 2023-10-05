@@ -1,4 +1,5 @@
-﻿using CCIH.Entities;
+﻿
+using CCIH.Entities;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -30,7 +31,7 @@ namespace CCIH.Models
                 return null;
             }
         }
-        public int RegisterUser(UserCustomEnt entidad)
+        public int RegisterUser(CustomerUserEnt entidad)
         {
             using (var client = new HttpClient())
             {
@@ -48,7 +49,7 @@ namespace CCIH.Models
                 return 0;
             }
         }
-        public int ChangePassword(ChangePwEnt entidad)
+        public int ChangePassword(ChangePasswordEnt entidad)
         {
             using (var client = new HttpClient())
             {
@@ -66,11 +67,11 @@ namespace CCIH.Models
                 return 0;
             }
         }
-        public List<UserCustomEnt> RequetUsers()
+        public List<CustomerUserEnt> RequetUsers()
         {
             using (var client = new HttpClient())
             {
-                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/RequestUser";
+                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/RequestUsers";
 
                 String Token = HttpContext.Current.Session["TokenUser"].ToString();
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
@@ -78,10 +79,10 @@ namespace CCIH.Models
 
                 if (resp.IsSuccessStatusCode)
                 {
-                    return resp.Content.ReadFromJsonAsync<List<UserCustomEnt>>().Result;
+                    return resp.Content.ReadFromJsonAsync<List<CustomerUserEnt>>().Result;
                 }
 
-                return new List<UserCustomEnt>();
+                return new List<CustomerUserEnt>();
             }
         }
 
@@ -102,7 +103,7 @@ namespace CCIH.Models
                 return 0;
             }
         }
-        public int Edituser(UserCustomEnt entidad)
+        public int Edituser(CustomerUserEnt entidad)
         {
             using (var client = new HttpClient())
             {
@@ -122,18 +123,18 @@ namespace CCIH.Models
                 return 0;
             }
         }
-        public UserCustomEnt RequetUser(long i)
+        public CustomerUserEnt RequetUser(long i)
         {
             using (var client = new HttpClient())
             {
-                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/RequestUser" + i;
+                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/RequestUser?i=" + i;
                 String Token = HttpContext.Current.Session["TokenUser"].ToString();
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
                 HttpResponseMessage resp = client.GetAsync(url).Result;
 
                 if (resp.IsSuccessStatusCode)
                 {
-                    return resp.Content.ReadFromJsonAsync<UserCustomEnt>().Result;
+                    return resp.Content.ReadFromJsonAsync<CustomerUserEnt>().Result;
                 }
 
                 return null;

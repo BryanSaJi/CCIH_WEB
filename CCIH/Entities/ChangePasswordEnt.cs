@@ -5,11 +5,11 @@ using System.Web;
 
 namespace CCIH.Entities
 {
-    public class ChangePwEnt
+    public class ChangePasswordEnt
     {
-        public long IdUser { get; set; }
-        public string PwNew { get; set; }
-        public string PWNow { get; set; }
+        public long UserID { get; set; }
+        public string NewPw { get; set; }
+        public string CurrentPW { get; set; }
         public string ConfirmPw { get; set; }
     }
 }

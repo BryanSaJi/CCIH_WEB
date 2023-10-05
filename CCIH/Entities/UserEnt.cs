@@ -7,7 +7,6 @@ namespace CCIH.Entities
 {
     public class UserEnt
     {
-
         public long UserId { get; set; }
         public string UserName { get; set; }
         public string UserPw { get; set; }
@@ -22,7 +21,5 @@ namespace CCIH.Entities
         public string NameRol { get; set; }
         public string Token { get; set; }
 
-
     }
-
 }

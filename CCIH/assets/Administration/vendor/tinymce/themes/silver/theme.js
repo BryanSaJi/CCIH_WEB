@@ -6321,14 +6321,14 @@
       defaulted('captureTab', false),
       initSize()
     ];
-    const focusIn$3 = (component, gridConfig, _gridState) => {
+    const focusIn$3 = (component, gridConfig, _grStatusId) => {
       descendant(component.element, gridConfig.selector).each(first => {
         gridConfig.focusManager.set(component, first);
       });
     };
     const findCurrent$1 = (component, gridConfig) => gridConfig.focusManager.get(component).bind(elem => closest$1(elem, gridConfig.selector));
-    const execute$3 = (component, simulatedEvent, gridConfig, _gridState) => findCurrent$1(component, gridConfig).bind(focused => gridConfig.execute(component, simulatedEvent, focused));
-    const doMove$2 = cycle => (element, focused, gridConfig, gridState) => locateVisible(element, focused, gridConfig.selector).bind(identified => cycle(identified.candidates, identified.index, gridState.getNumRows().getOr(gridConfig.initSize.numRows), gridState.getNumColumns().getOr(gridConfig.initSize.numColumns)));
+    const execute$3 = (component, simulatedEvent, gridConfig, _grStatusId) => findCurrent$1(component, gridConfig).bind(focused => gridConfig.execute(component, simulatedEvent, focused));
+    const doMove$2 = cycle => (element, focused, gridConfig, grStatusId) => locateVisible(element, focused, gridConfig.selector).bind(identified => cycle(identified.candidates, identified.index, grStatusId.getNumRows().getOr(gridConfig.initSize.numRows), grStatusId.getNumColumns().getOr(gridConfig.initSize.numColumns)));
     const handleTab = (_component, _simulatedEvent, gridConfig) => gridConfig.captureTab ? Optional.some(true) : Optional.none();
     const doEscape$1 = (component, simulatedEvent, gridConfig) => gridConfig.onEscape(component, simulatedEvent);
     const moveLeft$3 = doMove$2(cycleLeft$1);
@@ -6590,7 +6590,7 @@
         special: special
     });
 
-    const isFlatgridState = keyState => hasNonNullableKey(keyState, 'setGridSize');
+    const isFlatgrStatusId = keyState => hasNonNullableKey(keyState, 'setGridSize');
     const Keying = createModes({
       branchKey: 'mode',
       branches: KeyboardBranches,
@@ -6610,7 +6610,7 @@
           });
         },
         setGridSize: (component, keyConfig, keyState, numRows, numColumns) => {
-          if (!isFlatgridState(keyState)) {
+          if (!isFlatgrStatusId(keyState)) {
             console.error('Layout does not support setGridSize');
           } else {
             keyState.setGridSize(numRows, numColumns);
@@ -12567,7 +12567,7 @@
         notifyInfo.onValid(component);
       });
     };
-    const markInvalid = (component, invalidConfig, invalidState, text) => {
+    const markInvalid = (component, invalidConfig, invalStatusId, text) => {
       const elem = invalidConfig.getRoot(component).getOr(component.element);
       add$2(elem, invalidConfig.invalidClass);
       invalidConfig.notify.each(notifyInfo => {
@@ -12580,15 +12580,15 @@
         notifyInfo.onInvalid(component, text);
       });
     };
-    const query = (component, invalidConfig, _invalidState) => invalidConfig.validator.fold(() => Future.pure(Result.value(true)), validatorInfo => validatorInfo.validate(component));
-    const run = (component, invalidConfig, invalidState) => {
+    const query = (component, invalidConfig, _invalStatusId) => invalidConfig.validator.fold(() => Future.pure(Result.value(true)), validatorInfo => validatorInfo.validate(component));
+    const run = (component, invalidConfig, invalStatusId) => {
       invalidConfig.notify.each(notifyInfo => {
         notifyInfo.onValidate(component);
       });
       return query(component, invalidConfig).map(valid => {
         if (component.getSystem().isConnected()) {
           return valid.fold(err => {
-            markInvalid(component, invalidConfig, invalidState, err);
+            markInvalid(component, invalidConfig, invalStatusId, err);
             return Result.error(err);
           }, v => {
             markValid(component, invalidConfig);
@@ -12613,10 +12613,10 @@
         isInvalid: isInvalid
     });
 
-    const events$8 = (invalidConfig, invalidState) => invalidConfig.validator.map(validatorInfo => derive$2([run$1(validatorInfo.onEvent, component => {
-        run(component, invalidConfig, invalidState).get(identity);
+    const events$8 = (invalidConfig, invalStatusId) => invalidConfig.validator.map(validatorInfo => derive$2([run$1(validatorInfo.onEvent, component => {
+        run(component, invalidConfig, invalStatusId).get(identity);
       })].concat(validatorInfo.validateOnLoad ? [runOnAttached(component => {
-        run(component, invalidConfig, invalidState).get(noop);
+        run(component, invalidConfig, invalStatusId).get(noop);
       })] : []))).getOr({});
 
     var ActiveInvalidate = /*#__PURE__*/Object.freeze({
@@ -23184,13 +23184,13 @@
       registerButtons(editor);
     };
 
-    const onSetupVisualAidState = editor => onSetupEvent(editor, 'VisualAid', api => {
+    const onSetupVisualAStatusId = editor => onSetupEvent(editor, 'VisualAid', api => {
       api.setActive(editor.hasVisual);
     });
     const registerMenuItems = editor => {
       editor.ui.registry.addToggleMenuItem('visualaid', {
         text: 'Visual aids',
-        onSetup: onSetupVisualAidState(editor),
+        onSetup: onSetupVisualAStatusId(editor),
         onAction: onActionExecCommand(editor, 'mceToggleVisualAid')
       });
     };

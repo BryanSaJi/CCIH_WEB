@@ -11,7 +11,7 @@ namespace CCIH.Models
 {
     public class LevelModel
     {
-        public List<LevelEnt> ConsultLevelListRolesScrollDown()
+        public List<LevelCourseEnt> ConsultLevelListRolesScrollDown()
         {
             using (var client = new HttpClient())
             {
@@ -21,10 +21,10 @@ namespace CCIH.Models
 
                 if (resp.IsSuccessStatusCode)
                 {
-                    return resp.Content.ReadFromJsonAsync<List<LevelEnt>>().Result;
+                    return resp.Content.ReadFromJsonAsync<List<LevelCourseEnt>>().Result;
                 }
 
-                return new List<LevelEnt>();
+                return new List<LevelCourseEnt>();
             }
 
         }

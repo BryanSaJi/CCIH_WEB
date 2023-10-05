@@ -7,7 +7,7 @@ namespace CCIH.Models
 {
     public class ModalityEnt
     {
-        public long IdModality { get; set; }
+        public long ModalityId { get; set; }
         public string Name { get; set; }
     }
 }

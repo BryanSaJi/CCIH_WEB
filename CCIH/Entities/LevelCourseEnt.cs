@@ -5,9 +5,9 @@ using System.Web;
 
 namespace CCIH.Entities
 {
-    public class LevelEnt
+    public class LevelCourseEnt
     {
-        public long IdLevelCourse { get; set; }
+        public long LevelCourseId { get; set; }
         public string Name { get; set; }
     }
 }

@@ -76,14 +76,14 @@
                                                         <tr>
                                                             <td>@item.ID</td>
                                                             <td>@item.Name</td>
-                                                            <td>@item.PhoneNumber</td>
+                                                            <td>@item.Phone</td>
                                                             <td>@item.Course</td>
                                                             <td>@item.Modality</td>
                                                             <td>@item.Level</td>
-                                                            <td>@item.DateRegistration</td>
-                                                            <td>@item.State</td>
+                                                            <td>@item.RegistrationDate</td>
+                                                            <td>@item.Status</td>
                                                             <td style="text-align:center">
-                                                                <a type="submit" class="btn btn-outline-success btn-sm" href="@Url.Action("ConsultRegisterToday","Registration", new { i = item.IdRegistration })"><i class="bi bi-check-circle"></i>Detalle</a>
+                                                                <a type="submit" class="btn btn-outline-success btn-sm" href="@Url.Action("ConsultRegisterToday","Registration", new { i = item.RegistrationId })"><i class="bi bi-check-circle"></i>Detalle</a>
                                                             </td>
                                                         </tr>
                                                 }

@@ -1,4 +1,4 @@
-﻿using API_CentroCultural.Entities;
+﻿
 using CCIH.Entities;
 using System;
 using System.Collections.Generic;
@@ -13,7 +13,7 @@ namespace CCIH.Models
     public class StateModel
     {
 
-        public List<StateEnt> RequestStatusScrollDown()
+        public List<StatusEnt> RequestStatusScrollDown()
         {
             using (var custom = new HttpClient())
             {
@@ -24,10 +24,10 @@ namespace CCIH.Models
 
                 if (resp.IsSuccessStatusCode)
                 {
-                    return resp.Content.ReadFromJsonAsync<List<StateEnt>>().Result;
+                    return resp.Content.ReadFromJsonAsync<List<StatusEnt>>().Result;
                 }
 
-                return new List<StateEnt>();
+                return new List<StatusEnt>();
             }
 
         }

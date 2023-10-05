@@ -13,8 +13,7 @@ namespace CCIH.Controllers
     public class UserController : Controller
     {
         UserModel model = new UserModel();
-        RoleModel roleModel = new RoleModel();
-        QRCodeGenerator qrGenerator = new QRCodeGenerator();
+        RoleModel modelRole = new RoleModel();
         StateModel modelState = new StateModel();
 
         // GET: Usuario
@@ -26,8 +25,34 @@ namespace CCIH.Controllers
 
 
         [HttpPost]
-        public ActionResult RegisterUser(UserCustomEnt ent)
+        public ActionResult RegisterUser(CustomerUserEnt ent)
         {
+            //Estatus
+            var Status = modelState.RequestStatusScrollDown();
+            var ComboStatus = new List<SelectListItem>();
+            foreach (var item in Status)
+            {
+                ComboStatus.Add(new SelectListItem
+                {
+                    Text = item.Name,
+                    Value = item.StatusId.ToString()
+                });
+            }
+            ViewBag.Status = ComboStatus;
+
+            //Roles
+            var rol = modelRole.RequestRolesScrollDown();
+            var ComboRol = new List<SelectListItem>();
+            foreach (var item in rol)
+            {
+                ComboRol.Add(new SelectListItem
+                {
+                    Text = item.Name,
+                    Value = item.IdRole.ToString()
+                });
+            }
+            ViewBag.Rol = ComboRol;
+
             try
             {
 
@@ -48,32 +73,47 @@ namespace CCIH.Controllers
         }
         public ActionResult RegisterUser()
         {
-            var roles = roleModel.RequetRoles();
-            var ddRoles = new List<SelectListItem>();
-            foreach (var item in roles)
+            //Estatus
+            var Status = modelState.RequestStatusScrollDown();
+            var ComboStatus = new List<SelectListItem>();
+            foreach (var item in Status)
             {
-                ddRoles.Add(new SelectListItem
+                ComboStatus.Add(new SelectListItem
+                {
+                    Text = item.Name,
+                    Value = item.StatusId.ToString()
+                });
+            }
+            ViewBag.Status = ComboStatus;
+
+            //Roles
+            var rol = modelRole.RequestRolesScrollDown();
+            var ComboRol = new List<SelectListItem>();
+            foreach (var item in rol)
+            {
+                ComboRol.Add(new SelectListItem
                 {
                     Text = item.Name,
                     Value = item.IdRole.ToString()
                 });
             }
-            ViewBag.Combo = ddRoles;
+            ViewBag.Rol = ComboRol;
+
             return View();
         }
 
         [HttpPost]
-        public ActionResult ChangePassword(ChangePwEnt ent)
+        public ActionResult ChangePassword(ChangePasswordEnt ent)
         {
             try
             {
-                ent.IdUser = long.Parse(Session["IdUser"].ToString());
-                ent.PWNow = model.Encrypt(ent.PWNow);
-                ent.PwNew = model.Encrypt(ent.PwNew);
+                ent.UserID = long.Parse(Session["IdUser"].ToString());
+                ent.CurrentPW = model.Encrypt(ent.CurrentPW);
+                ent.NewPw = model.Encrypt(ent.NewPw);
                 ent.ConfirmPw = model.Encrypt(ent.ConfirmPw);
                 var resp = model.ChangePassword(ent);
 
-                if (ent.PwNew == ent.ConfirmPw && resp > 0)
+                if (ent.NewPw == ent.ConfirmPw && resp > 0)
                     return RedirectToAction("Index", "Home");
                 else
                 {
@@ -95,55 +135,39 @@ namespace CCIH.Controllers
         public ActionResult EditUser(long i)
         {
             var data = model.RequetUser(i);
-            var roles = roleModel.RequetRoles();
 
-            var ddRoles = new List<SelectListItem>();
-
-            // QR Code
-
-            String Token = Session["TokenUser"].ToString();
-            QRCodeData qrCodeData = qrGenerator.CreateQrCode(Token, QRCodeGenerator.ECCLevel.Q);
-            QRCode qrCode = new QRCode(qrCodeData);
-            Bitmap qrCodeImage = qrCode.GetGraphic(20);
-            ImageConverter converter = new ImageConverter();
-
-            byte[] QRcode = (byte[])converter.ConvertTo(qrCodeImage, typeof(byte[]));
-
-            data.QRcode = QRcode;
-
-
-            var State = modelState.RequestStatusScrollDown();
-            var ComboState = new List<SelectListItem>();
-            foreach (var item in State)
+            //Estatus
+            var Status = modelState.RequestStatusScrollDown();
+            var ComboStatus = new List<SelectListItem>();
+            foreach (var item in Status)
             {
-                ComboState.Add(new SelectListItem
+                ComboStatus.Add(new SelectListItem
                 {
                     Text = item.Name,
-                    Value = item.IdState.ToString()
+                    Value = item.StatusId.ToString()
                 });
             }
-            ViewBag.State = ComboState;
+            ViewBag.Status = ComboStatus;
 
-
-
-            foreach (var item in roles)
+            //Roles
+            var rol = modelRole.RequestRolesScrollDown();
+            var ComboRol = new List<SelectListItem>();
+            foreach (var item in rol)
             {
-                ddRoles.Add(new SelectListItem
+                ComboRol.Add(new SelectListItem
                 {
                     Text = item.Name,
                     Value = item.IdRole.ToString()
                 });
             }
-
-            ViewBag.Combo = ddRoles;
+            ViewBag.Rol = ComboRol;
 
             return View(data);
         }
 
 
-
         [HttpPost]
-        public ActionResult EditUser(UserCustomEnt ent)
+        public ActionResult EditUser(CustomerUserEnt ent)
         {
             try
             {

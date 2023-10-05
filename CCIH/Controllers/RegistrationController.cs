@@ -1,5 +1,5 @@
-﻿using CCIH.Entities;
-using CCIH.Entities.Administration;
+﻿
+using CCIH.Entities;
 using CCIH.Models;
 using System;
 using System.Collections.Generic;
@@ -63,9 +63,9 @@ namespace CCIH.Controllers
         }
 
         [HttpGet]
-        public ActionResult RequetRegistration(long i)
+        public ActionResult ConsultRegister(long i)
         {
-            var data = modelRegistration.RequetRegistrations(i);
+            var data = modelRegistration.ConsultRegister(i);
 
             //Estatus
             var state = modelState.RequestStatusScrollDown();
@@ -75,10 +75,10 @@ namespace CCIH.Controllers
                 ComboState.Add(new SelectListItem
                 {
                     Text = item.Name,
-                    Value = item.IdState.ToString()
+                    Value = item.StatusId.ToString()
                 });
             }
-            ViewBag.State = ComboState;
+            ViewBag.Status = ComboState;
 
 
             //Crusos
@@ -89,7 +89,7 @@ namespace CCIH.Controllers
                 ComboCourse.Add(new SelectListItem
                 {
                     Text = item.Name,
-                    Value = item.IdCourse.ToString()
+                    Value = item.CourseID.ToString()
                 });
             }
             ViewBag.Course = ComboCourse;
@@ -103,10 +103,10 @@ namespace CCIH.Controllers
                 ComboModality.Add(new SelectListItem
                 {
                     Text = item.Name,
-                    Value = item.IdModality.ToString()
+                    Value = item.ModalityId.ToString()
                 });
             }
-            ViewBag.modality = ComboModality;
+            ViewBag.Modality = ComboModality;
 
             //Nivel
             var level = modelLevel.ConsultLevelListRolesScrollDown();
@@ -116,10 +116,10 @@ namespace CCIH.Controllers
                 ComboLevel.Add(new SelectListItem
                 {
                     Text = item.Name,
-                    Value = item.IdLevelCourse.ToString()
+                    Value = item.LevelCourseId.ToString()
                 });
             }
-            ViewBag.Nivel = ComboLevel;
+            ViewBag.Level = ComboLevel;
 
 
             //Horario
@@ -129,11 +129,11 @@ namespace CCIH.Controllers
             {
                 ComboSchedule.Add(new SelectListItem
                 {
-                    Text = item.Day,
-                    Value = item.IdSchedule.ToString()
+                    Text = item.Description,
+                    Value = item.ScheduleId.ToString()
                 });
             }
-            ViewBag.schedule = ComboSchedule;
+            ViewBag.Schedule = ComboSchedule;
 
             //Grupo
             var gorup = modelGroup.ConsultGroupListRolesScrollDown();
@@ -142,11 +142,11 @@ namespace CCIH.Controllers
             {
                 ComboGroup.Add(new SelectListItem
                 {
-                    Text = item.IdGroup.ToString(),
-                    Value = item.IdGroup.ToString()
+                    Text = item.GroupId.ToString(),
+                    Value = item.GroupId.ToString()
                 });
             }
-            ViewBag.gorup = ComboGroup;
+            ViewBag.Group = ComboGroup;
 
             return View(data);
         }
@@ -157,7 +157,7 @@ namespace CCIH.Controllers
             var resp = modelRegistration.EditRegister(ent);
 
             if (resp > 0)
-                return RedirectToAction("ConsultRegisterToday");//revisar
+                return RedirectToAction("ConsultRegistrations", "Admin");//revisar
             else
             {
                 return View("ConsultRegisterToday");
@@ -168,7 +168,7 @@ namespace CCIH.Controllers
         public ActionResult ContactPreRegistration(int q)
         {
             PreRegistrationEnt ent = new PreRegistrationEnt();
-            ent.IdPreRegistration = q;
+            ent.PreRegistrationId = q;
 
             var resp = modelRegistration.ContactPreregister(ent);
 
@@ -181,17 +181,123 @@ namespace CCIH.Controllers
         }
 
         [HttpGet]
-        public ActionResult ConsultRegistrationToday()
+        public ActionResult ConsultRegisterToday()
         {
             var data = modelRegistration.RequestRegistrationsToday();
             return View(data);
 
         }
 
+
         [HttpGet]
         public ActionResult SeeCustomers()
         {
-            return View();
+            var datos = modelRegistration.SeeCustomers();
+            return View(datos);
+        }
+
+
+        [HttpGet]
+        public ActionResult SeeCustomer(long i)
+        {
+            var datos = modelRegistration.SeeCustomer(i);
+            Session["CustomerID"] = datos.ID;
+
+            //Estatus
+            var Status = modelState.RequestStatusScrollDown();
+            var ComboStatus = new List<SelectListItem>();
+            foreach (var item in Status)
+            {
+                ComboStatus.Add(new SelectListItem
+                {
+                    Text = item.Name,
+                    Value = item.StatusId.ToString()
+                });
+            }
+            ViewBag.Status = ComboStatus;
+
+
+            //Crusos
+            var Courses = modelCourse.ConsultCourseListRolesScrollDown();
+            var ComboCourse = new List<SelectListItem>();
+            foreach (var item in Courses)
+            {
+                ComboCourse.Add(new SelectListItem
+                {
+                    Text = item.Name,
+                    Value = item.CourseID.ToString()
+                });
+            }
+            ViewBag.Course = ComboCourse;
+
+
+            //Modalidad
+            var modality = modelModality.ConsultModalityListRolesScrollDown();
+            var ComboModality = new List<SelectListItem>();
+            foreach (var item in modality)
+            {
+                ComboModality.Add(new SelectListItem
+                {
+                    Text = item.Name,
+                    Value = item.ModalityId.ToString()
+                });
+            }
+            ViewBag.modality = ComboModality;
+
+            //Nivel
+            var level = modelLevel.ConsultLevelListRolesScrollDown();
+            var ComboLevel = new List<SelectListItem>();
+            foreach (var item in level)
+            {
+                ComboLevel.Add(new SelectListItem
+                {
+                    Text = item.Name,
+                    Value = item.LevelCourseId.ToString()
+                });
+            }
+            ViewBag.Nivel = ComboLevel;
+
+
+            //Horario
+            var schedule = modelSchedule.RequestScheduleScrollDown();
+            var ComboSchedule = new List<SelectListItem>();
+            foreach (var item in schedule)
+            {
+                ComboSchedule.Add(new SelectListItem
+                {
+                    Text = item.Description,
+                    Value = item.ScheduleId.ToString()
+                });
+            }
+            ViewBag.schedule = ComboSchedule;
+
+            //Grupo
+            var gorup = modelGroup.ConsultGroupListRolesScrollDown();
+            var ComboGroup = new List<SelectListItem>();
+            foreach (var item in gorup)
+            {
+                ComboGroup.Add(new SelectListItem
+                {
+                    Text = item.GroupId.ToString(),
+                    Value = item.GroupId.ToString()
+                });
+            }
+            ViewBag.gorup = ComboGroup;
+
+            //Roles
+            var rol = modelRole.RequestRolesScrollDown();
+            var ComboRol = new List<SelectListItem>();
+            foreach (var item in rol)
+            {
+                ComboRol.Add(new SelectListItem
+                {
+                    Text = item.Name,
+                    Value = item.IdRole.ToString()
+                });
+            }
+            ViewBag.Rol = ComboRol;
+
+            return View(datos);
 
         }
 

@@ -1,4 +1,5 @@
-﻿using CCIH.Entities;
+﻿
+using CCIH.Entities;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -69,7 +70,7 @@ namespace CCIH.Models
     {
         using (var client = new HttpClient())
         {
-            string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/RequestRole" + i;
+            string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/RequestRole?i=" + i;
             String Token = HttpContext.Current.Session["TokenUser"].ToString();
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
             HttpResponseMessage resp = client.GetAsync(url).Result;

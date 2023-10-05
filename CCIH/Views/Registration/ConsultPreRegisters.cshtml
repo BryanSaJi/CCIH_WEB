@@ -70,14 +70,14 @@
                                                 {
                                                     <tr>
                                                         <td>@item.Name</td>
-                                                        <td>@item.Lastname1</td>
-                                                        <td>@item.Lastname2</td>
+                                                        <td>@item.LastName</td>
+                                                        <td>@item.SecLastName</td>
                                                         <td>@item.DatePreRegistration</td>
                                                         <td>@item.Course</td>
                                                         <td>@item.Modality</td>
                                                         <td>@item.Level</td>
                                                         <td style="text-align:center">
-                                                            <a type="submit" class="btn btn-outline-success btn-sm" href="@Url.Action("ConsultPreRegister","Registration", new { q = item.IdPreRegistration })"><i class="bi bi-check-circle"></i>Contactado</a>
+                                                            <a type="submit" class="btn btn-outline-success btn-sm" href="@Url.Action("ConsultPreRegister","Registration", new { q = item.PreRegistrationId })"><i class="bi bi-check-circle"></i>Contactado</a>
                                                         </td>
 
 
