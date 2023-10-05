@@ -1,6 +1,6 @@
 ﻿
 using CCIH.Entities;
-using CCIH.Entities.Administracion;
+using CCIH.Entities.Administration;
 using CCIH.Models;
 using System;
 using System.Collections.Generic;

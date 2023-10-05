@@ -6,7 +6,7 @@ using System.Linq;
 using System.Net.Http.Json;
 using System.Net.Http;
 using System.Web;
-using CCIH.Entities.Administracion;
+using CCIH.Entities.Administration;
 
 namespace CCIH.Models
 {
