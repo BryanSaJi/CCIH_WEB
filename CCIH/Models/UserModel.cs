@@ -113,8 +113,6 @@ namespace CCIH.Models
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
                 HttpResponseMessage resp = client.PutAsync(url, body).Result;
 
-
-
                 if (resp.IsSuccessStatusCode)
                 {
                     return resp.Content.ReadFromJsonAsync<int>().Result;

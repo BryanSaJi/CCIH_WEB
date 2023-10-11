@@ -734,9 +734,10 @@
     <Content Include="Views\User\EditUser.cshtml" />
     <Content Include="Views\Registration\ConsultRegister.cshtml" />
     <Content Include="Views\Registration\ConsultRegisterToday.cshtml" />
-    <Content Include="Views\Courses\Index.cshtml" />
+    <Content Include="Views\Course\Index.cshtml" />
     <Content Include="Views\Registration\SeeCustomers.cshtml" />
     <Content Include="Views\Registration\SeeCustomer.cshtml" />
+    <Content Include="Views\State\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

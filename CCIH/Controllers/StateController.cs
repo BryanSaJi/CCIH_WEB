@@ -22,5 +22,10 @@ namespace CCIH.Controllers
             var data = StatusModel.RequestStatusScrollDown();
             return data;
         }
+
+        public ActionResult Index()
+        {
+            return View();
+        }
     }
 }
