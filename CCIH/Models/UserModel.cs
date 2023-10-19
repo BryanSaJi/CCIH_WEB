@@ -19,7 +19,7 @@ namespace CCIH.Models
             using (var custom = new HttpClient())
             {
                 string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/Login";
-                JsonContent body = JsonContent.Create(ent); //Serializar
+                JsonContent body = JsonContent.Create(ent);  
 
                 HttpResponseMessage resp = custom.PostAsync(url, body).Result;
 

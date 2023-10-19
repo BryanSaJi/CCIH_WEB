@@ -318,4 +318,50 @@
     }, 200);
   }
 
+
+
+
+  /**VALIDACIONES
+   * login
+   */
+
+
+    const btn = document.querySelector('#btn')
+    const passw = document.getElementById('#passw')
+    const uname = document.getElementById('#uname')
+    const p = document.getElementById("warnings")
+    const form = document.getElementById("form")
+
+
+    btn.addEventListener('click', () => {
+        if (uname.value.length == 0)
+        alert("Por favor, llenar todos los campos")
+
+    })
+
+    btn.addEventListener('click', () => {
+        if (passw.value.length == 0)
+            alert("Por favor, llenar todos los campos")
+
+    })
+
+
+    //form.addEventListener("submit", e =>{
+    //    e.preventDefault()
+    //    if (uname == null) {
+    //        alert("Por favor, complete los campos.")
+
+
+    //    }
+    //})
+
+    //form.addEventListener("submit", e => {
+    //    e.preventDefault()
+    //    if (passw == null) {
+    //        alert("Por favor, complete los campos.")
+
+
+    //    }
+    //})
+
 })();

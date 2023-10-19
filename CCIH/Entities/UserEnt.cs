@@ -1,7 +1,10 @@
-﻿using System;
+﻿using CCIH.Controllers;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace CCIH.Entities
 {
@@ -9,7 +12,10 @@ namespace CCIH.Entities
     {
         public long UserId { get; set; }
         public string UserName { get; set; }
+ 
+
         public string UserPw { get; set; }
+ 
         public long OfficeId { get; set; }
         public long CustomerId { get; set; }
         public long IdRol { get; set; }

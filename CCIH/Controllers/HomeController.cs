@@ -1,6 +1,7 @@
 ﻿
 using CCIH.Entities;
 using CCIH.Models;
+using Microsoft.Ajax.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -176,14 +177,14 @@ namespace CCIH.Controllers
                 }
                 else
                 {
-                    ViewBag.Msj = "No se ha podido validar su información";
+
+                    TempData["ErrorMessage"] = "Usuario o Contrasena incorrecto.";
                     return View("Login");
                 }
             }
             catch (Exception ex)
             {
-
-                ViewBag.Msj = "No se ha podido validar su información";
+                TempData["ErrorMessage"] = "Usuario o Contrasena incorrecto.";
                 return View("Login");
             }
 
@@ -212,6 +213,9 @@ namespace CCIH.Controllers
         }
 
 
-    }
 
+
+
+
+    }
 }
