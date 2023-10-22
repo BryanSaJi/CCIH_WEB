@@ -12,7 +12,7 @@ namespace CCIH.Models
 {
     public class CourseModel
     {
-        public List<CourseEnt> ConsultCourseListRolesScrollDown()
+        public List<CourseEnt> RequestCourseScrollDown()
         {
             using (var client = new HttpClient())
             {

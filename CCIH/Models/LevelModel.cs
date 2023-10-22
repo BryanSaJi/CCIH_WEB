@@ -11,7 +11,7 @@ namespace CCIH.Models
 {
     public class LevelModel
     {
-        public List<LevelCourseEnt> ConsultLevelListRolesScrollDown()
+        public List<LevelCourseEnt> RequestLevelCourseScrollDown()
         {
             using (var client = new HttpClient())
             {

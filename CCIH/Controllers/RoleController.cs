@@ -16,7 +16,7 @@ namespace CCIH.Controllers
         [HttpGet]
         public ActionResult ListRoles()
         {
-            var data = model.RequetRoles();
+            var data = model.RequestRoles();
             return View(data);
         }
 
@@ -55,7 +55,7 @@ namespace CCIH.Controllers
         [HttpGet]
         public ActionResult EditRole(long i)
         {
-            var data = model.RequetRole(i);
+            var data = model.RequestRole(i);
             data.UserId = long.Parse(Session["IdUser"].ToString());
             return View(data);
         }

@@ -16,7 +16,7 @@ namespace CCIH.Controllers
 
         public ActionResult Index()
         {
-            var data = modelCourse.ConsultCourseListRolesScrollDown();
+            var data = modelCourse.RequestCourseScrollDown();
             return View(data);
         }
 

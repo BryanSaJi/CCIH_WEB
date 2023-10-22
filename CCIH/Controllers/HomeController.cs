@@ -91,7 +91,7 @@ namespace CCIH.Controllers
         public ActionResult PreRegister()
         {
             //Crusos
-            var course = modelCourse.ConsultCourseListRolesScrollDown();
+            var course = modelCourse.RequestCourseScrollDown();
             var ComboCourse = new List<SelectListItem>();
             foreach (var item in course)
             {
@@ -102,7 +102,7 @@ namespace CCIH.Controllers
                 });
             }
             //Modalidad
-            var Modality = modelModality.ConsultModalityListRolesScrollDown();
+            var Modality = modelModality.RequestModalityScrollDown();
             var ComboModality = new List<SelectListItem>();
             foreach (var item in Modality)
             {
@@ -114,7 +114,7 @@ namespace CCIH.Controllers
             }
 
             //level
-            var level = modelLevel.ConsultLevelListRolesScrollDown();
+            var level = modelLevel.RequestLevelCourseScrollDown();
             var Combolevel = new List<SelectListItem>();
             foreach (var item in level)
             {

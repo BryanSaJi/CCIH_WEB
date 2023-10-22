@@ -19,7 +19,7 @@ namespace CCIH.Models
             using (var custom = new HttpClient())
             {
                 string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/Login";
-                JsonContent body = JsonContent.Create(ent);  
+                JsonContent body = JsonContent.Create(ent);
 
                 HttpResponseMessage resp = custom.PostAsync(url, body).Result;
 
@@ -31,7 +31,7 @@ namespace CCIH.Models
                 return null;
             }
         }
-        public int RegisterUser(UserEnt entidad)
+        public int CreateUser(UserEnt entidad)
         {
             using (var client = new HttpClient())
             {
@@ -67,11 +67,11 @@ namespace CCIH.Models
                 return 0;
             }
         }
-        public List<CustomerUserEnt> RequetUsers()
+        public List<UserEnt> RequestUser()
         {
             using (var client = new HttpClient())
             {
-                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/RequestUsers";
+                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/RequestUser";
 
                 String Token = HttpContext.Current.Session["TokenUser"].ToString();
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
@@ -79,10 +79,10 @@ namespace CCIH.Models
 
                 if (resp.IsSuccessStatusCode)
                 {
-                    return resp.Content.ReadFromJsonAsync<List<CustomerUserEnt>>().Result;
+                    return resp.Content.ReadFromJsonAsync<List<UserEnt>>().Result;
                 }
 
-                return new List<CustomerUserEnt>();
+                return new List<UserEnt>();
             }
         }
 
@@ -121,7 +121,7 @@ namespace CCIH.Models
                 return 0;
             }
         }
-        public CustomerUserEnt RequetUser(long i)
+        public UserEnt RequestUser(long i)
         {
             using (var client = new HttpClient())
             {
@@ -132,7 +132,7 @@ namespace CCIH.Models
 
                 if (resp.IsSuccessStatusCode)
                 {
-                    return resp.Content.ReadFromJsonAsync<CustomerUserEnt>().Result;
+                    return resp.Content.ReadFromJsonAsync<UserEnt>().Result;
                 }
 
                 return null;

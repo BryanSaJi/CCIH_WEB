@@ -74,7 +74,7 @@ namespace CCIH.Models
         {
             using (var custom = new HttpClient())
             {
-                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/RequetRegistrations";
+                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/RequestRegistrations";
 
                 String Token = HttpContext.Current.Session["TokenUser"].ToString();
                 custom.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
@@ -95,7 +95,7 @@ namespace CCIH.Models
         {
             using (var custom = new HttpClient())
             {
-                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/RequetRegistrationsToday";
+                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/RequestRegistrationsToday";
 
                 String Token = HttpContext.Current.Session["TokenUser"].ToString();
                 custom.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
@@ -113,11 +113,11 @@ namespace CCIH.Models
         }
 
 
-        public RegistrationEnt ConsultRegister(long i)
+        public RegistrationEnt RequestRegistration(long i)
         {
             using (var custom = new HttpClient())
             {
-                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/RequetRegistration?i=" + i;
+                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/RequestRegistration?i=" + i;
                 String Token = HttpContext.Current.Session["TokenUser"].ToString();
                 custom.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
                 HttpResponseMessage resp = custom.GetAsync(url).Result;
@@ -172,8 +172,11 @@ namespace CCIH.Models
             }
         }
 
+    
 
-        public List<CustomerEnt> SeeCustomers()
+
+
+    public List<CustomerEnt> SeeCustomers()
         {
             using (var client = new HttpClient())
             {

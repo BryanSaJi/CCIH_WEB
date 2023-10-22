@@ -19,7 +19,7 @@ namespace CCIH.Controllers
         // GET: Usuario
         public ActionResult Index()
         {
-            var data = model.RequetUsers();
+            var data = model.RequestUser();
             return View(data);
         }
 
@@ -56,7 +56,7 @@ namespace CCIH.Controllers
             try
             {
 
-                var resp = model.RegisterUser(ent);
+                var resp = model.CreateUser(ent);
 
                 if (resp > 0)
                     return RedirectToAction("Index", "User");
@@ -134,7 +134,7 @@ namespace CCIH.Controllers
         [HttpGet]
         public ActionResult EditUser(long i)
         {
-            var data = model.RequetUser(i);
+            var data = model.RequestUser(i);
 
             //Estatus
             var Status = modelState.RequestStatusScrollDown();

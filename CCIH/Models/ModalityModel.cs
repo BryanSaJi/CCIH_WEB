@@ -11,7 +11,7 @@ namespace CCIH.Models
 {
     public class ModalityModel
     {
-        public List<ModalityEnt> ConsultModalityListRolesScrollDown()
+        public List<ModalityEnt> RequestModalityScrollDown()
         {
             using (var client = new HttpClient())
             {

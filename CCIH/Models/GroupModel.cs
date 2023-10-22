@@ -12,7 +12,7 @@ namespace CCIH.Models
 {
     public class GroupModel
     {
-        public List<GroupEnt> ConsultGroupListRolesScrollDown()
+        public List<GroupEnt> RequestGroupScrollDown()
         {
             using (var client = new HttpClient())
             {

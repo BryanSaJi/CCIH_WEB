@@ -63,9 +63,9 @@ namespace CCIH.Controllers
         }
 
         [HttpGet]
-        public ActionResult ConsultRegister(long i)
+        public ActionResult RequestRegistration(long i)
         {
-            var data = modelRegistration.ConsultRegister(i);
+            var data = modelRegistration.RequestRegistration(i);
 
             //Estatus
             var state = modelState.RequestStatusScrollDown();
@@ -82,7 +82,7 @@ namespace CCIH.Controllers
 
 
             //Crusos
-            var Courses = modelCourse.ConsultCourseListRolesScrollDown();
+            var Courses = modelCourse.RequestCourseScrollDown();
             var ComboCourse = new List<SelectListItem>();
             foreach (var item in Courses)
             {
@@ -96,7 +96,7 @@ namespace CCIH.Controllers
 
 
             //Modalidad
-            var modality = modelModality.ConsultModalityListRolesScrollDown();
+            var modality = modelModality.RequestModalityScrollDown();
             var ComboModality = new List<SelectListItem>();
             foreach (var item in modality)
             {
@@ -109,7 +109,7 @@ namespace CCIH.Controllers
             ViewBag.Modality = ComboModality;
 
             //Nivel
-            var level = modelLevel.ConsultLevelListRolesScrollDown();
+            var level = modelLevel.RequestLevelCourseScrollDown();
             var ComboLevel = new List<SelectListItem>();
             foreach (var item in level)
             {
@@ -136,7 +136,7 @@ namespace CCIH.Controllers
             ViewBag.Schedule = ComboSchedule;
 
             //Grupo
-            var gorup = modelGroup.ConsultGroupListRolesScrollDown();
+            var gorup = modelGroup.RequestGroupScrollDown();
             var ComboGroup = new List<SelectListItem>();
             foreach (var item in gorup)
             {
@@ -218,7 +218,7 @@ namespace CCIH.Controllers
 
 
             //Crusos
-            var Courses = modelCourse.ConsultCourseListRolesScrollDown();
+            var Courses = modelCourse.RequestCourseScrollDown();
             var ComboCourse = new List<SelectListItem>();
             foreach (var item in Courses)
             {
@@ -232,7 +232,7 @@ namespace CCIH.Controllers
 
 
             //Modalidad
-            var modality = modelModality.ConsultModalityListRolesScrollDown();
+            var modality = modelModality.RequestModalityScrollDown();
             var ComboModality = new List<SelectListItem>();
             foreach (var item in modality)
             {
@@ -245,7 +245,7 @@ namespace CCIH.Controllers
             ViewBag.modality = ComboModality;
 
             //Nivel
-            var level = modelLevel.ConsultLevelListRolesScrollDown();
+            var level = modelLevel.RequestLevelCourseScrollDown();
             var ComboLevel = new List<SelectListItem>();
             foreach (var item in level)
             {
@@ -272,7 +272,7 @@ namespace CCIH.Controllers
             ViewBag.schedule = ComboSchedule;
 
             //Grupo
-            var gorup = modelGroup.ConsultGroupListRolesScrollDown();
+            var gorup = modelGroup.RequestGroupScrollDown();
             var ComboGroup = new List<SelectListItem>();
             foreach (var item in gorup)
             {
