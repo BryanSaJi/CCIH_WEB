@@ -8,7 +8,7 @@ namespace CCIH.Entities
     public class CustomerEnt
     {
         public int CustomerId { get; set; }
-        public String ID { get; set;}
+        public String PersonalID { get; set;}
         public String Email { get; set; }
         public string Name { get; set;}
         public string LastName { get; set; }

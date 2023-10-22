@@ -201,7 +201,7 @@ namespace CCIH.Controllers
         public ActionResult SeeCustomer(long i)
         {
             var datos = modelRegistration.SeeCustomer(i);
-            Session["CustomerID"] = datos.ID;
+            Session["CustomerID"] = datos.PersonalID;
 
             //Estatus
             var Status = modelState.RequestStatusScrollDown();

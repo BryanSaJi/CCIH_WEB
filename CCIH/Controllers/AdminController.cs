@@ -25,6 +25,7 @@ namespace CCIH.Controllers
         ScheduleModel modelSchedule = new ScheduleModel();
         GroupModel modelGroup = new GroupModel();
         RegistrationModel modelRegistration = new RegistrationModel();
+        UserModel modelUser = new UserModel();
 
         public ActionResult Index()
         {
@@ -80,101 +81,114 @@ namespace CCIH.Controllers
         {
             try
             {
-                var resp = modelCustomer.RegisterCustomer(ent);
-                var data = ent;
-                Session["CedulaCliente"] = data.PersonalID;
+                ent.IdRol = 3;
+                //var resp = modelCustomer.RegisterCustomer(ent);
+                var respIsUser = modelUser.RequestUserByPersonalID(ent.PersonalID);
 
-                if (resp > 0)
+                if (respIsUser == null )
                 {
-                    //Status
-                    var State = modelState.RequestStatusScrollDown();
-                    var ComboState = new List<SelectListItem>();
-                    foreach (var item in State)
+                    var resp = modelUser.CreateUser(ent);
+                    var data = ent;
+                    Session["CedulaCliente"] = data.PersonalID;
+
+                    if (resp > 0)
                     {
-                        ComboState.Add(new SelectListItem
+                        //Status
+                        var State = modelState.RequestStatusScrollDown();
+                        var ComboState = new List<SelectListItem>();
+                        foreach (var item in State)
                         {
-                            Text = item.Name,
-                            Value = item.StatusId.ToString()
-                        });
+                            ComboState.Add(new SelectListItem
+                            {
+                                Text = item.Name,
+                                Value = item.StatusId.ToString()
+                            });
+                        }
+
+
+
+                        //Crusos
+                        var course = modelCourse.RequestCourseScrollDown();
+                        var ComboCourse = new List<SelectListItem>();
+                        foreach (var item in course)
+                        {
+                            ComboCourse.Add(new SelectListItem
+                            {
+                                Text = item.Name,
+                                Value = item.CourseID.ToString()
+                            });
+                        }
+
+                        //Modalidad
+                        var Modality = modelModality.RequestModalityScrollDown();
+                        var ComboModality = new List<SelectListItem>();
+                        foreach (var item in Modality)
+                        {
+                            ComboModality.Add(new SelectListItem
+                            {
+                                Text = item.Name,
+                                Value = item.ModalityId.ToString()
+                            });
+                        }
+
+
+                        //Nivel
+                        var level = modelLevel.RequestLevelCourseScrollDown();
+                        var ComboLevel = new List<SelectListItem>();
+                        foreach (var item in level)
+                        {
+                            ComboLevel.Add(new SelectListItem
+                            {
+                                Text = item.Name,
+                                Value = item.LevelCourseId.ToString()
+                            });
+                        }
+
+
+                        //Horario
+                        var Schudule = modelSchedule.RequestScheduleScrollDown();
+                        var ComboSchudule = new List<SelectListItem>();
+                        foreach (var item in Schudule)
+                        {
+                            ComboSchudule.Add(new SelectListItem
+                            {
+                                Text = item.Description,
+                                Value = item.ScheduleId.ToString()
+                            });
+                        }
+                        //Grupo
+                        var Group = modelGroup.RequestGroupScrollDown();
+                        var ComboGroup = new List<SelectListItem>();
+                        foreach (var item in Group)
+                        {
+                            ComboGroup.Add(new SelectListItem
+                            {
+                                Text = item.GroupId.ToString(),
+                                Value = item.GroupId.ToString()
+                            });
+                        }
+
+
+                        ViewBag.Group = ComboGroup;
+                        ViewBag.Schedule = ComboSchudule;
+                        ViewBag.Level = ComboLevel;
+                        ViewBag.Modality = ComboModality;
+                        ViewBag.Course = ComboCourse;
+                        ViewBag.Status = ComboState;
+                        return View();
+
                     }
-
-
-
-                    //Crusos
-                    var course = modelCourse.RequestCourseScrollDown();
-                    var ComboCourse = new List<SelectListItem>();
-                    foreach (var item in course)
+                    else
                     {
-                        ComboCourse.Add(new SelectListItem
-                        {
-                            Text = item.Name,
-                            Value = item.CourseID.ToString()
-                        });
+                        return View("Error");
                     }
-
-                    //Modalidad
-                    var Modality = modelModality.RequestModalityScrollDown();
-                    var ComboModality = new List<SelectListItem>();
-                    foreach (var item in Modality)
-                    {
-                        ComboModality.Add(new SelectListItem
-                        {
-                            Text = item.Name,
-                            Value = item.ModalityId.ToString()
-                        });
-                    }
-
-
-                    //Nivel
-                    var level = modelLevel.RequestLevelCourseScrollDown();
-                    var ComboLevel = new List<SelectListItem>();
-                    foreach (var item in level)
-                    {
-                        ComboLevel.Add(new SelectListItem
-                        {
-                            Text = item.Name,
-                            Value = item.LevelCourseId.ToString()
-                        });
-                    }
-
-
-                    //Horario
-                    var Schudule = modelSchedule.RequestScheduleScrollDown();
-                    var ComboSchudule = new List<SelectListItem>();
-                    foreach (var item in Schudule)
-                    {
-                        ComboSchudule.Add(new SelectListItem
-                        {
-                            Text = item.Description,
-                            Value = item.ScheduleId.ToString()
-                        });
-                    }
-                    //Grupo
-                    var Group = modelGroup.RequestGroupScrollDown();
-                    var ComboGroup = new List<SelectListItem>();
-                    foreach (var item in Group)
-                    {
-                        ComboGroup.Add(new SelectListItem
-                        {
-                            Text = item.GroupId.ToString(),
-                            Value = item.GroupId.ToString()
-                        });
-                    }
-
-
-                    ViewBag.Group = ComboGroup;
-                    ViewBag.Schedule = ComboSchudule;
-                    ViewBag.Level = ComboLevel;
-                    ViewBag.Modality = ComboModality;
-                    ViewBag.Course = ComboCourse;
-                    ViewBag.Status = ComboState;
-                    return View();
 
                 }
                 else
                 {
-                    return View("Error");
+                    return View("The User is already included into the Data Base");
                 }
+
             }
             catch (Exception ex)
             {

@@ -139,6 +139,24 @@ namespace CCIH.Models
             }
         }
 
+        public UserEnt RequestUserByPersonalID(string personalId)
+        {
+            using (var client = new HttpClient())
+            {
+                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/RequestUserByPersonalId?personalId=" + personalId;
+                String Token = HttpContext.Current.Session["TokenUser"].ToString();
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
+                HttpResponseMessage resp = client.GetAsync(url).Result;
+
+                if (resp.IsSuccessStatusCode)
+                {
+                    return resp.Content.ReadFromJsonAsync<UserEnt>().Result;
+                }
+
+                return null;
+            }
+        }
+
         public string Encrypt(string toEncrypt)
         {
             byte[] keyArray;
