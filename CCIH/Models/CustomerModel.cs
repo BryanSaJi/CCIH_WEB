@@ -11,7 +11,7 @@ namespace CCIH.Models
 {
     public class CustomerModel
     {
-        public int RegisterCustomer(CustomerEnt ent)
+        public int RegisterCustomer(UserEnt ent)
         {
             using (var custom = new HttpClient())
             {
@@ -30,7 +30,7 @@ namespace CCIH.Models
             }
         }
 
-        public int EditCustomer(CustomerEnt ent)
+        public int EditCustomer(UserEnt ent)
         {
             using (var custom = new HttpClient())
             {

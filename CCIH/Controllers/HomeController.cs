@@ -169,7 +169,7 @@ namespace CCIH.Controllers
                     Session["IdUser"] = resp.UserId.ToString();
                     Session["IdRoleUser"] = resp.IdRol;
                     Session["[User]"] = resp.UserName;
-                    Session["[NameRole]"] = resp.NameRol;
+                    Session["[NameRole]"] = resp.RolName;
                     Session["TokenUser"] = resp.Token;
 
                     //var cliente = model.ConsultarCliente(Session["IdUser"]);
@@ -177,8 +177,8 @@ namespace CCIH.Controllers
                 }
                 else
                 {
-
-                    TempData["ErrorMessage"] = "Usuario o Contrasena incorrecto.";
+                    ViewBag.Msj = "Usuario o Contraseña incorrecto.";
+                    //TempData["ErrorMessage"] = "Usuario o Contrasena incorrecto.";
                     return View("Login");
                 }
             }

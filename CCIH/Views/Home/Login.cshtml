@@ -2,15 +2,30 @@
 
 @{
     ViewBag.Title = "Login";
-   string  errorMessage = TempData["ErrorMessage"] as string;
-    
+    string errorMessage = TempData["ErrorMessage"] as string;
+
 }
+
+
+
 
 <section id="hero">
     <div class="container position-relative" data-aos="zoom-in" data-aos-delay="100">
         <div class="row justify-content-center align-items-center h-1">
             <div class="col-12 col-md-8 col-lg-6 col-xl-5" style="margin-top: -30px">
                 <div class="card-body p-2 text-center" style="background-color: rgba(0, 0, 0, 0.5);">
+                    @if (ViewBag.Msj != null)
+                    {
+                        <div id="Msj" class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" role="alert">
+                            @ViewBag.Msj
+                        </div>
+                    }
+
+                    <div id="error-message" class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" role="alert" style="display: none;">
+                        
+                    </div>
+
+
 
                     @using (Html.BeginForm("Login", "Home", FormMethod.Post, new { id = "loginForm" }))
                     {
@@ -47,7 +62,6 @@
                             </div>
 
                             <button class="btn btn-outline-light btn-lg px-5" id="btn" type="submit">Entrar</button>
-                            <div id="error-message" class="text-danger" style="font-size: 25px; font-weight: bold; margin-top: 10px;"></div>
                             <br />
                             <br />
                             <a class="text-white-50 mb-2" href="/Home/loginReset">Olvidé mi contraseña</a>
@@ -59,24 +73,41 @@
     </div>
 </section>
 
-<script>
-    // Comprueba si hay un mensaje de error y muestra una alerta si es necesario
-    if ('@errorMessage' !== '') {
-        alert("Ah ocurrido un error. Por favor, intente de nuevo.");
-    }
-</script>
+@*<script>
+        // Comprueba si hay un mensaje de error y muestra una alerta si es necesario
+       // if ('@errorMessage' !== '') {
+            //alert("Ah ocurrido un error. Por favor, intente de nuevo.");
+      //  }
+    </script>*@
 
 <script>
     document.getElementById("loginForm").addEventListener("submit", function (event) {
         var userName = document.getElementById("uname").value;
         var password = document.getElementById("passw").value;
         var errorElement = document.getElementById("error-message");
+        
 
         if (!userName || !password) {
             errorElement.innerHTML = "Por favor, complete todos los campos.";
+            errorElement.style.display = "block"; 
             event.preventDefault(); // Evita el envío del formulario si los campos están vacíos
+
+            // Desaparece el mensaje de error después de 5 segundos
+            setTimeout(function () {
+                errorElement.style.display = "none"; // Oculta el mensaje de error
+            }, 5000); // 5000 milisegundos = 5 segundos
+
         } else {
             errorElement.innerHTML = ""; // Limpia el mensaje de error si los campos no están vacíos
         }
     });
+
+
+    // Esperar 5 segundos y luego ocultar el mensaje
+    setTimeout(function () {
+            var mensajeDiv = document.getElementById('Msj');
+            mensajeDiv.style.display = 'none';
+            
+    }, 5000); // 5000 milisegundos = 5 segundos
+
 </script>

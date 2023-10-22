@@ -14,16 +14,17 @@
                     {
                         <div class="mb-md-5 mt-md-4 pb-1">
                             <h2 class="fw-bold mb-2 text-uppercase">Restablecer Contraseña</h2>
-                            <p class="text-white-50 mb-5">Por favor ingrese su usuario registrado!</p>
+                            <p class="text-white-50 mb-5">Por favor ingrese su usuario registrado</p>
 
                             <div class="form-outline form-white mb-4">
                                 @Html.TextBoxFor(
                                         m => m.UserName,
                                         new
                                              {
-                                                 @type = "text",
-                                            @placeholder = "Ingrese Usuario a restablecer",
-                                            @class = "form-control form-control-lg"
+                                                @type = "text",
+                                                @placeholder = "Ingrese Usuario a restablecer",
+                                                @class = "form-control form-control-lg",
+                                                @style = "text-align: center;"
                                         })
                                 <label class="text-white" for="LoginUsuario">Usuario</label>
                             </div>

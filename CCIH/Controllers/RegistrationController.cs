@@ -29,7 +29,7 @@ namespace CCIH.Controllers
         {
 
             //revisar sassions
-            ent.ID = @Session["CedulaCliente"].ToString();
+            ent.PersonalID = @Session["CedulaCliente"].ToString();
             try
             {
 

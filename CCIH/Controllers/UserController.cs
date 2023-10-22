@@ -25,7 +25,7 @@ namespace CCIH.Controllers
 
 
         [HttpPost]
-        public ActionResult RegisterUser(CustomerUserEnt ent)
+        public ActionResult RegisterUser(UserEnt ent)
         {
             //Estatus
             var Status = modelState.RequestStatusScrollDown();
@@ -167,7 +167,7 @@ namespace CCIH.Controllers
 
 
         [HttpPost]
-        public ActionResult EditUser(CustomerUserEnt ent)
+        public ActionResult EditUser(UserEnt ent)
         {
             try
             {
