@@ -26,7 +26,7 @@ namespace CCIH.Controllers
             ent.IdRol = 3;  
             var data = UserModel.RegisterUser(ent);
 
-            return data;
+            return RedirectToAction("SeeCustomers", "Registration");
         }
 
         [HttpPost]

@@ -60,9 +60,9 @@ namespace CCIH.Controllers
             }
             ViewBag.Roles = ComboRoles;
 
-            var satate = modelState.RequestStatusScrollDown();
+            var state = modelState.RequestStatusScrollDown();
             var ComboState = new List<SelectListItem>();
-            foreach (var item in satate)
+            foreach (var item in state)
             {
                 ComboState.Add(new SelectListItem
                 {
@@ -70,23 +70,23 @@ namespace CCIH.Controllers
                     Value = item.StatusId.ToString()
                 });
             }
-            ViewBag.satate = ComboState;
+            ViewBag.state = ComboState;
 
 
             return View();
         }
 
-        public ActionResult CreateRegister(CustomerEnt ent)
+        public ActionResult CreateRegister(UserEnt ent)
         {
             try
             {
                 var resp = modelCustomer.RegisterCustomer(ent);
                 var data = ent;
-                Session["CedulaCliente"] = data.ID;
+                Session["CedulaCliente"] = data.PersonalID;
 
                 if (resp > 0)
                 {
-                    //Estatus
+                    //Status
                     var State = modelState.RequestStatusScrollDown();
                     var ComboState = new List<SelectListItem>();
                     foreach (var item in State)

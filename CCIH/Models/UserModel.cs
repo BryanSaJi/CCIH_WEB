@@ -31,7 +31,7 @@ namespace CCIH.Models
                 return null;
             }
         }
-        public int RegisterUser(CustomerUserEnt entidad)
+        public int RegisterUser(UserEnt entidad)
         {
             using (var client = new HttpClient())
             {
@@ -103,7 +103,7 @@ namespace CCIH.Models
                 return 0;
             }
         }
-        public int Edituser(CustomerUserEnt entidad)
+        public int Edituser(UserEnt entidad)
         {
             using (var client = new HttpClient())
             {
