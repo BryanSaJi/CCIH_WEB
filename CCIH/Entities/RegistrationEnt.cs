@@ -8,7 +8,8 @@ namespace CCIH.Entities
     public class RegistrationEnt
     {
         public int RegistrationId { get; set; }
-        public string ID { get; set; }
+        public string PersonalID { get; set; }
+        public long UserId { get; set; }
         public string Name { get; set; }
         public string Phone { get; set; }
         public string Course { get; set; }

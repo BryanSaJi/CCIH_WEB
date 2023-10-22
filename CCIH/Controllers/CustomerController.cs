@@ -11,6 +11,7 @@ namespace CCIH.Controllers
     public class CustomerController : Controller
     {
         CustomerModel CustomerModel = new CustomerModel();
+        UserModel UserModel = new UserModel();
 
 
         // GET: Customer
@@ -20,9 +21,18 @@ namespace CCIH.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditCustomer(CustomerEnt ent)
+        public ActionResult CreateCustomer(UserEnt ent)
         {
-            var data = CustomerModel.EditCustomer(ent);
+            ent.IdRol = 3;  
+            var data = UserModel.RegisterUser(ent);
+
+            return data;
+        }
+
+        [HttpPost]
+        public ActionResult EditCustomer(UserEnt ent)
+        {
+            var data = UserModel.Edituser(ent);
             return RedirectToAction("SeeCustomers", "Registration");
         }
 
