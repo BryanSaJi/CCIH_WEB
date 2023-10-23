@@ -27,13 +27,15 @@
                 <div class="card">
                     <div class="card-body">
                         <br />
+                       
                         <!-- General Form Elements -->
                         @Html.HiddenFor(m => m.RegistrationId)
+                        @Html.HiddenFor(m => m.UserId)
 
                         <div class="row mb-3">
                             <label for="inputText" class="col-sm-2 col-form-label">Cedula</label>
                             <div class="col-sm-5">
-                                @Html.TextBoxFor(m => m.ID, new { @type = "text", @class = "form-control"})
+                                @Html.TextBoxFor(m => m.PersonalID, new { @type = "text", @class = "form-control"})
                             </div>
                         </div>
 

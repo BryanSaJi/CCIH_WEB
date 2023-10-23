@@ -1,7 +1,9 @@
-﻿using System;
+﻿using CCIH.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Windows.Input;
 
 namespace CCIH.Entities
 {
@@ -27,6 +29,14 @@ namespace CCIH.Entities
         public string Comments { get; set; }
         public int StatusId { get; set; }
         public string Status { get; set; }
+
+        public List<StatusEnt> statusList { get; set; }
+        public List<CourseEnt> coursesList { get; set; }
+        public List<ModalityEnt> modalityList { get; set;}
+        public List<LevelCourseEnt> levelCourseList { get; set; }
+        public List<ScheduleEnt> scheduleList { get; set; }
+        public List<GroupEnt> groupList { get; set; }
+
 
 
     }
