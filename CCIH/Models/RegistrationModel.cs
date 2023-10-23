@@ -175,46 +175,5 @@ namespace CCIH.Models
     
 
 
-
-    public List<CustomerEnt> SeeCustomers()
-        {
-            using (var client = new HttpClient())
-            {
-                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/SeeCustomers";
-
-                String Token = HttpContext.Current.Session["TokenUser"].ToString();
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
-
-                HttpResponseMessage resp = client.GetAsync(url).Result;
-
-                if (resp.IsSuccessStatusCode)
-                {
-                    return resp.Content.ReadFromJsonAsync<List<CustomerEnt>>().Result;
-                }
-
-                return new List<CustomerEnt>();
-            }
-
-        }
-
-
-        public CustomerEnt SeeCustomer(long i)
-        {
-            using (var client = new HttpClient())
-            {
-                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/SeeCustomer?i=" + i;
-                String Token = HttpContext.Current.Session["TokenUser"].ToString();
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
-                HttpResponseMessage resp = client.GetAsync(url).Result;
-
-                if (resp.IsSuccessStatusCode)
-                {
-                    return resp.Content.ReadFromJsonAsync<CustomerEnt>().Result;
-                }
-
-                return null;
-            }
-        }
-
     }
 }

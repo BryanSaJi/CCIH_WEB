@@ -81,7 +81,7 @@
                                                         <td>@item.RegistrationDate.ToShortDateString()</td>
                                                         <td>@item.Status</td>
                                                         <td style="text-align:center">
-                                                            <a type="submit" class="btn btn-outline-success btn-sm" href="@Url.Action("SeeCustomer","Registration", new { i = item.PersonalID })"><i class="bi bi-check-circle"></i>Detalle</a>
+                                                            <a type="submit" class="btn btn-outline-success btn-sm" href="@Url.Action("SeeCustomers","Registration", new { i = item.PersonalID })"><i class="bi bi-check-circle"></i>Detalle</a>
                                                         </td>
                                                     </tr>
                                                 }

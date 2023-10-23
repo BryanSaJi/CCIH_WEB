@@ -286,7 +286,7 @@ namespace CCIH.Controllers
         [HttpGet]
         public ActionResult SeeCustomers()
         {
-            var datos = modelRegistration.SeeCustomers();
+            var datos = modelCustomer.SeeCustomers();
             return View(datos);
         }
 
@@ -294,7 +294,7 @@ namespace CCIH.Controllers
         [HttpGet]
         public ActionResult SeeCustomer(long i)
         {
-            var datos = modelRegistration.SeeCustomer(i);
+            var datos = modelCustomer.SeeCustomer(i);
             Session["CustomerID"] = datos.PersonalID;
 
             //Estatus

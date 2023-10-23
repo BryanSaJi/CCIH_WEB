@@ -6,35 +6,35 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-//namespace CCIH.Controllers
-//{
-//    public class CustomerController : Controller
-//    {
-//        CustomerModel CustomerModel = new CustomerModel();
-//        UserModel UserModel = new UserModel();
+namespace CCIH.Controllers
+{
+    public class CustomerController : Controller
+    {
+        CustomerModel CustomerModel = new CustomerModel();
+        UserModel UserModel = new UserModel();
 
 
-//        // GET: Customer
-//        public ActionResult Index()
-//        {
-//            return View();
-//        }
+        // GET: Customer
+        public ActionResult Index()
+        {
+            return View();
+        }
 
-//        [HttpPost]
-//        public ActionResult CreateCustomer(UserEnt ent)
-//        {
-//            ent.IdRol = 3;  
-//            var data = UserModel.RegisterUser(ent);
+        [HttpPost]
+        public ActionResult CreateCustomer(UserEnt ent)
+        {
+            ent.IdRol = 3;
+            var data = UserModel.CreateUser(ent);
 
-//            return RedirectToAction("SeeCustomers", "Registration");
-//        }
+            return RedirectToAction("SeeCustomers", "Registration");
+        }
 
-//        [HttpPost]
-//        public ActionResult EditCustomer(UserEnt ent)
-//        {
-//            var data = UserModel.Edituser(ent);
-//            return RedirectToAction("SeeCustomers", "Registration");
-//        }
+        [HttpPost]
+        public ActionResult EditCustomer(UserEnt ent)
+        {
+            var data = UserModel.Edituser(ent);
+            return RedirectToAction("SeeCustomers", "Registration");
+        }
 
-//    }
-//}
+    }
+}
