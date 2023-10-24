@@ -5,28 +5,32 @@
     Layout = "~/Views/Shared/_Layout_Administration.cshtml";
 }
 
-<main id="main" class="main">
+@using (Html.BeginForm("EditRegistration", "Registration", FormMethod.Post))
+{
+    <main id="main" class="main">
 
-    <div class="pagetitle">
-        <h1>Consultar Matricula</h1>
-        <nav>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/Administration/Inicio">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="#">Consultar Matricula</a></li>
-            </ol>
-        </nav>
+        <div class="pagetitle">
+            <h1>Consultar Matricula</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/Administration/Inicio">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="#">Consultar Matricula</a></li>
+                </ol>
+            </nav>
 
 
-    </div><!-- End Page Title -->
+        </div><!-- End Page Title -->
 
-    @using (Html.BeginForm("EditRegistration", "Registration", FormMethod.Post))
-    {
+
         <section class="section">
             <div class="row">
 
                 <div class="card">
                     <div class="card-body">
-                        <br />
+
+                        <br>
+
+                        
 
                         <!-- General Form Elements -->
                         @Html.HiddenFor(m => m.RegistrationId)
@@ -55,21 +59,21 @@
 
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label">Modalidad</label>
-                            <div class="col-sm-3">
+                            <div class="col-sm-5">
                                 @Html.DropDownListFor(m => m.ModalityId, ViewBag.Modality as List<SelectListItem>, "Selecione la Modalidad", new { @class = "form-control" })
                             </div>
                         </div>
 
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label">Nivel</label>
-                            <div class="col-sm-3">
+                            <div class="col-sm-5">
                                 @Html.DropDownListFor(m => m.LevelCourseId, ViewBag.Level as List<SelectListItem>, "Selecione el Nivel", new { @class = "form-control" })
                             </div>
                         </div>
 
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label">Horario</label>
-                            <div class="col-sm-3">
+                            <div class="col-sm-5">
                                 @Html.DropDownListFor(m => m.ScheduleId, ViewBag.Schedule as List<SelectListItem>, "Selecione el horario", new { @class = "form-control" })
                             </div>
                         </div>
@@ -83,36 +87,36 @@
 
                         <div class="row mb-3">
                             <label for="inputDate" class="col-sm-2 col-form-label">Fecha de Matricula</label>
-                            <div class="col-sm-3">
+                            <div class="col-sm-5">
                                 @Html.TextBoxFor(m => m.RegistrationDate, new { @type = "text", @class = "form-control" })
                             </div>
                         </div>
 
                         <div class="row mb-3">
                             <label for="inputNumber" class="col-sm-2 col-form-label">Dia de Pago</label>
-                            <div class="col-sm-1">
+                            <div class="col-sm-5">
                                 @Html.TextBoxFor(m => m.PaymentDay, new { @type = "Number", @class = "form-control" })
                             </div>
                         </div>
 
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label">Comentario</label>
-                            <div class="col-sm-10">
+                            <div class="col-sm-5">
                                 @Html.TextAreaFor(m => m.Comments, new { @type = "Text", @placeholder = "Digite un comentario de ser necesario", @class = "form-control", @style = "height: 50px" })
                             </div>
                         </div>
 
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label">Estatus</label>
-                            <div class="col-sm-3">
+                            <div class="col-sm-5">
                                 @Html.DropDownListFor(m => m.StatusId, ViewBag.Status as List<SelectListItem>, "Selecione el estatus", new { @class = "form-control" })
                             </div>
                         </div>
 
                         <div class="row mb-5">
-                            <div class="col-10">
-                                <button id="btnEditar" type="button" class="btn btn-danger" onclick="confirmEdit()">Actualizar</button>
-                               </div>
+                            <div class="col-1">
+                                <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#basicModal">Actualizar</button>
+                            </div>
                         </div>
 
 
@@ -123,18 +127,25 @@
             </div>
 
         </section>
-    }<!-- End Form  -->
-</main><!-- End #main -->
 
+    </main><!-- End #main -->
 
-<script>
-    function confirmEdit() {
-        if (confirm("¿Desea editar y guardar este registro?")) {
-            document.forms[0].submit();
-            this.style.backgroundColor = "lightcoral"; 
-        }
-    }
-    document.getElementById("btnEditar").addEventListener("click", function () {
-        this.style.backgroundColor = "lightcoral"; 
-    });
-</script>
+    <!-- Modal -->
+    <div class="modal fade" id="basicModal" tabindex="-1">
+        <div class="modal-dialog justify-content-center align-items-center" style="margin-top: 15%">
+            <div class="modal-content justify-content-center align-items-center">
+                <div class="modal-header align-items-center">
+                    <h5 class="modal-title justify-content-center align-items-center"><i class="bi bi-patch-question text-success"></i>  Alerta  <i class="bi bi-patch-question text-success"></i></h5>
+                </div>
+                <div class="modal-body" style="text-align:center">
+                    Desea guardar los cambios efectuados?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-success">Guardar Cambios</button>
+                </div>
+            </div>
+        </div>
+    </div><!-- End Modal-->
+
+}<!-- End Form  -->

@@ -1,4 +1,5 @@
 @model IEnumerable<CCIH.Entities.RegistrationEnt>
+
 @{
     ViewBag.Title = "ConsultarMatriculas";
     Layout = "~/Views/Shared/_Layout_Administration.cshtml";
@@ -42,7 +43,21 @@
                 <div class="card">
                     <div class="card-body">
 
-                        <br />
+                        <br>
+
+                        @if (ViewBag.MsjPantallaPostivo != null)
+                        {
+                            <div style="text-align:center" class="alert alert-success" role="alert">
+                                @ViewBag.MsjPantallaPostivo
+                            </div>
+                        }
+                        @if (ViewBag.MsjPantallaNegativo != null)
+                        {
+                            <div style="text-align:center" class="alert alert-danger" role="alert">
+                                @ViewBag.MsjPantallaNegativo
+                            </div>
+                        }
+
                         <div class="row">
                             <br>
                             <div class="col-12">
@@ -81,8 +96,6 @@
                                                         </td>
                                                     </tr>
                                                 }
-
-                                                /tbody>
                                         </table>
                                     </div>
                                 </div>

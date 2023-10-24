@@ -44,7 +44,19 @@
 
                 <div class="card">
                     <div class="card-body">
-
+                        <br />
+                        @if (ViewBag.MsjPantallaPostivo != null)
+                        {
+                            <div style="text-align:center" class="alert alert-success" role="alert">
+                                @ViewBag.MsjPantallaPostivo
+                            </div>
+                        }
+                        @if (ViewBag.MsjPantallaNegativo != null)
+                        {
+                            <div style="text-align:center" class="alert alert-danger" role="alert">
+                                @ViewBag.MsjPantallaNegativo
+                            </div>
+                        }
                         <div class="col-sm-4">
                             <a href="@Url.Action("RegisterRole","Role")" class="btn btn-primary">Registrar Rol</a>
                         </div>
@@ -55,10 +67,10 @@
                                 <div class="card">
                                     <div class="card-body">
 
-                                        <table id="example" class="table table-hover text-center" style="width: 100%">
+                                        <table id="example" class="table table-hover" style="width: 100%">
                                             <thead>
                                                 <tr>
-                                                    <th>Id Rol</th>
+                                                    <th>Numero de Rol</th>
                                                     <th>Nombre</th>
                                                     <th>Acciones</th>
                                                 </tr>
@@ -68,11 +80,10 @@
                                                 @foreach (var item in Model)
                                                 {
                                                     <tr>
-                                                        <td>@item.IdRole</td>
+                                                        <td>@item.IdRol</td>
                                                         <td>@item.Name</td>
                                                         <td style="text-align:center">
-                                                            <a type="submit" class="btn btn-outline-info btn-sm" href="@Url.Action("EditRole", "Role", new { i = item.IdRole })"><i class="bi bi-pencil-square"></i>Editar</a>
-                                                            <a type="submit" class="btn btn-outline-danger btn-sm" onclick="return confirmar('@Url.Action("DeleteRole", "Role", new { i = item.IdRole })')"><i class="bi bi-trash"></i>Eliminar</a>
+                                                            <a type="submit" class="btn btn-outline-info btn-sm" href="@Url.Action("EditRole", "Role", new { i = item.IdRol })"><i class="bi bi-pencil-square"></i>Editar</a>
                                                         </td>
 
                                                     </tr>

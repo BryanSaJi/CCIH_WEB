@@ -21,10 +21,12 @@ namespace CCIH.Entities
         public string UserName { get; set; }
         public string UserPw { get; set; }
         public string NewUserPw { get; set; }
+        public string ConfirmPw { get; set; }
         public string Phone { get; set; }
         public long IdRol { get; set; }
         public string RolName { get; set; }
         public long StatusId { get; set; }
+        public string StatusName { get; set; }
         public DateTime CreationDate { get; set; }
         public DateTime LastActivity { get; set; }
         public string Token { get; set; }

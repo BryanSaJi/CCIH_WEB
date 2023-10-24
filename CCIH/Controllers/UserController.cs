@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using QRCoder;
 using System.Drawing;
+using System.Web.Security;
 
 namespace CCIH.Controllers
 {
@@ -19,7 +20,27 @@ namespace CCIH.Controllers
         // GET: Usuario
         public ActionResult Index()
         {
-            var data = model.RequestUser();
+            var data = model.RequestUsers();
+
+            foreach (var item in data)
+            {
+                var Status = modelState.RequestStatusScrollDown();
+                foreach (var item2 in Status)
+                {
+                    if (item.StatusId == item2.StatusId)
+                    {
+                        item.StatusName = item2.Name;
+                    }
+                }
+            }
+            if ((int)Session["MensajePositivo"] == 1)
+            {
+                ViewBag.MsjPantallaPostivo = "Operacion Exitosa";
+            }
+            if ((int)Session["MensajeNegativo"] == 1)
+            {
+                ViewBag.MsjPantallaNegativo = "Operacion sin Exito";
+            }
             return View(data);
         }
 
@@ -48,7 +69,7 @@ namespace CCIH.Controllers
                 ComboRol.Add(new SelectListItem
                 {
                     Text = item.Name,
-                    Value = item.IdRole.ToString()
+                    Value = item.IdRol.ToString()
                 });
             }
             ViewBag.Rol = ComboRol;
@@ -94,7 +115,7 @@ namespace CCIH.Controllers
                 ComboRol.Add(new SelectListItem
                 {
                     Text = item.Name,
-                    Value = item.IdRole.ToString()
+                    Value = item.IdRol.ToString()
                 });
             }
             ViewBag.Rol = ComboRol;
@@ -103,34 +124,60 @@ namespace CCIH.Controllers
         }
 
         [HttpPost]
-        public ActionResult ChangePassword(ChangePasswordEnt ent)
+        public ActionResult ChangePassword(UserEnt ent)
         {
+            Session["MensajeNegativo"] = 0;
+            Session["MensajePositivo"] = 0;
             try
             {
-                ent.UserID = long.Parse(Session["IdUser"].ToString());
-                ent.CurrentPW = model.Encrypt(ent.CurrentPW);
-                ent.NewPw = model.Encrypt(ent.NewPw);
+                ent.UserId = long.Parse(Session["IdUser"].ToString());
+                ent.UserPw = model.Encrypt(ent.UserPw);
+                ent.NewUserPw = model.Encrypt(ent.NewUserPw);
                 ent.ConfirmPw = model.Encrypt(ent.ConfirmPw);
-                var resp = model.ChangePassword(ent);
+                
 
-                if (ent.NewPw == ent.ConfirmPw && resp > 0)
-                    return RedirectToAction("Index", "Home");
-                else
+                if (ent.NewUserPw == ent.ConfirmPw)
                 {
-                    ViewBag.Msj = "No se ha podido registrar su información";
-                    return View("RegisterUser");
+                    if (ent.UserPw != ent.NewUserPw)
+                    {
+                        var resp = model.ChangePassword(ent);
+                        Session["MensajePositivo"] = 1;
+                        return RedirectToAction("ChangePassword");
+                    }
+                    Session["MensajeNegativo"] = 2;
+                    return RedirectToAction("ChangePassword");
                 }
+                Session["MensajeNegativo"] = 3;
+                return RedirectToAction("ChangePassword");
             }
             catch (Exception ex)
             {
-                return View("Error");
+                Session["MensajeNegativo"] = 1;
+                return RedirectToAction("ChangePassword");
             }
         }
         public ActionResult ChangePassword()
         {
+            if ((int)Session["MensajePositivo"] == 1)
+            {
+                ViewBag.MsjPantallaPostivo = "Operacion Exitosa";
+            }
+
+
+            if ((int)Session["MensajeNegativo"] == 1)
+            {
+                ViewBag.MsjPantallaNegativo = "Operacion sin Exito";
+            }
+            if ((int)Session["MensajeNegativo"] == 2)
+            {
+                ViewBag.MsjPantallaNegativo = "La contraseña nueva no puede ser igual a la actual";
+            }
+            if ((int)Session["MensajeNegativo"] == 3)
+            {
+                ViewBag.MsjPantallaNegativo = "La contraseña nueva y confirmacion no son iguales";
+            }
             return View();
         }
-
 
 
         [HttpGet]
@@ -159,7 +206,7 @@ namespace CCIH.Controllers
                 ComboRol.Add(new SelectListItem
                 {
                     Text = item.Name,
-                    Value = item.IdRole.ToString()
+                    Value = item.IdRol.ToString()
                 });
             }
             ViewBag.Rol = ComboRol;
@@ -177,7 +224,16 @@ namespace CCIH.Controllers
                 var resp = model.Edituser(ent);
 
                 if (resp > 0)
-                    return RedirectToAction("Index", "User");
+                    if (ent.IdRol == 3)
+                    {
+                        Session["MensajePositivo"] = 1;
+                        return RedirectToAction("SeeCustomers", "Registration");
+                    }
+                    else
+                    {
+                        Session["MensajePositivo"] = 1;
+                        return RedirectToAction("Index", "User"); 
+                    }
                 else
                 {
                     ViewBag.Msj = "No se ha podido registrar su información";
@@ -189,28 +245,6 @@ namespace CCIH.Controllers
                 return View("Error");
             }
         }
-        [HttpGet]
-        public ActionResult DeleteUser(long i)
-        {
-            try
-            {
-
-                var resp = model.DeleteUser(i);
-
-                if (resp > 0)
-                    return RedirectToAction("Index", "User");
-                else
-                {
-                    ViewBag.Msj = "No se ha podido eliminar el usuario";
-                    return View("Index");
-                }
-            }
-            catch (Exception ex)
-            {
-                return View("Error");
-            }
-        }
-
 
 
     }

@@ -1,119 +1,139 @@
-﻿@model CCIH.Entities.CustomerEnt
+﻿@model CCIH.Entities.UserEnt
 
 @{
     ViewBag.Title = "VerCliente";
     Layout = "~/Views/Shared/_Layout_Administration.cshtml";
 }
 
-<main id="main" class="main">
+@using (Html.BeginForm("EditUser", "User", FormMethod.Post))
+{
+    <main id="main" class="main">
 
-    <div class="pagetitle">
-        <h1>Cliente</h1>
-        <nav>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="@Url.Action("Index","Admin")">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="#">Cliente</a></li>
-            </ol>
-        </nav>
-    </div><!-- End Page Title -->
+        <div class="pagetitle">
+            <h1>Cliente</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="@Url.Action("Index","Admin")">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="#">Cliente</a></li>
+                </ol>
+            </nav>
+        </div><!-- End Page Title -->
 
 
-    <section class="section">
-        <div class="row">
+        <section class="section">
+            <div class="row">
+                <div class="card">
+                    <div class="card-body">
+                                <h5 class="card-title">Informacion del cliente</h5>
 
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Informacion del cliente</h5>
+                                <!-- General Form Elements -->
+                                @Html.HiddenFor(m => m.UserId)
 
-                    <!-- General Form Elements -->
-                    @using (Html.BeginForm("EditCustomer", "Customer", FormMethod.Post))
-                    {
-                        <div class="row mb-3">
-                            <label for="inputText" class="col-sm-2 col-form-label">Cedula</label>
-                            <div class="col-sm-5">
-                                @Html.TextBoxFor(m => m.PersonalID, new { @type = "number", @placeholder = "Digite la cédula", @id = "cedula", @class = "form-control", @onkeydown = "return event.keyCode !== 69" })
+                                <div class="row mb-3">
+                                    <label for="inputText" class="col-sm-2 col-form-label">Cedula</label>
+                                    <div class="col-sm-5">
+                                        @Html.TextBoxFor(m => m.PersonalID, new { @type = "number", @placeholder = "Digite la cédula", @id = "cedula", @class = "form-control", @onkeydown = "return event.keyCode !== 69" })
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+                                    <div class="col-sm-5">
+                                        @Html.TextBoxFor(m => m.Email, new { @type = "email", @placeholder = "Digite el correo electronico", @class = "form-control", required = "required" })
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="inputPassword" class="col-sm-2 col-form-label">Nombre</label>
+                                    <div class="col-sm-5">
+                                        @Html.TextBoxFor(m => m.Name, new { @type = "Text", @placeholder = "Digite el Nombre", @id = "nombre", @class = "form-control", required = "required" })
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="inputNumber" class="col-sm-2 col-form-label">Primer Apellido</label>
+                                    <div class="col-sm-5">
+                                        @Html.TextBoxFor(m => m.LastName, new { @type = "Text", @placeholder = "Digite el Primer Apellido", @id = "pApellido", @class = "form-control", required = "required" })
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="inputNumber" class="col-sm-2 col-form-label">Segundo Apellido</label>
+                                    <div class="col-sm-5">
+                                        @Html.TextBoxFor(m => m.SecLastName, new { @type = "Text", @placeholder = "Digite el Segundo Apellido", @id = "sApellido", @class = "form-control", required = "required" })
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="inputDate" class="col-sm-2 col-form-label">Fecha de Nacimiento</label>
+                                    <div class="col-sm-5">
+                                        @Html.TextBoxFor(m => m.BirthDate, new { @type = "text", @class = "form-control", required = "required" })
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="inputNumber" class="col-sm-2 col-form-label">Telefono</label>
+                                    <div class="col-sm-5">
+                                        @Html.TextBoxFor(m => m.Phone, new { @type = "Text", @placeholder = "Digite el Telefono", @class = "form-control", required = "required" })
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label class="col-sm-2 col-form-label">Direccion</label>
+                                    <div class="col-sm-5">
+                                        @Html.TextAreaFor(m => m.Address, new { @type = "Text", @placeholder = "Digite la direccion", @class = "form-control", @style = "height: 50px", required = "required" })
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label class="col-sm-2 col-form-label">Estatus</label>
+                                    <div class="col-sm-5">
+                                        @Html.DropDownListFor(m => m.StatusId, ViewBag.Status as List<SelectListItem>, "Selecione el estatus", new { @class = "form-control", required = "required" })
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label class="col-sm-2 col-form-label">Rol</label>
+                                    <div class="col-sm-5">
+                                        @Html.DropDownListFor(m => m.IdRol, ViewBag.Rol as List<SelectListItem>, "Selecione el Rol", new { @class = "form-control", required = "required" })
+                                    </div>
+                                </div>
+
+
+                                <div class="row mb-5">
+                                    <div class="col-3">
+                                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#basicModal">Actualizar</button>
+                                    </div>
+
+                                    <div class="col-3">
+                                        <a type="submit" class="btn btn-outline-warning" href="@Url.Action("ConsultRegister","Registration", new { i = @Session["IdUserCustomerRegistration"] })">Consultar Matricula</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                        <div class="col-1">
 
-                        <div class="row mb-3">
-                            <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
-                            <div class="col-sm-7">
-                                @Html.TextBoxFor(m => m.Email, new { @type = "email", @placeholder = "Digite el correo electronico", @class = "form-control", required = "required" })
-                            </div>
                         </div>
+                    </div>
 
-                        <div class="row mb-3">
-                            <label for="inputPassword" class="col-sm-2 col-form-label">Nombre</label>
-                            <div class="col-sm-5">
-                                @Html.TextBoxFor(m => m.Name, new { @type = "Text", @placeholder = "Digite el Nombre", @id = "nombre", @class = "form-control", required = "required" })
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label for="inputNumber" class="col-sm-2 col-form-label">Primer Apellido</label>
-                            <div class="col-sm-5">
-                                @Html.TextBoxFor(m => m.LastName, new { @type = "Text", @placeholder = "Digite el Primer Apellido", @id = "pApellido", @class = "form-control", required = "required" })
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label for="inputNumber" class="col-sm-2 col-form-label">Segundo Apellido</label>
-                            <div class="col-sm-5">
-                                @Html.TextBoxFor(m => m.SecLastName, new { @type = "Text", @placeholder = "Digite el Segundo Apellido", @id = "sApellido", @class = "form-control", required = "required" })
-                            </div>
-                        </div>
+        </section>
 
-                        <div class="row mb-3">
-                            <label for="inputDate" class="col-sm-2 col-form-label">Fecha de Nacimiento</label>
-                            <div class="col-sm-3">
-                                @Html.TextBoxFor(m => m.Birthdate, new { @type = "text", @class = "form-control", required = "required" })
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="inputNumber" class="col-sm-2 col-form-label">Telefono</label>
-                            <div class="col-sm-5">
-                                @Html.TextBoxFor(m => m.Phone, new { @type = "Text", @placeholder = "Digite el Telefono", @class = "form-control", required = "required" })
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">Direccion</label>
-                            <div class="col-sm-10">
-                                @Html.TextAreaFor(m => m.Address, new { @type = "Text", @placeholder = "Digite la direccion", @class = "form-control", @style = "height: 50px", required = "required" })
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">Estatus</label>
-                            <div class="col-sm-3">
-                                @Html.DropDownListFor(m => m.StatusId, ViewBag.Status as List<SelectListItem>, "Selecione el estatus", new { @class = "form-control", required = "required" })
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">Rol</label>
-                            <div class="col-sm-3">
-                                @Html.DropDownListFor(m => m.IdRol, ViewBag.Rol as List<SelectListItem>, "Selecione el Rol", new { @class = "form-control", required = "required" })
-                            </div>
-                        </div>
-
-
-                        <div class="row mb-5">
-                            <div class="col-3">
-                                <button type="submit" class="btn btn-outline-primary">Actualizar Cliente</button>
-                            </div>
-
-                            <div class="col-3">
-                                <a type="submit" class="btn btn-outline-warning" href="@Url.Action("ConsultRegister","Registration", new { i=@Session["CustomerId"]})">Consultar Matricula</a>
-                            </div>
-                        </div>
-
-                    }
-
+        <!-- Modal -->
+        <div class="modal fade" id="basicModal" tabindex="-1">
+            <div class="modal-dialog justify-content-center align-items-center" style="margin-top: 15%">
+                <div class="modal-content justify-content-center align-items-center">
+                    <div class="modal-header align-items-center">
+                        <h5 class="modal-title justify-content-center align-items-center"><i class="bi bi-patch-question text-success"></i>  Alerta  <i class="bi bi-patch-question text-success"></i></h5>
+                    </div>
+                    <div class="modal-body" style="text-align:center">
+                        Desea guardar los cambios efectuados?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-success">Guardar Cambios</button>
+                    </div>
                 </div>
             </div>
+        </div><!-- End Modal-->
 
-        </div>
+    </main><!-- End #main -->
+     }
 
-    </section>
-
-</main><!-- End #main -->

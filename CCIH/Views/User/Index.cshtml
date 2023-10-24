@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CCIH.Entities.CustomerUserEnt>
+﻿@model IEnumerable<CCIH.Entities.UserEnt>
 
 @{
     ViewBag.Title = "Index";
@@ -33,26 +33,35 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/Administration/Inicio">Dashboard</a></li>
                 <li class="breadcrumb-item">Users</li>
-                <li class="breadcrumb-item active">Listado de Users</li>
+                <li class="breadcrumb-item active">Listado de Usuarios</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
 
     <section class="section">
-        @if (ViewBag.MsjPantalla != null)
-        {
-            <div style="text-align:center" class="alert alert-warning" role="alert">
-                @ViewBag.MsjPantalla
-            </div>
-        }
+        
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
                         </br>
+
+                        @if (ViewBag.MsjPantallaPostivo != null)
+                        {
+                            <div style="text-align:center" class="alert alert-success" role="alert">
+                                @ViewBag.MsjPantallaPostivo
+                            </div>
+                        }
+                        @if (ViewBag.MsjPantallaNegativo != null)
+                        {
+                            <div style="text-align:center" class="alert alert-danger" role="alert">
+                                @ViewBag.MsjPantallaNegativo
+                            </div>
+                        }
+
                         <div class="row">
                             <div class="col-sm-4">
-                                <a href="@Url.Action("RegisterUser","User")" class="btn btn-primary">Registrar User</a>
+                                <a href="@Url.Action("Customer","Admin")" class="btn btn-primary">Registrar Usuario</a>
                             </div>
                         </div>
                         <br />
@@ -64,9 +73,10 @@
                                             <tr>
                                                 <th>Cedula</th>
                                                 <th>Nombre</th>
-                                                <th>Primer Apellido</th>
-                                                <th>Segundo Apellido</th>
-                                                <th>User</th>
+                                                <th>Apellido</th>
+                                                <th>Usuario</th>
+                                                <th>UltimaActividad</th>
+                                                <th>Estatus</th>
                                                 <th>Acciones</th>
                                             </tr>
                                         </thead>
@@ -74,15 +84,14 @@
                                             @foreach (var item in Model)
                                             {
                                                 <tr>
-                                                    <td>@item.Id</td>
+                                                    <td>@item.PersonalID</td>
                                                     <td>@item.Name</td>
                                                     <td>@item.LastName</td>
-                                                    <td>@item.SecLastName</td>
-                                                    <td>@item.User</td>
+                                                    <td>@item.UserName</td>
+                                                    <td>@item.LastActivity.ToShortDateString()</td>
+                                                    <td>@item.StatusName</td>
                                                     <td style="text-align:center">
                                                         <a type="submit" class="btn btn-outline-info btn-sm" href="@Url.Action("EditUser", "User", new { i = item.UserId })"><i class="bi bi-pencil-square"></i>Editar</a>
-                                                        <a class="btn btn-outline-danger btn-sm" onclick="return confirmar('@Url.Action("DeleteUser", "User", new { i = item.UserId })')"><i class="bi bi-trash"></i>Eliminar</a>
-
                                                     </td>
                                                 </tr>
                                             }
@@ -98,17 +107,6 @@
     </section>
 
 </main><!-- End #main -->
-
-@section ApiUsuario {
-    <script>
-        function confirmar(url) {
-            if (confirm("¿Estás seguro de que quieres eliminar este elemento?")) {
-                window.location.href = url;
-                alert("Elemento eliminado correctamente.");
-            }
-        }
-    </script>
-}
 
 
 

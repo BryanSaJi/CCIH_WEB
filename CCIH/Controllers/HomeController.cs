@@ -159,7 +159,7 @@ namespace CCIH.Controllers
 
                 if (resp != null)
                 {
-
+                    Session["MensajePositivo"] = 0;
                     Session["IdUser"] = resp.UserId.ToString();
                     Session["IdRoleUser"] = resp.IdRol;
                     Session["[User]"] = resp.UserName;

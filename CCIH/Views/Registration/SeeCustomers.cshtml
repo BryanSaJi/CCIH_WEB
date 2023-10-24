@@ -1,6 +1,6 @@
 ﻿
 
-@model IEnumerable<CCIH.Entities.CustomerEnt>
+@model IEnumerable<CCIH.Entities.UserEnt>
 
 
 @{
@@ -53,17 +53,23 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
+                                        <br>
+                                        @if (ViewBag.MsjPantallaPostivo != null)
+                                        {
+                                            <div style="text-align:center" class="alert alert-success" role="alert">
+                                                @ViewBag.MsjPantallaPostivo
+                                            </div>
+                                        }
 
                                         <table id="eample" class="table table-hover" style="width: 100% !important;">
                                             <thead>
                                                 <tr>
                                                     <th>Cedula</th>
                                                     <th>Nombre</th>
+                                                    <th>Apellido</th>
                                                     <th>Telefono</th>
-                                                    <th>Curso</th>
-                                                    <th>Modalidad</th>
-                                                    <th>Nivel</th>
-                                                    <th>Fecha</th>
+                                                    <th>Email</th>
+                                                    <th>Creacion</th>
                                                     <th>Estado</th>
                                                     <th>Accion</th>
                                                 </tr>
@@ -74,14 +80,13 @@
                                                     <tr>
                                                         <td>@item.PersonalID</td>
                                                         <td>@item.Name</td>
+                                                        <td>@item.LastName</td>
                                                         <td>@item.Phone</td>
-                                                        <td>@item.Course</td>
-                                                        <td>@item.Modality</td>
-                                                        <td>@item.Nivel</td>
-                                                        <td>@item.RegistrationDate.ToShortDateString()</td>
-                                                        <td>@item.Status</td>
+                                                        <td>@item.Email</td>
+                                                        <td>@item.CreationDate.ToShortDateString()</td>
+                                                        <td>@item.StatusName</td>
                                                         <td style="text-align:center">
-                                                            <a type="submit" class="btn btn-outline-success btn-sm" href="@Url.Action("SeeCustomers","Registration", new { i = item.PersonalID })"><i class="bi bi-check-circle"></i>Detalle</a>
+                                                            <a type="submit" class="btn btn-outline-success btn-sm" href="@Url.Action("SeeCustomer","Registration", new { i = item.UserId })"><i class="bi bi-check-circle"></i>Detalle</a>
                                                         </td>
                                                     </tr>
                                                 }

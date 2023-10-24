@@ -25,9 +25,9 @@
                     <div class="card-body">
                         <h3 class="card-title">Rol:</h3>
 
-                        @using (Html.BeginForm("EditRol", "Role", FormMethod.Post))
+                        @using (Html.BeginForm("EditRole", "Role", FormMethod.Post))
                         {
-                            @Html.HiddenFor(m => m.IdRole)
+                            @Html.HiddenFor(m => m.IdRol)
                             <div class="row mb-3 mx-auto">
                                 <div class="col-md-8 mx-auto">
                                     <div class="form-floating mb-3 mb-md-0">
@@ -39,7 +39,7 @@
                             <div class="row mb-3 mx-auto">
                                 <div class="col-md-8 mx-auto">
                                     <div class="form-floating">
-                                        @Html.TextBoxFor(m => m.IdRole, new { @type = "text", @placeholder = "Id de Usuario", @class = "form-control", @disabled = "disabled" })
+                                        @Html.TextBoxFor(m => m.IdRol, new { @type = "text", @placeholder = "Id de Usuario", @class = "form-control", @disabled = "disabled" })
                                         <label for="inputLastName">Id Usuario que Modifica</label>
                                     </div>
                                 </div>

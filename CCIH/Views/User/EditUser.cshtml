@@ -1,94 +1,140 @@
-﻿@model CCIH.Entities.CustomerUserEnt
+﻿@model CCIH.Entities.UserEnt
+
 @{
-    ViewBag.Title = "EditarUsuario";
+    ViewBag.Title = "VerCliente";
     Layout = "~/Views/Shared/_Layout_Administration.cshtml";
 }
 
+@using (Html.BeginForm("EditUser", "User", FormMethod.Post))
+{
+    <main id="main" class="main">
+
+        <div class="pagetitle">
+            <h1>Usuario</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="@Url.Action("Index","Admin")">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="#">Usuario</a></li>
+                </ol>
+            </nav>
+        </div><!-- End Page Title -->
 
 
-<main id="main" class="main">
+        <section class="section">
+            <div class="row">
 
-    <div class="pagetitle">
-        <h1>Editar Usuario</h1>
-        <nav>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/Administration/Inicio">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="#">Editar Usuario</a></li>
-            </ol>
-        </nav>
-    </div><!-- End Page Title -->
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Informacion del Usuario</h5>
 
+                        <!-- General Form Elements -->
+                        @Html.HiddenFor(m => m.UserId)
 
-    <section class="section">
-        <div class="row">
-
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Formulario de Registro de Usuario</h5>
-
-                    @using (Html.BeginForm("EditUser", "User", FormMethod.Post))
-                    {
-                        <div class="container">
-                            @Html.HiddenFor(m => m.UserId)
-                            <div class="row mb-3 d-flex justify-content-center">
-                                <label for="inputNumber" class="col-sm-3 col-form-label">Cédula del usuario</label>
-                                <div class="col-sm-5">
-                                    @Html.TextBoxFor(m => m.Id, new { @type = "number", @placeholder = "Digite la cédula", @id = "cedula", @class = "form-control", disabled = "disabled" })
-                                </div>
-                            </div>
-                            <div id="prueba" class="row mb-3 d-flex justify-content-center">
-                                <label for="inputNumber" class="col-sm-3 col-form-label">Nombre del usuario</label>
-                                <div class="col-sm-5">
-                                    @Html.TextBoxFor(m => m.Name, new { @type = "text", @placeholder = "Digite el nombre del usuario", @id = "nombre", @class = "form-control", disabled = "disabled" })
-                                </div>
-                            </div>
-                            <div class="row mb-3 d-flex justify-content-center">
-                                <label for="inputNumber" class="col-sm-3 col-form-label">Primer Apellido</label>
-                                <div class="col-sm-5">
-                                    @Html.TextBoxFor(m => m.LastName, new { @type = "text", @placeholder = "Digite el primer apellido", @id = "pApellido", @class = "form-control", disabled = "disabled" })
-                                </div>
-                            </div>
-                            <div class="row mb-3 d-flex justify-content-center">
-                                <label for="inputNumber" class="col-sm-3 col-form-label">Segundo Apellido</label>
-                                <div class="col-sm-5">
-                                    @Html.TextBoxFor(m => m.SecLastName, new { @type = "text", @placeholder = "Digite el segundo apellido", @id = "sApellido", @class = "form-control", disabled = "disabled" })
-                                </div>
-                            </div>
-                            <div class="row mb-3 d-flex justify-content-center">
-                                <label for="inputNumber" class="col-sm-3 col-form-label">Correo Electronico</label>
-                                <div class="col-sm-5">
-                                    @Html.TextBoxFor(m => m.Email, new { @type = "text", @placeholder = "Digite el correo electronico", @class = "form-control", disabled = "disabled" })
-                                </div>
-                            </div>
-                            
-                            <div class="row mb-3 d-flex justify-content-center">
-                                <label for="inputNumber" class="col-sm-3 col-form-label">Estado</label>
-                                <div class="col-sm-5">
-                                    @Html.DropDownListFor(m => m.StatusId, ViewBag.Status as List<SelectListItem>, "Selecione el estatus", new { @class = "form-control" })
-                                </div>
-                            </div>
-
-                            <div class="row mb-3 d-flex justify-content-center">
-                                <label for="inputNumber" class="col-sm-3 col-form-label">Seleccione el Rol</label>
-                                <div class="col-sm-5">
-                                    @Html.DropDownListFor(m => m.IdRol, ViewBag.Rol as List<SelectListItem>, new { @class = "form-control" })
-                                </div>
-                            </div>
-
-                            <div class="row mb-3 d-flex justify-content-center">
-                                <label for="inputNumber" class="col-sm-3 col-form-label">Digite el nombre de usuario</label>
-                                <div class="col-sm-5">
-                                    @Html.TextBoxFor(m => m.User, new { @type = "text", @placeholder = "Digite el nombre de usuario", @class = "form-control" })
-                                </div>
-                            </div>
-
-                            <div class="d-flex justify-content-end mb-3">
-                                <button type="submit" class="btn btn-primary btn-block">Editar usuario</button>
+                        <div class="row mb-3">
+                            <label for="inputText" class="col-sm-2 col-form-label">Cedula</label>
+                            <div class="col-sm-5">
+                                @Html.TextBoxFor(m => m.PersonalID, new { @type = "number", @placeholder = "Digite la cédula", @id = "cedula", @class = "form-control", @onkeydown = "return event.keyCode !== 69" })
                             </div>
                         </div>
-                    }
+
+                        <div class="row mb-3">
+                            <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+                            <div class="col-sm-5">
+                                @Html.TextBoxFor(m => m.Email, new { @type = "email", @placeholder = "Digite el correo electronico", @class = "form-control", required = "required" })
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="inputPassword" class="col-sm-2 col-form-label">Nombre</label>
+                            <div class="col-sm-5">
+                                @Html.TextBoxFor(m => m.Name, new { @type = "Text", @placeholder = "Digite el Nombre", @id = "nombre", @class = "form-control", required = "required" })
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputNumber" class="col-sm-2 col-form-label">Primer Apellido</label>
+                            <div class="col-sm-5">
+                                @Html.TextBoxFor(m => m.LastName, new { @type = "Text", @placeholder = "Digite el Primer Apellido", @id = "pApellido", @class = "form-control", required = "required" })
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputNumber" class="col-sm-2 col-form-label">Segundo Apellido</label>
+                            <div class="col-sm-5">
+                                @Html.TextBoxFor(m => m.SecLastName, new { @type = "Text", @placeholder = "Digite el Segundo Apellido", @id = "sApellido", @class = "form-control", required = "required" })
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="inputDate" class="col-sm-2 col-form-label">Fecha de Nacimiento</label>
+                            <div class="col-sm-5">
+                                @Html.TextBoxFor(m => m.BirthDate, new { @type = "text", @class = "form-control", required = "required" })
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="inputNumber" class="col-sm-2 col-form-label">Telefono</label>
+                            <div class="col-sm-5">
+                                @Html.TextBoxFor(m => m.Phone, new { @type = "Text", @placeholder = "Digite el Telefono", @class = "form-control", required = "required" })
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">Direccion</label>
+                            <div class="col-sm-5 row-cols-4">
+                                @Html.TextAreaFor(m => m.Address, new { @type = "Text", @placeholder = "Digite la direccion", @class = "form-control", @style = "height: 50px", required = "required" })
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">Rol</label>
+                            <div class="col-sm-5">
+                                @Html.DropDownListFor(m => m.IdRol, ViewBag.Rol as List<SelectListItem>, "Selecione el Rol", new { @class = "form-control", required = "required" })
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">Estatus</label>
+                            <div class="col-sm-5">
+                                @Html.DropDownListFor(m => m.StatusId, ViewBag.Status as List<SelectListItem>, "Selecione el Status", new { @class = "form-control", required = "required" })
+                            </div>
+                        </div>
+
+
+                        <div class="row mb-5">
+                            <div class="col-5">
+                                <button type="button" class="btn btn-secondary" style="margin-left: 190px;" onclick="window.history.back();">Regresar</button>
+                            </div>
+                            <div class="col-1">
+                                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#basicModal">Actualizar</button>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Modal -->
+        <div class="modal fade" id="basicModal" tabindex="-1">
+            <div class="modal-dialog justify-content-center align-items-center" style="margin-top: 15%">
+                <div class="modal-content justify-content-center align-items-center">
+                    <div class="modal-header align-items-center">
+                        <h5 class="modal-title justify-content-center align-items-center"><i class="bi bi-patch-question text-success"></i>  Alerta  <i class="bi bi-patch-question text-success"></i></h5>
+                    </div>
+                    <div class="modal-body" style="text-align:center">
+                        Desea guardar los cambios efectuados?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-success">Guardar Cambios</button>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
-</main>
+        </div><!-- End Modal-->
+
+    </main><!-- End #main -->
+}
+

@@ -49,7 +49,7 @@ namespace CCIH.Models
                 return 0;
             }
         }
-        public int ChangePassword(ChangePasswordEnt entidad)
+        public int ChangePassword(UserEnt entidad)
         {
             using (var client = new HttpClient())
             {
@@ -67,11 +67,11 @@ namespace CCIH.Models
                 return 0;
             }
         }
-        public List<UserEnt> RequestUser()
+        public List<UserEnt> RequestUsers()
         {
             using (var client = new HttpClient())
             {
-                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/RequestUser";
+                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/RequestUsers";
 
                 String Token = HttpContext.Current.Session["TokenUser"].ToString();
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
@@ -86,23 +86,6 @@ namespace CCIH.Models
             }
         }
 
-        public int DeleteUser(long q)
-        {
-            using (var client = new HttpClient())
-            {
-                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/DeleteUser?q=" + q;
-                String Token = HttpContext.Current.Session["TokenUser"].ToString();
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
-                HttpResponseMessage resp = client.DeleteAsync(url).Result;
-
-                if (resp.IsSuccessStatusCode)
-                {
-                    return resp.Content.ReadFromJsonAsync<int>().Result;
-                }
-
-                return 0;
-            }
-        }
         public int Edituser(UserEnt entidad)
         {
             using (var client = new HttpClient())
@@ -155,6 +138,28 @@ namespace CCIH.Models
 
                 return null;
             }
+        }
+
+
+        public List<UserEnt> RequestUserByRol(long i)
+        {
+            using (var client = new HttpClient())
+            {
+                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/RequestUserByRol?i=" + i;
+
+                String Token = HttpContext.Current.Session["TokenUser"].ToString();
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
+
+                HttpResponseMessage resp = client.GetAsync(url).Result;
+
+                if (resp.IsSuccessStatusCode)
+                {
+                    return resp.Content.ReadFromJsonAsync<List<UserEnt>>().Result;
+                }
+
+                return new List<UserEnt>();
+            }
+
         }
 
         public string Encrypt(string toEncrypt)

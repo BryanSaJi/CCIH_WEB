@@ -3,6 +3,7 @@ using CCIH.Entities;
 using CCIH.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Reflection;
@@ -23,12 +24,12 @@ namespace CCIH.Controllers
         ScheduleModel modelSchedule = new ScheduleModel();
         GroupModel modelGroup = new GroupModel();
         RegistrationModel modelRegistration = new RegistrationModel();
+        UserModel modelUser = new UserModel();
 
         [HttpPost]
         public ActionResult CreateRegistration(RegistrationEnt ent)
         {
-
-            //revisar sassions
+            ent.StatusId = 1;
             ent.PersonalID = @Session["CedulaCliente"].ToString();
             try
             {
@@ -38,12 +39,14 @@ namespace CCIH.Controllers
                 if (resp > 0)
                 {
                     @Session["CedulaCliente"] = "";
+                    Session["MensajePositivo"] = 1;
+                    
                     return RedirectToAction("ConsultRegisterToday");
                 }
                 else
                 {
-                    ViewBag.Msj = "No se ha podido registrar su información";
-                    return View("CreateRegister");
+                    Session["MensajeNegativo"] = 1;
+                    return RedirectToAction("ConsultRegisterToday");
                 }
             }
             catch (Exception ex)
@@ -66,7 +69,8 @@ namespace CCIH.Controllers
         public ActionResult ConsultRegister(long i)
         {
             var data = modelRegistration.RequestRegistration(i);
-
+            Session["MensajeNegativo"] = 0;
+            Session["MensajePositivo"] = 0;
             //Estatus
             var state = modelState.RequestStatusScrollDown();
             var ComboState = new List<SelectListItem>();
@@ -251,10 +255,14 @@ namespace CCIH.Controllers
             var resp = modelRegistration.EditRegister(ent);
 
             if (resp > 0)
-                return RedirectToAction("ConsultRegistrations", "Admin");//revisar
+            {
+                Session["MensajePositivo"] = 1;
+                return RedirectToAction("ConsultRegistrations", "Admin");
+            }
             else
             {
-                return View("ConsultRegisterToday");
+                Session["MensajeNegativo"] = 1;
+                return RedirectToAction("ConsultRegistrations", "Admin");
             }
         }
 
@@ -267,7 +275,7 @@ namespace CCIH.Controllers
             var resp = modelRegistration.ContactPreregister(ent);
 
             if (resp > 0)
-                return RedirectToAction("ConsultPreRegister", "Registration");
+                return RedirectToAction("ConsultPreRegisters", "Registration");
             else
             {
                 return View("Index", "Admin");
@@ -277,6 +285,14 @@ namespace CCIH.Controllers
         [HttpGet]
         public ActionResult ConsultRegisterToday()
         {
+            if ((int)Session["MensajePositivo"] == 1)
+            {
+                ViewBag.MsjPantallaPostivo = "Matricula Exitosa";
+            }
+            if ((int)Session["MensajeNegativo"] == 1)
+            {
+                ViewBag.MsjPantallaNegativo = "No se ha efectuado la matricula";
+            }
             var data = modelRegistration.RequestRegistrationsToday();
             return View(data);
 
@@ -286,7 +302,21 @@ namespace CCIH.Controllers
         [HttpGet]
         public ActionResult SeeCustomers()
         {
-            var datos = modelCustomer.SeeCustomers();
+            Session["IdUserCustomerRegistration"] = null;
+            var datos = modelUser.RequestUserByRol(3);
+
+            if(datos != null)
+            {
+                foreach(var item in datos)
+                {
+                    item.StatusName = "Activo";                              
+                }
+
+                if((int)Session["MensajePositivo"] == 1)
+                {
+                    ViewBag.MsjPantallaPostivo = "Se ha guardado la informacion del cliente";
+                }
+            }
             return View(datos);
         }
 
@@ -294,8 +324,16 @@ namespace CCIH.Controllers
         [HttpGet]
         public ActionResult SeeCustomer(long i)
         {
-            var datos = modelCustomer.SeeCustomer(i);
-            Session["CustomerID"] = datos.PersonalID;
+            Session["MensajePositivo"] = 0;
+            var datos = modelUser.RequestUser(i);
+
+            var registrations = modelRegistration.RequestRegistrations();
+            foreach (var item in registrations)
+            {
+                if(item.UserId == i)
+                { Session["IdUserCustomerRegistration"] = item.RegistrationId; }
+            }
+            
 
             //Estatus
             var Status = modelState.RequestStatusScrollDown();
@@ -379,14 +417,14 @@ namespace CCIH.Controllers
             ViewBag.gorup = ComboGroup;
 
             //Roles
-            var rol = modelRole.RequestRolesScrollDown();
+            var rol = modelRole.RequestRoles();
             var ComboRol = new List<SelectListItem>();
             foreach (var item in rol)
             {
                 ComboRol.Add(new SelectListItem
                 {
                     Text = item.Name,
-                    Value = item.IdRole.ToString()
+                    Value = item.IdRol.ToString()
                 });
             }
             ViewBag.Rol = ComboRol;

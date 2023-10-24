@@ -51,7 +51,7 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
-
+                                        <br>
                                         <table id="eample" class="table table-hover" style="width: 100% !important;">
                                             <thead>
                                                 <tr>
@@ -77,7 +77,7 @@
                                                         <td>@item.Modality</td>
                                                         <td>@item.Level</td>
                                                         <td style="text-align:center">
-                                                            <a type="submit" class="btn btn-outline-success btn-sm" href="@Url.Action("ConsultPreRegister","Registration", new { q = item.PreRegistrationId })"><i class="bi bi-check-circle"></i>Contactado</a>
+                                                            <a type="submit" class="btn btn-outline-success btn-sm" href="@Url.Action("ContactPreRegistration","Registration", new { q = item.PreRegistrationId })"><i class="bi bi-check-circle"></i>Contactado</a>
                                                         </td>
 
 

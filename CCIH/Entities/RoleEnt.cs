@@ -7,9 +7,8 @@ namespace CCIH.Entities
 {
     public class RoleEnt
     {
-        public long IdRole { get; set; }
+        public long IdRol { get; set; }
         public string Name { get; set; }
-        public long UserId { get; set; }
 
     }
 }
