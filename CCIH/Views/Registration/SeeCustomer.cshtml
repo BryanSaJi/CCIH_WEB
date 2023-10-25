@@ -24,90 +24,103 @@
             <div class="row">
                 <div class="card">
                     <div class="card-body">
-                                <h5 class="card-title">Informacion del cliente</h5>
+                        <h5 class="card-title">Informacion del cliente</h5>
 
-                                <!-- General Form Elements -->
-                                @Html.HiddenFor(m => m.UserId)
+                        <!-- General Form Elements -->
+                        @Html.HiddenFor(m => m.UserId)
 
-                                <div class="row mb-3">
-                                    <label for="inputText" class="col-sm-2 col-form-label">Cedula</label>
-                                    <div class="col-sm-5">
-                                        @Html.TextBoxFor(m => m.PersonalID, new { @type = "number", @placeholder = "Digite la cédula", @id = "cedula", @class = "form-control", @onkeydown = "return event.keyCode !== 69" })
-                                    </div>
-                                </div>
-
-                                <div class="row mb-3">
-                                    <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
-                                    <div class="col-sm-5">
-                                        @Html.TextBoxFor(m => m.Email, new { @type = "email", @placeholder = "Digite el correo electronico", @class = "form-control", required = "required" })
-                                    </div>
-                                </div>
-
-                                <div class="row mb-3">
-                                    <label for="inputPassword" class="col-sm-2 col-form-label">Nombre</label>
-                                    <div class="col-sm-5">
-                                        @Html.TextBoxFor(m => m.Name, new { @type = "Text", @placeholder = "Digite el Nombre", @id = "nombre", @class = "form-control", required = "required" })
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <label for="inputNumber" class="col-sm-2 col-form-label">Primer Apellido</label>
-                                    <div class="col-sm-5">
-                                        @Html.TextBoxFor(m => m.LastName, new { @type = "Text", @placeholder = "Digite el Primer Apellido", @id = "pApellido", @class = "form-control", required = "required" })
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <label for="inputNumber" class="col-sm-2 col-form-label">Segundo Apellido</label>
-                                    <div class="col-sm-5">
-                                        @Html.TextBoxFor(m => m.SecLastName, new { @type = "Text", @placeholder = "Digite el Segundo Apellido", @id = "sApellido", @class = "form-control", required = "required" })
-                                    </div>
-                                </div>
-
-                                <div class="row mb-3">
-                                    <label for="inputDate" class="col-sm-2 col-form-label">Fecha de Nacimiento</label>
-                                    <div class="col-sm-5">
-                                        @Html.TextBoxFor(m => m.BirthDate, new { @type = "text", @class = "form-control", required = "required" })
-                                    </div>
-                                </div>
-
-                                <div class="row mb-3">
-                                    <label for="inputNumber" class="col-sm-2 col-form-label">Telefono</label>
-                                    <div class="col-sm-5">
-                                        @Html.TextBoxFor(m => m.Phone, new { @type = "Text", @placeholder = "Digite el Telefono", @class = "form-control", required = "required" })
-                                    </div>
-                                </div>
-
-                                <div class="row mb-3">
-                                    <label class="col-sm-2 col-form-label">Direccion</label>
-                                    <div class="col-sm-5">
-                                        @Html.TextAreaFor(m => m.Address, new { @type = "Text", @placeholder = "Digite la direccion", @class = "form-control", @style = "height: 50px", required = "required" })
-                                    </div>
-                                </div>
-
-                                <div class="row mb-3">
-                                    <label class="col-sm-2 col-form-label">Estatus</label>
-                                    <div class="col-sm-5">
-                                        @Html.DropDownListFor(m => m.StatusId, ViewBag.Status as List<SelectListItem>, "Selecione el estatus", new { @class = "form-control", required = "required" })
-                                    </div>
-                                </div>
-
-                                <div class="row mb-3">
-                                    <label class="col-sm-2 col-form-label">Rol</label>
-                                    <div class="col-sm-5">
-                                        @Html.DropDownListFor(m => m.IdRol, ViewBag.Rol as List<SelectListItem>, "Selecione el Rol", new { @class = "form-control", required = "required" })
-                                    </div>
-                                </div>
-
-
-                                <div class="row mb-5">
-                                    <div class="col-3">
-                                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#basicModal">Actualizar</button>
-                                    </div>
-
-                                    <div class="col-3">
-                                        <a type="submit" class="btn btn-outline-warning" href="@Url.Action("ConsultRegister","Registration", new { i = @Session["IdUserCustomerRegistration"] })">Consultar Matricula</a>
-                                    </div>
-                                </div>
+                        <div class="row mb-3">
+                            <label for="inputText" class="col-sm-2 col-form-label">Cédula</label>
+                            <div class="col-sm-5">
+                                @Html.TextBoxFor(m => m.PersonalID, new { @type = "text", @placeholder = "Digite la Cédula", @id = "cedula", @class = "form-control", required = "required" })
                             </div>
+                            <div class="col-sm-5 offset-2">
+                                <div class="validation-message text-danger" id="cedulaValidationMessage"></div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+                            <div class="col-sm-5">
+                                @Html.TextBoxFor(m => m.Email, new { @type = "email", @placeholder = "Digite el correo electronico", @class = "form-control", required = "required" })
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="inputText" class="col-sm-2 col-form-label">Nombre</label>
+                            <div class="col-sm-5">
+                                @Html.TextBoxFor(m => m.Name, new { @type = "text", @placeholder = "Digite el Nombre", @id = "nombre", @class = "form-control", required = "required" })
+                            </div>
+                            <div class="col-sm-5 offset-2">
+                                <div class="validation-message text-danger" id="nombreValidationMessage"></div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputNumber" class="col-sm-2 col-form-label">Primer Apellido</label>
+                            <div class="col-sm-5">
+                                @Html.TextBoxFor(m => m.LastName, new { @type = "text", @placeholder = "Digite el Primer Apellido", @id = "primerApellido", @class = "form-control", required = "required" })
+                            </div>
+                            <div class="col-sm-5 offset-2">
+                                <div class="validation-message text-danger" id="primerApellidoValidationMessage"></div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="inputNumber" class="col-sm-2 col-form-label">Segundo Apellido</label>
+                            <div class="col-sm-5">
+                                @Html.TextBoxFor(m => m.SecLastName, new { @type = "text", @placeholder = "Digite el Segundo Apellido", @id = "segundoApellido", @class = "form-control", required = "required" })
+                            </div>
+                            <div class="col-sm-5 offset-2">
+                                <div class="validation-message text-danger" id="segundoApellidoValidationMessage"></div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputDate" class="col-sm-2 col-form-label">Fecha de Nacimiento</label>
+                            <div class="col-sm-5">
+                                @Html.TextBoxFor(m => m.BirthDate, new { @type = "text", @class = "form-control", required = "required" })
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputNumber" class="col-sm-2 col-form-label">Teléfono</label>
+                            <div class="col-sm-5">
+                                @Html.TextBoxFor(m => m.Phone, new { @type = "text", @placeholder = "Digite el Teléfono", @id = "telefono", @class = "form-control", required = "required" })
+                            </div>
+                            <div class="col-sm-5 offset-2">
+                                <div class="validation-message text-danger" id="telefonoValidationMessage"></div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">Direccion</label>
+                            <div class="col-sm-5">
+                                @Html.TextAreaFor(m => m.Address, new { @type = "Text", @placeholder = "Digite la direccion", @class = "form-control", @style = "height: 50px", required = "required" })
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">Estatus</label>
+                            <div class="col-sm-5">
+                                @Html.DropDownListFor(m => m.StatusId, ViewBag.Status as List<SelectListItem>, "Selecione el estatus", new { @class = "form-control", required = "required" })
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">Rol</label>
+                            <div class="col-sm-5">
+                                @Html.DropDownListFor(m => m.IdRol, ViewBag.Rol as List<SelectListItem>, "Selecione el Rol", new { @class = "form-control", required = "required" })
+                            </div>
+                        </div>
+
+
+                        <div class="row mb-5">
+                            <div class="col-3">
+                                <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#basicModal">Actualizar</button>
+                            </div>
+
+                            <div class="col-3">
+                                <a type="submit" class="btn btn-outline-secondary" href="@Url.Action("ConsultRegister","Registration", new { i = @Session["IdUserCustomerRegistration"] })">Consultar Matricula</a>
+                            </div>
+                        </div>
+                    </div>
                         </div>
                         <div class="col-1">
 
@@ -121,7 +134,7 @@
             <div class="modal-dialog justify-content-center align-items-center" style="margin-top: 15%">
                 <div class="modal-content justify-content-center align-items-center">
                     <div class="modal-header align-items-center">
-                        <h5 class="modal-title justify-content-center align-items-center"><i class="bi bi-patch-question text-success"></i>  Alerta  <i class="bi bi-patch-question text-success"></i></h5>
+                        <h5 class="modal-title justify-content-center align-items-center">Alerta</h5>
                     </div>
                     <div class="modal-body" style="text-align:center">
                         Desea guardar los cambios efectuados?
@@ -137,3 +150,56 @@
     </main><!-- End #main -->
      }
 
+<script>
+    // Validación para el campo de Nombre
+    document.querySelector('#nombre').addEventListener('input', function () {
+        var nombre = this.value;
+        var validationMessage = document.querySelector('#nombreValidationMessage');
+        if (!/^[A-Za-zÁáÉéÍíÓóÚúñÑ\s]+$/.test(nombre)) {
+            validationMessage.innerHTML = "Por favor, ingrese solo letras en el campo de Nombre.";
+        } else {
+            validationMessage.innerHTML = "";
+        }
+    });
+
+    document.querySelector('#cedula').addEventListener('input', function () {
+        var cedula = this.value;
+        var validationMessage = document.querySelector('#cedulaValidationMessage');
+        if (!/^\d+$/.test(cedula)) {
+            validationMessage.innerHTML = "Por favor, ingrese solo números en el campo de Cédula.";
+        } else {
+            validationMessage.innerHTML = "";
+        }
+    });
+    document.querySelector('#primerApellido').addEventListener('input', function () {
+        var primerApellido = this.value;
+        var validationMessage = document.querySelector('#primerApellidoValidationMessage');
+        if (!/^[A-Za-zÁáÉéÍíÓóÚúÑñ ]+$/.test(primerApellido)) {
+            validationMessage.innerHTML = "Por favor, ingrese solo letras en el campo de Primer Apellido.";
+        } else {
+            validationMessage.innerHTML = "";
+        }
+    });
+
+
+    document.querySelector('#segundoApellido').addEventListener('input', function () {
+        var segundoApellido = this.value;
+        var validationMessage = document.querySelector('#segundoApellidoValidationMessage');
+        if (!/^[A-Za-zÁáÉéÍíÓóÚúÑñ ]+$/.test(segundoApellido)) {
+            validationMessage.innerHTML = "Por favor, ingrese solo letras en el campo de Segundo Apellido.";
+        } else {
+            validationMessage.innerHTML = "";
+        }
+    });
+
+    document.querySelector('#telefono').addEventListener('input', function () {
+        var telefono = this.value;
+        var validationMessage = document.querySelector('#telefonoValidationMessage');
+        if (!/^\d+$/.test(telefono)) {
+            validationMessage.innerHTML = "Por favor, ingrese solo números en el campo de Teléfono.";
+        } else {
+            validationMessage.innerHTML = "";
+        }
+    });
+
+</script>

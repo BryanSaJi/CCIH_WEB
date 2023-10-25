@@ -39,11 +39,12 @@
                         <div class="row mb-3">
                             <label for="inputText" class="col-sm-2 col-form-label">Cedula</label>
                             <div class="col-sm-5">
-                                @Html.TextBoxFor(m => m.PersonalID, new { @type = "text", @placeholder = "Digite la Cedula", @class = "form-control", required = "required" })
+                                @Html.TextBoxFor(m => m.PersonalID, new { @type = "text", @placeholder = "Digite la Cédula", @class = "form-control", required = "required", id = "personalIDField" })
+                            </div>
+                            <div class="col-sm-5 offset-2">
+                                <div class="validation-message text-danger" id="validationMessage"></div>
                             </div>
                         </div>
-
-
 
                         <div class="row mb-3">
                             <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
@@ -51,23 +52,32 @@
                                 @Html.TextBoxFor(m => m.Email, new { @type = "email", @placeholder = "Digite el correo electronico", @class = "form-control", required = "required" })
                             </div>
                         </div>
-
                         <div class="row mb-3">
                             <label for="inputPassword" class="col-sm-2 col-form-label">Nombre</label>
                             <div class="col-sm-5">
-                                @Html.TextBoxFor(m => m.Name, new { @type = "Text", @placeholder = "Digite el Nombre", @class = "form-control", required = "required" })
+                                @Html.TextBoxFor(m => m.Name, new { @type = "text", @placeholder = "Digite el Nombre", @class = "form-control", required = "required", id = "nameField" })
+                            </div>
+                            <div class="col-sm-5 offset-2">
+                                <div class="validation-message text-danger" id="nameValidationMessage"></div>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label for="inputNumber" class="col-sm-2 col-form-label">Primer Apellido</label>
                             <div class="col-sm-5">
-                                @Html.TextBoxFor(m => m.LastName, new { @type = "Text", @placeholder = "Digite el Primer Apellido", @class = "form-control", required = "required" })
+                                @Html.TextBoxFor(m => m.LastName, new { @type = "text", @placeholder = "Digite el Primer Apellido", @class = "form-control", required = "required", id = "lastNameField" })
+                            </div>
+                            <div class="col-sm-5 offset-2">
+                                <div class="validation-message text-danger" id="lastNameValidationMessage"></div>
                             </div>
                         </div>
+
                         <div class="row mb-3">
                             <label for="inputNumber" class="col-sm-2 col-form-label">Segundo Apellido</label>
                             <div class="col-sm-5">
-                                @Html.TextBoxFor(m => m.SecLastName, new { @type = "Text", @placeholder = "Digite el Segundo Apellido", @class = "form-control", required = "required" })
+                                @Html.TextBoxFor(m => m.SecLastName, new { @type = "text", @placeholder = "Digite el Segundo Apellido", @class = "form-control", required = "required", id = "secLastNameField" })
+                            </div>
+                            <div class="col-sm-5 offset-2">
+                                <div class="validation-message text-danger" id="secLastNameValidationMessage"></div>
                             </div>
                         </div>
 
@@ -81,7 +91,10 @@
                         <div class="row mb-3">
                             <label for="inputNumber" class="col-sm-2 col-form-label">Telefono</label>
                             <div class="col-sm-5">
-                                @Html.TextBoxFor(m => m.Phone, new { @type = "Text", @placeholder = "Digite el Telefono", @class = "form-control", required = "required" })
+                                @Html.TextBoxFor(m => m.Phone, new { @type = "text", @placeholder = "Digite el Teléfono", @class = "form-control", required = "required", id = "phoneField" })
+                            </div>
+                            <div class="col-sm-5 offset-2">
+                                <div class="validation-message text-danger" id="phoneValidationMessage"></div>
                             </div>
                         </div>
 
@@ -123,3 +136,85 @@
     </section>
 
 </main><!-- End #main -->
+
+<div class="modal fade" id="validationModal" tabindex="-1" role="dialog" aria-labelledby="validationModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="validationModalLabel">Mensaje de Validación</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Por favor, ingrese solo números en el campo de cédula.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function validateCedula() {
+        var cedula = document.querySelector('#personalIDField').value;
+        if (!/^\d+$/.test(cedula)) {
+            $('#validationModal').modal('show');
+        } else {
+            document.forms[0].submit();
+        }
+    }
+
+    document.querySelector('#personalIDField').addEventListener('input', function () {
+        var cedula = this.value;
+        var validationMessage = document.querySelector('#validationMessage');
+        if (!/^\d+$/.test(cedula)) {
+            validationMessage.innerHTML = "Por favor, ingrese solo números en el campo de cédula.";
+        } else {
+            validationMessage.innerHTML = "";
+        }
+    });
+
+    document.querySelector('#nameField').addEventListener('input', function () {
+        var name = this.value;
+        var validationMessage = document.querySelector('#nameValidationMessage');
+        if (!/^[A-Za-z]+$/.test(name)) {
+            validationMessage.innerHTML = "Por favor, ingrese solo letras en el campo de Nombre.";
+        } else {
+            validationMessage.innerHTML = "";
+        }
+    });
+
+
+    document.querySelector('#lastNameField').addEventListener('input', function () {
+        var lastName = this.value;
+        var validationMessage = document.querySelector('#lastNameValidationMessage');
+        if (!/^[A-Za-z]+$/.test(lastName)) {
+            validationMessage.innerHTML = "Por favor, ingrese solo letras en el campo de Primer Apellido.";
+        } else {
+            validationMessage.innerHTML = "";
+        }
+    });
+
+    document.querySelector('#secLastNameField').addEventListener('input', function () {
+        var secLastName = this.value;
+        var validationMessage = document.querySelector('#secLastNameValidationMessage');
+        if (!/^[A-Za-z]+$/.test(secLastName)) {
+            validationMessage.innerHTML = "Por favor, ingrese solo letras en el campo de Segundo Apellido.";
+        } else {
+            validationMessage.innerHTML = "";
+        }
+    });
+
+    document.querySelector('#phoneField').addEventListener('input', function () {
+        var phone = this.value;
+        var validationMessage = document.querySelector('#phoneValidationMessage');
+        if (!/^\d+$/.test(phone)) {
+            validationMessage.innerHTML = "Por favor, ingrese solo números en el campo de Teléfono.";
+        } else {
+            validationMessage.innerHTML = "";
+        }
+    });
+</script>
+ 
