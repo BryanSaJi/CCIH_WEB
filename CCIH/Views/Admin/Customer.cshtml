@@ -7,13 +7,17 @@
 }
 
 
+
+
+
+
 <main id="main" class="main">
 
     <div class="pagetitle">
         <h1>Agregar Usuario</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="@Url.Action("Index","Admin")">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="@Url.Action("Index","Admin")">Inicio</a></li>
                 <li class="breadcrumb-item"><a href="#">Agregar Usuario</a></li>
             </ol>
         </nav>
@@ -31,7 +35,7 @@
                     <h5 class="card-title">Informacion del Usuario</h5>
 
                     <!-- General Form Elements -->
-                    @using (Html.BeginForm("CreateRegister", "Admin", FormMethod.Post))
+                    @using (Html.BeginForm("CreateRegister", "Admin", FormMethod.Post, new { onsubmit = "return validateForm();" }))
                     {
 
 
@@ -39,23 +43,18 @@
                         <div class="row mb-3">
                             <label for="inputText" class="col-sm-2 col-form-label">Cedula</label>
                             <div class="col-sm-5">
-                                @Html.TextBoxFor(m => m.PersonalID, new { @type = "text", @placeholder = "Digite la CÈdula", @class = "form-control", required = "required", id = "personalIDField" })
+                                @Html.TextBoxFor(m => m.PersonalID, new { @type = "text", @placeholder = "Digite la CÈdula", @class = "form-control", id = "personalIDField" })
                             </div>
                             <div class="col-sm-5 offset-2">
                                 <div class="validation-message text-danger" id="validationMessage"></div>
                             </div>
                         </div>
 
-                        <div class="row mb-3">
-                            <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
-                            <div class="col-sm-5">
-                                @Html.TextBoxFor(m => m.Email, new { @type = "email", @placeholder = "Digite el correo electronico", @class = "form-control", required = "required" })
-                            </div>
-                        </div>
+
                         <div class="row mb-3">
                             <label for="inputPassword" class="col-sm-2 col-form-label">Nombre</label>
                             <div class="col-sm-5">
-                                @Html.TextBoxFor(m => m.Name, new { @type = "text", @placeholder = "Digite el Nombre", @class = "form-control", required = "required", id = "nameField" })
+                                @Html.TextBoxFor(m => m.Name, new { @type = "text", @placeholder = "Digite el Nombre", @class = "form-control", id = "nameField" })
                             </div>
                             <div class="col-sm-5 offset-2">
                                 <div class="validation-message text-danger" id="nameValidationMessage"></div>
@@ -64,7 +63,7 @@
                         <div class="row mb-3">
                             <label for="inputNumber" class="col-sm-2 col-form-label">Primer Apellido</label>
                             <div class="col-sm-5">
-                                @Html.TextBoxFor(m => m.LastName, new { @type = "text", @placeholder = "Digite el Primer Apellido", @class = "form-control", required = "required", id = "lastNameField" })
+                                @Html.TextBoxFor(m => m.LastName, new { @type = "text", @placeholder = "Digite el Primer Apellido", @class = "form-control", id = "lastNameField" })
                             </div>
                             <div class="col-sm-5 offset-2">
                                 <div class="validation-message text-danger" id="lastNameValidationMessage"></div>
@@ -74,7 +73,7 @@
                         <div class="row mb-3">
                             <label for="inputNumber" class="col-sm-2 col-form-label">Segundo Apellido</label>
                             <div class="col-sm-5">
-                                @Html.TextBoxFor(m => m.SecLastName, new { @type = "text", @placeholder = "Digite el Segundo Apellido", @class = "form-control", required = "required", id = "secLastNameField" })
+                                @Html.TextBoxFor(m => m.SecLastName, new { @type = "text", @placeholder = "Digite el Segundo Apellido", @class = "form-control", id = "secLastNameField" })
                             </div>
                             <div class="col-sm-5 offset-2">
                                 <div class="validation-message text-danger" id="secLastNameValidationMessage"></div>
@@ -84,31 +83,44 @@
                         <div class="row mb-3">
                             <label for="inputDate" class="col-sm-2 col-form-label">Fecha de Nacimiento</label>
                             <div class="col-sm-5">
-                                @Html.TextBoxFor(m => m.Birthdate, new { @type = "date", @class = "form-control", required = "required" })
+                                @Html.TextBoxFor(m => m.Birthdate, new { @type = "date", @class = "form-control" })
                             </div>
                         </div>
 
                         <div class="row mb-3">
-                            <label for="inputNumber" class="col-sm-2 col-form-label">Telefono</label>
+                            <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
                             <div class="col-sm-5">
-                                @Html.TextBoxFor(m => m.Phone, new { @type = "text", @placeholder = "Digite el TelÈfono", @class = "form-control", required = "required", id = "phoneField" })
+                                @Html.TextBoxFor(m => m.Email, new { @type = "email", @placeholder = "Digite el correo electrÛnico", @id = "email", @class = "form-control" })
                             </div>
                             <div class="col-sm-5 offset-2">
-                                <div class="validation-message text-danger" id="phoneValidationMessage"></div>
+                                <div class="validation-message text-danger" id="emailValidationMessage"></div>
                             </div>
                         </div>
 
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label">Direccion</label>
                             <div class="col-sm-5">
-                                @Html.TextAreaFor(m => m.Address, new { @type = "Text", @placeholder = "Digite la direccion", @class = "form-control", @style = "height: 50px", required = "required" })
+                                @Html.TextAreaFor(m => m.Address, new { @type = "Text", @placeholder = "Digite la direccion", @class = "form-control", @style = "height: 50px" })
                             </div>
                         </div>
+
+
+                        <div class="row mb-3">
+                            <label for="inputNumber" class="col-sm-2 col-form-label">Telefono</label>
+                            <div class="col-sm-5">
+                                @Html.TextBoxFor(m => m.Phone, new { @type = "text", @placeholder = "Digite el TelÈfono", @class = "form-control", id = "PhoneNumberField" })
+                            </div>
+                            <div class="col-sm-5 offset-2">
+                                <div class="validation-message text-danger" id="phoneValidationMessage"></div>
+                            </div>
+                        </div>
+
+
 
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label">Rol</label>
                             <div class="col-sm-5">
-                                @Html.DropDownListFor(m => m.IdRol, ViewBag.Rol as List<SelectListItem>, "Seleccione el rol", new { @class = "form-control", required = "required" })
+                                @Html.DropDownListFor(m => m.IdRol, ViewBag.Rol as List<SelectListItem>, "Seleccione el rol", new { @class = "form-control" })
                             </div>
                         </div>
 
@@ -118,8 +130,8 @@
                             <div class="col-6 mt-3">
                                 <button type="button" class="btn btn-secondary" style="margin-left: 190px;" onclick="window.history.back();">Regresar</button>
                             </div>
-                            <div class="col-6 mt-3">
-                                <button type="submit" class="btn btn-primary" style="margin-left: 120px;">Ingresar Usuario</button>
+                            <div class="col-2">
+                                <button type="submit" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#basicModal">Registrar</button>
                             </div>
                         </div>
 
@@ -133,43 +145,40 @@
 
         </div>
 
+
+
     </section>
-
-</main><!-- End #main -->
-
-<div class="modal fade" id="validationModal" tabindex="-1" role="dialog" aria-labelledby="validationModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="validationModalLabel">Mensaje de ValidaciÛn</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                Por favor, ingrese solo n˙meros en el campo de cÈdula.
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+    <div class="modal fade" id="basicModal" tabindex="-1">
+        <div class="modal-dialog justify-content-center align-items-center" style="margin-top: 15%">
+            <div class="modal-content justify-content-center align-items-center">
+                <div class="modal-header align-items-center">
+                    <h5 class="modal-title justify-content-center align-items-center"> Alerta   </h5>
+                </div>
+                <div class="modal-body" style="text-align:center">
+                    øDesea crear la matrÌciula?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-success">Guardar Cambios</button>
+                </div>
             </div>
         </div>
-    </div>
-</div>
+    </div><!-- End Modal-->
+
+
+
+   </main><!-- End #main -->
+}
+
 
 <script>
-    function validateCedula() {
-        var cedula = document.querySelector('#personalIDField').value;
-        if (!/^\d+$/.test(cedula)) {
-            $('#validationModal').modal('show');
-        } else {
-            document.forms[0].submit();
-        }
-    }
+
+
 
     document.querySelector('#personalIDField').addEventListener('input', function () {
-        var cedula = this.value;
-        var validationMessage = document.querySelector('#validationMessage');
-        if (!/^\d+$/.test(cedula)) {
+        var id = this.value;
+        var validationMessage = document.querySelector('#ValidationMessage');
+        if (!/^\d+$/.test(id)) {
             validationMessage.innerHTML = "Por favor, ingrese solo n˙meros en el campo de cÈdula.";
         } else {
             validationMessage.innerHTML = "";
@@ -179,18 +188,17 @@
     document.querySelector('#nameField').addEventListener('input', function () {
         var name = this.value;
         var validationMessage = document.querySelector('#nameValidationMessage');
-        if (!/^[A-Za-z]+$/.test(name)) {
+        if (!/^[A-Za-z¡…Õ”⁄·ÈÌÛ˙Ò—\s]+$/.test(name)) {
             validationMessage.innerHTML = "Por favor, ingrese solo letras en el campo de Nombre.";
         } else {
             validationMessage.innerHTML = "";
         }
     });
 
-
     document.querySelector('#lastNameField').addEventListener('input', function () {
-        var lastName = this.value;
+        var lastname = this.value;
         var validationMessage = document.querySelector('#lastNameValidationMessage');
-        if (!/^[A-Za-z]+$/.test(lastName)) {
+        if (!/^[A-Za-z¡…Õ”⁄·ÈÌÛ˙Ò—\s]+$/.test(lastname})) {
             validationMessage.innerHTML = "Por favor, ingrese solo letras en el campo de Primer Apellido.";
         } else {
             validationMessage.innerHTML = "";
@@ -198,16 +206,16 @@
     });
 
     document.querySelector('#secLastNameField').addEventListener('input', function () {
-        var secLastName = this.value;
+        var slastname = this.value;
         var validationMessage = document.querySelector('#secLastNameValidationMessage');
-        if (!/^[A-Za-z]+$/.test(secLastName)) {
+        if (!/^[A-Za-z¡…Õ”⁄·ÈÌÛ˙Ò—\s]+$/.test(slastname)) {
             validationMessage.innerHTML = "Por favor, ingrese solo letras en el campo de Segundo Apellido.";
         } else {
             validationMessage.innerHTML = "";
         }
     });
 
-    document.querySelector('#phoneField').addEventListener('input', function () {
+    document.querySelector('#PhoneNumberField').addEventListener('input', function () {
         var phone = this.value;
         var validationMessage = document.querySelector('#phoneValidationMessage');
         if (!/^\d+$/.test(phone)) {
@@ -216,5 +224,38 @@
             validationMessage.innerHTML = "";
         }
     });
-</script>
- 
+    document.querySelector('#email').addEventListener('input', function () {
+        var email = this.value;
+        var validationMessage = document.querySelector('#emailValidationMessage');
+        if (!isValidEmail(email)) {
+            validationMessage.innerHTML = "Por favor, ingrese un correo electrÛnico v·lido, ejemplo: correo@email.com";
+        } else {
+            validationMessage.innerHTML = "";
+        }
+    });
+
+
+    function isValidEmail(email) {
+        var emailPattern = /^[a-zA-Z0-9._-]+@@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        return emailPattern.test(email);
+    }
+
+
+
+    function validateForm() {
+        var cedula = document.querySelector('#personalIDField').value;
+        var email = document.querySelector('#email').value;
+        var nombre = document.querySelector('#nameField').value;
+        var pApellido = document.querySelector('#lastNameField').value;
+        var sApellido = document.querySelector('#secLastNameField').value;
+        var telefono = document.querySelector('#PhoneNumberField').value;
+
+        if (cedula.trim() === "" || email.trim() === "" || nombre.trim() === "" || pApellido.trim() === "" || sApellido.trim() === "" || telefono.trim() === "") {
+            alert("Por favor, complete todos los campos antes de enviar el formulario.");
+            return false;
+        }
+
+        return true;
+    }
+  </script>
+
