@@ -16,6 +16,7 @@ namespace CCIH.Controllers
         UserModel model = new UserModel();
         RoleModel modelRole = new RoleModel();
         StateModel modelState = new StateModel();
+        
 
         // GET: Usuario
         public ActionResult Index()
@@ -181,7 +182,7 @@ namespace CCIH.Controllers
 
 
         [HttpGet]
-        public ActionResult EditUser(long i)
+        public ActionResult EditUser(long i,bool msj)
         {
             var data = model.RequestUser(i);
 
@@ -211,6 +212,11 @@ namespace CCIH.Controllers
             }
             ViewBag.Rol = ComboRol;
 
+            // Send ViewBack
+            if (msj) {
+                ViewBag.MsjSucces = "El Perfil fue modificado exitosamente";
+            }
+
             return View(data);
         }
 
@@ -226,17 +232,21 @@ namespace CCIH.Controllers
                 if (resp > 0)
                     if (ent.IdRol == 3)
                     {
-                        Session["MensajePositivo"] = 1;
-                        return RedirectToAction("SeeCustomers", "Registration");
+                        //Session["MensajePositivo"] = 1;
+                        
+                        
+                        return RedirectToAction("EditUser", "User", new { i = ent.UserId, msj = true });
                     }
                     else
                     {
-                        Session["MensajePositivo"] = 1;
-                        return RedirectToAction("Index", "User"); 
+                        //Session["MensajePositivo"] = 1;
+                        
+                        
+                        return RedirectToAction("EditUser", "User", new { i = ent.UserId, msj = true }); 
                     }
                 else
                 {
-                    ViewBag.Msj = "No se ha podido registrar su información";
+                    ViewBag.MsjError = "No se ha podido modificar la informacion del perfil";
                     return View("Index");
                 }
             }

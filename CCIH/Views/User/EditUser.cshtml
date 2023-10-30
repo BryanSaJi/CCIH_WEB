@@ -24,6 +24,19 @@
             </nav>
         </div><!-- End Page Title -->
 
+        @if (ViewBag.MsjSucces != null)
+        {
+            <div id="MsjSucces" class="alert alert-success bg-success text-light border-0 alert-dismissible fade show" role="alert">
+                @ViewBag.MsjSucces
+            </div>
+        }
+
+        @if (ViewBag.MsjError != null)
+        {
+            <div id="MsjError" class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" role="alert">
+                @ViewBag.MsjError
+            </div>
+        }
 
         <section class="section">
             <div class="row">
@@ -32,110 +45,135 @@
                     <div class="card-body">
                         <h5 class="card-title">Informacion del Usuario</h5>
 
-                        <!-- General Form Elements -->
-                        @Html.HiddenFor(m => m.UserId)
+                        <div class="row">
+                            <div class="col-lg-6">
 
-                        <div class="row mb-3">
-                            <label for="inputText" class="col-sm-2 col-form-label">Cedula</label>
-                            <div class="col-sm-5">
-                                @Html.TextBoxFor(m => m.PersonalID, new { @type = "number", @placeholder = "Digite la cédula", @id = "cedula", @class = "form-control", @onkeydown = "return event.keyCode !== 69" })
+                                <!-- General Form Elements -->
+                                @Html.HiddenFor(m => m.UserId)
+
+                                <!-- Row 1 -->
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="personalIDField" class="col-form-label">Cedula</label>
+                                            @Html.TextBoxFor(m => m.PersonalID, new { @type = "number", @placeholder = "Digite la cédula", @id = "cedula", @class = "form-control", @onkeydown = "return event.keyCode !== 69" })
+                                            <div class="validation-message text-danger" id="validationMessage"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="nameField" class="col-form-label">Nombre</label>
+                                            @Html.TextBoxFor(m => m.Name, new { @type = "text", @placeholder = "Digite el Nombre", @id = "nombre", @class = "form-control", required = "required" })
+                                            <div class="validation-message text-danger" id="nameValidationMessage"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Row 2 -->
+
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="lastNameField" class="col-form-label">Primer Apellido</label>
+                                            @Html.TextBoxFor(m => m.LastName, new { @type = "text", @placeholder = "Digite el Primer Apellido", @id = "pApellido", @class = "form-control", required = "required" })
+                                            <div class="validation-message text-danger" id="lastNameValidationMessage"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="secLastNameField" class="col-form-label">Segundo Apellido</label>
+                                            @Html.TextBoxFor(m => m.SecLastName, new { @type = "text", @placeholder = "Digite el Segundo Apellido", @id = "sApellido", @class = "form-control", required = "required" })
+                                            <div class="validation-message text-danger" id="secLastNameValidationMessage"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <!-- Row 3 -->
+
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="inputEmail" class="col-form-label">Email</label>
+                                            @Html.TextBoxFor(m => m.Email, new { @type = "email", @placeholder = "Digite el correo electronico", @class = "form-control", required = "required" })
+                                            <div class="validation-message text-danger" id="validationMessage"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="inputDate" class="col-form-label">Fecha de Nacimiento</label>
+                                            @Html.TextBoxFor(m => m.BirthDate, new { @type = "text", @class = "form-control", required = "required" })
+                                            <div class="validation-message text-danger" id="validationMessagedate"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Row 4 -->
+
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="phoneField" class="col-form-label">Teléfono</label>
+                                            @Html.TextBoxFor(m => m.Phone, new { @type = "text", @placeholder = "Digite el Teléfono", @id = "telefono", @class = "form-control", required = "required" })
+                                            <div class="validation-message text-danger" id="phoneValidationMessage"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Rol</label>
+                                            @Html.DropDownListFor(m => m.IdRol, ViewBag.Rol as List<SelectListItem>, "Selecione el Rol", new { @class = "form-control", required = "required" })
+                                            <div class="validation-message text-danger" id="ValidationMessageRol"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <!-- Row 5 -->
+
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Dirección</label>
+                                            @Html.TextAreaFor(m => m.Address, new { @type = "Text", @placeholder = "Digite la direccion", @class = "form-control", @style = "height: 50px", required = "required" })
+                                            <div class="validation-message text-danger" id="ValidationMessageDirection"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <!-- Row 6 -->
+
+                                <div class="row mb-4">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Estatus</label>
+                                            @Html.DropDownListFor(m => m.StatusId, ViewBag.Status as List<SelectListItem>, "Selecione el Status", new { @class = "form-control", required = "required" })
+                                            <div class="validation-message text-danger" id="ValidationMessageDirection"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <!-- Row 7 -->
+
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <button type="button" class="btn btn-secondary m-0 w-100" onclick="window.history.back();">Regresar</button>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <button type="submit" class="btn btn-primary m-0 w-100" data-bs-target="#basicModal">Actualizar</button>
+                                    </div>
+                                </div>
+
                             </div>
-                            <div class="col-sm-5 offset-2">
-                                <div class="validation-message text-danger" id="cedulaValidationMessage"></div>
+
+                            <div class="col-lg-6" style="text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                                <img src="data:image/jpeg;base64,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" alt="Imagen del Centro Cultural de Idiomas" style="width: 50%; height: auto;">
                             </div>
+
                         </div>
-
-                        <div class="row mb-3">
-                            <label for="inputPassword" class="col-sm-2 col-form-label">Nombre</label>
-                            <div class="col-sm-5">
-                                @Html.TextBoxFor(m => m.Name, new { @type = "text", @placeholder = "Digite el Nombre", @id = "nombre", @class = "form-control" })
-                            </div>
-                            <div class="col-sm-5 offset-2">
-                                <div class="validation-message text-danger" id="nombreValidationMessage"></div>
-                            </div>
-                        </div>
-
-
-                        <div class="row mb-3">
-                            <label for="inputNumber" class="col-sm-2 col-form-label">Primer Apellido</label>
-                            <div class="col-sm-5">
-                                @Html.TextBoxFor(m => m.LastName, new { @type = "text", @placeholder = "Digite el Primer Apellido", @id = "pApellido", @class = "form-control" })
-                            </div>
-                            <div class="col-sm-5 offset-2">
-                                <div class="validation-message text-danger" id="pApellidoValidationMessage"></div>
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="inputNumber" class="col-sm-2 col-form-label">Segundo Apellido</label>
-                            <div class="col-sm-5">
-                                @Html.TextBoxFor(m => m.SecLastName, new { @type = "text", @placeholder = "Digite el Segundo Apellido", @id = "sApellido", @class = "form-control" })
-                            </div>
-                            <div class="col-sm-5 offset-2">
-                                <div class="validation-message text-danger" id="sApellidoValidationMessage"></div>
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="inputDate" class="col-sm-2 col-form-label">Fecha de Nacimiento</label>
-                            <div class="col-sm-5">
-                                @Html.TextBoxFor(m => m.BirthDate, new { @type = "text", @class = "form-control" })
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
-                            <div class="col-sm-5">
-                                @Html.TextBoxFor(m => m.Email, new { @type = "email", @placeholder = "Digite el correo electrónico", @id = "email", @class = "form-control" })
-                            </div>
-                            <div class="col-sm-5 offset-2">
-                                <div class="validation-message text-danger" id="emailValidationMessage"></div>
-                            </div>
-                        </div>
-
-
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">Direccion</label>
-                            <div class="col-sm-5 row-cols-4">
-                                @Html.TextAreaFor(m => m.Address, new { @type = "Text", @placeholder = "Digite la direccion", @class = "form-control", @style = "height: 50px" })
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="inputNumber" class="col-sm-2 col-form-label">Teléfono</label>
-                            <div class="col-sm-5">
-                                @Html.TextBoxFor(m => m.Phone, new { @type = "text", @placeholder = "Digite el Teléfono", @id = "telefono", @class = "form-control" })
-                            </div>
-                            <div class="col-sm-5 offset-2">
-                                <div class="validation-message text-danger" id="telefonoValidationMessage"></div>
-                            </div>
-                        </div>
-
-
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">Rol</label>
-                            <div class="col-sm-5">
-                                @Html.DropDownListFor(m => m.IdRol, ViewBag.Rol as List<SelectListItem>, "Selecione el Rol", new { @class = "form-control" })
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">Estatus</label>
-                            <div class="col-sm-5">
-                                @Html.DropDownListFor(m => m.StatusId, ViewBag.Status as List<SelectListItem>, "Selecione el Status", new { @class = "form-control" })
-                            </div>
-                        </div>
-
-
-                        <div class="row mb-5">
-                            <div class="col-5">
-                                <button type="button" class="btn btn-secondary" style="margin-left: 190px;" onclick="window.history.back();">Regresar</button>
-                            </div>
-                            <div class="col-1">
-                                <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#basicModal">Actualizar</button>
-                            </div>
-                        </div>
-
 
 
                     </div>
@@ -232,6 +270,26 @@
         return emailPattern.test(email);
     }
 
-  
+
+    document.forms[0].addEventListener('submit', function (e) {
+        
+        location.reload();
+    });
+
+
+    document.getElementById('miFormulario').addEventListener('submit', function () {
+        // Se ejecutará cuando se envíe el formulario
+        location.reload(); // Esto refrescará la página
+    });
+
+
+    // Esperar 5 segundos y luego ocultar el mensaje
+    setTimeout(function () {
+        var mensajeDiv = document.getElementById('MsjSucces');
+        var mensajeDiv2 = document.getElementById('MsjError');
+        mensajeDiv.style.display = 'none';
+        mensajeDiv2.style.display = 'none';
+
+    }, 5000); // 5000 milisegundos = 5 segundos
 
 </script>
