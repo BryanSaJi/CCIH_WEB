@@ -135,7 +135,7 @@
                                     <div class="col-lg-12">
                                         <div class="form-group">
                                             <label class="col-form-label">Dirección</label>
-                                            @Html.TextAreaFor(m => m.Address, new { @type = "Text", @placeholder = "Digite la direccion", @class = "form-control", @style = "height: 50px", required = "required" })
+                                            @Html.TextAreaFor(m => m.Address, new { @type = "Text", @placeholder = "Digite la direccion", @class = "form-control", @style = "height: 50px", required = "required", id = "Address" })
                                             <div class="validation-message text-danger" id="ValidationMessageDirection"></div>
                                         </div>
                                     </div>
@@ -271,6 +271,18 @@
     }
 
 
+
+
+    document.querySelector('#Address').addEventListener('input', function () {
+        var address = this.value;
+        var validationMessage = document.querySelector('#ValidationMessageDirection');
+        if (address.length > 5 ) {
+            validationMessage.innerHTML = "La direcciòn no puede contener mas de 50 caracteres ";
+        } else {
+            validationMessage.innerHTML = "";
+        }
+    });
+
     document.forms[0].addEventListener('submit', function (e) {
         
         location.reload();
@@ -291,5 +303,7 @@
         mensajeDiv2.style.display = 'none';
 
     }, 5000); // 5000 milisegundos = 5 segundos
+
+
 
 </script>

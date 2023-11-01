@@ -5,120 +5,84 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
 @using (Html.BeginForm("PreRegistrationCourse", "Home", FormMethod.Post))
 {
     <section id="hero">
-        <div class="container position-relative" data-aos="zoom-in" data-aos-delay="100">
+        <div class="container position-relative" >
             <div class="row justify-content-center align-items-center h-1">
-                <div class="col-12 col-md-8 col-lg-6 col-xl-5" style="margin-top: -3px; width: 100%;">
+                <div class="col-12 col-md-8 col-lg-6 col-xl-5" style="margin-top: -60px; width: 1000px">
                     <div class="card-body p-2 text-center" style="background-color: rgba(255, 255, 255, 0.7); ">
 
-
                         <div class="mb-md-5 mt-md-4 pb-1">
-                            <h2 class="fw-bold text-uppercase" style="color:black">Proceso de PreMatricula</h2>
+                            <h2 class="fw-bold text-uppercase" style="color: black">Proceso de PreMatricula</h2>
                             <br>
-                            <p class="text-black-70 mb-5">Por favor ingrese la informacion del curso que desea pre-matricular!</p>
+                            <p class="text-black-70 mb-5">Por favor ingrese la información del curso que desea pre-matricular</p>
 
+                            <div class="row" style="text-align:center; position:center">
+                                <div class="col-md-6">
+                                    <div class="form-group "style="width: 450px; text-align: left">
+                                        <label>Correo electrónico</label>
+                                        @Html.TextBoxFor(m => m.Email, new { @type = "text", @style = "text-align: center", @class = "form-control form-control-lg" })
+                                    </div>
 
-                            <div class="row justify-content-center align-items-center">
-                                <div class="col-3 form-outline form-white">
-                                    @Html.TextBoxFor(
-                                            m => m.Email,
-                                            new
-                                                 {
-                                                     @type = "text",
-                                                @placeholder = "Correo Electronico",
-                                                @style = "text-align: center",
-                                                @class = "form-control form-control-lg"
-                                            })
+                                    <div class="form-group"style="width:450px; text-align:left">
+                                        <label >Telefono</label>
+                                        @Html.TextBoxFor(m => m.Phone, new { @type = "text", @style = "text-align: center", @class = "form-control form-control-lg" })
+                                    </div>
+
+                                    <div class="form-group"style="width: 450px; text-align: left">
+                                        <label>Nombre</label>
+                                        @Html.TextBoxFor(m => m.Name, new { @type = "text", @style = "text-align: center", @class = "form-control form-control-lg" })
+                                    </div>
+
+                                    <div class="form-group"style="width: 450px; text-align: left">
+                                        <label>Primer Apellido</label>
+                                        @Html.TextBoxFor(m => m.LastName, new { @type = "text", @style = "text-align: center", @class = "form-control form-control-lg" })
+                                    </div>
+
+                                    <div class="form-group"style="width: 450px; text-align: left">
+                                        <label>Segundo Apellido</label>
+                                        @Html.TextBoxFor(m => m.SecLastName, new { @type = "text", @style = "text-align: center", @class = "form-control form-control-lg" })
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group"style="width: 450px; text-align: left">
+                                        <label>Cursos disponibles</label>
+                                        @Html.DropDownListFor(m => m.CourseId, ViewBag.Course as List<SelectListItem>, "Seleccione el Curso de interés", new { @type = "text", @style = "text-align: center", @class = "form-control form-control-lg" })
+                                    </div>
+
+                                    <div class="form-group"style="width: 450px; text-align: left">
+                                        <label>Modalidades disponibles</label>
+                                        @Html.DropDownListFor(m => m.ModalityId, ViewBag.Modality as List<SelectListItem>, "Seleccione la Modalidad", new { @type = "text", @style = "text-align: center", @class = "form-control form-control-lg" })
+                                    </div>
+
+                                    <div class="form-group"style="width: 450px; text-align: left">
+                                        <label>Niveles disponibles</label>
+                                        @Html.DropDownListFor(m => m.LevelCourseId, ViewBag.Level as List<SelectListItem>, "Seleccione el nivel que desea", new { @type = "text", @style = "text-align: center", @class = "form-control form-control-lg" })
+                                    </div>
+
+                                    <p class="text-black mb-5" style="text-decoration: underline;">Una vez complete su prematrícula, será contactado por nuestros representantes para concluir con su Matrícula</p>
+
+                                    <!-- Modal -->
+                                    <button type="button" class="btn btn-outline-success btn-lg px-5" data-bs-toggle="modal" data-bs-target="#basicModal">
+                                        PreMatricular
+                                    </button>
+                                    <br>
+                                    <br>
                                 </div>
 
-                                <div class="col-2 form-outline form-white">
-                                    @Html.TextBoxFor(
-                                            m => m.Phone,
-                                            new
-                                                 {
-                                                     @type = "text",
-                                                @placeholder = "Telefono",
-                                                @style = "text-align: center",
-                                                @class = "form-control form-control-lg"
-                                            })
-                                </div>
-
-                                <div class="col-2 form-outline form-white">
-                                    @Html.TextBoxFor(
-                                            m => m.Name,
-                                            new
-                                                 {
-                                                     @type = "text",
-                                                @placeholder = "Nombre",
-                                                @style = "text-align: center",
-                                                @class = "form-control form-control-lg"
-                                            })
-                                </div>
-
-                                <div class="col-2 form-outline form-white">
-                                    @Html.TextBoxFor(
-                                            m => m.LastName,
-                                            new
-                                                 {
-                                                     @type = "text",
-                                                @placeholder = "Primer Apellido",
-                                                @style = "text-align: center",
-                                                @class = "form-control form-control-lg"
-                                            })
-                                </div>
-
-                                <div class="col-2 form-outline form-white">
-                                    @Html.TextBoxFor(
-                                            m => m.SecLastName,
-                                            new
-                                                 {
-                                                     @type = "text",
-                                                @placeholder = "Segundo Apellido",
-                                                @style = "text-align: center",
-                                                @class = "form-control form-control-lg"
-                                            })
-                                </div>
-
-                            </div>
-
-                            <br>
-
-                            <div class="row justify-content-center align-items-center">
-
-                                <div class="col-3 form-outline form-white">
-                                    @Html.DropDownListFor(m => m.CourseId, ViewBag.Course as List<SelectListItem>, "Selecione el Curso de interes", new { @type = "text", @style = "text-align: center", @class = "form-control form-control-lg" })
-                                </div>
-
-                                <div class="col-3 form-outline form-white">
-                                    @Html.DropDownListFor(m => m.ModalityId, ViewBag.Modality as List<SelectListItem>, "Selecione la Modalidad", new { @type = "text", @style = "text-align: center", @class = "form-control form-control-lg" })
-                                </div>
-
-                                <div class="col-3 form-outline form-white">
-                                    @Html.DropDownListFor(m => m.LevelCourseId, ViewBag.Level as List<SelectListItem>, "Selecione el nivel que desea", new { @type = "text", @style = "text-align: center", @class = "form-control form-control-lg" })
-                                </div>
+                             
 
                             </div>
                         </div>
-                        <p class="text-black mb-5" style="text-decoration: underline;">Una vez complete su prematricula, sera contactado por nuestros representes para concluir con su Matricula!</p>
-
-                        <!-- Modal -->
-                        <button type="button" class="btn btn-outline-success btn-lg px-5" data-bs-toggle="modal" data-bs-target="#basicModal">
-                            PreMatricular!
-                        </button>
-                        <br>
-                        <br>
-
 
 
                     </div>
                 </div>
             </div>
         </div>
-
-    </section><!-- End Hero -->
+    </section>
+  
 
     <!-- Modal -->
     <div class="modal fade" id="basicModal" tabindex="-1">

@@ -34,6 +34,7 @@
                             <p class="text-white-50 mb-5">Por favor ingrese su usuario y contraseña</p>
 
                             <div class="form-outline form-white mb-4" id="form" style="width: 60%; margin: auto;">
+                                <label class="text-white" for="LoginUsuario" style="text-align:left">Usuario</label>
                                 @Html.TextBoxFor(
                                         m => m.UserName,
                                         new
@@ -44,10 +45,11 @@
                                             @class = "form-control form-control-lg",
                                             @id = "uname"
                                         })
-                                <label class="text-white" for="LoginUsuario">Usuario</label>
+
                             </div>
 
                             <div class="form-outline form-white mb-4" style="width: 60%; margin: auto;">
+                                <label class="text-white" for="LoginContraseña" style="text-align:left">Contraseña</label>
                                 @Html.TextBoxFor(
                                         m => m.UserPw,
                                         new
@@ -58,7 +60,7 @@
                                             @class = "form-control form-control-lg",
                                             @id = "passw"
                                         })
-                                <label class="text-white" for="LoginContraseña">Contraseña</label>
+
                             </div>
 
                             <button class="btn btn-outline-light btn-lg px-5" id="btn" type="submit">Entrar</button>
@@ -73,12 +75,6 @@
     </div>
 </section>
 
-@*<script>
-        // Comprueba si hay un mensaje de error y muestra una alerta si es necesario
-       // if ('@errorMessage' !== '') {
-            //alert("Ah ocurrido un error. Por favor, intente de nuevo.");
-      //  }
-    </script>*@
 
 <script>
     document.getElementById("loginForm").addEventListener("submit", function (event) {
