@@ -32,7 +32,7 @@ namespace CCIH.Controllers
             return View();
         }
 
-        public ActionResult Course()
+        public ActionResult Courses()
         {
             return View();
         }
