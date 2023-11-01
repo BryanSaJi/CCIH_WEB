@@ -43,7 +43,7 @@
                         <div class="row mb-3">
                             <label for="inputText" class="col-sm-2 col-form-label">Nombre</label>
                             <div class="col-sm-5">
-                                @Html.TextBoxFor(m => m.Name, new { @type = "text", @placeholder = "Digite el Nombre", @id = "nombre", @class = "form-control"})
+                                @Html.TextBoxFor(m => m.Name, new { @type = "text", @placeholder = "Digite el Nombre", @id = "nombre", @class = "form-control" })
                             </div>
                             <div class="col-sm-5 offset-2">
                                 <div class="validation-message text-danger" id="nombreValidationMessage"></div>
@@ -52,7 +52,7 @@
                         <div class="row mb-3">
                             <label for="inputNumber" class="col-sm-2 col-form-label">Primer Apellido</label>
                             <div class="col-sm-5">
-                                @Html.TextBoxFor(m => m.LastName, new { @type = "text", @placeholder = "Digite el Primer Apellido", @id = "primerApellido", @class = "form-control"})
+                                @Html.TextBoxFor(m => m.LastName, new { @type = "text", @placeholder = "Digite el Primer Apellido", @id = "primerApellido", @class = "form-control" })
                             </div>
                             <div class="col-sm-5 offset-2">
                                 <div class="validation-message text-danger" id="primerApellidoValidationMessage"></div>
@@ -71,7 +71,7 @@
                         <div class="row mb-3">
                             <label for="inputDate" class="col-sm-2 col-form-label">Fecha de Nacimiento</label>
                             <div class="col-sm-5">
-                                @Html.TextBoxFor(m => m.BirthDate, new { @type = "text", @class = "form-control"})
+                                @Html.TextBoxFor(m => m.BirthDate, new { @type = "text", @class = "form-control" })
                             </div>
                         </div>
 
@@ -113,21 +113,38 @@
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label">Rol</label>
                             <div class="col-sm-5">
-                                @Html.DropDownListFor(m => m.IdRol, ViewBag.Rol as List<SelectListItem>, "Selecione el Rol", new { @class = "form-control"})
+                                @Html.DropDownListFor(m => m.IdRol, ViewBag.Rol as List<SelectListItem>, "Selecione el Rol", new { @class = "form-control" })
                             </div>
                         </div>
 
 
-                        <div class="row mb-5">
-                            <div class="col-3">
-                                <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#basicModal">Actualizar</button>
-                            </div>
+                        <div class="row">
+                            <br>
+                            <div class="col-lg-4">
 
-                            <div class="col-3">
-                                <a type="submit" class="btn btn-outline-secondary" href="@Url.Action("ConsultRegister","Registration", new { i = @Session["IdUserCustomerRegistration"] })">Consultar Matricula</a>
+                                <a type="submit" class="btn btn-secondary m-0 w-50" href="@Url.Action("ConsultRegister","Registration", new { i = @Session["IdUserCustomerRegistration"] })">Consultar Matricula</a>
+                            </div>
+                            <br>
+                            <div class="col-lg-4">
+                                <button type="button" class="btn btn-primary m-0 w-50" data-bs-toggle="modal" data-bs-target="#basicModal">Actualizar</button>
                             </div>
                         </div>
+
+
+                        @*<div class="row mb-5">
+            <div class="col-3">
+                <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#basicModal">Actualizar</button>
+            </div>
+
+            <div class="col-3">
+                <a type="submit" class="btn btn-outline-secondary" href="@Url.Action("ConsultRegister","Registration", new { i = @Session["IdUserCustomerRegistration"] })">Consultar Matricula</a>
+            </div>
+        </div>*@
+                        ´
                     </div>
+
+
+
                         </div>
                         <div class="col-1">
 
