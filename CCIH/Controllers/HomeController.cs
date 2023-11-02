@@ -187,16 +187,14 @@ namespace CCIH.Controllers
 
         public ActionResult ContactConsult(ContactEnt ent)
         {
-            //Programacion envio correo a institucion
-
+            
             return RedirectToAction("", "");
         }
 
-        public ActionResult RestorerUser(UserEnt ent)
+        public ActionResult RestoreUser(UserEnt ent)
         {
-            //Programacion restablecer contraseña y enviar al correo
-
-            return RedirectToAction("", "");
+            var resp = model.RestoreUserPassword(ent);
+            return RedirectToAction("Login", "Home");
         }
 
         [HttpGet]

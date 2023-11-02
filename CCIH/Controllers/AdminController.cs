@@ -36,13 +36,15 @@ namespace CCIH.Controllers
             decimal total = 0;
             foreach (var item in TodayRegistrationData)
             {
-                total = item.Amount;  
+                total = item.Amount;
             }
             Session["MensajePositivo"] = 0;
             Session["MensajeNegativo"] = 0;
+            Session["CedulaCliente"] = null;
             Session["PreRegisterPending"] = preRegistrationData.Count;
             Session["RegisterToday"] = TodayRegistrationData.Count;
             Session["TotalRegisterToday"] = total;
+            Session["CedulaCliente"] = "";
 
             return View();
         }
@@ -78,129 +80,100 @@ namespace CCIH.Controllers
             return View();
         }
 
-        public ActionResult CreateRegister(UserEnt ent)
+        public ActionResult CreateRegister()
         {
-            ent.StatusId = 1;
 
-            if(ent.IdRol == 3)
-            {
-                try
+                //Status
+                var State = modelState.RequestStatusScrollDown();
+                var ComboState = new List<SelectListItem>();
+                foreach (var item in State)
                 {
-                    //var resp = modelCustomer.RegisterCustomer(ent);
-                    var respIsUser = modelUser.RequestUserByPersonalID(ent.PersonalID);
-
-                    if (respIsUser == null)
+                    ComboState.Add(new SelectListItem
                     {
-                        var resp = modelUser.CreateUser(ent);
-                        var data = ent;
-                        Session["CedulaCliente"] = data.PersonalID;
-
-                        if (resp > 0)
-                        {
-                            //Status
-                            var State = modelState.RequestStatusScrollDown();
-                            var ComboState = new List<SelectListItem>();
-                            foreach (var item in State)
-                            {
-                                ComboState.Add(new SelectListItem
-                                {
-                                    Text = item.Name,
-                                    Value = item.StatusId.ToString()
-                                });
-                            }
-
-                            //Crusos
-                            var course = modelCourse.RequestCourseScrollDown();
-                            var ComboCourse = new List<SelectListItem>();
-                            foreach (var item in course)
-                            {
-                                ComboCourse.Add(new SelectListItem
-                                {
-                                    Text = item.Name,
-                                    Value = item.CourseID.ToString()
-                                });
-                            }
-
-                            //Modalidad
-                            var Modality = modelModality.RequestModalityScrollDown();
-                            var ComboModality = new List<SelectListItem>();
-                            foreach (var item in Modality)
-                            {
-                                ComboModality.Add(new SelectListItem
-                                {
-                                    Text = item.Name,
-                                    Value = item.ModalityId.ToString()
-                                });
-                            }
-
-                            //Nivel
-                            var level = modelLevel.RequestLevelCourseScrollDown();
-                            var ComboLevel = new List<SelectListItem>();
-                            foreach (var item in level)
-                            {
-                                ComboLevel.Add(new SelectListItem
-                                {
-                                    Text = item.Name,
-                                    Value = item.LevelCourseId.ToString()
-                                });
-                            }
-
-                            //Horario
-                            var Schudule = modelSchedule.RequestScheduleScrollDown();
-                            var ComboSchudule = new List<SelectListItem>();
-                            foreach (var item in Schudule)
-                            {
-                                ComboSchudule.Add(new SelectListItem
-                                {
-                                    Text = item.Description,
-                                    Value = item.ScheduleId.ToString()
-                                });
-                            }
-
-                            //Grupo
-                            var Group = modelGroup.RequestGroupScrollDown();
-                            var ComboGroup = new List<SelectListItem>();
-                            foreach (var item in Group)
-                            {
-                                ComboGroup.Add(new SelectListItem
-                                {
-                                    Text = item.GroupId.ToString(),
-                                    Value = item.GroupId.ToString()
-                                });
-                            }
-
-
-                            ViewBag.Group = ComboGroup;
-                            ViewBag.Schedule = ComboSchudule;
-                            ViewBag.Level = ComboLevel;
-                            ViewBag.Modality = ComboModality;
-                            ViewBag.Course = ComboCourse;
-                            ViewBag.Status = ComboState;
-                            Session["MensajePositivo"] = 1;
-                            return View();
-
-                        }else
-                        return RedirectToAction("ConsultRegistrations");
-
-                    }else
-                    return RedirectToAction("ConsultRegistrations");
-
+                        Text = item.Name,
+                        Value = item.StatusId.ToString()
+                    });
                 }
-                catch (Exception ex)
+
+                //Crusos
+                var course = modelCourse.RequestCourseScrollDown();
+                var ComboCourse = new List<SelectListItem>();
+                foreach (var item in course)
                 {
-                    return RedirectToAction("ConsultRegistrations");
+                    ComboCourse.Add(new SelectListItem
+                    {
+                        Text = item.Name,
+                        Value = item.CourseID.ToString()
+                    });
                 }
-            }
-            else
-            {
-                var resp = modelUser.CreateUser(ent);
-                Session["MensajePositivo"] = 1;
-                return RedirectToAction("Index", "User");
-            }
-            
+
+                //Modalidad
+                var Modality = modelModality.RequestModalityScrollDown();
+                var ComboModality = new List<SelectListItem>();
+                foreach (var item in Modality)
+                {
+                    ComboModality.Add(new SelectListItem
+                    {
+                        Text = item.Name,
+                        Value = item.ModalityId.ToString()
+                    });
+                }
+
+                //Nivel
+                var level = modelLevel.RequestLevelCourseScrollDown();
+                var ComboLevel = new List<SelectListItem>();
+                foreach (var item in level)
+                {
+                    ComboLevel.Add(new SelectListItem
+                    {
+                        Text = item.Name,
+                        Value = item.LevelCourseId.ToString()
+                    });
+                }
+
+                //Horario
+                var Schudule = modelSchedule.RequestScheduleScrollDown();
+                var ComboSchudule = new List<SelectListItem>();
+                foreach (var item in Schudule)
+                {
+                    ComboSchudule.Add(new SelectListItem
+                    {
+                        Text = item.Description,
+                        Value = item.ScheduleId.ToString()
+                    });
+                }
+
+                //Grupo
+                var Group = modelGroup.RequestGroupScrollDown();
+                var ComboGroup = new List<SelectListItem>();
+                foreach (var item in Group)
+                {
+                    ComboGroup.Add(new SelectListItem
+                    {
+                        Text = item.GroupId.ToString(),
+                        Value = item.GroupId.ToString()
+                    });
+                }
 
 
+                ViewBag.Group = ComboGroup;
+                ViewBag.Schedule = ComboSchudule;
+                ViewBag.Level = ComboLevel;
+                ViewBag.Modality = ComboModality;
+                ViewBag.Course = ComboCourse;
+                ViewBag.Status = ComboState;
+
+                if ((int)Session["MensajePositivo"] == 1)
+                {
+                    ViewBag.MsjPantallaPostivo = "Usuario Registrado, proceda con la matricula";
+                }
+
+
+            return View();
         }
+    
+
+        
 
         public ActionResult ConsultRegistrations()
         {

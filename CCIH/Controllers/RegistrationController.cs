@@ -31,6 +31,7 @@ namespace CCIH.Controllers
         {
             ent.StatusId = 1;
             ent.PersonalID = @Session["CedulaCliente"].ToString();
+
             try
             {
 

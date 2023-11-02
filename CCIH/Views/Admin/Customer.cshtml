@@ -23,7 +23,7 @@
         </nav>
     </div><!-- End Page Title -->
 
-    
+
 
     <section class="section">
         <div class="row">
@@ -35,7 +35,7 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <!-- General Form Elements -->
-                            @using (Html.BeginForm("CreateRegister", "Admin", FormMethod.Post))
+                            @using (Html.BeginForm("RegisterUser", "User", FormMethod.Post))
                             {
 
                                 <!-- Row 1 -->
@@ -43,7 +43,7 @@
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="personalIDField" class="col-form-label">Cedula</label>
-                                            <input type="text" placeholder="Digite la CÈdula" class="form-control" id="personalIDField"  />
+                                            @Html.TextBoxFor(m => m.PersonalID, new { @type = "number", @placeholder = "Digite la cedula", @id = "PersonalId", @class = "form-control", @onkeydown = "return event.keyCode !== 69" })
                                             <div class="validation-message text-danger" id="validationMessage"></div>
                                         </div>
                                     </div>
@@ -77,22 +77,22 @@
 
                                 <!-- Row 3 -->
 
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="email" class="col-form-label">Email</label>
-                                    @Html.TextBoxFor(m => m.Email, new { @type = "email", @placeholder = "Digite el correo electronico", @class = "form-control",  id= "email" })
-                                    <div class="validation-message text-danger" id="emailvalidationMessage"></div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="email" class="col-form-label">Email</label>
+                                            @Html.TextBoxFor(m => m.Email, new { @type = "email", @placeholder = "Digite el correo electronico", @class = "form-control", id = "email" })
+                                            <div class="validation-message text-danger" id="emailvalidationMessage"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="inputDate" class="col-form-label">Fecha de Nacimiento</label>
+                                            @Html.TextBoxFor(m => m.Birthdate, new { @type = "date", @class = "form-control" })
+                                            <div class="validation-message text-danger" id="validationMessagedate"></div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="inputDate" class="col-form-label">Fecha de Nacimiento</label>
-                                    @Html.TextBoxFor(m => m.Birthdate, new { @type = "date", @class = "form-control" })
-                                    <div class="validation-message text-danger" id="validationMessagedate"></div>
-                                </div>
-                            </div>
-                        </div>
 
 
                                 <!-- Row 4 -->
@@ -206,7 +206,7 @@
         }
     });
 
-     /////////////////////////////// lastname  ////////////////////////////////////////////////////////////////
+    /////////////////////////////// lastname  ////////////////////////////////////////////////////////////////
 
     document.querySelector('#lastNameField').addEventListener('input', function () {
         var lastname = this.value;
@@ -220,24 +220,24 @@
 
     });
 
-         /////////////////////////////// Slastname  ////////////////////////////////////////////////////////////////
+    /////////////////////////////// Slastname  ////////////////////////////////////////////////////////////////
 
     document.querySelector('#slnFIELD').addEventListener('input', function () {
-            var slastname = this.value;
+        var slastname = this.value;
         var validationMessage = document.querySelector('#slnFIELDValidationMessage');
-            if (!/^[A-Za-z¡…Õ”⁄·ÈÌÛ˙Ò—\s]+$/.test(slastname)) {
-                validationMessage.innerHTML = "Por favor, ingrese solo letras en el campo Segundo Apellido.";
-            } else {
-                validationMessage.innerHTML = "";
-            }
+        if (!/^[A-Za-z¡…Õ”⁄·ÈÌÛ˙Ò—\s]+$/.test(slastname)) {
+            validationMessage.innerHTML = "Por favor, ingrese solo letras en el campo Segundo Apellido.";
+        } else {
+            validationMessage.innerHTML = "";
+        }
 
     });
 
-      /////////////////////////////// email  ////////////////////////////////////////////////////////////////
+    /////////////////////////////// email  ////////////////////////////////////////////////////////////////
 
 
 
-      // email y telefono no estan funcionando correctamente
+    // email y telefono no estan funcionando correctamente
 
     document.querySelector('#email').addEventListener('input', function () {
         var email = this.value;
@@ -255,7 +255,7 @@
         return emailPattern.test(email);
     }
 
-      /////////////////////////////// phone  ////////////////////////////////////////////////////////////////
+    /////////////////////////////// phone  ////////////////////////////////////////////////////////////////
 
 
 
@@ -270,12 +270,12 @@
     });
 
 
-      ///////////////////////////////   ////////////////////////////////////////////////////////////////
+    ///////////////////////////////   ////////////////////////////////////////////////////////////////
 
 
 
 
-      //**aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa* */
+    //**aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa* */
 
 
 
@@ -290,5 +290,6 @@
     }, 5000); // 5000 milisegundos = 5 segundos
 
 
-  </script>
+</script>
+
 

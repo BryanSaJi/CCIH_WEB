@@ -162,6 +162,25 @@ namespace CCIH.Models
 
         }
 
+        public int RestoreUserPassword(UserEnt ent)
+        {
+            using (var custom = new HttpClient())
+            {
+                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/RestoreUserPassword";
+                JsonContent body = JsonContent.Create(ent); //Serializar
+                HttpResponseMessage resp = custom.PostAsync(url, body).Result;
+
+                if (resp.IsSuccessStatusCode)
+                {
+                    return resp.Content.ReadFromJsonAsync<int>().Result;
+                }
+
+                return 0;
+            }
+        }
+
+
+
         public string Encrypt(string toEncrypt)
         {
             byte[] keyArray;

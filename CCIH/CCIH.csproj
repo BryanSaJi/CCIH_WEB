@@ -208,6 +208,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\Administration\css\DataTable\buttons.dataTables.min.css" />
+    <Content Include="assets\Administration\css\DataTable\jquery.dataTables.min.css" />
     <Content Include="assets\Administration\css\style.css" />
     <Content Include="assets\Administration\img\apple-touch-icon.png" />
     <Content Include="assets\Administration\img\card.jpg" />
@@ -738,7 +740,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="assets\Administration\css\DataTable\" />
     <Folder Include="Captcha\" />
   </ItemGroup>
   <ItemGroup>

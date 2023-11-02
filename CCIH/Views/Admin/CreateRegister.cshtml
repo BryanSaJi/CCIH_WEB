@@ -27,12 +27,20 @@
                     <div class="card-body">
                         <h5 class="card-title">Matricula</h5>
 
+
+                        @if (ViewBag.MsjPantallaPostivo != null)
+                        {
+                            <div style="text-align:center" class="alert alert-success" role="alert">
+                                @ViewBag.MsjPantallaPostivo
+                            </div>
+                        }
+
                         <!-- General Form Elements -->
 
                         <div class="row mb-3">
                             <label for="inputText" class="col-sm-2 col-form-label">Cedula</label>
                             <div class="col-sm-5">
-                                @Html.TextBoxFor(m => m.PersonalID, new { @type = "text", @placeholder = "Digite la Cédula", @class = "form-control", id = "personalIDField" })
+                                @Html.TextBoxFor(m => m.PersonalID, new { @type = "text", @placeholder = "Digite la Cédula", @class = "form-control", id = "personalIDField", @Value = @Session["CedulaCliente"].ToString()})
                             </div>
                             <div class="col-sm-5 offset-2">
                                 <div class="validation-message text-danger" id="validationMessage"></div>
@@ -77,13 +85,13 @@
                         <div class="row mb-3">
                             <label for="inputDate" class="col-sm-2 col-form-label">Fecha de Matricula</label>
                             <div class="col-sm-5">
-                                @Html.TextBoxFor(m => m.RegistrationDate, new { @type = "date", @class = "form-control"  })
+                                @Html.TextBoxFor(m => m.RegistrationDate, new { @type = "date", @class = "form-control" })
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label for="inputNumber" class="col-sm-2 col-form-label">Dia de Pago</label>
                             <div class="col-sm-5">
-                                @Html.TextBoxFor(m => m.PaymentDay, new { @type = "Number", @class = "form-control" , id = "DayPay"})
+                                @Html.TextBoxFor(m => m.PaymentDay, new { @type = "Number", @class = "form-control", id = "DayPay" })
                             </div>
                             <div class="col-sm-5 offset-2">
                                 <div class="validation-message text-danger" id="DayValidationMessage"></div>
@@ -93,7 +101,7 @@
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label">Comentario</label>
                             <div class="col-sm-5">
-                                @Html.TextAreaFor(m => m.Comments, new { @type = "Text", @placeholder = "Digite un comentario de ser necesario", @class = "form-control", @style = "height: 50px"  })
+                                @Html.TextAreaFor(m => m.Comments, new { @type = "Text", @placeholder = "Digite un comentario de ser necesario", @class = "form-control", @style = "height: 50px" })
                             </div>
                         </div>
 
@@ -155,6 +163,12 @@
         }
     });
 
- 
+    // Esperar 5 segundos y luego ocultar el mensaje
+    setTimeout(function () {
+        var mensajeDiv = document.getElementById('MsjPantallaPostivo');
+        mensajeDiv.style.display = 'none';
+        Session["MensajePositivo"] = 0;
+
+    }, 5000); // 5000 milisegundos = 5 segundos
 
  </script>

@@ -49,31 +49,7 @@ namespace CCIH.Controllers
         [HttpPost]
         public ActionResult RegisterUser(UserEnt ent)
         {
-            //Estatus
-            var Status = modelState.RequestStatusScrollDown();
-            var ComboStatus = new List<SelectListItem>();
-            foreach (var item in Status)
-            {
-                ComboStatus.Add(new SelectListItem
-                {
-                    Text = item.Name,
-                    Value = item.StatusId.ToString()
-                });
-            }
-            ViewBag.Status = ComboStatus;
-
-            //Roles
-            var rol = modelRole.RequestRolesScrollDown();
-            var ComboRol = new List<SelectListItem>();
-            foreach (var item in rol)
-            {
-                ComboRol.Add(new SelectListItem
-                {
-                    Text = item.Name,
-                    Value = item.IdRol.ToString()
-                });
-            }
-            ViewBag.Rol = ComboRol;
+            ent.StatusId = 1;
 
             try
             {
@@ -81,10 +57,22 @@ namespace CCIH.Controllers
                 var resp = model.CreateUser(ent);
 
                 if (resp > 0)
-                    return RedirectToAction("Index", "User");
+                {
+                    if (ent.IdRol == 3)
+                    {
+                        Session["CedulaCliente"] = ent.PersonalID;
+                        Session["MensajePositivo"] = 1;
+                        return RedirectToAction("CreateRegister", "Admin");
+                    }
+                    else
+                    {
+                        Session["MensajePositivo"] = 1;
+                        return RedirectToAction("Index", "User");
+                    }
+                }
                 else
                 {
-                    ViewBag.Msj = "No se ha podido registrar su información";
+                    
                     return View("RegisterUser");
                 }
             }
@@ -93,6 +81,7 @@ namespace CCIH.Controllers
                 return View("Error");
             }
         }
+
         public ActionResult RegisterUser()
         {
             //Estatus
@@ -120,6 +109,7 @@ namespace CCIH.Controllers
                 });
             }
             ViewBag.Rol = ComboRol;
+
 
             return View();
         }
@@ -157,6 +147,9 @@ namespace CCIH.Controllers
                 return RedirectToAction("ChangePassword");
             }
         }
+
+
+        
         public ActionResult ChangePassword()
         {
             if ((int)Session["MensajePositivo"] == 1)
@@ -182,7 +175,7 @@ namespace CCIH.Controllers
 
 
         [HttpGet]
-        public ActionResult EditUser(long i,bool msj)
+        public ActionResult EditUser(long i)
         {
             var data = model.RequestUser(i);
 
@@ -212,10 +205,6 @@ namespace CCIH.Controllers
             }
             ViewBag.Rol = ComboRol;
 
-            // Send ViewBack
-            if (msj) {
-                ViewBag.MsjSucces = "El Perfil fue modificado exitosamente";
-            }
 
             return View(data);
         }
