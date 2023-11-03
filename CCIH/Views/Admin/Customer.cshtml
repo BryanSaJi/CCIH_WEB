@@ -43,7 +43,7 @@
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="personalIDField" class="col-form-label">Cedula</label>
-                                            @Html.TextBoxFor(m => m.PersonalID, new { @type = "number", @placeholder = "Digite la cedula", @id = "PersonalId", @class = "form-control", @onkeydown = "return event.keyCode !== 69" })
+                                            @Html.TextBoxFor(m => m.PersonalID, new { @onkeyup = "ConsultPeopleInfo()", @type = "number", @placeholder = "Digite la cedula", @id = "PersonalId", @class = "form-control"})
                                             <div class="validation-message text-danger" id="validationMessage"></div>
                                         </div>
                                     </div>
@@ -62,7 +62,7 @@
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="lastNameField" class="col-form-label">Primer Apellido</label>
-                                            @Html.TextBoxFor(m => m.LastName, new { @type = "text", @placeholder = "Digite el Primer Apellido", @class = "form-control", id = "lastNameField" })
+                                            @Html.TextBoxFor(m => m.LastName, new { @onkeyup = "ConsultPeopleInfo()", @type = "text", @placeholder = "Digite el Primer Apellido", @class = "form-control", id = "lastNameField" })
                                             <div class="validation-message text-danger" id="lastNameValidationMessage"></div>
                                         </div>
                                     </div>

@@ -56,7 +56,7 @@
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="idField" class="col-form-label">Cédula</label>
-                                            @Html.TextBoxFor(m => m.PersonalID, new { @type = "text", @placeholder = "Digite la cédula", @id = "idField", @class = "form-control", @onkeydown = "return event.keyCode !== 69" })
+                                            @Html.TextBoxFor(m => m.PersonalID, new { @onkeyup = "ConsultPeopleInfo()", @type = "number", @placeholder = "Digite la cedula", @id = "PersonalId", @class = "form-control"})
                                             <div class="validation-message text-danger" id="idFieldValidationMessage"></div>
                                         </div>
                                     </div>
@@ -75,14 +75,14 @@
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="LastNameField" class="col-form-label">Primer Apellido</label>
-                                            @Html.TextBoxFor(m => m.LastName, new { @type = "text", @placeholder = "Digite el Primer Apellido", @id = "LastNameField", @class = "form-control" })
+                                            @Html.TextBoxFor(m => m.LastName, new { @type = "text", @placeholder = "Digite el Primer Apellido", @id = "lastNameField", @class = "form-control" })
                                             <div class="validation-message text-danger" id="LastNameFieldValidationMessage"></div>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="sLastNameField" class="col-form-label">Segundo Apellido</label>
-                                            @Html.TextBoxFor(m => m.SecLastName, new { @type = "text", @placeholder = "Digite el Segundo Apellido", @id = "sLastNameField", @class = "form-control" }) <!-- Cambié el ID a "LastNameField" -->
+                                            @Html.TextBoxFor(m => m.SecLastName, new { @type = "text", @placeholder = "Digite el Segundo Apellido", @id = "slnFIELD", @class = "form-control" }) <!-- Cambié el ID a "LastNameField" -->
                                             <div class="validation-message text-danger" id="sLastNameFieldValidationMessage"></div> <!-- Cambié el ID a "LastNameFieldValidationMessage" -->
                                         </div>
                                     </div>

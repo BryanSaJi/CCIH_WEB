@@ -32,7 +32,7 @@
                         <div class="row mb-3">
                             <label for="inputText" class="col-sm-2 col-form-label">Cédula</label>
                             <div class="col-sm-5">
-                                @Html.TextBoxFor(m => m.PersonalID, new { @type = "text", @placeholder = "Digite la Cédula", @id = "cedula", @class = "form-control" })
+                                @Html.TextBoxFor(m => m.PersonalID, new { @onkeyup = "ConsultPeopleInfo()", @type = "number", @placeholder = "Digite la cedula", @id = "PersonalId", @class = "form-control" })
                             </div>
                             <div class="col-sm-5 offset-2">
                                 <div class="validation-message text-danger" id="cedulaValidationMessage"></div>
@@ -43,7 +43,7 @@
                         <div class="row mb-3">
                             <label for="inputText" class="col-sm-2 col-form-label">Nombre</label>
                             <div class="col-sm-5">
-                                @Html.TextBoxFor(m => m.Name, new { @type = "text", @placeholder = "Digite el Nombre", @id = "nombre", @class = "form-control" })
+                                @Html.TextBoxFor(m => m.Name, new { @type = "text", @placeholder = "Digite el Nombre", @id = "nameField", @class = "form-control" })
                             </div>
                             <div class="col-sm-5 offset-2">
                                 <div class="validation-message text-danger" id="nombreValidationMessage"></div>
@@ -52,7 +52,7 @@
                         <div class="row mb-3">
                             <label for="inputNumber" class="col-sm-2 col-form-label">Primer Apellido</label>
                             <div class="col-sm-5">
-                                @Html.TextBoxFor(m => m.LastName, new { @type = "text", @placeholder = "Digite el Primer Apellido", @id = "primerApellido", @class = "form-control" })
+                                @Html.TextBoxFor(m => m.LastName, new { @type = "text", @placeholder = "Digite el Primer Apellido", @id = "lastNameField", @class = "form-control" })
                             </div>
                             <div class="col-sm-5 offset-2">
                                 <div class="validation-message text-danger" id="primerApellidoValidationMessage"></div>
@@ -62,7 +62,7 @@
                         <div class="row mb-3">
                             <label for="inputNumber" class="col-sm-2 col-form-label">Segundo Apellido</label>
                             <div class="col-sm-5">
-                                @Html.TextBoxFor(m => m.SecLastName, new { @type = "text", @placeholder = "Digite el Segundo Apellido", @id = "segundoApellido", @class = "form-control" })
+                                @Html.TextBoxFor(m => m.SecLastName, new { @type = "text", @placeholder = "Digite el Segundo Apellido", @id = "slnFIELD", @class = "form-control" }) <!-- Cambié el ID a "LastNameField" -->
                             </div>
                             <div class="col-sm-5 offset-2">
                                 <div class="validation-message text-danger" id="segundoApellidoValidationMessage"></div>

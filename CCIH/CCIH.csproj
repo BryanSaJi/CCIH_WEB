@@ -234,6 +234,7 @@
     <Content Include="assets\Administration\img\slides-1.jpg" />
     <Content Include="assets\Administration\img\slides-2.jpg" />
     <Content Include="assets\Administration\img\slides-3.jpg" />
+    <Content Include="assets\Administration\js\ConsultPeopleAPI.js" />
     <Content Include="assets\Administration\js\DataTable\cdn.datatables.net_1.13.5_js_jquery.dataTables.min.js" />
     <Content Include="assets\Administration\js\DataTable\cdn.datatables.net_buttons_2.4.1_js_buttons.html5.min.js" />
     <Content Include="assets\Administration\js\DataTable\cdn.datatables.net_buttons_2.4.1_js_buttons.print.min.js" />
