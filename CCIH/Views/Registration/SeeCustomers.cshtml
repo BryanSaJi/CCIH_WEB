@@ -19,7 +19,7 @@
     <script defer src="~/assets/Administration/js/DataTable/cdn.datatables.net_buttons_2.4.1_js_dataTables.buttons.min.js"></script>
     <script defer src="~/assets/Administration/js/DataTable/cdnjs.cloudflare.com_ajax_libs_jszip_3.10.1_jszip.min.js"></script>
     <script defer src="~/assets/Administration/js/DataTable/cdnjs.cloudflare.com_ajax_libs_pdfmake_0.1.53_pdfmake.min.js"></script>
-        <script defer src="~/assets/Administration/js/DataTable/cdnjs.cloudflare.com_ajax_libs_pdfmake_0.1.53_vfs_fonts.js"></script>
+    <script defer src="~/assets/Administration/js/DataTable/cdnjs.cloudflare.com_ajax_libs_pdfmake_0.1.53_vfs_fonts.js"></script>
     <script defer src="~/assets/Administration/js/DataTable/cdn.datatables.net_buttons_2.4.1_js_buttons.html5.min.js"></script>
     <script defer src="~/assets/Administration/js/DataTable/cdn.datatables.net_buttons_2.4.1_js_buttons.print.min.js"></script>
     <script defer src="~/assets/Administration/js/DataTable/DataTable.js"></script>
@@ -55,10 +55,18 @@
                                         <br>
                                         @if (ViewBag.MsjPantallaPostivo != null)
                                         {
-                                            <div style="text-align:center" class="alert alert-success" role="alert">
+                                            <div id="mensajePositivo" style="text-align:center" class="alert alert-success" role="alert">
                                                 @ViewBag.MsjPantallaPostivo
                                             </div>
                                         }
+                                        @if (ViewBag.MsjPantallaNegativo != null)
+                                        {
+                                            <div id="mensajeNegativo" style="text-align:center" class="alert alert-danger" role="alert">
+                                                @ViewBag.MsjPantallaNegativo
+                                            </div>
+                                        }
+
+
 
                                         <table id="DataTable" class="table table-hover" style="width: 100% !important;">
                                             <thead>
@@ -107,3 +115,26 @@
     </section>
 
 </main><!-- End #main -->
+
+
+
+<script>
+    // Esperar 5 segundos y luego ocultar el mensaje
+    setTimeout(function () {
+
+        var mensajeDiv = document.getElementById('mensaje');
+        if (mensajeDiv != null) {
+            mensajeDiv.style.display = 'none';
+        }
+
+        var mensajeDiv2 = document.getElementById('mensajeNegativo');
+        if (mensajeDiv2 != null) {
+            mensajeDiv2.style.display = 'none';
+        }
+
+        Session["MensajePositivo"] = 0;
+
+    }, 5000); // 5000 milisegundos = 5 segundos
+
+
+</script>

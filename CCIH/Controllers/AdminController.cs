@@ -165,9 +165,15 @@ namespace CCIH.Controllers
 
                 if ((int)Session["MensajePositivo"] == 1)
                 {
+                    
                     ViewBag.MsjPantallaPostivo = "Usuario Registrado, proceda con la matricula";
                 }
 
+                if ((int)Session["MensajeNegativo"] == 1)
+                {
+                    
+                    ViewBag.MsjPantallaNegativo = "No se ha efectuado la matricula debido a un problema con el usuario ingresado";
+                }
 
             return View();
         }

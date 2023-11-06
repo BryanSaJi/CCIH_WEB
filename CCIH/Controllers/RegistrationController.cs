@@ -69,6 +69,8 @@ namespace CCIH.Controllers
         [HttpGet]
         public ActionResult ConsultRegister(long i)
         {
+            
+
             var data = modelRegistration.RequestRegistration(i);
             Session["MensajeNegativo"] = 0;
             Session["MensajePositivo"] = 0;
@@ -246,7 +248,6 @@ namespace CCIH.Controllers
             ViewBag.Group = ComboGroup;
 
             
-
             return View(data);
         }
 
@@ -292,7 +293,6 @@ namespace CCIH.Controllers
             }
             if ((int)Session["MensajeNegativo"] == 1)
             {
-                ViewBag.MsjPantallaNegativo = "No se ha efectuado la matricula debido a un problema con el usuario ingresado";
                 return RedirectToAction("CreateRegister", "Admin");
             }
             var data = modelRegistration.RequestRegistrationsToday();

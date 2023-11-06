@@ -21,20 +21,19 @@
             </nav>
         </div><!-- End Page Title -->
 
-        @if (ViewBag.MsjPantallaPostivo != null)
+         @if (ViewBag.MsjPantallaPostivo != null)
         {
-            <div id="mensaje" style="text-align:center" class="alert alert-success" role="alert">
+            <div id="mensajePositivo" style="text-align:center" class="alert alert-success" role="alert">
                 @ViewBag.MsjPantallaPostivo
             </div>
         }
-
-
         @if (ViewBag.MsjPantallaNegativo != null)
         {
             <div id="mensajeNegativo" style="text-align:center" class="alert alert-danger" role="alert">
                 @ViewBag.MsjPantallaNegativo
             </div>
         }
+
 
         <section class="section">
             <div class="row">
@@ -185,6 +184,24 @@
 
 <script>
 
+    // Esperar 5 segundos y luego ocultar el mensaje
+    setTimeout(function () {
+
+        var mensajeDiv = document.getElementById('mensajePositivo');
+        if (mensajeDiv != null) {
+            mensajeDiv.style.display = 'none';
+        }
+
+        var mensajeDiv2 = document.getElementById('mensajeNegativo');
+        if (mensajeDiv2 != null) {
+            mensajeDiv2.style.display = 'none';
+        }
+
+        Session["MensajePositivo"] = 0;
+
+    }, 5000); // 5000 milisegundos = 5 segundos
+
+
     document.querySelector('#personalIDField').addEventListener('input', function () {
         var cedula = this.value;
         var validationMessage = document.querySelector('#idValidationMessage');
@@ -206,22 +223,7 @@
     });
 
 
-    // Esperar 5 segundos y luego ocultar el mensaje
-    setTimeout(function () {
-
-        var mensajeDiv = document.getElementById('mensaje');
-        if (mensajeDiv != null) {
-            mensajeDiv.style.display = 'none';
-        }
-
-        var mensajeDiv2 = document.getElementById('mensajeNegativo');
-        if (mensajeDiv2 != null) {
-            mensajeDiv2.style.display = 'none';
-        }
-
-        Session["MensajePositivo"] = 0;
-
-    }, 5000); // 5000 milisegundos = 5 segundos
+    
 
 
 </script>

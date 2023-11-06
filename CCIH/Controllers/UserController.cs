@@ -205,6 +205,17 @@ namespace CCIH.Controllers
             }
             ViewBag.Rol = ComboRol;
 
+            if ((int)Session["MensajePositivo"] == 1)
+            {
+                ViewBag.MsjPantallaPostivo = "El usuario fue modificado de manera correcta";
+            }
+
+
+            if ((int)Session["MensajeNegativo"] == 2)
+            {
+                ViewBag.MsjPantallaNegativo = "No se ha podido modificar la informacion del perfil";
+            }
+
 
             return View(data);
         }
@@ -221,21 +232,18 @@ namespace CCIH.Controllers
                 if (resp > 0)
                     if (ent.IdRol == 3)
                     {
-                        //Session["MensajePositivo"] = 1;
-                        
-                        
-                        return RedirectToAction("EditUser", "User", new { i = ent.UserId, msj = true });
+                        Session["MensajePositivo"] = 1;
+                        return RedirectToAction("EditUser", "User", new { i = ent.UserId });
                     }
                     else
                     {
-                        //Session["MensajePositivo"] = 1;
-                        
-                        
-                        return RedirectToAction("EditUser", "User", new { i = ent.UserId, msj = true }); 
+                        Session["MensajePositivo"] = 1;
+                        return RedirectToAction("EditUser", "User", new { i = ent.UserId }); 
                     }
                 else
                 {
-                    ViewBag.MsjError = "No se ha podido modificar la informacion del perfil";
+                    Session["MensajeNegativo"] = 2;
+                    ViewBag.MsjPantallaNegativo = "No se ha podido modificar la informacion del perfil";
                     return View("Index");
                 }
             }
