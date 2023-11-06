@@ -292,7 +292,8 @@ namespace CCIH.Controllers
             }
             if ((int)Session["MensajeNegativo"] == 1)
             {
-                ViewBag.MsjPantallaNegativo = "No se ha efectuado la matricula";
+                ViewBag.MsjPantallaNegativo = "No se ha efectuado la matricula debido a un problema con el usuario ingresado";
+                //return RedirectToAction("CreateRegister", "Admin");
             }
             var data = modelRegistration.RequestRegistrationsToday();
             return View(data);
