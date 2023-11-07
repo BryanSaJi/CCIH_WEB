@@ -16,7 +16,7 @@ namespace CCIH.Entities
         public string LastName { get; set; }
         public string SecLastName { get; set; }
         public string Email { get; set; }
-        public DateTime BirthDate { get; set; }
+        public DateTime Birthdate { get; set; }
         public string Address { get; set; }
         public string UserName { get; set; }
         public string UserPw { get; set; }

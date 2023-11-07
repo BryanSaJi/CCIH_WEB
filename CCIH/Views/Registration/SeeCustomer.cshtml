@@ -32,7 +32,7 @@
                         <div class="row mb-3">
                             <label for="inputText" class="col-sm-2 col-form-label">Cédula</label>
                             <div class="col-sm-5">
-                                @Html.TextBoxFor(m => m.PersonalID, new { @onkeyup = "ConsultPeopleInfo()", @type = "number", @placeholder = "Digite la cedula", @id = "PersonalId", @class = "form-control" })
+                                @Html.TextBoxFor(m => m.PersonalID, new { @onkeyup = "ConsultPeopleInfo()", @type = "text", @placeholder = "Digite la cedula", @id = "PersonalId", @class = "form-control" })
                             </div>
                             <div class="col-sm-5 offset-2">
                                 <div class="validation-message text-danger" id="cedulaValidationMessage"></div>
@@ -71,7 +71,7 @@
                         <div class="row mb-3">
                             <label for="inputDate" class="col-sm-2 col-form-label">Fecha de Nacimiento</label>
                             <div class="col-sm-5">
-                                @Html.TextBoxFor(m => m.BirthDate, new { @type = "text", @class = "form-control" })
+                                @Html.TextBoxFor(m => m.Birthdate, new { @type = "text", @class = "form-control" })
                             </div>
                         </div>
 
@@ -173,87 +173,3 @@
 
     </main><!-- End #main -->
      }
-
-<script>
-
-    document.querySelector('#nombre').addEventListener('input', function () {
-        var nombre = this.value;
-        var validationMessage = document.querySelector('#nombreValidationMessage');
-        if (!/^[A-Za-zÁáÉéÍíÓóÚúñÑ\s]+$/.test(nombre)) {
-            validationMessage.innerHTML = "Por favor, ingrese solo letras en el campo de Nombre.";
-        } else {
-            validationMessage.innerHTML = "";
-        }
-    });
-
-    document.querySelector('#cedula').addEventListener('input', function () {
-        var cedula = this.value;
-        var validationMessage = document.querySelector('#cedulaValidationMessage');
-        if (!/^\d+$/.test(cedula)) {
-            validationMessage.innerHTML = "Por favor, ingrese solo números en el campo de Cédula.";
-        } else {
-            validationMessage.innerHTML = "";
-        }
-    });
-    document.querySelector('#primerApellido').addEventListener('input', function () {
-        var primerApellido = this.value;
-        var validationMessage = document.querySelector('#primerApellidoValidationMessage');
-        if (!/^[A-Za-zÁáÉéÍíÓóÚúÑñ ]+$/.test(primerApellido)) {
-            validationMessage.innerHTML = "Por favor, ingrese solo letras en el campo de Primer Apellido.";
-        } else {
-            validationMessage.innerHTML = "";
-        }
-    });
-
-
-    document.querySelector('#segundoApellido').addEventListener('input', function () {
-        var segundoApellido = this.value;
-        var validationMessage = document.querySelector('#segundoApellidoValidationMessage');
-        if (!/^[A-Za-zÁáÉéÍíÓóÚúÑñ ]+$/.test(segundoApellido)) {
-            validationMessage.innerHTML = "Por favor, ingrese solo letras en el campo de Segundo Apellido.";
-        } else {
-            validationMessage.innerHTML = "";
-        }
-    });
-
-    document.querySelector('#telefono').addEventListener('input', function () {
-        var telefono = this.value;
-        var validationMessage = document.querySelector('#telefonoValidationMessage');
-        if (!/^\d+$/.test(telefono)) {
-            validationMessage.innerHTML = "Por favor, ingrese solo números en el campo de Teléfono.";
-        } else {
-            validationMessage.innerHTML = "";
-        }
-    });
-
-    document.querySelector('#email').addEventListener('input', function () {
-        var email = this.value;
-        var validationMessage = document.querySelector('#emailValidationMessage');
-        if (!isValidEmail(email)) {
-            validationMessage.innerHTML = "Por favor, ingrese un correo electrónico válido, ejemplo: correo@email.com"
-        } else {
-            validationMessage.innerHTML = "";
-        }
-    });
-
-    function isValidEmail(email) {
-        // Utiliza una expresión regular para validar el formato del correo electrónico
-        var emailPattern = /^[a-zA-Z0-9._-]+@@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-        return emailPattern.test(email);
-    }
-
-    function validateForm() {
-        var cedula = document.querySelector('#cedula').value;
-        var nombre = document.querySelector('#nombre').value;
-        var primerApellido = document.querySelector('#primerApellido').value;
-        var segundoApellido = document.querySelector('#segundoApellido').value;
-        var telefono = document.querySelector('#telefono').value;
-        var email = document.querySelector('#email').value;
-
-        if (cedula.trim() === "" || nombre.trim() === "" || primerApellido.trim() === "" || segundoApellido.trim() === "" || telefono.trim() === "" || email.trim() === "") {
-            alert("Por favor, complete todos los campos antes de enviar el formulario.");
-            return false;
-        }
-        return true;
-    }
-</script>

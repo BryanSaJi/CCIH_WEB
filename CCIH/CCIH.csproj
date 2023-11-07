@@ -244,6 +244,8 @@
     <Content Include="assets\Administration\js\DataTable\cdnjs.cloudflare.com_ajax_libs_pdfmake_0.1.53_vfs_fonts.js" />
     <Content Include="assets\Administration\js\DataTable\code.jquery.com_jquery-3.7.0.js" />
     <Content Include="assets\Administration\js\DataTable\Datatable.js" />
+    <Content Include="assets\Administration\js\FieldValidations.js" />
+    <Content Include="assets\Administration\js\UserFormValidation.js" />
     <Content Include="assets\Administration\js\main.js" />
     <Content Include="assets\Administration\scss\Readme.txt" />
     <Content Include="assets\Administration\vendor\apexcharts\apexcharts.amd.js" />

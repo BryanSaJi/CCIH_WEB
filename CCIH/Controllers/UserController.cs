@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using QRCoder;
 using System.Drawing;
 using System.Web.Security;
+using System.Globalization;
 
 namespace CCIH.Controllers
 {
