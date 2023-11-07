@@ -121,7 +121,6 @@
                                         <div class="form-group">
                                             <label for="Rol" class="col-form-label">Rol</label>
                                             @Html.DropDownListFor(m => m.IdRol, ViewBag.Rol as List<SelectListItem>, "Seleccione Rol", new { @class = "form-control", id = "Rol" })
-                                            <div class="validation-message text-danger" id="ValidationMessageRol"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -190,5 +189,5 @@
 </main><!-- End #main -->
 }
 
+<script src="~/assets/Administration/js/UserValidations.js"></script>
 <script src="~/assets/Administration/js/UserFormValidation.js"></script>
-

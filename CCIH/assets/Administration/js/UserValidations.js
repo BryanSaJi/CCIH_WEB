@@ -41,7 +41,6 @@ document.querySelector('#PersonalId').addEventListener('keyup', function () {
     }
 });
 
-
 /////////////////////////////// name  ////////////////////////////////////////////////////////////////
 
     if (document.getElementById("nameField").value != "") {
@@ -169,6 +168,7 @@ document.querySelector('#Birthdate').addEventListener('input', function () {
 });
 
 /////////////////////////////// Rol  ////////////////////////////////////////////////////////////////
+
 var documentRol = document.getElementById("Rol").value;
 if (documentRol == "") {
     document.getElementById("Rol").style.borderColor = "FireBrick";
@@ -187,6 +187,7 @@ document.querySelector('#Rol').addEventListener('input', function () {
 });
 
 /////////////////////////////// Address  ////////////////////////////////////////////////////////////////
+
 if (document.getElementById("Address").value == "") {
     document.getElementById("Address").style.borderColor = "FireBrick";
 }
@@ -204,7 +205,8 @@ document.querySelector('#Address').addEventListener('keyup', function () {
 });
 
 
-/////////////////////////////// Status  ////////////////////////////////////////////////////////////////
+///////////////////////////////// Status  ////////////////////////////////////////////////////////////////
+
 var documentStatusList = document.getElementById("StatusList").value;
 if (documentStatusList == "") {
     document.getElementById("StatusList").style.borderColor = "FireBrick";
@@ -221,5 +223,8 @@ document.querySelector('#StatusList').addEventListener('input', function () {
         this.style.borderColor = "FireBrick";
     }
 });
+
+
+
 
 
