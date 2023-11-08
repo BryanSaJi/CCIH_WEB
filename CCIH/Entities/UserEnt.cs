@@ -25,6 +25,8 @@ namespace CCIH.Entities
         public string Phone { get; set; }
         public long IdRol { get; set; }
         public string RolName { get; set; }
+        public long IdentificationsId { get; set; }
+        public string IdentificationsName { get; set; }
         public long StatusId { get; set; }
         public string StatusName { get; set; }
         public DateTime CreationDate { get; set; }

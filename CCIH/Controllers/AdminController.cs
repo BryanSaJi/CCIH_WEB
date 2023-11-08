@@ -17,6 +17,7 @@ namespace CCIH.Controllers
     public class AdminController : Controller
     {
         RoleModel modelRole = new RoleModel();
+        IdentificationsModel modelIdentifications = new IdentificationsModel();
         StateModel modelState = new StateModel();
         CustomerModel modelCustomer = new CustomerModel();
         CourseModel modelCourse = new CourseModel();
@@ -225,6 +226,17 @@ namespace CCIH.Controllers
             }
             ViewBag.State = ComboState;
 
+            var Identifications = modelIdentifications.RequestIdentificationsScrollDown();
+            var ComboIdentifications = new List<SelectListItem>();
+            foreach (var item in Identifications)
+            {
+                ComboIdentifications.Add(new SelectListItem
+                {
+                    Text = item.Name,
+                    Value = item.IdentificationsId.ToString()
+                });
+            }
+            ViewBag.Identifications = ComboIdentifications;
 
             return View();
         }

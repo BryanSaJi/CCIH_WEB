@@ -22,5 +22,6 @@ namespace CCIH.Entities
         public int StatusId { get; set; }
         public int IdRol { get; set; }
         public string NameRol { get; set; }
+        public string IdentificationsId { get; set; }
     }
 }

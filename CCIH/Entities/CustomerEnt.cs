@@ -19,6 +19,7 @@ namespace CCIH.Entities
         public int StatusId { get; set; }
         public string Status { get; set; }
         public int IdRol { get; set; }
+        public int IdentificationsId { get; set; }
         public DateTime RegistrationDate { get; set; }
 
         public string Course { get; set; }
