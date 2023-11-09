@@ -2,6 +2,7 @@ function ConsultPeopleInfo() {
 
     let PersonalID = $("#PersonalId").val();
 
+
     if (PersonalID.length > 0) {
         $.ajax({
             type: "GET",

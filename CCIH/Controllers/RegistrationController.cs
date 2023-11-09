@@ -25,6 +25,8 @@ namespace CCIH.Controllers
         GroupModel modelGroup = new GroupModel();
         RegistrationModel modelRegistration = new RegistrationModel();
         UserModel modelUser = new UserModel();
+        IdentificationsModel modelIdentifications = new IdentificationsModel();
+
 
         [HttpPost]
         public ActionResult CreateRegistration(RegistrationEnt ent)
@@ -430,6 +432,18 @@ namespace CCIH.Controllers
                 });
             }
             ViewBag.Rol = ComboRol;
+
+            var Identifications = modelIdentifications.RequestIdentificationsScrollDown();
+            var ComboIdentifications = new List<SelectListItem>();
+            foreach (var item in Identifications)
+            {
+                ComboIdentifications.Add(new SelectListItem
+                {
+                    Text = item.Name,
+                    Value = item.IdentificationsId.ToString()
+                });
+            }
+            ViewBag.Identifications = ComboIdentifications;
 
             return View(datos);
 

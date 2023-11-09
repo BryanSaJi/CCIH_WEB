@@ -17,6 +17,27 @@ setTimeout(function () {
 }, 5000); // 5000 milisegundos = 5 segundos
 
 
+///////////////////////////////// DateOfBirt  ////////////////////////////////////////////////////////////////
+
+function validateDateOfBirth() {
+    const today = new Date();
+    const inputDate = new Date(document.getElementById('Birthdate').value);
+    const age = today.getFullYear() - inputDate.getFullYear();
+
+    if (today.getMonth() < inputDate.getMonth() || (today.getMonth() === inputDate.getMonth() && today.getDate() < inputDate.getDate())) {
+        age--;
+    }
+
+    if (age < 6) {
+        document.getElementById('validationMessagedate').textContent = 'La persona debe tener al menos 6 annos de edad.';
+        document.getElementById('UserFormButton').disabled = true;
+    } else {
+        document.getElementById('validationMessagedate').textContent = '';
+        document.getElementById('UserFormButton').disabled = false;
+    }
+}
+
+document.getElementById('Birthdate').addEventListener('change', validateDateOfBirth);
 
 ////////////////////////////  id   ///////////////////////////////////////////////////////////////////
 
@@ -167,6 +188,25 @@ document.querySelector('#Birthdate').addEventListener('input', function () {
     }
 });
 
+/////////////////////////////// Identifications  ////////////////////////////////////////////////////////////////
+
+var documentIdentifications = document.getElementById("Identifications").value;
+if (documentIdentifications == "") {
+    document.getElementById("Identifications").style.borderColor = "FireBrick";
+}
+else {
+    document.getElementById("Identifications").style.borderColor = "Green";
+}
+
+document.querySelector('#Identifications').addEventListener('input', function () {
+    var Identifications = this.value;
+    if (Identifications > 0) {
+        this.style.borderColor = "Green";
+    } else {
+        this.style.borderColor = "FireBrick";
+    }
+});
+
 /////////////////////////////// Rol  ////////////////////////////////////////////////////////////////
 
 var documentRol = document.getElementById("Rol").value;
@@ -223,8 +263,6 @@ document.querySelector('#StatusList').addEventListener('input', function () {
         this.style.borderColor = "FireBrick";
     }
 });
-
-
 
 
 

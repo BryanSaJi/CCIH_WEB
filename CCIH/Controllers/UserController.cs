@@ -73,8 +73,8 @@ namespace CCIH.Controllers
                 }
                 else
                 {
-                    
-                    return View("RegisterUser");
+                    Session["MensajeNegativo"] = 4;
+                    return RedirectToAction("Customer", "Admin");
                 }
             }
             catch (Exception ex)
