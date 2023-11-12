@@ -34,7 +34,8 @@ namespace CCIH.Controllers
 
         public ActionResult Courses()
         {
-            return View();
+            var data = modelCourse.RequestCourseScrollDown();
+            return View(data);
         }
 
         public ActionResult Teachers()

@@ -1,124 +1,151 @@
+@model IEnumerable<CCIH.Entities.CourseEnt>
+
 @{
     ViewBag.Title = "Inicio";
 }
 
-<main id="main">
 
-    <!-- ======= Popular Courses Section ======= -->
+<main id="main">
+    <!-- ======= Carrusel ======= -->
     <section id="popular-courses" class="courses" style="margin-top: 50px">
-        <div class="container" style="text-align:justify">
+        <div class="container" style="text-align: justify">
 
             <div class="section-title">
                 <h2>Cursos</h2>
                 <p>Cursos más Populares</p>
             </div>
 
-            <div class="row" data-aos="zoom-in" data-aos-delay="100">
+            <!-- Barra de búsqueda y botón para abrir el modal -->
+            <div class="container mt-4">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" id="searchInput" placeholder="Buscar cursos">
+                    <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#searchModal">
+                        Buscar
+                    </button>
+                </div>
+            </div>
 
-                <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
-                    <div class="course-item">
-                        <a href="/Home/Ing_Intensivo_V"><img src="../assets/Home/img/course-1.jpg" class="img-fluid" alt="..."></a>
-                        <div class="course-content">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <h4>Virtual</h4>
-                                <p class="price">45% Descuento</p>
-                            </div>
-                            <h3><a href="/Home/Ing_Intensivo_V">Inglés Intensivo</a></h3>
-                            <p>Esta es la oportunidad de aprender inglés sin salir de tu casa, nuestra plataforma online te permitirá ingresar cuando desees y practicar a través de diferentes actividades el idioma, además recibirás seguimiento por parte de los profesores.</p>
-                        </div>
+            <div id="carouselControls" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner " style="text-align: justify">
+                    <div class="row" data-aos="zoom-in" data-aos-delay="100">
+                        @{
+                            var modelCount = Model.Count();
+                            for (int i = 0; i < modelCount; i += 3)
+                            {
+                                <div class="carousel-item @((i == 0) ? "active" : "")">
+                                    <div class="row" data-aos="zoom-in" data-aos-delay="100">
+                                        @foreach (var curso in Model.Skip(i).Take(3))
+                                        {
+                                            <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+                                                <div class="card">
+                                                    <a href="#"><img src="../assets/Home/img/@curso.image" class="card-img-top" alt="..."></a>
+                                                    <div class="card-body">
+                                                        <h4 class="card-title">@curso.ModalityName</h4>
+                                                        <p class="card-text">45% Descuento</p>
+                                                        <h3><a href="#">@curso.LevelCourseName</a></h3>
+                                                        <p class="card-text">@curso.Description</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            }
+                        }
                     </div>
-                </div> <!-- End Course Item-->
-
-                <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0">
-                    <div class="course-item">
-                        <a href="/Home/Ing_Intensivo_P"><img src="../assets/Home/img/course-2.jpg" class="img-fluid" alt="..."></a>
-                        <div class="course-content">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <h4>Presencial</h4>
-                                <p class="price">45% Descuento</p>
-                            </div>
-
-                            <h3><a href="/Home/Ing_Intensivo_P">Inglés Intensivo</a></h3>
-                            <p>Mediante materiales de la universidad de Oxford, aprenderás a leer, escuchar, hablar y escribir correctamente el idioma del inglés, contamos con profesores altamente experimentados para ayudarte a que manejes el idioma del inglés a la perfección.</p>
-                        </div>
-                    </div>
-                </div> <!-- End Course Item-->
-
-                <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0">
-                    <div class="course-item">
-                        <a href="/Home/Ing_Niños_V"><img src="../assets/Home/img/course-3.jpg" class="img-fluid" alt="..."></a>
-                        <div class="course-content">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <h4>Virutal & Presencial</h4>
-                                <p class="price">45% Descuento</p>
-                            </div>
-
-                            <h3><a href="/Home/Ing_Niños_V">Inglés para Niños</a></h3>
-                            <p>
-                                Enseñarles a niños el idioma inglés desde temprana edad les traerá grandes oportunidades, por esto contamos con nuestro curso de inglés para niños,
-                                la duración de este curso tiene un aproximado de 3 meses.
-                            </p>
-                        </div>
-                    </div>
-                </div> <!-- End Course Item-->
-
-
-                <p style="margin-left: 2.5em;padding: 0 7em 2em 0;border-width: 2px;"></p>
-
-
-                <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0">
-                    <div class="course-item">
-                        <a href="/Home/Ing_Semi_Intensivo_V"><img src="../assets/Home/img/course-4.jpg" class="img-fluid" alt="..."></a>
-                        <div class="course-content">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <h4>Virutal</h4>
-                                <p class="price">45% Descuento</p>
-                            </div>
-
-                            <h3><a href="/Home/Ing_Semi_Intensivo_V">Inglés Semi Intensivo</a></h3>
-                            <p>Si cuentas con poco tiempo libre no hay excusa para no aprender inglés, ya que aquí encontrarás nuestro curso semi intensivo virtual, que te ayudará mediante clases y plataformas en línea a manejar el idioma inglés a la perfección.</p>
-                        </div>
-                    </div>
-                </div> <!-- End Course Item-->
-
-
-                <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0">
-                    <div class="course-item">
-                        <a href="/Home/Ing_Semi_Intensivo_P"><img src="../assets/Home/img/course-5.jpg" class="img-fluid" alt="..."></a>
-                        <div class="course-content">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <h4>Presencial</h4>
-                                <p class="price">45% Descuento</p>
-                            </div>
-
-                            <h3><a href="/Home/Ing_Semi_Intensivo_P">Inglés Semi Intensivo</a></h3>
-                            <p>Si quieres aprender inglés, pero quieres mantener tu ritmo y hacerlo con calma, este curso será la opción perfecta. Además, en este curso brindamos muchos beneficios para que puedas aprender perfectamente el idioma.</p>
-                        </div>
-                    </div>
-                </div> <!-- End Course Item-->
-
-
-                <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0">
-                    <div class="course-item">
-                        <a href="/Home/Portu_Semi_Intensivo_V"><img src="../assets/Home/img/course-6.jpg" class="img-fluid" alt="..."></a>
-                        <div class="course-content">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <h4>Virutal o Presencial</h4>
-                                <p class="price">45% Descuento</p>
-                            </div>
-
-                            <h3><a href="/Home/Portu_Semi_Intensivo_V">Portugués</a></h3>
-                            <p>Nuestra empresa es líder en cursos de idiomas en Costa Rica, aquí también podrás aprender portugués. Este curso es ideal para jóvenes y adultos y podrás aprender a leer, escuchar, hablar y escribir de manera correcta y fluida.</p>
-                        </div>
-                    </div>
-                </div> <!-- End Course Item-->
-
+                </div>
 
             </div>
 
+            <!-- Modal -->
+            <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Resultados de la búsqueda</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Aquí mostrarás los resultados de la búsqueda -->
+                            <div id="searchResults" class="row"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <a class="carousel-control-prev" href="#carouselControls" role="button" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselControls" role="button" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </a>
 
         </div>
-    </section><!-- End Popular Courses Section -->
+    </section>
+
+
+
 
 </main>
-    <!-- End #main -->
+
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var myCarousel = new bootstrap.Carousel(document.getElementById('carouselControls'), {
+            interval: 4000
+        });
+    });
+
+
+    // Agregar un evento al botón de búsqueda
+    document.querySelector('button[data-bs-target="#searchModal"]').addEventListener('click', function () {
+        // Realizar la llamada al método del controlador con el término de búsqueda
+        var searchTerm = searchInput.value;
+
+        // Realizar la solicitud AJAX con Fetch API
+        $.ajax({
+            url: '@Url.Action("ObtenerCursosDesdeBaseDeDatos", "Course")',
+            type: 'GET',
+            data: { name: searchTerm },
+            success: function (data) {
+                /// Limpiar resultados anteriores
+                searchResults.innerHTML = '';
+
+
+                // Verificar si los datos son un objeto y contienen propiedades
+                data.forEach(curso => {
+                    var resultHtml = `
+                    <div class="col-lg-4 col-md-6 mb-3 d-flex align-items-stretch">
+                        <div class="card">
+                            <a href="#"><img src="../assets/Home/img/${curso.image}" class="card-img-top" alt="..."></a>
+                            <div class="card-body">
+                                <h4 class="card-title">${curso.Name}</h4>
+                                <p class="card-text">45% Descuento</p>
+                                <h3><a href="#">${curso.ModalityName}</a></h3>
+                                <h3><a href="#">${curso.LevelCourseName}</a></h3>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                    searchResults.innerHTML += resultHtml;
+                });
+
+
+                    // Abrir el modal después de cargar los resultados
+                    $('#searchModal').modal('show');
+
+            },
+            error: function (error) {
+                console.error('Error fetching data:', error);
+            }
+        });
+    });
+
+
+</script>

@@ -28,5 +28,25 @@ namespace CCIH.Models
             }
 
         }
+
+
+
+        public List<CourseEnt> SeeCoursesFiltered(string courseName)
+        {
+            using (var client = new HttpClient())
+            {
+                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/RequestCourseFiltered?courseName=" + courseName;
+                HttpResponseMessage resp = client.GetAsync(url).Result;
+
+                if (resp.IsSuccessStatusCode)
+                {
+                    return resp.Content.ReadFromJsonAsync<List<CourseEnt>>().Result;
+                }
+
+                return new List<CourseEnt>();
+            }
+
+        }
+
     }
 }
