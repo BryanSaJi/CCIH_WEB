@@ -90,12 +90,16 @@ namespace CCIH.Controllers
             var ComboCourse = new List<SelectListItem>();
             foreach (var item in course)
             {
-                ComboCourse.Add(new SelectListItem
+                if (item.CourseID <= 3)
                 {
-                    Text = item.Name,
-                    Value = item.CourseID.ToString()
-                });
+                    ComboCourse.Add(new SelectListItem
+                    {
+                        Text = item.Name,
+                        Value = item.CourseID.ToString()
+                    });
+                }
             }
+
             //Modalidad
             var Modality = modelModality.RequestModalityScrollDown();
             var ComboModality = new List<SelectListItem>();

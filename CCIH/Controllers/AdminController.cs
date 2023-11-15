@@ -96,10 +96,12 @@ namespace CCIH.Controllers
                     });
                 }
 
-                //Crusos
-                var course = modelCourse.RequestCourseScrollDown();
-                var ComboCourse = new List<SelectListItem>();
-                foreach (var item in course)
+            //Crusos
+            var course = modelCourse.RequestCourseScrollDown();
+            var ComboCourse = new List<SelectListItem>();
+            foreach (var item in course)
+            {
+                if (item.CourseID <= 3)
                 {
                     ComboCourse.Add(new SelectListItem
                     {
@@ -107,9 +109,10 @@ namespace CCIH.Controllers
                         Value = item.CourseID.ToString()
                     });
                 }
+            }
 
-                //Modalidad
-                var Modality = modelModality.RequestModalityScrollDown();
+            //Modalidad
+            var Modality = modelModality.RequestModalityScrollDown();
                 var ComboModality = new List<SelectListItem>();
                 foreach (var item in Modality)
                 {

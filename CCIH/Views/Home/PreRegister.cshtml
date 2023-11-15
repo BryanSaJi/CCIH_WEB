@@ -58,7 +58,9 @@
 
                                     <div class="form-group" style="width: 450px; text-align: left">
                                         <label>Niveles disponibles</label>
+                                       
                                         @Html.DropDownListFor(m => m.LevelCourseId, ViewBag.Level as List<SelectListItem>, "Seleccione el nivel que desea", new { @type = "text", @style = "text-align: center", @class = "form-control form-control-lg" })
+                                   
                                     </div>
                                     <p class="text-black mb-5" style="text-decoration: underline; margin-top: 5%;">Una vez complete su prematrícula, será contactado por nuestros representantes para concluir con su Matrícula</p>
 

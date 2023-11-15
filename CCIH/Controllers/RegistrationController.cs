@@ -91,18 +91,19 @@ namespace CCIH.Controllers
 
 
             //Crusos
-            var Courses = modelCourse.RequestCourseScrollDown();
+            var course = modelCourse.RequestCourseScrollDown();
             var ComboCourse = new List<SelectListItem>();
-            foreach (var item in Courses)
+            foreach (var item in course)
             {
-                ComboCourse.Add(new SelectListItem
+                if (item.CourseID <= 3)
                 {
-                    Text = item.Name,
-                    Value = item.CourseID.ToString()
-                });
+                    ComboCourse.Add(new SelectListItem
+                    {
+                        Text = item.Name,
+                        Value = item.CourseID.ToString()
+                    });
+                }
             }
-            ViewBag.Course = ComboCourse;
-
 
             //Modalidad
             var modality = modelModality.RequestModalityScrollDown();
@@ -182,18 +183,19 @@ namespace CCIH.Controllers
 
 
             //Crusos
-            var Courses = modelCourse.RequestCourseScrollDown();
+            var course = modelCourse.RequestCourseScrollDown();
             var ComboCourse = new List<SelectListItem>();
-            foreach (var item in Courses)
+            foreach (var item in course)
             {
-                ComboCourse.Add(new SelectListItem
+                if (item.CourseID <= 3)
                 {
-                    Text = item.Name,
-                    Value = item.CourseID.ToString()
-                });
+                    ComboCourse.Add(new SelectListItem
+                    {
+                        Text = item.Name,
+                        Value = item.CourseID.ToString()
+                    });
+                }
             }
-            ViewBag.Course = ComboCourse;
-
 
             //Modalidad
             var modality = modelModality.RequestModalityScrollDown();
@@ -354,18 +356,19 @@ namespace CCIH.Controllers
 
 
             //Crusos
-            var Courses = modelCourse.RequestCourseScrollDown();
+            var course = modelCourse.RequestCourseScrollDown();
             var ComboCourse = new List<SelectListItem>();
-            foreach (var item in Courses)
+            foreach (var item in course)
             {
-                ComboCourse.Add(new SelectListItem
+                if (item.CourseID <= 3)
                 {
-                    Text = item.Name,
-                    Value = item.CourseID.ToString()
-                });
+                    ComboCourse.Add(new SelectListItem
+                    {
+                        Text = item.Name,
+                        Value = item.CourseID.ToString()
+                    });
+                }
             }
-            ViewBag.Course = ComboCourse;
-
 
             //Modalidad
             var modality = modelModality.RequestModalityScrollDown();
