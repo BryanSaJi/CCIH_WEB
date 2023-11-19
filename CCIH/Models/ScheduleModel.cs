@@ -11,11 +11,13 @@ namespace CCIH.Models
 {
     public class ScheduleModel
     {
+        UtilitiesModel apiEnviroment = new UtilitiesModel();
+
         public List<ScheduleEnt> RequestScheduleScrollDown()
         {
             using (var custom = new HttpClient())
             {
-                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/RequestScheduleScrollDown";//revisar
+                string url = apiEnviroment.getApiUrl() + "api/RequestScheduleScrollDown";//revisar
                 HttpResponseMessage resp = custom.GetAsync(url).Result;
 
                 if (resp.IsSuccessStatusCode)

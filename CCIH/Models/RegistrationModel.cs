@@ -11,11 +11,13 @@ namespace CCIH.Models
 {
     public class RegistrationModel
     {
+        UtilitiesModel apiEnviroment = new UtilitiesModel();
+
         public int CreateRegistration(RegistrationEnt ent)
         {
             using (var custom = new HttpClient())
             {
-                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/CreateRegstration";//revisar
+                string url = apiEnviroment.getApiUrl() + "api/CreateRegstration";//revisar
                 JsonContent body = JsonContent.Create(ent); //Serializar
                 String Token = HttpContext.Current.Session["TokenUser"].ToString();
                 custom.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
@@ -34,7 +36,7 @@ namespace CCIH.Models
         {
             using (var custom = new HttpClient())
             {
-                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/CreatePreRegistration";
+                string url = apiEnviroment.getApiUrl() + "api/CreatePreRegistration";
                 JsonContent body = JsonContent.Create(ent); //Serializar
                 HttpResponseMessage resp = custom.PostAsync(url, body).Result;
 
@@ -52,7 +54,7 @@ namespace CCIH.Models
         {
             using (var custom = new HttpClient())
             {
-                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/RequestPreRegistrations";
+                string url = apiEnviroment.getApiUrl() + "api/RequestPreRegistrations";
 
                 String Token = HttpContext.Current.Session["TokenUser"].ToString();
                 custom.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
@@ -74,7 +76,7 @@ namespace CCIH.Models
         {
             using (var custom = new HttpClient())
             {
-                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/RequestRegistrations";
+                string url = apiEnviroment.getApiUrl() + "api/RequestRegistrations";
 
                 String Token = HttpContext.Current.Session["TokenUser"].ToString();
                 custom.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
@@ -95,7 +97,7 @@ namespace CCIH.Models
         {
             using (var custom = new HttpClient())
             {
-                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/RequestRegistrationsToday";
+                string url = apiEnviroment.getApiUrl() + "api/RequestRegistrationsToday";
 
                 String Token = HttpContext.Current.Session["TokenUser"].ToString();
                 custom.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
@@ -117,7 +119,7 @@ namespace CCIH.Models
         {
             using (var custom = new HttpClient())
             {
-                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/RequestRegistration?i=" + i;
+                string url = apiEnviroment.getApiUrl() + "api/RequestRegistration?i=" + i;
                 String Token = HttpContext.Current.Session["TokenUser"].ToString();
                 custom.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
                 HttpResponseMessage resp = custom.GetAsync(url).Result;
@@ -136,7 +138,7 @@ namespace CCIH.Models
         {
             using (var custom = new HttpClient())
             {
-                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/EditRegister?i=" + ent.RegistrationId;//revisar
+                string url = apiEnviroment.getApiUrl() + "api/EditRegister?i=" + ent.RegistrationId;//revisar
                 String Token = HttpContext.Current.Session["TokenUser"].ToString();
                 custom.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
 
@@ -156,7 +158,7 @@ namespace CCIH.Models
         {
             using (var custom = new HttpClient())
             {
-                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/ContactPreregister";
+                string url = apiEnviroment.getApiUrl() + "api/ContactPreregister";
                 String Token = HttpContext.Current.Session["TokenUser"].ToString();
                 custom.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
 

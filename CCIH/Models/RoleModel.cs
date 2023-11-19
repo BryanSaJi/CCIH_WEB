@@ -12,12 +12,13 @@ namespace CCIH.Models
 {
     public class RoleModel
     {
+        UtilitiesModel apiEnviroment = new UtilitiesModel();
 
         public List<RoleEnt> RequestRoles()
         {
             using (var client = new HttpClient())
             {
-                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/RequestRoles";
+                string url = apiEnviroment.getApiUrl() + "api/RequestRoles";
                 String Token = HttpContext.Current.Session["TokenUser"].ToString();
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
                 HttpResponseMessage resp = client.GetAsync(url).Result;
@@ -36,7 +37,7 @@ namespace CCIH.Models
         {
             using (var client = new HttpClient())
             {
-                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/CreateRole";
+                string url = apiEnviroment.getApiUrl() + "api/CreateRole";
                 JsonContent body = JsonContent.Create(entidad); //Serializar
                 String Token = HttpContext.Current.Session["TokenUser"].ToString();
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
@@ -53,7 +54,7 @@ namespace CCIH.Models
         {
             using (var client = new HttpClient())
             {
-                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/EditRole";
+                string url = apiEnviroment.getApiUrl() + "api/EditRole";
                 JsonContent body = JsonContent.Create(entidad); //Serializar
                 String Token = HttpContext.Current.Session["TokenUser"].ToString();
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
@@ -70,7 +71,7 @@ namespace CCIH.Models
         {
             using (var client = new HttpClient())
             {
-                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/RequestRole?i=" + i;
+                string url = apiEnviroment.getApiUrl() + "api/RequestRole?i=" + i;
                 String Token = HttpContext.Current.Session["TokenUser"].ToString();
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
                 HttpResponseMessage resp = client.GetAsync(url).Result;
@@ -87,7 +88,7 @@ namespace CCIH.Models
         {
             using (var client = new HttpClient())
             {
-                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/DeleteRole?i=" + i;
+                string url = apiEnviroment.getApiUrl() + "api/DeleteRole?i=" + i;
                 String Token = HttpContext.Current.Session["TokenUser"].ToString();
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
                 HttpResponseMessage resp = client.DeleteAsync(url).Result;
@@ -105,7 +106,7 @@ namespace CCIH.Models
         {
             using (var client = new HttpClient())
             {
-                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/RequestRolesScrollDown";
+                string url = apiEnviroment.getApiUrl() + "api/RequestRolesScrollDown";
                 String Token = HttpContext.Current.Session["TokenUser"].ToString();
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
                 HttpResponseMessage resp = client.GetAsync(url).Result;

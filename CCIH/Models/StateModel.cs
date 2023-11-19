@@ -12,13 +12,13 @@ namespace CCIH.Models
 {
     public class StateModel
     {
-
+        UtilitiesModel apiEnviroment = new UtilitiesModel();
 
         public List<StatusEnt> RequestStatusScrollDown()
         {
             using (var custom = new HttpClient())
             {
-                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/RequestStatusScrollDown";
+                string url = apiEnviroment.getApiUrl() + "api/RequestStatusScrollDown";
                 String Token = HttpContext.Current.Session["TokenUser"].ToString();
                 custom.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
                 HttpResponseMessage resp = custom.GetAsync(url).Result;

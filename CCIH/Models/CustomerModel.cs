@@ -11,11 +11,14 @@ namespace CCIH.Models
 {
     public class CustomerModel
     {
+
+        UtilitiesModel apiEnviroment = new UtilitiesModel();
+
         public int RegisterCustomer(UserEnt ent)
         {
             using (var custom = new HttpClient())
             {
-                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/RegisterCustomer";
+                string url = apiEnviroment.getApiUrl() + "api/RegisterCustomer";
                 String Token = HttpContext.Current.Session["TokenUser"].ToString();
                 custom.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
                 JsonContent body = JsonContent.Create(ent); //Serializar
@@ -34,7 +37,7 @@ namespace CCIH.Models
         {
             using (var custom = new HttpClient())
             {
-                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/EditCustomer";
+                string url = apiEnviroment.getApiUrl() + "api/EditCustomer";
                 String Token = HttpContext.Current.Session["TokenUser"].ToString();
                 custom.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
                 JsonContent body = JsonContent.Create(ent); //Serializar
@@ -54,7 +57,7 @@ namespace CCIH.Models
         {
             using (var client = new HttpClient())
             {
-                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/RequestUserByPersonalId?i=" + i;
+                string url = apiEnviroment.getApiUrl() + "api/RequestUserByPersonalId?i=" + i;
                 String Token = HttpContext.Current.Session["TokenUser"].ToString();
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
                 HttpResponseMessage resp = client.GetAsync(url).Result;

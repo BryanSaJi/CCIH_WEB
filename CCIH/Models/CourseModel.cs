@@ -8,15 +8,19 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Web;
 
+
 namespace CCIH.Models
 {
     public class CourseModel
     {
+
+        UtilitiesModel apiEnviroment = new UtilitiesModel();
+
         public List<CourseEnt> RequestCourseScrollDown()
         {
             using (var client = new HttpClient())
             {
-                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/RequestCourseScrollDown";
+                string url = apiEnviroment.getApiUrl() + "api/RequestCourseScrollDown";
                 HttpResponseMessage resp = client.GetAsync(url).Result;
 
                 if (resp.IsSuccessStatusCode)
@@ -35,7 +39,7 @@ namespace CCIH.Models
         {
             using (var client = new HttpClient())
             {
-                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/RequestCourseFiltered?courseName=" + courseName;
+                string url = apiEnviroment.getApiUrl() + "api/RequestCourseFiltered?courseName=" + courseName;
                 HttpResponseMessage resp = client.GetAsync(url).Result;
 
                 if (resp.IsSuccessStatusCode)

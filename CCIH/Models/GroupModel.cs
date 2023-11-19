@@ -12,11 +12,14 @@ namespace CCIH.Models
 {
     public class GroupModel
     {
+
+        UtilitiesModel apiEnviroment = new UtilitiesModel();
+
         public List<GroupEnt> RequestGroupScrollDown()
         {
             using (var client = new HttpClient())
             {
-                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/RequestGroupScrollDown";//revisar
+                string url = apiEnviroment.getApiUrl() + "api/RequestGroupScrollDown";//revisar
                 String Token = HttpContext.Current.Session["TokenUser"].ToString();
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
                 HttpResponseMessage resp = client.GetAsync(url).Result;

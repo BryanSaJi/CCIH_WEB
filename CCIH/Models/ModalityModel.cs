@@ -11,11 +11,13 @@ namespace CCIH.Models
 {
     public class ModalityModel
     {
+        UtilitiesModel apiEnviroment = new UtilitiesModel();
+
         public List<ModalityEnt> RequestModalityScrollDown()
         {
             using (var client = new HttpClient())
             {
-                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/RequestModalityScrollDown";
+                string url = apiEnviroment.getApiUrl() + "api/RequestModalityScrollDown";
                 HttpResponseMessage resp = client.GetAsync(url).Result;
 
                 if (resp.IsSuccessStatusCode)

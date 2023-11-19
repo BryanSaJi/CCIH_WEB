@@ -13,12 +13,13 @@ namespace CCIH.Models
     public class IdentificationsModel
     {
 
+        UtilitiesModel apiEnviroment = new UtilitiesModel();
 
         public List<IdentificationsEnt> RequestIdentificationsScrollDown()
         {
             using (var custom = new HttpClient())
             {
-                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/RequestIdentificationsScrollDown";
+                string url = apiEnviroment.getApiUrl() + "api/RequestIdentificationsScrollDown";
                 String Token = HttpContext.Current.Session["TokenUser"].ToString();
                 custom.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
                 HttpResponseMessage resp = custom.GetAsync(url).Result;

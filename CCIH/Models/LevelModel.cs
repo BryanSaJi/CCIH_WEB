@@ -11,11 +11,13 @@ namespace CCIH.Models
 {
     public class LevelModel
     {
+        UtilitiesModel apiEnviroment = new UtilitiesModel();
+
         public List<LevelCourseEnt> RequestLevelCourseScrollDown()
         {
             using (var client = new HttpClient())
             {
-                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/RequestLevelCourseScrollDown";
+                string url = apiEnviroment.getApiUrl() + "api/RequestLevelCourseScrollDown";
 
                 HttpResponseMessage resp = client.GetAsync(url).Result;
 

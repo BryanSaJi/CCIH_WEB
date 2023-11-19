@@ -14,11 +14,13 @@ namespace CCIH.Models
 {
     public class UserModel
     {
+        UtilitiesModel apiEnviroment = new UtilitiesModel();
+
         public UserEnt Login(UserEnt ent)
         {
             using (var custom = new HttpClient())
             {
-                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/Login";
+                string url = apiEnviroment.getApiUrl() + "api/Login";
                 JsonContent body = JsonContent.Create(ent);
 
                 HttpResponseMessage resp = custom.PostAsync(url, body).Result;
@@ -35,7 +37,7 @@ namespace CCIH.Models
         {
             using (var client = new HttpClient())
             {
-                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/CreateUser";
+                string url = apiEnviroment.getApiUrl() + "api/CreateUser";
                 JsonContent body = JsonContent.Create(entidad); //Serializar
                 String Token = HttpContext.Current.Session["TokenUser"].ToString();
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
@@ -53,7 +55,7 @@ namespace CCIH.Models
         {
             using (var client = new HttpClient())
             {
-                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/ChangePassword";
+                string url = apiEnviroment.getApiUrl() + "api/ChangePassword";
                 JsonContent body = JsonContent.Create(entidad); //Serializar
                 String Token = HttpContext.Current.Session["TokenUser"].ToString();
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
@@ -71,7 +73,7 @@ namespace CCIH.Models
         {
             using (var client = new HttpClient())
             {
-                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/RequestUsers";
+                string url = apiEnviroment.getApiUrl() + "api/RequestUsers";
 
                 String Token = HttpContext.Current.Session["TokenUser"].ToString();
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
@@ -90,7 +92,7 @@ namespace CCIH.Models
         {
             using (var client = new HttpClient())
             {
-                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/EditUser";
+                string url = apiEnviroment.getApiUrl() + "api/EditUser";
                 JsonContent body = JsonContent.Create(entidad); //Serializar
                 String Token = HttpContext.Current.Session["TokenUser"].ToString();
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
@@ -108,7 +110,7 @@ namespace CCIH.Models
         {
             using (var client = new HttpClient())
             {
-                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/RequestUser?i=" + i;
+                string url = apiEnviroment.getApiUrl() + "api/RequestUser?i=" + i;
                 String Token = HttpContext.Current.Session["TokenUser"].ToString();
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
                 HttpResponseMessage resp = client.GetAsync(url).Result;
@@ -126,7 +128,7 @@ namespace CCIH.Models
         {
             using (var client = new HttpClient())
             {
-                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/RequestUserByPersonalId?personalId=" + personalId;
+                string url = apiEnviroment.getApiUrl() + "api/RequestUserByPersonalId?personalId=" + personalId;
                 String Token = HttpContext.Current.Session["TokenUser"].ToString();
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
                 HttpResponseMessage resp = client.GetAsync(url).Result;
@@ -145,7 +147,7 @@ namespace CCIH.Models
         {
             using (var client = new HttpClient())
             {
-                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/RequestUserByRol?i=" + i;
+                string url = apiEnviroment.getApiUrl() + "api/RequestUserByRol?i=" + i;
 
                 String Token = HttpContext.Current.Session["TokenUser"].ToString();
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
@@ -168,7 +170,7 @@ namespace CCIH.Models
         {
             using (var custom = new HttpClient())
             {
-                string url = ConfigurationManager.AppSettings["urlApi"].ToString() + "api/RestoreUserPassword";
+                string url = apiEnviroment.getApiUrl() + "api/RestoreUserPassword";
                 JsonContent body = JsonContent.Create(ent); //Serializar
                 HttpResponseMessage resp = custom.PostAsync(url, body).Result;
 
