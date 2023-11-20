@@ -17,5 +17,8 @@ namespace CCIH.Entities
         public string ModalityName { get; set; }
         public string LevelCourseName { get; set; }
         public long status { get; set; }
+        public long CourseCatalogId { get; set; }
+        public string CourseName { get; set; }
+       
     }
 }

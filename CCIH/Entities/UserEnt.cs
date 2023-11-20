@@ -32,6 +32,6 @@ namespace CCIH.Entities
         public DateTime CreationDate { get; set; }
         public DateTime LastActivity { get; set; }
         public string Token { get; set; }
-
+        public long EmployeeId { get; set; }
     }
 }

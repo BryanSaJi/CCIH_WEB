@@ -88,6 +88,49 @@ namespace CCIH.Models
             }
         }
 
+
+        public List<UserEnt> SeeAllUserStudents()
+        {
+            using (var client = new HttpClient())
+            {
+                string url = apiEnviroment.getApiUrl() + "api/SeeAllUserStudents";
+
+                String Token = HttpContext.Current.Session["TokenUser"].ToString();
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
+                HttpResponseMessage resp = client.GetAsync(url).Result;
+
+                if (resp.IsSuccessStatusCode)
+                {
+                    return resp.Content.ReadFromJsonAsync<List<UserEnt>>().Result;
+                }
+
+                return new List<UserEnt>();
+            }
+        }
+
+
+
+        public List<UserEnt> SeeAllUserTeacher()
+        {
+            using (var client = new HttpClient())
+            {
+                string url = apiEnviroment.getApiUrl() + "api/SeeAllUserTeacher";
+
+                String Token = HttpContext.Current.Session["TokenUser"].ToString();
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
+                HttpResponseMessage resp = client.GetAsync(url).Result;
+
+                if (resp.IsSuccessStatusCode)
+                {
+                    return resp.Content.ReadFromJsonAsync<List<UserEnt>>().Result;
+                }
+
+                return new List<UserEnt>();
+            }
+        }
+
+
+
         public int Edituser(UserEnt entidad)
         {
             using (var client = new HttpClient())
