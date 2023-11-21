@@ -756,7 +756,7 @@
     <Content Include="Views\Registration\SeeCustomer.cshtml" />
     <Content Include="Views\State\Index.cshtml" />
     <Content Include="Views\Teachers\Index.cshtml" />
-    <Content Include="Views\Teachers\CreateTeacher.cshtml" />
+    <Content Include="Views\Teachers\AssingTeacher.cshtml" />
     <Content Include="Views\Teachers\RequestTeacher.cshtml" />
     <Content Include="Views\Teachers\CheckInTeacher.cshtml" />
     <Content Include="Views\Teachers\CoursesTeacher.cshtml" />

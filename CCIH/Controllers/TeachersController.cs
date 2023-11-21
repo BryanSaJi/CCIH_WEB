@@ -23,7 +23,7 @@ namespace CCIH.Controllers
         }
 
 
-        public ActionResult CreateTeacher()
+        public ActionResult AssingTeacher()
         {
             return View();
         }
