@@ -33,5 +33,21 @@ namespace CCIH.Entities
         public DateTime LastActivity { get; set; }
         public string Token { get; set; }
         public long EmployeeId { get; set; }
+
+        /*pruba para ver si acomodo los teachers*/
+
+        public string TimeMark { get; set; }
+
+        public string Course { get; set; }
+        public string Modality { get; set; }
+        public string Group { get; set; }
+        public string level { get; set; }
+        public string Schedule { get; set; }
+
+        public int CourseId { get; set; }
+        public int LevelCourseId { get; set; }
+        public long ModalityId { get; set; }
+        public long ScheduleId { get; set; }
+        public long TimeMarkID { get; set; }
     }
 }
