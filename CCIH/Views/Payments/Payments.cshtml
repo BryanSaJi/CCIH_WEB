@@ -1,8 +1,8 @@
-@model CCIH.Entities.CustomerEnt
+ï»¿@model CCIH.Entities.PaymentsEnt
 
 
 @{
-    ViewBag.Title = "Cliente";
+    ViewBag.Title = "Pagos";
     Layout = "~/Views/Shared/_Layout_Administration.cshtml";
 }
 
@@ -14,25 +14,25 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>Agregar Usuario</h1>
+        <h1>Ingresar Pago</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="@Url.Action(" Index","Admin")">Inicio</a></li>
-                <li class="breadcrumb-item"><a href="#">Agregar Usuario</a></li>
+                <li class="breadcrumb-item"><a href="#">Ingresar Pago</a></li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
     @if (ViewBag.MsjPantallaPostivo != null)
     {
-    <div id="mensajePositivo" style="text-align:center" class="alert alert-success" role="alert">
-        @ViewBag.MsjPantallaPostivo
-    </div>
+        <div id="mensajePositivo" style="text-align:center" class="alert alert-success" role="alert">
+            @ViewBag.MsjPantallaPostivo
+        </div>
     }
     @if (ViewBag.MsjPantallaNegativo != null)
     {
-    <div id="mensajeNegativo" style="text-align:center" class="alert alert-danger" role="alert">
-        @ViewBag.MsjPantallaNegativo
-    </div>
+        <div id="mensajeNegativo" style="text-align:center" class="alert alert-danger" role="alert">
+            @ViewBag.MsjPantallaNegativo
+        </div>
     }
 
     <section class="section">
@@ -40,126 +40,126 @@
 
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Informacion del Usuario</h5>
+                    <h5 class="card-title">Informacion del pago </h5>
                     <div class="row">
                         <div class="col-lg-6">
 
                             <!-- General Form Elements -->
-                            @using (Html.BeginForm("RegisterUser", "User", FormMethod.Post, new { id = "UserForm" }))
+                            @using (Html.BeginForm("RegisterPayment", "Payments", FormMethod.Post, new { id = "PaymentForm" }))
                             {
 
-                            <!-- Row 1 -->
-                            <div class="row">
-
+                                <!-- Row 1 -->
                                 <div class="row">
-                                    <div class="col-lg-6">
 
-                                        <div class="form-group">
-                                            <label for="personalIDField" class="col-form-label">Cedula</label>
-                                            @Html.TextBoxFor(m => m.PersonalID, new { @onkeyup = "ConsultPeopleInfo()", @type = "text", @placeholder = "Digite la cedula", @id = "PersonalId", @class = "form-control" })
-                                            <div class="validation-message text-danger" id="validationMessage"></div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+
+                                            @*<div class="form-group">
+                                                <label for="PaymentsIdField" class="col-form-label">Numero de pago</label>
+                                                @Html.TextBoxFor(m => m.PaymentsId, new { @onkeyup = "ConsultPeopleInfo()", @type = "text", @placeholder = "Digite el numero de pago", @id = "PaymentsId", @class = "form-control" })
+                                                <div class="validation-message text-danger" id="validationMessage"></div>
+                                            </div>*@
+                                        </div>
+                                        <div class="col-lg-6">
+                                            @*<div class="form-group">
+                                                <label class="col-form-label">Metodo de pago</label>
+                                                @Html.DropDownListFor(m => m.PaymentTypeId, ViewBag.PaymentType as List<SelectListItem>, "Seleccione el metodo de pago", new { @class = "form-control", id = "PaymentType" })
+                                            </div>*@
                                         </div>
                                     </div>
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label class="col-form-label">Tipo de cedula</label>
-                                            @Html.DropDownListFor(m => m.IdentificationsId, ViewBag.Identifications as List<SelectListItem>, "Seleccione el tipo de cedula", new { @class = "form-control", id = "Identifications" })
+
+                                    <!-- Row 2 -->
+
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            @*<div class="form-group">
+                                                <label for="AmountField" class="col-form-label">Monto</label>
+                                                @Html.TextBoxFor(m => m.Amount, new { @type = "text", @placeholder = "Digite el monto", @id = "AmountField", @class = "form-control" })
+                                                <div class="validation-message text-danger" id="nameValidationMessage"></div>
+                                            </div>*@
+                                        </div>
+                                        <div class="col-lg-6">
+                                            @*<div class="form-group">
+                                                <label for="EmployeeField" class="col-form-label">Id del empleado</label>
+                                                @Html.TextBoxFor(m => m.EmployeeId, new { @type = "text", @placeholder = "Digite el numero de identificacion del empleado", @class = "form-control", id = "employeeField" })
+                                                <div class="validation-message text-danger" id="lastNameValidationMessage"></div>
+                                            </div>*@
+                                        </div>
+                                    </div>
+
+                                    <!-- Row 3 -->
+
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label for="slnFIELD" class="col-form-label">Segundo Apellido</label>
+                                                @Html.TextBoxFor(m => m.SecLastName, new { @type = "text", @placeholder = "Digite el Segundo Apellido", @class = "form-control", id = "slnFIELD" })
+                                                <div class="validation-message text-danger" id="slnFIELDValidationMessage"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label for="email" class="col-form-label">Email</label>
+                                                @Html.TextBoxFor(m => m.Email, new { @type = "email", @placeholder = "Digite el correo electronico", @class = "form-control", id = "email" })
+                                                <div class="validation-message text-danger" id="emailValidationMessage"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <!-- Row 4 -->
+
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label for="cel" class="col-form-label">TelÃ©fono</label>
+                                                @Html.TextBoxFor(m => m.Phone, new { @type = "text", @placeholder = "Digite el TelÃ©fono", @class = "form-control", id = "cel" })
+                                                <div class="validation-message text-danger" id="PhoneValidationMessage"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label for="inputDate" class="col-form-label">Fecha de Nacimiento</label>
+                                                @Html.TextBoxFor(m => m.Birthdate, new { @onkeyup = "validateDateOfBirth()", @type = "date", id = "Birthdate", @class = "form-control" })
+                                                <div class="validation-message text-danger" id="validationMessagedate"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Row 5 -->
+
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label for="Rol" class="col-form-label">Rol</label>
+                                                @Html.DropDownListFor(m => m.IdRol, ViewBag.Rol as List<SelectListItem>, "Seleccione Rol", new { @class = "form-control", id = "Rol" })
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Row 6 -->
+
+                                    <div class="row mb-4">
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="address" class="col-form-label">DirecciÃ³n</label>
+                                                @Html.TextAreaFor(m => m.Address, new { @type = "Text", @placeholder = "Digite la direcciÃ³n", @class = "form-control", @style = "height: 50px", id = "Address" })
+                                                <div class="validation-message text-danger" id="ValidationMessageDirection"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Row 7 -->
+
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <button type="button" class="btn btn-secondary m-0 w-100" onclick="window.history.back();">Regresar</button>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <button type="submit" class="btn btn-primary m-0 w-100" id="UserFormButton" disabled>Ingresar Usuario</button>
                                         </div>
                                     </div>
                                 </div>
-
-                                <!-- Row 2 -->
-
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label for="nameField" class="col-form-label">Nombre</label>
-                                            @Html.TextBoxFor(m => m.Name, new { @type = "text", @placeholder = "Digite el Nombre", @id = "nameField", @class = "form-control" })
-                                            <div class="validation-message text-danger" id="nameValidationMessage"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label for="lastNameField" class="col-form-label">Primer Apellido</label>
-                                            @Html.TextBoxFor(m => m.LastName, new { @type = "text", @placeholder = "Digite el Primer Apellido", @class = "form-control", id = "lastNameField" })
-                                            <div class="validation-message text-danger" id="lastNameValidationMessage"></div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Row 3 -->
-
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label for="slnFIELD" class="col-form-label">Segundo Apellido</label>
-                                            @Html.TextBoxFor(m => m.SecLastName, new { @type = "text", @placeholder = "Digite el Segundo Apellido", @class = "form-control", id = "slnFIELD" })
-                                            <div class="validation-message text-danger" id="slnFIELDValidationMessage"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label for="email" class="col-form-label">Email</label>
-                                            @Html.TextBoxFor(m => m.Email, new { @type = "email", @placeholder = "Digite el correo electronico", @class = "form-control", id = "email" })
-                                            <div class="validation-message text-danger" id="emailValidationMessage"></div>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <!-- Row 4 -->
-
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label for="cel" class="col-form-label">Teléfono</label>
-                                            @Html.TextBoxFor(m => m.Phone, new { @type = "text", @placeholder = "Digite el Teléfono", @class = "form-control", id = "cel" })
-                                            <div class="validation-message text-danger" id="PhoneValidationMessage"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label for="inputDate" class="col-form-label">Fecha de Nacimiento</label>
-                                            @Html.TextBoxFor(m => m.Birthdate, new { @onkeyup = "validateDateOfBirth()", @type = "date", id = "Birthdate", @class = "form-control" })
-                                            <div class="validation-message text-danger" id="validationMessagedate"></div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Row 5 -->
-
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label for="Rol" class="col-form-label">Rol</label>
-                                            @Html.DropDownListFor(m => m.IdRol, ViewBag.Rol as List<SelectListItem>, "Seleccione Rol", new { @class = "form-control", id = "Rol" })
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Row 6 -->
-
-                                <div class="row mb-4">
-                                    <div class="col-lg-12">
-                                        <div class="form-group">
-                                            <label for="address" class="col-form-label">Dirección</label>
-                                            @Html.TextAreaFor(m => m.Address, new { @type = "Text", @placeholder = "Digite la dirección", @class = "form-control", @style = "height: 50px", id = "Address" })
-                                            <div class="validation-message text-danger" id="ValidationMessageDirection"></div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Row 7 -->
-
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <button type="button" class="btn btn-secondary m-0 w-100" onclick="window.history.back();">Regresar</button>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <button type="submit" class="btn btn-primary m-0 w-100" id="UserFormButton" disabled>Ingresar Usuario</button>
-                                    </div>
-                                </div>
-                            </div>
 
                             }
                         </div>
@@ -185,7 +185,7 @@
                     <h5 class="modal-title justify-content-center align-items-center"> Alerta   </h5>
                 </div>
                 <div class="modal-body" style="text-align:center">
-                    ¿Desea crear la matríciula?
+                    Â¿Desea crear la matrÃ­ciula?
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>

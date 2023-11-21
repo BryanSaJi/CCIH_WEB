@@ -171,6 +171,9 @@
     <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\IdentificationsController.cs" />
+    <Compile Include="Controllers\IncomeOutcomeController.cs" />
+    <Compile Include="Controllers\PaymentsController.cs" />
+    <Compile Include="Controllers\PaymentTypeController.cs" />
     <Compile Include="Controllers\StateController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RegistrationController.cs" />
@@ -186,7 +189,10 @@
     <Compile Include="Entities\GradeEnt.cs" />
     <Compile Include="Entities\GroupEnt.cs" />
     <Compile Include="Entities\IdentificatiosnEnt.cs" />
+    <Compile Include="Entities\IncomeOutcomeEnt.cs" />
     <Compile Include="Entities\LevelCourseEnt.cs" />
+    <Compile Include="Entities\PaymentsEnt.cs" />
+    <Compile Include="Entities\PaymentTypeEnt.cs" />
     <Compile Include="Entities\PreRegistrationEnt.cs" />
     <Compile Include="Entities\ScheduleEnt.cs" />
     <Compile Include="Entities\RegistrationEnt.cs" />
@@ -202,6 +208,9 @@
     <Compile Include="Models\CustomerModel.cs" />
     <Compile Include="Models\CourseModel.cs" />
     <Compile Include="Models\IdentificationsModel.cs" />
+    <Compile Include="Models\IncomeOutcomeModel.cs" />
+    <Compile Include="Models\PaymentsModel.cs" />
+    <Compile Include="Models\PaymentTypeModel.cs" />
     <Compile Include="Models\StateModel.cs" />
     <Compile Include="Entities\ModalityEnt.cs" />
     <Compile Include="Models\GroupModel.cs" />
@@ -762,6 +771,7 @@
     <Content Include="Views\Teachers\CoursesTeacher.cshtml" />
     <Content Include="Views\Group\ShowGroups.cshtml" />
     <Content Include="Views\Group\EditGroup.cshtml" />
+    <Content Include="Views\Payments\Payments.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
