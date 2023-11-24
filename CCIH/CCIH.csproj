@@ -767,11 +767,11 @@
     <Content Include="Views\Teachers\Index.cshtml" />
     <Content Include="Views\Teachers\AssingTeacher.cshtml" />
     <Content Include="Views\Teachers\RequestTeacher.cshtml" />
-    <Content Include="Views\Teachers\CheckInTeacher.cshtml" />
     <Content Include="Views\Teachers\CoursesTeacher.cshtml" />
     <Content Include="Views\Group\ShowGroups.cshtml" />
     <Content Include="Views\Group\EditGroup.cshtml" />
     <Content Include="Views\Payments\Payments.cshtml" />
+    <Content Include="Views\Teachers\TimeMarkTeacher.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

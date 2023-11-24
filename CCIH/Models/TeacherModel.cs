@@ -18,8 +18,8 @@ namespace CCIH.Models
             {
                 string url = apiEnviroment.getApiUrl() + "api/RequestTeacher";
 
-                String Token = HttpContext.Current.Session["TokenUser"].ToString();
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
+                //String Token = HttpContext.Current.Session["TokenUser"].ToString();
+                //client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
                 HttpResponseMessage resp = client.GetAsync(url).Result;
 
                 if (resp.IsSuccessStatusCode)
@@ -35,6 +35,25 @@ namespace CCIH.Models
 
 
 
+        //public int InsertsOFSH(TeacherEnt ent)
+        //{
+          
+        //        using (var client = new HttpClient())
+        //        {
+        //            string url = apiEnviroment.getApiUrl() + "api/InsertsOFSH";
+        //            JsonContent body = JsonContent.Create(ent);
+        //        String Token = HttpContext.Current.Session["TokenUser"].ToString();
+        //        client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
+        //        HttpResponseMessage resp = client.PostAsync(url, body).Result;
 
+        //        if (resp.IsSuccessStatusCode)
+        //            {
+        //                return resp.Content.ReadFromJsonAsync<int>().Result;
+        //            }
+
+        //            return 0;
+        //        }
+        //}
     }
+
 }
