@@ -39,7 +39,7 @@ namespace CCIH.Entities
         public long ScheduleId { get; set; }
         public int TimeMarkID { get; set; }
 
-
+        public int Office_SH_ID { get; set; }
 
 
 

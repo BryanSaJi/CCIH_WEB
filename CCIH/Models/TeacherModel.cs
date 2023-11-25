@@ -31,29 +31,43 @@ namespace CCIH.Models
             }
         }
 
+ 
+       public int InsertOFF( TeacherEnt ent)
+        {
+            using (var custom = new HttpClient())
+            {
+                string url = apiEnviroment.getApiUrl() + "api/InsertOFF";
+                JsonContent body = JsonContent.Create(ent); 
+                HttpResponseMessage resp = custom.PostAsync(url, body).Result;
 
+                if (resp.IsSuccessStatusCode)
+                {
+                    return resp.Content.ReadFromJsonAsync<int>().Result;
+                }
 
+                return 0;
+            }
+        }
 
+        public List<TeacherEnt> MarkHistory()
+        {
+            using (var client = new HttpClient())
+            {
+                string url = apiEnviroment.getApiUrl() + "api/MarkHistory";
 
-        //public int InsertsOFSH(TeacherEnt ent)
-        //{
-          
-        //        using (var client = new HttpClient())
-        //        {
-        //            string url = apiEnviroment.getApiUrl() + "api/InsertsOFSH";
-        //            JsonContent body = JsonContent.Create(ent);
-        //        String Token = HttpContext.Current.Session["TokenUser"].ToString();
-        //        client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
-        //        HttpResponseMessage resp = client.PostAsync(url, body).Result;
+                //String Token = HttpContext.Current.Session["TokenUser"].ToString();
+                //client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
+                HttpResponseMessage resp = client.GetAsync(url).Result;
 
-        //        if (resp.IsSuccessStatusCode)
-        //            {
-        //                return resp.Content.ReadFromJsonAsync<int>().Result;
-        //            }
+                if (resp.IsSuccessStatusCode)
+                {
+                    return resp.Content.ReadFromJsonAsync<List<TeacherEnt>>().Result;
+                }
 
-        //            return 0;
-        //        }
-        //}
+                return new List<TeacherEnt>();
+            }
+        }
+
     }
 
 }

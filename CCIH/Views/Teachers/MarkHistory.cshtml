@@ -1,10 +1,4 @@
-﻿@model IEnumerable<CCIH.Entities.TeacherEnt>
-
-
-@{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout_Administration.cshtml";
-}
+﻿
 
 <heah>
 
@@ -70,7 +64,8 @@
                                                 <th>Apellido</th>
                                                 <th>Grupo</th>
                                                 <th>Curso</th>
-
+                                                <th> Estado ID</th>
+                                                <th>Tipo de estado</th>
                                                 <th>Acción</th>
 
 
@@ -82,17 +77,18 @@
                                             @foreach (var item in Model)
                                             {
                                                 <tr>
-                                                    <td>@item.Office_SH_ID</td>
-                                                    <td>@item.UserId</td>
+                                                    <td>@item.PersonalID</td>
                                                     <td>@item.Name</td>
-                                                    <td>@item.TimeMarkID</td>
-                                                    <td>@item.TimeMark</td>
-
+                                                    <td>@item.LastName</td>
+                                                    <td>@item.GroupId</td>
+                                                    <td>@item.CourseName</td>
+                                                    <td>@item.StatusId</td>
+                                                    <td>@item.StatusName</td>
 
 
 
                                                     <td style="text-align:center">
-                                                        <a type="submit" class="btn btn-outline-info btn-sm" href="@Url.Action("", "", new { i = item.PersonalID })"><i class="bi bi-pencil-square"></i>Editar</a>
+                                                        <a type="submit" class="btn btn-outline-info btn-sm" href="@Url.Action("EditUser", "User", new { i = item.PersonalID })"><i class="bi bi-pencil-square"></i>Editar</a>
                                                     </td>
                                                 </tr>
 

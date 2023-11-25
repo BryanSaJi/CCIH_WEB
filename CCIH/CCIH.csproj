@@ -772,6 +772,7 @@
     <Content Include="Views\Group\EditGroup.cshtml" />
     <Content Include="Views\Payments\Payments.cshtml" />
     <Content Include="Views\Teachers\TimeMarkTeacher.cshtml" />
+    <Content Include="Views\Teachers\MarkHistory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

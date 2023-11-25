@@ -17,8 +17,6 @@
     </div><!-- End Page Title -->
 
     <style>
-
-
         #clock {
             font-size: 10vh;
             font-weight: bold;
@@ -33,39 +31,33 @@
             margin-top: 20px;
         }
     </style>
+
     <div class="container" style="position: center; text-align:center">
 
         <div id="clock"></div>
         <div id="date"></div>
 
+        <form asp-action="MarkTime" asp-controller="TeachersController" method="post" >
+            <input type="hidden" name="i" value="1" />
+            <button id="ingreso" type="submit" class="btn btn-success" style="display: inline-block; margin: 20px; font-size: 3vh; border-radius: 5px; height: 10vh; width:35vh ">
+                <i class="bi bi-hourglass-top" style="margin-right: 5px;"></i>Registrar Ingreso
+            </button>
+            <div id="msj-ingreso"></div>
+        </form>
 
+        <form asp-action="MarkTime" asp-controller="TeachersController" method="post">
+            <input type="hidden" name="i" value="2" />
+            <button id="salida" type="submit" class="btn btn-danger" style="display: inline-block; margin: 20px; font-size: 3vh; border-radius: 5px; height: 10vh; width:35vh ">
+                <i class="bi bi-hourglass-top" style="margin-right: 5px;"></i>Registrar Salida
+            </button>
+            <div id="msj-salida"></div>
+        </form>
 
-
-        <div id="button-container">
-            @using (Html.BeginForm("TimeMarkTeacher", "Teachers", FormMethod.Post, new { id = "form-ingreso" }))
-            {
-                <button type="submit" name="buttonId" value="1" class="btn btn-success" style="display: inline-block; margin: 20px; font-size: 3vh; border-radius: 5px; height: 10vh; width:35vh">
-                    <i class="bi bi-hourglass-top" style="margin-right: 5px;"></i>Registrar Ingreso
-                </button>
-                <div id="msj-ingreso" style=" text-align:center"></div>
-            }
-
-            @using (Html.BeginForm("TimeMarkTeacher", "Teachers", FormMethod.Post, new { id = "form-salida" }))
-            {
-                <button type="submit" name="buttonId" value="2" class="btn btn-danger" style="display: inline-block; margin: 20px; font-size: 3vh; border-radius: 5px; height: 10vh; width: 35vh">
-                    <i class="bi bi-hourglass-bottom" style="margin-right: 5px;"></i>Registrar Salida
-                </button>
-                <div id="msj-salida" style=" text-align:center"></div>
-            }
-        </div>
 
 
     </div>
-
-
-
-
 </main>
+
 <script>
     function updateTime() {
         var now = new Date();
@@ -73,7 +65,6 @@
         var minutes = now.getMinutes();
         var seconds = now.getSeconds();
 
-        // Añadir ceros a la izquierda si es necesario
         hours = hours < 10 ? '0' + hours : hours;
         minutes = minutes < 10 ? '0' + minutes : minutes;
         seconds = seconds < 10 ? '0' + seconds : seconds;
@@ -87,8 +78,16 @@
         document.getElementById('date').textContent = dateString;
     }
 
-    setInterval(updateTime, 1000);
+    setInterval(updateTime, 10000);
     updateTime();
+
+    document.getElementById('ingreso').addEventListener('click', function (event) {
+        showTemporaryMessage('Haz marcado la entrada', 'msj-ingreso', 'green');
+    });
+
+    document.getElementById('salida').addEventListener('click', function (event) {
+        showTemporaryMessage('Haz marcado la salida', 'msj-salida', 'red');
+    });
 
     function showTemporaryMessage(message, containerId, textColor) {
         var messageContainer = document.getElementById(containerId);
@@ -97,14 +96,4 @@
             messageContainer.innerHTML = '';
         }, 5000);
     }
-
-    document.getElementById('form-ingreso').addEventListener('submit', function (event) {
-        event.preventDefault();  // Evitar el envío del formulario
-        showTemporaryMessage('Haz marcado la entrada', 'msj-ingreso', 'green');
-    });
-
-    document.getElementById('form-salida').addEventListener('submit', function (event) {
-        event.preventDefault();  // Evitar el envío del formulario
-        showTemporaryMessage('Haz marcado la salida', 'msj-salida', 'red');
-    });
 </script>
