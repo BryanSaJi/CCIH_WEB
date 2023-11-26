@@ -56,14 +56,14 @@ namespace CCIH.Controllers
             {
              if (i == 1)
              {
-                ent.Name = "CheckIN";
+                ent.Name = "Entrada";
                 ent.TimeMarkID = 1;
                 ent.UserId = user;
 
                 }
                 else if (i == 2)
               {
-                ent.Name = "CheckOUT";
+                ent.Name = "Salida";
                 ent.TimeMarkID = 2;
                 ent.UserId = user;
                 }
@@ -93,6 +93,14 @@ namespace CCIH.Controllers
             return View(teachers);
         }
 
+
+ 
+        public ActionResult AllHours()
+        {
+
+            var model = new TeacherEnt();  
+            return View(model);
+        }
 
 
 

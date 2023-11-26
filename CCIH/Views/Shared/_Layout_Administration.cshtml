@@ -206,15 +206,20 @@
                             </a>
                         </li>
                         @*<li>
-                            <a href="@Url.Action("AssingTeacher","Teachers")">
-                                <i class="bi bi-circle"></i><span>Asignación de Cursos</span>
-                            </a>
-                        </li>*@
+                              <a href="@Url.Action("AssingTeacher","Teachers")">
+                                 <i class="bi bi-circle"></i><span>Asignación de Cursos</span>
+                              </a>
+                         </li>*@
+
+                        @if (Session["IdRoleUser"].ToString() == "1" || Session["IdRoleUser"].ToString() == "5")
+                        {
                         <li>
                             <a href="@Url.Action("TimeMarkTeacher","Teachers")">
                                 <i class="bi bi-circle"></i><span>Marcar Asistencia</span>
                             </a>
                         </li>
+                        }
+
 
                         <li>
                             <a href="@Url.Action("Index","Teachers")">

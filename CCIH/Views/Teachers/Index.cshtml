@@ -1,6 +1,5 @@
 ﻿@model IEnumerable<CCIH.Entities.TeacherEnt>
 
-
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout_Administration.cshtml";
@@ -27,11 +26,11 @@
 
 <main id="main" class="main">
     <div class="pagetitle">
-        <h1>Lista de Profesores</h1>
+        <h1>Historial de Marcas</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="@Url.Action("Index","Admin")">Inicio</a></li>
-                <li class="breadcrumb-item">Profesores</li>
+                <li class="breadcrumb-item">Marcas</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -65,13 +64,12 @@
                                     <table id="DataTable" class="table table-hover text-center" width="100%">
                                         <thead>
                                             <tr>
-                                                <th>Cedula</th>
-                                                <th>Nombre</th>
-                                                <th>Apellido</th>
-                                                <th>Grupo</th>
-                                                <th>Curso</th>
+                                                <th style="text-align:center">Usuario</th>
+                                                <th style="text-align:center">ID de Marca</th>
+                                                <th style="text-align:center">Nombre</th>
+                                                <th style="text-align:center">Tipo</th>
+                                                <th style="text-align:center">Fecha y Hora</th>
 
-                                                <th>Acción</th>
 
 
 
@@ -82,18 +80,14 @@
                                             @foreach (var item in Model)
                                             {
                                                 <tr>
-                                                    <td>@item.Office_SH_ID</td>
                                                     <td>@item.UserId</td>
+                                                    <td>@item.Office_SH_ID</td>
                                                     <td>@item.Name</td>
                                                     <td>@item.TimeMarkID</td>
                                                     <td>@item.TimeMark</td>
 
 
 
-
-                                                    <td style="text-align:center">
-                                                        <a type="submit" class="btn btn-outline-info btn-sm" href="@Url.Action("", "", new { i = item.PersonalID })"><i class="bi bi-pencil-square"></i>Editar</a>
-                                                    </td>
                                                 </tr>
 
                                             }

@@ -773,6 +773,7 @@
     <Content Include="Views\Payments\Payments.cshtml" />
     <Content Include="Views\Teachers\TimeMarkTeacher.cshtml" />
     <Content Include="Views\Teachers\MarkHistory.cshtml" />
+    <Content Include="Views\Teachers\AllHours.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -7,7 +7,6 @@ namespace CCIH.Entities
 {
     public class TeacherEnt
     {
-
         public string PersonalID { get; set; }
         public string Name { get; set; }
         public string LastName { get; set; }
@@ -41,7 +40,14 @@ namespace CCIH.Entities
 
         public int Office_SH_ID { get; set; }
 
+        public int Year { get; set; }
+        public int Month { get; set; }
 
+        public int Day { get; set; }
+        public int TotalWorkHours { get; set; }
+
+        public DateTime StartDay { get; set; }
+        public DateTime EndDate { get; set; }
 
     }
 }
