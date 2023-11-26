@@ -95,6 +95,8 @@
 
     document.getElementById('salida').addEventListener('click', function (event) {
         showTemporaryMessage('Haz marcado la salida', 'msj-salida', 'red');
+        document.getElementById('ingreso').setAttribute('disabled', 'disabled');
+        document.getElementById('salida').removeAttribute('disabled');
     });
 
     function showTemporaryMessage(message, containerId, textColor) {
