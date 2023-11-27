@@ -770,10 +770,12 @@
     <Content Include="Views\Teachers\CoursesTeacher.cshtml" />
     <Content Include="Views\Group\ShowGroups.cshtml" />
     <Content Include="Views\Group\EditGroup.cshtml" />
-    <Content Include="Views\Payments\Payments.cshtml" />
+    <Content Include="Views\Payments\RegisterPayments.cshtml" />
     <Content Include="Views\Teachers\TimeMarkTeacher.cshtml" />
     <Content Include="Views\Teachers\MarkHistory.cshtml" />
     <Content Include="Views\Teachers\AllHours.cshtml" />
+    <Content Include="Views\Payments\ListPayments.cshtml" />
+    <Content Include="Views\Payments\EditPayment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

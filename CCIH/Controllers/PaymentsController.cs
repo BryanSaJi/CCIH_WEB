@@ -11,6 +11,15 @@ namespace CCIH.Controllers
     public class PaymentsController : Controller
     {
         PaymentsModel model = new PaymentsModel();
+        PaymentTypeModel modelPaymentType = new PaymentTypeModel();
+        IncomeOutcomeModel modelIncomeOutcome = new IncomeOutcomeModel();
+
+
+        public ActionResult Index()
+        {
+            return View();
+        }
+
         // GET: Payments
         [HttpGet]
     public ActionResult ListPayments()
@@ -53,10 +62,36 @@ namespace CCIH.Controllers
 
 
     [HttpGet]
-    public ActionResult RegisterPayment()
+    public ActionResult RegisterPayments()
     {
-        return View();
-    }
+
+            var PaymentType = modelPaymentType.RequestPaymentTypeScrollDown();
+            var ComboPaymentType = new List<SelectListItem>();
+            foreach (var item in PaymentType)
+            {
+                ComboPaymentType.Add(new SelectListItem
+                {
+                    Text = item.Name,
+                    Value = item.PaymentTypeId.ToString()
+                });
+            }
+            ViewBag.PaymentType = ComboPaymentType;
+            
+
+            var IncomeOutcome = modelIncomeOutcome.RequestIncomeOutcomeScrollDown();
+            var ComboIncomeOutcome = new List<SelectListItem>();
+            foreach (var item in IncomeOutcome)
+            {
+                ComboIncomeOutcome.Add(new SelectListItem
+                {
+                    Text = item.Name,
+                    Value = item.IncomeOutcomeId.ToString()
+                });
+            }
+            ViewBag.IncomeOutcome = ComboIncomeOutcome;
+
+            return View();
+        }
 
 
     [HttpGet]

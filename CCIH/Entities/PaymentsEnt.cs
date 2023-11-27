@@ -13,6 +13,6 @@ namespace CCIH.Entities
         public Decimal Amount { get; set; }
         public long EmployeeId { get; set; }
         public long PaymentTypeId { get; set; }
-
+        public long IncomeOutcomeId { get; set; }
     }
 }
