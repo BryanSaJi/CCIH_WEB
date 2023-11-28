@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace CCIH.Controllers
 {
+    [Authorize]
     public class CourseController : Controller
     {
 
@@ -22,7 +23,7 @@ namespace CCIH.Controllers
             return View(data);
         }
 
-
+        [AllowAnonymous]
         public ActionResult ObtenerCursosDesdeBaseDeDatos(string name)
         {
 

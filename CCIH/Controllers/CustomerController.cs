@@ -8,13 +8,13 @@ using System.Web.Mvc;
 
 namespace CCIH.Controllers
 {
+    [Authorize]
     public class CustomerController : Controller
     {
         CustomerModel CustomerModel = new CustomerModel();
         UserModel UserModel = new UserModel();
 
 
-        // GET: Customer
         public ActionResult Index()
         {
             return View();

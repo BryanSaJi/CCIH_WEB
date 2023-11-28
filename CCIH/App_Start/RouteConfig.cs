@@ -19,11 +19,7 @@ namespace CCIH
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
 
-            routes.MapRoute(
-            name: "Teachers",
-            url: "Teachers/{action}",
-            defaults: new { controller = "Teachers", action = "Index" }
-            );
+            
 
         }
     }

@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace CCIH.Controllers
 {
+    [Authorize]
     public class GroupController : Controller
     {
 
@@ -17,8 +18,6 @@ namespace CCIH.Controllers
         UserModel UserModel = new UserModel();
         ScheduleModel ScheduleModel = new ScheduleModel();
 
-
-        // GET: Group
         public ActionResult Index()
         {
             return View();
@@ -26,6 +25,7 @@ namespace CCIH.Controllers
 
 
         [HttpGet]
+        [Authorize]
         public ActionResult ShowGroups()
         {
             var Data = GroupModel.RequestGroupScrollDown();
@@ -34,6 +34,7 @@ namespace CCIH.Controllers
 
 
         [HttpGet]
+        [Authorize]
         public ActionResult EditGroup(long i)
         {
 
@@ -52,7 +53,7 @@ namespace CCIH.Controllers
                     Value = item.CourseID.ToString()
                 });
             }
-            ViewBag.Course = ComboCourse;
+             ViewBag.Course = ComboCourse;
 
 
             //Teacher
@@ -99,15 +100,15 @@ namespace CCIH.Controllers
             }
             ViewBag.Status = ComboStatus;
 
-            if ((int)Session["MensajePositivo"] == 1)
+            if (TempData.ContainsKey("RespuestaPositivaGrupo"))
             {
-                ViewBag.MsjPantallaPostivo = "El Grupo fue modificado de manera correcta";
+                ViewBag.MsjPantallaPositivo = "Operacion Exitosa, Informacion del Grupo guardada.";
+                TempData.Remove("RespuestaPositivaGrupo");
             }
-
-
-            if ((int)Session["MensajeNegativo"] == 2)
+            if (TempData.ContainsKey("RespuestaNegativoGrupo"))
             {
-                ViewBag.MsjPantallaNegativo = "No se ha podido modificar la informacion del Grupo";
+                ViewBag.MsjPantallaNegativo = "No fue posible actualizar la informacion del grupo.";
+                TempData.Remove("RespuestaNegativoGrupo");
             }
 
             return View(data);
@@ -116,6 +117,7 @@ namespace CCIH.Controllers
 
 
         [HttpPost]
+        [Authorize]
         public ActionResult SendInfoEditGroup(GroupEnt groupEnt)
         {
             
@@ -127,14 +129,14 @@ namespace CCIH.Controllers
 
                 if (resp > 0)
                 {
-                    Session["MensajePositivo"] = 1;
+                    TempData["RespuestaPositivaGrupo"] = true;
                 }
                 else
                 {
-                    Session["MensajeNegativo"] = 2;
+                    TempData["RespuestaNegativoGrupo"] = true;
                 }
-                
-                return RedirectToAction("EditUser", "User", new { i = groupEnt.GroupId });
+
+                return RedirectToAction("EditGroup", "Group", new { i = groupEnt.GroupId });
             }
             catch (Exception ex)
             {

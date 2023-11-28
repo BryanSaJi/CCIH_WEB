@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace CCIH.Controllers
 {
+    [Authorize]
     public class IdentificationsController : Controller
     {
 

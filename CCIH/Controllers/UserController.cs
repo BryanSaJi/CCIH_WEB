@@ -12,14 +12,16 @@ using System.Globalization;
 
 namespace CCIH.Controllers
 {
+    [Authorize]
     public class UserController : Controller
     {
         UserModel model = new UserModel();
         RoleModel modelRole = new RoleModel();
         StateModel modelState = new StateModel();
-        
+        IdentificationsModel modelIdentifications = new IdentificationsModel();
 
-        // GET: Usuario
+
+        [Authorize]
         public ActionResult Index()
         {
             var data = model.RequestUsers();
@@ -111,6 +113,17 @@ namespace CCIH.Controllers
             }
             ViewBag.Rol = ComboRol;
 
+            var Identifications = modelIdentifications.RequestIdentificationsScrollDown();
+            var ComboIdentifications = new List<SelectListItem>();
+            foreach (var item in Identifications)
+            {
+                ComboIdentifications.Add(new SelectListItem
+                {
+                    Text = item.Name,
+                    Value = item.IdentificationsId.ToString()
+                });
+            }
+            ViewBag.Identifications = ComboIdentifications;
 
             return View();
         }
@@ -206,6 +219,18 @@ namespace CCIH.Controllers
             }
             ViewBag.Rol = ComboRol;
 
+            var Identifications = modelIdentifications.RequestIdentificationsScrollDown();
+            var ComboIdentifications = new List<SelectListItem>();
+            foreach (var item in Identifications)
+            {
+                ComboIdentifications.Add(new SelectListItem
+                {
+                    Text = item.Name,
+                    Value = item.IdentificationsId.ToString()
+                });
+            }
+            ViewBag.Identifications = ComboIdentifications;
+
             if ((int)Session["MensajePositivo"] == 1)
             {
                 ViewBag.MsjPantallaPostivo = "El usuario fue modificado de manera correcta";
@@ -233,18 +258,14 @@ namespace CCIH.Controllers
                 if (resp > 0)
                     if (ent.IdRol == 3)
                     {
-                        Session["MensajePositivo"] = 1;
                         return RedirectToAction("EditUser", "User", new { i = ent.UserId });
                     }
                     else
                     {
-                        Session["MensajePositivo"] = 1;
                         return RedirectToAction("EditUser", "User", new { i = ent.UserId }); 
                     }
                 else
                 {
-                    Session["MensajeNegativo"] = 2;
-                    ViewBag.MsjPantallaNegativo = "No se ha podido modificar la informacion del perfil";
                     return View("Index");
                 }
             }

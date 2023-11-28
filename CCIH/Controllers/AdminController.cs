@@ -9,11 +9,12 @@ using System.Net.NetworkInformation;
 using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using System.Windows.Media.Media3D;
 
 namespace CCIH.Controllers
 {
-
+    [Authorize]
     public class AdminController : Controller
     {
         RoleModel modelRole = new RoleModel();
@@ -28,16 +29,17 @@ namespace CCIH.Controllers
         RegistrationModel modelRegistration = new RegistrationModel();
         UserModel modelUser = new UserModel();
 
+        
         public ActionResult Index()
         {
+
             var preRegistrationData = modelRegistration.RequetsPreRegistrations();
             var TodayRegistrationData = modelRegistration.RequestRegistrationsToday();
-
 
             decimal total = 0;
             foreach (var item in TodayRegistrationData)
             {
-                total = item.Amount;
+                total = item.Amount + total;
             }
             Session["MensajePositivo"] = 0;
             Session["MensajeNegativo"] = 0;
@@ -167,24 +169,15 @@ namespace CCIH.Controllers
                 ViewBag.Course = ComboCourse;
                 ViewBag.Status = ComboState;
 
-                if ((int)Session["MensajePositivo"] == 1)
+                if (TempData.ContainsKey("RespuestaNegativaMatricula"))
                 {
-                    
-                    ViewBag.MsjPantallaPostivo = "Usuario Registrado, proceda con la matricula";
-                }
-
-                if ((int)Session["MensajeNegativo"] == 1)
-                {
-                    
-                    ViewBag.MsjPantallaNegativo = "No se ha efectuado la matricula debido a un problema con el usuario ingresado";
+                    ViewBag.MsjPantalla = "No existe cliente o usuario con dicha cedula, por favor cree primero el usuario";
+                    TempData.Remove("RespuestaNegativaMatricula");
                 }
 
             return View();
         }
     
-
-        
-
         public ActionResult ConsultRegistrations()
         {
             if ((int)Session["MensajePositivo"] == 1)

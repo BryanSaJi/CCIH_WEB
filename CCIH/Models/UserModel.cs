@@ -69,6 +69,7 @@ namespace CCIH.Models
                 return 0;
             }
         }
+
         public List<UserEnt> RequestUsers()
         {
             using (var client = new HttpClient())

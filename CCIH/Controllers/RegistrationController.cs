@@ -13,6 +13,7 @@ using System.Windows.Media.Media3D;
 
 namespace CCIH.Controllers
 {
+    [Authorize]
     public class RegistrationController : Controller
     {
         RoleModel modelRole = new RoleModel();
@@ -32,7 +33,12 @@ namespace CCIH.Controllers
         public ActionResult CreateRegistration(RegistrationEnt ent)
         {
             ent.StatusId = 1;
-            ent.PersonalID = @Session["CedulaCliente"].ToString();
+            int cedula = int.Parse(ent.PersonalID);
+
+            var datos = modelUser.RequestUser(cedula);
+
+            if (datos != null)
+                ent.UserId = datos.UserId;
 
             try
             {
@@ -42,14 +48,13 @@ namespace CCIH.Controllers
                 if (resp > 0)
                 {
                     @Session["CedulaCliente"] = "";
-                    Session["MensajePositivo"] = 1;
-                    
+                    TempData["RespuestaPositivaMatricula"] = true;
                     return RedirectToAction("ConsultRegisterToday");
                 }
                 else
                 {
-                    Session["MensajeNegativo"] = 1;
-                    return RedirectToAction("ConsultRegisterToday");
+                    TempData["RespuestaNegativaMatricula"] = true;
+                    return RedirectToAction("CreateRegister", "Admin");
                 }
             }
             catch (Exception ex)
@@ -291,14 +296,13 @@ namespace CCIH.Controllers
         [HttpGet]
         public ActionResult ConsultRegisterToday()
         {
-            if ((int)Session["MensajePositivo"] == 1)
+
+            if (TempData.ContainsKey("RespuestaPositivaMatricula"))
             {
-                ViewBag.MsjPantallaPostivo = "Matricula Exitosa";
+                ViewBag.MsjPantalla = "Matricula Registrada, operacion exitosa";
+                TempData.Remove("RespuestaPositivaMatricula");
             }
-            if ((int)Session["MensajeNegativo"] == 1)
-            {
-                return RedirectToAction("CreateRegister", "Admin");
-            }
+
             var data = modelRegistration.RequestRegistrationsToday();
             return View(data);
 

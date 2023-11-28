@@ -84,13 +84,13 @@
                                                         <td>@item.PersonalID</td>
                                                         <td>@item.Name</td>
                                                         <td>@item.Phone</td>
-                                                        <td>@item.Course</td>
+                                                        <td>@item.CourseId</td>
                                                         <td>@item.Modality</td>
                                                         <td>@item.Level</td>
                                                         <td>@item.RegistrationDate.ToShortDateString()</td>
                                                         <td>@item.Status</td>
                                                         <td style="text-align:center">
-                                                            <a type="submit" class="btn btn-outline-info btn-sm " href="@Url.Action("ConsultRegister","Registration", new { i = item.RegistrationId})">Consultar</a>
+                                                            <a type="submit" class="btn btn-sm text-white" style="background-color: #5f81e8;" href="@Url.Action("ConsultRegister","Registration", new { i = item.RegistrationId})">Consultar</a>
                                                         </td>
                                                     </tr>
                                                 }

@@ -11,6 +11,7 @@ using System.Web.Mvc;
 
 namespace CCIH.Controllers
 {
+    [Authorize]
     public class PaymentTypeController : Controller
     {
 
