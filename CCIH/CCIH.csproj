@@ -776,6 +776,7 @@
     <Content Include="Views\Teachers\AllHours.cshtml" />
     <Content Include="Views\Payments\ListPayments.cshtml" />
     <Content Include="Views\Payments\EditPayment.cshtml" />
+    <Content Include="Views\Shared\_LayoutWithoutFooter.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

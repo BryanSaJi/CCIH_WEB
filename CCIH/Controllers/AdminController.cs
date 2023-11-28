@@ -105,7 +105,7 @@ namespace CCIH.Controllers
                 {
                     ComboCourse.Add(new SelectListItem
                     {
-                        Text = item.Name,
+                        Text = item.CourseName,
                         Value = item.CourseID.ToString()
                     });
                 }

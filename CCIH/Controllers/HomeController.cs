@@ -94,9 +94,9 @@ namespace CCIH.Controllers
                 {
                     ComboCourse.Add(new SelectListItem
                     {
-                        Text = item.Name,
+                        Text = item.CourseName,
                         Value = item.CourseID.ToString()
-                    });
+                    }) ; 
                 }
             }
 
@@ -144,7 +144,7 @@ namespace CCIH.Controllers
                 else
                 {
                     ViewBag.Msg = "No se ha podido registrar su información";
-                    return View("4");
+                    return RedirectToAction("PreRegister", "Home");
                 }
             }
             catch (Exception ex)

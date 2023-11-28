@@ -5,79 +5,85 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@using (Html.BeginForm("PreRegistrationCourse", "Home", FormMethod.Post))
+@using (Html.BeginForm("PreRegistrationCourse", "Home", FormMethod.Post, new { id = "PreRegistrationForm" }))
 {
-    <section id="hero">
-        <div class="container position-relative" >
-            <div class="row justify-content-center align-items-center h-1">
-                <div class="col-12 col-md-8 col-lg-6 col-xl-5" style="margin-top: -60px; width: 1000px">
-                    <div class="card-body p-2 text-center" style="background-color: rgba(255, 255, 255, 0.7); ">
+    <section>
+        <div  style="background: url('..//assets/Home/img/hero-bg.jpg') top center; background-size: cover; position: relative;">
+            <div class="container position-relative">
+                <div class="row justify-content-center align-items-center h-1">
+                    <div class="col-12 col-md-8 col-lg-6 col-xl-5" style="width: 85%">
+                        <div class="card-body p-2 text-center" style="background-color: rgba(255, 255, 255, 0.7); ">
 
-                        <div class="mb-md-5 mt-md-4 pb-1">
-                            <h2 class="fw-bold text-uppercase" style="color: black">Proceso de PreMatricula</h2>
-                            
-                            <p class="text-black-70 mb-5">Por favor ingrese la información del curso que desea pre-matricular</p>
+                            <div class="mb-md-5 mt-md-4 pb-1">
+                                <h2 class="fw-bold text-uppercase" style="color: black">Proceso de PreMatricula</h2>
 
-                            <div class="row" style="text-align:center; position:center; margin-top: -3%;">
-                                <div class="col-md-6">
-                                    <div class="form-group " style="width: 450px; text-align: left">
-                                        <label>Correo electrónico</label>
-                                        @Html.TextBoxFor(m => m.Email, new { @type = "text", @style = "text-align: center", @class = "form-control form-control-lg" })
+                                <p class="text-black-70 mb-5">Por favor ingrese la información del curso que desea pre-matricular</p>
+                                <br>
+                                <div id="errorMessagePreRegistrationForm" class="alert alert-warning" role="alert" style="margin-top: -5%;"></div>
+
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group" style="text-align: left">
+                                            <label>Correo electrónico</label>
+                                            @Html.TextBoxFor(m => m.Email, new { @type = "text", @style = "text-align: center", @class = "form-control form-control-lg" })
+                                        </div>
+
+                                        <div class="form-group " style="text-align: left">
+                                            <label>Telefono</label>
+                                            @Html.TextBoxFor(m => m.Phone, new { @type = "text", @style = "text-align: center", @class = "form-control form-control-lg" })
+                                        </div>
+
+                                        <div class="form-group " style="text-align: left">
+                                            <label>Nombre</label>
+                                            @Html.TextBoxFor(m => m.Name, new { @type = "text", @style = "text-align: center", @class = "form-control form-control-lg" })
+                                        </div>
+
+                                        <div class="form-group " style="text-align: left">
+                                            <label>Primer Apellido</label>
+                                            @Html.TextBoxFor(m => m.LastName, new { @type = "text", @style = "text-align: center", @class = "form-control form-control-lg" })
+                                        </div>
+
+                                        <div class="form-group " style="text-align: left">
+                                            <label>Segundo Apellido</label>
+                                            @Html.TextBoxFor(m => m.SecLastName, new { @type = "text", @style = "text-align: center", @class = "form-control form-control-lg" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group " style="text-align: left">
+                                            <label>Cursos</label>
+                                            @Html.DropDownListFor(m => m.CourseId, ViewBag.Course as List<SelectListItem>, "Seleccione el Curso de interés", new { @type = "text", @style = "text-align: center", @class = "form-control form-control-lg" })
+                                        </div>
+
+                                        <div class="form-group " style="text-align: left">
+                                            <label>Modalidades</label>
+                                            @Html.DropDownListFor(m => m.ModalityId, ViewBag.Modality as List<SelectListItem>, "Seleccione la Modalidad", new { @type = "text", @style = "text-align: center", @class = "form-control form-control-lg" })
+                                        </div>
+
+                                        <div class="form-group " style="text-align: left">
+                                            <label>Niveles</label>
+
+                                            @Html.DropDownListFor(m => m.LevelCourseId, ViewBag.Level as List<SelectListItem>, "Seleccione el nivel que desea", new { @type = "text", @style = "text-align: center", @class = "form-control form-control-lg" })
+
+                                        </div>
+                                        <p class="text-black mb-5" style="text-decoration: underline; margin-top: 5%;">Una vez complete su prematrícula, será contactado por nuestros representantes para concluir con su Matrícula</p>
+
+
+                                        <!-- Modal -->
+                                        <button type="button" id="PreRegistrationFormButton" class="btn btn-lg px-5" data-bs-toggle="modal" data-bs-target="#basicModal" style="margin-top: -3%; background-color:#5f81e8; color: white;">
+                                            PreMatricular
+                                        </button>
+                                        <br>
+                                        <br>
                                     </div>
 
-                                    <div class="form-group" style="width:450px; text-align:left">
-                                        <label>Telefono</label>
-                                        @Html.TextBoxFor(m => m.Phone, new { @type = "text", @style = "text-align: center", @class = "form-control form-control-lg" })
-                                    </div>
 
-                                    <div class="form-group" style="width: 450px; text-align: left">
-                                        <label>Nombre</label>
-                                        @Html.TextBoxFor(m => m.Name, new { @type = "text", @style = "text-align: center", @class = "form-control form-control-lg" })
-                                    </div>
 
-                                    <div class="form-group" style="width: 450px; text-align: left">
-                                        <label>Primer Apellido</label>
-                                        @Html.TextBoxFor(m => m.LastName, new { @type = "text", @style = "text-align: center", @class = "form-control form-control-lg" })
-                                    </div>
-
-                                    <div class="form-group" style="width: 450px; text-align: left">
-                                        <label>Segundo Apellido</label>
-                                        @Html.TextBoxFor(m => m.SecLastName, new { @type = "text", @style = "text-align: center", @class = "form-control form-control-lg" })
-                                    </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group" style="width: 450px; text-align: left">
-                                        <label>Cursos disponibles</label>
-                                        @Html.DropDownListFor(m => m.CourseId, ViewBag.Course as List<SelectListItem>, "Seleccione el Curso de interés", new { @type = "text", @style = "text-align: center", @class = "form-control form-control-lg" })
-                                    </div>
-
-                                    <div class="form-group" style="width: 450px; text-align: left">
-                                        <label>Modalidades disponibles</label>
-                                        @Html.DropDownListFor(m => m.ModalityId, ViewBag.Modality as List<SelectListItem>, "Seleccione la Modalidad", new { @type = "text", @style = "text-align: center", @class = "form-control form-control-lg" })
-                                    </div>
-
-                                    <div class="form-group" style="width: 450px; text-align: left">
-                                        <label>Niveles disponibles</label>
-                                       
-                                        @Html.DropDownListFor(m => m.LevelCourseId, ViewBag.Level as List<SelectListItem>, "Seleccione el nivel que desea", new { @type = "text", @style = "text-align: center", @class = "form-control form-control-lg" })
-                                   
-                                    </div>
-                                    <p class="text-black mb-5" style="text-decoration: underline; margin-top: 5%;">Una vez complete su prematrícula, será contactado por nuestros representantes para concluir con su Matrícula</p>
-
-                                    <!-- Modal -->
-                                    <button type="button" class="btn btn-outline-success btn-lg px-5" data-bs-toggle="modal" data-bs-target="#basicModal" style="margin-top: -5%;">
-                                        PreMatricular
-                                    </button>
-                                    <br>
-                                    <br>
-                                </div>
-
-
-
                             </div>
+
+
                         </div>
-
-
                     </div>
                 </div>
             </div>
@@ -102,3 +108,45 @@
         </div>
     </div><!-- End Modal-->
 }
+
+<script>
+
+    // Obtén los elementos del formulario y el botón
+    var formulario = document.getElementById("PreRegistrationForm");
+    var campos = formulario.querySelectorAll("input, textarea, select");
+    var boton = document.getElementById("PreRegistrationFormButton");
+
+    // Agrega un event listener a cada campo de entrada para verificar cambios
+    campos.forEach(function (campo) {
+        campo.addEventListener("input", function () {
+            habilitarDesabilitarBoton();
+        });
+    });
+
+    // Función para habilitar o deshabilitar el botón y mostrar mensaje de error
+    function habilitarDesabilitarBoton() {
+        var todosCamposLlenos = true;
+        campos.forEach(function (campo) {
+            if (campo.value.trim() === "") {
+                todosCamposLlenos = false;
+            }
+        });
+
+        if (todosCamposLlenos) {
+            boton.removeAttribute("disabled");
+            // Oculta el mensaje de error
+            document.getElementById("errorMessagePreRegistrationForm").style.display = "none";
+        } else {
+            boton.setAttribute("disabled", "disabled");
+            // Muestra el mensaje de error
+            document.getElementById("errorMessagePreRegistrationForm").style.display = "block";
+            document.getElementById("errorMessagePreRegistrationForm").textContent = "Por favor complete todos los campos.";
+        }
+    }
+
+    // Llama a la función inicialmente para establecer el estado inicial del botón y del mensaje
+    habilitarDesabilitarBoton();
+
+
+
+</script>
