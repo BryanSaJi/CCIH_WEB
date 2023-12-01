@@ -765,8 +765,6 @@
     <Content Include="Views\Registration\SeeCustomer.cshtml" />
     <Content Include="Views\State\Index.cshtml" />
     <Content Include="Views\Teachers\Index.cshtml" />
-    <Content Include="Views\Teachers\AssingTeacher.cshtml" />
-    <Content Include="Views\Teachers\RequestTeacher.cshtml" />
     <Content Include="Views\Teachers\CoursesTeacher.cshtml" />
     <Content Include="Views\Group\ShowGroups.cshtml" />
     <Content Include="Views\Group\EditGroup.cshtml" />
@@ -776,6 +774,7 @@
     <Content Include="Views\Teachers\AllHours.cshtml" />
     <Content Include="Views\Payments\ListPayments.cshtml" />
     <Content Include="Views\Payments\EditPayment.cshtml" />
+    <Content Include="Views\Teachers\RequestTeacher.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

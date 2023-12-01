@@ -3,11 +3,14 @@ using CCIH.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Data;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.Ajax.Utilities;
 
 namespace CCIH.Controllers
 {
@@ -17,8 +20,7 @@ namespace CCIH.Controllers
         RoleModel modelRole = new RoleModel();
         StateModel modelState = new StateModel();
         TeacherModel modelTeacher = new TeacherModel();
-
-
+ 
         [HttpGet]
         public ActionResult Index()
         {
@@ -44,36 +46,41 @@ namespace CCIH.Controllers
                 return View(teachers);
         }
 
-
-
         [HttpPost]
         public ActionResult TimeMarkTeacher(long i)
         {
             int user = int.Parse(Session["IdUser"].ToString());
 
             TeacherEnt ent = new TeacherEnt();
+
             if (i > 0)
             {
-             if (i == 1)
-             {
-                ent.Name = "Entrada";
-                ent.TimeMarkID = 1;
-                ent.UserId = user;
+                if (i == 1)
+                {
+                    ent.Office_SH_ID = ent.Office_SH_ID;
+                    ent.EntryTime = DateTime.Now;
+                    ent.UserId = user;
 
+                    // Obtener el off ID 
+                    int office_SH_ID = modelTeacher.EntryMark(ent);
+
+                    // Guardar el off ID 
+                    Session["Office_SH_ID"] = office_SH_ID;
                 }
                 else if (i == 2)
-              {
-                ent.Name = "Salida";
-                ent.TimeMarkID = 2;
-                ent.UserId = user;
-                }
+                {
+            
+                    ent.Office_SH_ID = (int)Session["Office_SH_ID"];
+                    ent.ExitTime = DateTime.Now;
+                    modelTeacher.ExitMark(ent);
 
-             var data = modelTeacher.InsertOFF(ent);
+                      
+                    
+                }
             }
 
             return View();
         }
-
 
 
 
@@ -94,15 +101,33 @@ namespace CCIH.Controllers
         }
 
 
- 
+       [HttpGet]
         public ActionResult AllHours()
         {
 
-            var model = new TeacherEnt();  
-            return View(model);
+            var totalHours = modelTeacher.TotalWorkHours();
+            return View(totalHours);
+
+
+
         }
 
+        //[HttpPost]
+        //public ActionResult SumHours(DateTime EntryTime, DateTime ExitExit)
+        //{
+        //    var teachers = modelTeacher.TotalWorkHours().Where(t => t.EntryTime >= EntryTime && t.ExitTime <= ExitExit).ToList();
+        //    decimal sumTotal = teachers.Sum(t => t.TotalWorkHours);
 
+        //    ViewBag.TotalWorkHours = sumTotal;
+        //    return RedirectToAction("AllHours", "Teacher");
+
+        //}
 
     }
+
+
+
+
 }
+
+
