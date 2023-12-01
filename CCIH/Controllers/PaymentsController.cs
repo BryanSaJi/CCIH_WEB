@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace CCIH.Controllers
 {
+    [Authorize]
     public class PaymentsController : Controller
     {
         PaymentsModel model = new PaymentsModel();

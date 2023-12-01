@@ -18,9 +18,8 @@ namespace CCIH.Models
             using (var client = new HttpClient())
             {
                 string url = apiEnviroment.getApiUrl() + "api/RequestTeacher";
-
-                //String Token = HttpContext.Current.Session["TokenUser"].ToString();
-                //client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
+                String Token = HttpContext.Current.Session["TokenUser"].ToString();
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
                 HttpResponseMessage resp = client.GetAsync(url).Result;
 
                 if (resp.IsSuccessStatusCode)

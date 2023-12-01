@@ -56,16 +56,10 @@
                                     <div class="card-body">
                                         <br>
 
-                                        @if (ViewBag.MsjPantallaPostivo != null)
+                                        @if (ViewBag.MsjPantalla != null)
                                         {
                                             <div id="mensajePositivo" style="text-align:center" class="alert alert-success" role="alert">
-                                                @ViewBag.MsjPantallaPostivo
-                                            </div>
-                                        }
-                                        @if (ViewBag.MsjPantallaNegativo != null)
-                                        {
-                                            <div id="mensajeNegativo" style="text-align:center" class="alert alert-danger" role="alert">
-                                                @ViewBag.MsjPantallaNegativo
+                                                @ViewBag.MsjPantalla
                                             </div>
                                         }
 
@@ -90,13 +84,13 @@
                                                         <td>@item.PersonalID</td>
                                                         <td>@item.Name</td>
                                                         <td>@item.Phone</td>
-                                                        <td>@item.Course</td>
+                                                        <td>@item.CourseName</td>
                                                         <td>@item.Modality</td>
                                                         <td>@item.Level</td>
                                                         <td>@item.RegistrationDate.ToShortDateString()</td>
                                                         <td>@item.Status</td>
                                                         <td style="text-align:center">
-                                                            <a type="submit" class="btn btn-outline-success btn-sm" href="@Url.Action("ConsultRegister","Registration", new { i = item.RegistrationId })"><i class="bi bi-check-circle"></i>Detalle</a>
+                                                            <a type="submit" class="btn btn-sm text-white" style="background-color: #5f81e8;" href="@Url.Action("ConsultRegister","Registration", new { i = item.RegistrationId })"><i class="bi bi-check-circle"></i>Consultar</a>
                                                         </td>
                                                     </tr>
                                                 }

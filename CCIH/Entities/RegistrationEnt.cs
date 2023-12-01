@@ -37,6 +37,9 @@ namespace CCIH.Entities
         public List<ScheduleEnt> scheduleList { get; set; }
         public List<GroupEnt> groupList { get; set; }
 
+        public long CourseCatalogId { get; set; }
+        public string CourseName { get; set; }
+
 
 
     }

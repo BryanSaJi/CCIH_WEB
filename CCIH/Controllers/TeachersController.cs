@@ -14,6 +14,7 @@ using Microsoft.Ajax.Utilities;
 
 namespace CCIH.Controllers
 {
+    [Authorize]
     public class TeachersController : Controller
     {
         UserModel model = new UserModel();

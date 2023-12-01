@@ -26,7 +26,7 @@
             </div>
 
             <div id="carouselControls" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner " style="text-align: justify">
+                <div class="carousel-inner" style="text-align: justify; padding: 0 15% 0 15%;">
                     <div class="row" data-aos="zoom-in" data-aos-delay="100">
                         @{
                             var modelCount = Model.Count();
@@ -55,7 +55,14 @@
                         }
                     </div>
                 </div>
-
+                <a class="carousel-control-prev bg-dark text-light btn-sm" href="#carouselControls" role="button" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually">Previous</span>
+                </a>
+                <a class="carousel-control-next bg-dark text-light btn-sm" href="#carouselControls" role="button" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually">Next</span>
+                </a>
             </div>
 
             <!-- Modal -->
@@ -75,14 +82,7 @@
             </div>
 
 
-            <a class="carousel-control-prev" href="#carouselControls" role="button" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carouselControls" role="button" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </a>
+            
 
         </div>
     </section>

@@ -45,7 +45,12 @@
 
                 <div class="card">
                     <div class="card-body">
-
+                        </br>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <a href="@Url.Action("Customer","Admin")" class="btn btn-sm text-white" style="background-color: #5f81e8;">Registrar Cliente</a>
+                            </div>
+                        </div>
                         <br />
                         <div class="row">
                             <br>
@@ -93,7 +98,7 @@
                                                         <td>@item.CreationDate.ToShortDateString()</td>
                                                         <td>@item.StatusName</td>
                                                         <td style="text-align:center">
-                                                            <a type="submit" class="btn btn-outline-info btn-sm" href="@Url.Action("SeeCustomer","Registration", new { i = item.UserId })">Consultar</a>
+                                                            <a type="submit" class="btn btn-sm text-white" style="background-color: #5f81e8;" href="@Url.Action("SeeCustomer","Registration", new { i = item.UserId })">Consultar</a>
                                                         </td>
                                                     </tr>
                                                 }

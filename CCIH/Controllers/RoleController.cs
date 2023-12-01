@@ -9,10 +9,12 @@ using System.Web.Mvc;
 
 namespace CCIH.Controllers
 {
+    [Authorize]
     public class RoleController : Controller
     {
         RoleModel model = new RoleModel();
-        // GET: Rol
+
+
         [HttpGet]
         public ActionResult ListRoles()
         {

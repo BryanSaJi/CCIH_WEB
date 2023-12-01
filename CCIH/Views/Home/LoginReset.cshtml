@@ -9,7 +9,7 @@
 <section id="hero">
     <div class="container position-relative" data-aos="zoom-in" data-aos-delay="100">
         <div class="row justify-content-center align-items-center h-1">
-            <div class="col-12 col-md-8 col-lg-6 col-xl-5" style="margin-top: 10px">
+            <div class="vh-100" style="width:40%;">
                 <div class="card-body p-2 text-center" style="background-color: rgba(0, 0, 0, 0.5);">
 
                     @using (Html.BeginForm("RestoreUser", "Home", FormMethod.Post))
@@ -19,18 +19,19 @@
                             <p class="text-white-50 mb-5">Por favor ingrese su usuario registrado!</p>
 
                             <label class="text-white" for="LoginUsuario" style="text-align:left">Usuario</label>
-                            <div class="form-outline form-white mb-4" style="width: 60%; margin: auto;">
+                            <div class="form-outline form-white mb-4" style="width: 70%; margin: auto;">
                                 @Html.TextBoxFor(
                                         m => m.UserName,
                                         new
-                                             {
-                                                 @type = "text",
+                                        {
+                                            @type = "text",
                                             @placeholder = "Ingrese Usuario a restablecer",
+                                            @style = "text-align: center",
                                             @class = "form-control form-control-lg"
                                         })
                             </div>
 
-                            <button class="btn btn-outline-light btn-lg px-5" id="btn" type="submit">Restablecer</button>
+                            <button class="btn btn-lg px-5" id="btn" type="submit" style="background-color: #5f81e8; color: white;">Restablecer</button>
                             <br />
                             <br />
                             <a class="text-white-50 mb-2" href="~/Home/login">Iniciar Sesion</a>

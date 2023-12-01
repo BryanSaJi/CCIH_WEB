@@ -3,8 +3,10 @@ using CCIH.Entities;
 using CCIH.Models;
 using System;
 using System.Collections.Generic;
+using System.Security.Claims;
+using System.Web;
 using System.Web.Mvc;
-
+using System.Web.Security;
 
 namespace CCIH.Controllers
 {
@@ -45,6 +47,12 @@ namespace CCIH.Controllers
 
         public ActionResult Login()
         {
+            Session.Clear();
+            FormsAuthentication.SignOut();
+            Response.Cookies[FormsAuthentication.FormsCookieName].Expires = DateTime.Now.AddYears(-1);
+            Response.Cookies.Remove(FormsAuthentication.FormsCookieName);
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            Response.Cache.SetNoStore();
             return View();
         }
 
@@ -94,9 +102,9 @@ namespace CCIH.Controllers
                 {
                     ComboCourse.Add(new SelectListItem
                     {
-                        Text = item.Name,
+                        Text = item.CourseName,
                         Value = item.CourseID.ToString()
-                    });
+                    }) ; 
                 }
             }
 
@@ -144,7 +152,7 @@ namespace CCIH.Controllers
                 else
                 {
                     ViewBag.Msg = "No se ha podido registrar su información";
-                    return View("4");
+                    return RedirectToAction("PreRegister", "Home");
                 }
             }
             catch (Exception ex)
@@ -153,6 +161,7 @@ namespace CCIH.Controllers
             }
 
         }
+
         [HttpPost]
         public ActionResult Login(UserEnt ent)
       {
@@ -171,13 +180,13 @@ namespace CCIH.Controllers
                     Session["[NameRole]"] = resp.RolName;
                     Session["TokenUser"] = resp.Token;
 
-                    //var cliente = model.ConsultarCliente(Session["IdUser"]);
+                    FormsAuthentication.SetAuthCookie(resp.Email, false);
+
                     return RedirectToAction("Index", "Admin");
                 }
                 else
                 {
                     ViewBag.Msj = "Usuario o Contraseña incorrecto.";
-                    //TempData["ErrorMessage"] = "Usuario o Contrasena incorrecto.";
                     return View("Login");
                 }
             }
@@ -190,11 +199,6 @@ namespace CCIH.Controllers
         }
 
 
-        public ActionResult ContactConsult(ContactEnt ent)
-        {
-            
-            return RedirectToAction("", "");
-        }
 
         public ActionResult RestoreUser(UserEnt ent)
         {
@@ -202,10 +206,17 @@ namespace CCIH.Controllers
             return RedirectToAction("Login", "Home");
         }
 
+        
         [HttpGet]
+        [Authorize]
         public ActionResult SingOut()
         {
             Session.Clear();
+            FormsAuthentication.SignOut();
+            Response.Cookies[FormsAuthentication.FormsCookieName].Expires = DateTime.Now.AddYears(-1);
+            Response.Cookies.Remove(FormsAuthentication.FormsCookieName);
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            Response.Cache.SetNoStore();
             return RedirectToAction("Login", "Home");
         }
 
