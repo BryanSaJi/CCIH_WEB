@@ -50,6 +50,8 @@
                                             <div class="col-lg-8">
                                                 <input style="width:100% " type="text" class="form-control" name="Cedula" id="PersonalId">
                                             </div>
+
+
                                         </div>
 
 
@@ -93,7 +95,8 @@
 
                                 </div>
 
-                                <span id="validationMessage" style="color: red; display: block; margin-top: 5px; text-align: center">Por favor, completa todos los campos antes de realizar una búsqueda.</span>
+                                <span id="validationMessage" style="color: red; display: block; margin-top: 5px; text-align: center"></span>
+                                <span id="validationID" style="color: red; display: block; margin-top: 5px; text-align: center"></span>
 
 
                             </form>
@@ -215,12 +218,28 @@
         buscarBtn.disabled = !(entryTime && exitTime && cedula);
 
         // Mostrar un mensaje de validación si el botón está deshabilitado
-        validationMessage.innerText = buscarBtn.disabled ? "Por favor, completa todos los campos antes de realizar una búsqueda" : "";
+        validationMessage.innerText = buscarBtn.disabled ? "* Por favor, completa todos los campos.": "";
     }
 
     // Llamar a la función validateDates cuando se cambie el valor de las fechas o la cédula
     document.querySelector('input[name="EntryTime"]').addEventListener('input', validateDates);
     document.querySelector('input[name="ExitTime"]').addEventListener('input', validateDates);
     document.querySelector('input[name="Cedula"]').addEventListener('input', validateDates);
+
+
+ 
+
+    document.querySelector('#PersonalId').addEventListener('keyup', function () {
+        var id = this.value;
+        var validationMessage = document.querySelector('#validationID');
+        if (!/^\d+$/.test(id)) {
+            validationMessage.innerHTML = "* El campo Cédula solo permite numeros.";
+            this.style.borderColor = "FireBrick";
+        } else {
+            validationMessage.innerHTML = "";
+            this.style.borderColor = "Green";
+        }
+    });
+
+
 </script>
->
