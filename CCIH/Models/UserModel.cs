@@ -110,6 +110,66 @@ namespace CCIH.Models
         }
 
 
+        public List<UserEnt> SeeAllUserStudentsInGroup()
+        {
+            using (var client = new HttpClient())
+            {
+                string url = apiEnviroment.getApiUrl() + "api/SeeAllUserStudentsInGroup";
+
+                String Token = HttpContext.Current.Session["TokenUser"].ToString();
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
+                HttpResponseMessage resp = client.GetAsync(url).Result;
+
+                if (resp.IsSuccessStatusCode)
+                {
+                    return resp.Content.ReadFromJsonAsync<List<UserEnt>>().Result;
+                }
+
+                return new List<UserEnt>();
+            }
+        }
+
+        public List<UserEnt> SeeAllUserStudentsInGroupID(long groupId)
+        {
+            using (var client = new HttpClient())
+            {
+                string url = apiEnviroment.getApiUrl() + "api/SeeAllUserStudentsInGroupID?groupId=" + groupId;
+
+                String Token = HttpContext.Current.Session["TokenUser"].ToString();
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
+                HttpResponseMessage resp = client.GetAsync(url).Result;
+
+                if (resp.IsSuccessStatusCode)
+                {
+                    return resp.Content.ReadFromJsonAsync<List<UserEnt>>().Result;
+                }
+
+                return new List<UserEnt>();
+            }
+        }
+
+
+
+
+        public List<UserEnt> SeeAllUserStudentsOutGroup()
+        {
+            using (var client = new HttpClient())
+            {
+                string url = apiEnviroment.getApiUrl() + "api/SeeAllUserStudentsOutGroup";
+
+                String Token = HttpContext.Current.Session["TokenUser"].ToString();
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
+                HttpResponseMessage resp = client.GetAsync(url).Result;
+
+                if (resp.IsSuccessStatusCode)
+                {
+                    return resp.Content.ReadFromJsonAsync<List<UserEnt>>().Result;
+                }
+
+                return new List<UserEnt>();
+            }
+        }
+
 
         public List<UserEnt> SeeAllUserTeacher()
         {
@@ -208,7 +268,7 @@ namespace CCIH.Models
 
         }
 
-      
+
 
         public int RestoreUserPassword(UserEnt ent)
         {

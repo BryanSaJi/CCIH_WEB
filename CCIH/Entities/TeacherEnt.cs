@@ -45,7 +45,8 @@ namespace CCIH.Entities
         public DateTime? ExitTime { get; set; }
         public string TotalHours { get; set; }
 
-
+        public DateTime StartDay { get; set; }
+        public DateTime EndDate { get; set; }
 
 
 

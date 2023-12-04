@@ -197,6 +197,7 @@
     <Compile Include="Entities\ScheduleEnt.cs" />
     <Compile Include="Entities\RegistrationEnt.cs" />
     <Compile Include="Entities\RoleEnt.cs" />
+    <Compile Include="Entities\SetPeopleEnt.cs" />
     <Compile Include="Entities\StatusEnt.cs" />
     <Compile Include="Entities\StudentEnt.cs" />
     <Compile Include="Entities\TeacherEnt.cs" />
@@ -261,8 +262,10 @@
     <Content Include="assets\Administration\js\DataTable\cdnjs.cloudflare.com_ajax_libs_pdfmake_0.1.53_vfs_fonts.js" />
     <Content Include="assets\Administration\js\DataTable\code.jquery.com_jquery-3.7.0.js" />
     <Content Include="assets\Administration\js\DataTable\Datatable.js" />
+    <Content Include="assets\Administration\js\GroupValidation.js" />
     <Content Include="assets\Administration\js\RegistrationFormValidation.js" />
     <Content Include="assets\Administration\js\RegistrationValidation.js" />
+    <Content Include="assets\Administration\js\SetPeople.js" />
     <Content Include="assets\Administration\js\UserValidations.js" />
     <Content Include="assets\Administration\js\UserFormValidation.js" />
     <Content Include="assets\Administration\js\main.js" />
@@ -766,8 +769,6 @@
     <Content Include="Views\State\Index.cshtml" />
     <Content Include="Views\Teachers\Index.cshtml" />
     <Content Include="Views\Teachers\CoursesTeacher.cshtml" />
-    <Content Include="Views\Group\ShowGroups.cshtml" />
-    <Content Include="Views\Group\EditGroup.cshtml" />
     <Content Include="Views\Payments\RegisterPayments.cshtml" />
     <Content Include="Views\Teachers\TimeMarkTeacher.cshtml" />
     <Content Include="Views\Teachers\MarkHistory.cshtml" />
@@ -775,12 +776,16 @@
     <Content Include="Views\Payments\ListPayments.cshtml" />
     <Content Include="Views\Payments\EditPayment.cshtml" />
     <Content Include="Views\Teachers\RequestTeacher.cshtml" />
+    <Content Include="Views\Group\CreateGroup.cshtml" />
+    <Content Include="Views\Group\EditGroup.cshtml" />
+    <Content Include="Views\Group\RemovePeople.cshtml" />
+    <Content Include="Views\Group\SetPeople.cshtml" />
+    <Content Include="Views\Group\ShowGroups.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Captcha\" />
     <Folder Include="Data\" />
-    <Folder Include="Views\Groups\" />
     <Folder Include="Views\Identifications\" />
   </ItemGroup>
   <ItemGroup>
