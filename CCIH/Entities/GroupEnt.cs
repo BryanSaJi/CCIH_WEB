@@ -24,6 +24,8 @@ namespace CCIH.Entities
         public string CourseName { get; set; }
         public string ScheduleDescription { get; set; }
         public string TeacherName { get; set; }
+        public bool init { get; set; }
+        public long groupIdP { get; set; }
 
     }
 }

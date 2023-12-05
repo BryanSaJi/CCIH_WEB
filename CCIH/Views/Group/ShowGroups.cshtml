@@ -56,12 +56,12 @@
                                             <thead>
                                                 <tr>
                                                     <th>Nombre del Grupo</th>
-                                                    <th>Numero maximo de estudiantes</th>
-                                                    <th>Numero de estudiantes</th>
                                                     <th>Horario</th>
                                                     <th>Profesor</th>
                                                     <th>Fecha Inicio</th>
                                                     <th>Fecha Final</th>
+                                                    <th>Maximo de estudiantes</th>
+                                                    <th>Numero de estudiantes</th>
                                                     <th>Estado</th>
                                                     <th>Acciones</th>
                                                 </tr>
@@ -71,15 +71,15 @@
                                                 {
                                                     <tr>
                                                         <td style="text-align: center;">@item.GroupName</td>
-                                                        <td style="text-align: center;">@item.MaxStudentsNumber</td>
-                                                        <td style="text-align: center;">@item.StudentsNumber</td>
                                                         <td style="text-align: center;">@item.ScheduleDescription</td>
                                                         <td style="text-align: center;">@item.TeacherName</td>
                                                         <td style="text-align: center;">@item.StartDate.ToString("yyyy-MM-dd")</td>
                                                         <td style="text-align: center;">@item.EndDate.ToString("yyyy-MM-dd")</td>
+                                                        <td style="text-align: center;">@item.MaxStudentsNumber</td>
+                                                        <td style="text-align: center;">@item.StudentsNumber</td>
                                                         <td style="text-align: center;">@item.StatusName</td>
                                                         <td style="text-align:center">
-                                                            <a type="submit" class="btn btn-sm text-white" style="background-color: #5f81e8;" href="@Url.Action("EditGroup","Group", new { i = item.GroupId })">Consultar</a>
+                                                            <a type="submit" class="btn btn-outline-info btn-sm" href="@Url.Action("EditGroup","Group", new { i = item.GroupId })">Consultar</a>
                                                         </td>
                                                     </tr>
                                                 }
@@ -112,7 +112,7 @@
         if (mensajeDiv2 != null) {
             mensajeDiv2.style.display = 'none';
         }
-        Session["MensajePositivo"] = 0;
+        
     }, 5000); // 5000 milisegundos = 5 segundos
 </script>
 

@@ -1,0 +1,251 @@
+﻿
+@{
+    ViewBag.Title = "RemovePeople";
+    Layout = "~/Views/Shared/_Layout_Administration.cshtml";
+}
+
+@model CCIH.Entities.SetPeopleEnt
+
+
+@{
+    ViewBag.Title = "SetPeople";
+    Layout = "~/Views/Shared/_Layout_Administration.cshtml";
+}
+
+
+@using Newtonsoft.Json
+
+<head>
+
+    <link rel="stylesheet" href="~/assets/Administration/css/datatable/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="~/assets/Administration/css/datatable/buttons.dataTables.min.css" />
+
+    <script defer src="~/assets/Administration/js/DataTable/code.jquery.com_jquery-3.7.0.js"></script>
+    <script defer src="~/assets/Administration/js/DataTable/cdn.datatables.net_1.13.5_js_jquery.dataTables.min.js"></script>
+    <script defer src="~/assets/Administration/js/DataTable/cdn.datatables.net_buttons_2.4.1_js_dataTables.buttons.min.js"></script>
+    <script defer src="~/assets/Administration/js/DataTable/cdnjs.cloudflare.com_ajax_libs_jszip_3.10.1_jszip.min.js"></script>
+    <script defer src="~/assets/Administration/js/DataTable/cdnjs.cloudflare.com_ajax_libs_pdfmake_0.1.53_pdfmake.min.js"></script>
+    <script defer src="~/assets/Administration/js/DataTable/cdnjs.cloudflare.com_ajax_libs_pdfmake_0.1.53_vfs_fonts.js"></script>
+    <script defer src="~/assets/Administration/js/DataTable/cdn.datatables.net_buttons_2.4.1_js_buttons.html5.min.js"></script>
+    <script defer src="~/assets/Administration/js/DataTable/cdn.datatables.net_buttons_2.4.1_js_buttons.print.min.js"></script>
+    <script defer src="~/assets/Administration/js/DataTable/DataTable.js"></script>
+
+
+
+</head>
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Remover Personas del Grupo</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a>Inicio</a></li>
+                <li class="breadcrumb-item">Usuarios</li>
+                <li class="breadcrumb-item active">RemovePeople</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+
+
+    <section class="section">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+
+
+                        @if (ViewBag.MsjPantallaPostivo != null)
+                        {
+                            <div id="mensajePositivo" style="text-align:center" class="alert alert-success" role="alert">
+                                @ViewBag.MsjPantallaPostivo
+                            </div>
+                        }
+                        @if (ViewBag.MsjPantallaNegativo != null)
+                        {
+                            <div id="mensajeNegativo" style="text-align:center" class="alert alert-danger" role="alert">
+                                @ViewBag.MsjPantallaNegativo
+                            </div>
+                        }
+                        <br>
+
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label for="ListStatus" class="col-form-label">Grupos Disponibles</label>
+                                    @Html.DropDownListFor(m => m.GroupEnt.GroupName, ViewBag.Group as List<SelectListItem>, new { @class = "form-control", @id = "RemoveGroupNameList" })
+                                    <div class="validation-message text-danger" id="GroupNameListValidationMessage"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+
+
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label for="ListStatus" class="col-form-label">Grupo</label>
+                                    @Html.TextBoxFor(m => m.GroupEnt.GroupName, new { @type = "text", @class = "form-control", @id = "GroupName", @readonly = "readonly" })
+                                    <div class="validation-message text-danger" id="GroupNameValidationMessage"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label for="ListStatus" class="col-form-label">Horario</label>
+
+                                    @Html.TextBoxFor(m => m.GroupEnt.ScheduleDescription, new { @type = "text", @class = "form-control", @id = "ScheduleDescriptionNameList", @readonly = "readonly" })
+                                    <div class="validation-message text-danger" id="ScheduleDescriptionValidationMessage"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label for="StartDateId" class="col-form-label">Fecha de Inicio</label>
+                                    @Html.TextBoxFor(m => m.GroupEnt.StartDate, "{0:yyyy-MM-dd}", new { @type = "text", id = "StartDateId", @class = "form-control", @readonly = "readonly" })
+                                    <div class="validation-message text-danger" id="StartDatevalidationMessage"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label for="EndDateId" class="col-form-label">Fecha Final</label>
+                                    @Html.TextBoxFor(m => m.GroupEnt.EndDate, "{0:yyyy-MM-dd}", new { @type = "text", id = "EndDateId", @class = "form-control", @readonly = "readonly" })
+                                    <div class="validation-message text-danger" id="EndDatevalidationMessage"></div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <br>
+
+
+                        <!-- Row  -->
+
+
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label for="ListStatus" class="col-form-label">Profesor</label>
+                                    @Html.DropDownListFor(m => m.GroupEnt.TeacherId, ViewBag.Teacher as List<SelectListItem>, new { @class = "form-control", @id = "TeacherNameList" })
+                                    <div class="validation-message text-danger" id="TeacherNameValidationMessage"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#basicModalRemoveTeacher" id="RemoveButton">Remover Profesor</button>
+                                    
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="table-responsive">
+                                    <table id="DataTable" class="table table-hover text-center" width="100%">
+                                        <thead>
+                                            <tr style="text-align:center">
+                                                <th>Cedula</th>
+                                                <th>Nombre</th>
+                                                <th>Apellido 1</th>
+                                                <th>Apellido 2</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model.StudentsInGroup)
+                                            {
+                                                <tr>
+                                                    <td>@item.PersonalID</td>
+                                                    <td>@item.Name</td>
+                                                    <td>@item.LastName</td>
+                                                    <td>@item.SecLastName</td>
+                                                    <td style="text-align:center">
+                                                        <div class="row justify-content-center">
+                                                            <div class="col-lg-12">
+                                                                <button type="button" class="btn btn-primary m-0 w-100" data-bs-toggle="modal" data-bs-target="#basicModalRemoveStudent" id="RemoveButtonS">Remover</button>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <a href="@Url.Action("Index", "Admin")" class="btn btn-secondary">Regresar</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- End Modal-->
+    <!-- Modal basicModalRemove Student-->
+    <div class="modal fade" id="basicModalRemoveStudent" tabindex="-1">
+        <div class="modal-dialog justify-content-center align-items-center" style="margin-top: 15%">
+            <div class="modal-content justify-content-center align-items-center">
+                <div class="modal-header align-items-center">
+                    <h5 class="modal-title justify-content-center align-items-center">Alerta</h5>
+                </div>
+                <div class="modal-body" style="text-align:center">
+                    Desea remover el estudiante seleccionado?
+                </div>
+                <div class="modal-footer m-0 w-75">
+                    <div class="d-flex justify-content-between w-100">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-success" id="RemoveStudentModalFormButton">Remover</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+    </div>
+
+
+
+    <!-- End Modal-->
+    <!-- Modal basicModalRemove Teacher-->
+    <div class="modal fade" id="basicModalRemoveTeacher" tabindex="-1">
+        <div class="modal-dialog justify-content-center align-items-center" style="margin-top: 15%">
+            <div class="modal-content justify-content-center align-items-center">
+                <div class="modal-header align-items-center">
+                    <h5 class="modal-title justify-content-center align-items-center">Alerta</h5>
+                </div>
+                <div class="modal-body" style="text-align:center">
+                    Desea remover el profesor seleccionado?
+                </div>
+                <div class="modal-footer m-0 w-75">
+                    <div class="d-flex justify-content-between  m-0 w-100">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-success" id="RemoveTeacherModalFormButton">Remover</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+    </div>
+
+    <!-- End Modal-->
+
+
+</main><!-- End #main -->
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="~/assets/Administration/js/SetPeople.js"></script>
+

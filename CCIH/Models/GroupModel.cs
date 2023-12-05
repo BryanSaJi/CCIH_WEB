@@ -199,11 +199,11 @@ namespace CCIH.Models
 
 
 
-        public int AssignTeacherToGroup(long groupId, long userId)
+        public int AssignTeacherToGroup(long groupId, long teacherId)
         {
             using (var client = new HttpClient())
             {
-                string url = apiEnviroment.getApiUrl() + $"api/AssignTeacherToGroup?groupId={groupId}&userId={userId}";
+                string url = apiEnviroment.getApiUrl() + $"api/AssignTeacherToGroup?groupId={groupId}&teacherId={teacherId}";
                 String Token = HttpContext.Current.Session["TokenUser"].ToString();
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
                 HttpResponseMessage resp = client.PostAsync(url, null).Result;
@@ -265,6 +265,44 @@ namespace CCIH.Models
             using (var client = new HttpClient())
             {
                 string url = apiEnviroment.getApiUrl() + "api/DisableGroup?groupId=" + groupId;
+                String Token = HttpContext.Current.Session["TokenUser"].ToString();
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
+                HttpResponseMessage resp = client.PutAsync(url, null).Result;
+
+                if (resp.IsSuccessStatusCode)
+                {
+                    return resp.Content.ReadFromJsonAsync<int>().Result;
+                }
+
+                return 0;
+            }
+        }
+
+
+        public int RemoveTeacherFromGroup(long groupId)
+        {
+            using (var client = new HttpClient())
+            {
+                string url = apiEnviroment.getApiUrl() + "api/RemoveTeacherFromGroup?groupId=" + groupId;
+                String Token = HttpContext.Current.Session["TokenUser"].ToString();
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
+                HttpResponseMessage resp = client.PutAsync(url, null).Result;
+
+                if (resp.IsSuccessStatusCode)
+                {
+                    return resp.Content.ReadFromJsonAsync<int>().Result;
+                }
+
+                return 0;
+            }
+        }
+
+
+        public int RemoveStudentFromGroup(long groupId, long UserId)
+        {
+            using (var client = new HttpClient())
+            {
+                string url = apiEnviroment.getApiUrl() + "api/RemoveStudentFromGroup?UserId=" + UserId + "&groupId=" + groupId;
                 String Token = HttpContext.Current.Session["TokenUser"].ToString();
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
                 HttpResponseMessage resp = client.PutAsync(url, null).Result;

@@ -16,7 +16,7 @@ namespace CCIH.Entities
         public string UserName { get; set; }
         public DateTime LastActivity { get; set; }
         public Nullable<long> IdRol { get; set; }
-        public int UserId { get; set; }
+        public long UserId { get; set; }
         public int buttonId { get; set; }
 
         public string StatusName { get; set; }
@@ -36,18 +36,22 @@ namespace CCIH.Entities
         public int LevelCourseId { get; set; }
         public long ModalityId { get; set; }
         public long ScheduleId { get; set; }
-        public int TimeMarkID { get; set; }
 
         public int Office_SH_ID { get; set; }
 
-        public int Year { get; set; }
-        public int Month { get; set; }
-
-        public int Day { get; set; }
         public int TotalWorkHours { get; set; }
+
+        public DateTime? EntryTime { get; set; }
+        public DateTime? ExitTime { get; set; }
+        public string TotalHours { get; set; }
 
         public DateTime StartDay { get; set; }
         public DateTime EndDate { get; set; }
+
+
+
+
+
 
     }
 }
