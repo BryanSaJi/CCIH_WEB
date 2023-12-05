@@ -7,6 +7,25 @@
 }
 
 
+<heah>
+
+    <link rel="stylesheet" href="~/assets/Administration/css/datatable/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="~/assets/Administration/css/datatable/buttons.dataTables.min.css" />
+
+    <script defer src="~/assets/Administration/js/DataTable/code.jquery.com_jquery-3.7.0.js"></script>
+    <script defer src="~/assets/Administration/js/DataTable/cdn.datatables.net_1.13.5_js_jquery.dataTables.min.js"></script>
+    <script defer src="~/assets/Administration/js/DataTable/cdn.datatables.net_buttons_2.4.1_js_dataTables.buttons.min.js"></script>
+    <script defer src="~/assets/Administration/js/DataTable/cdnjs.cloudflare.com_ajax_libs_jszip_3.10.1_jszip.min.js"></script>
+    <script defer src="~/assets/Administration/js/DataTable/cdnjs.cloudflare.com_ajax_libs_pdfmake_0.1.53_pdfmake.min.js"></script>
+    <script defer src="~/assets/Administration/js/DataTable/cdnjs.cloudflare.com_ajax_libs_pdfmake_0.1.53_vfs_fonts.js"></script>
+    <script defer src="~/assets/Administration/js/DataTable/cdn.datatables.net_buttons_2.4.1_js_buttons.html5.min.js"></script>
+    <script defer src="~/assets/Administration/js/DataTable/cdn.datatables.net_buttons_2.4.1_js_buttons.print.min.js"></script>
+    <script defer src="~/assets/Administration/js/DataTable/DataTable.js"></script>
+
+
+
+</heah>
+
 <main id="main" class="main">
     <div class="pagetitle">
         <h1>Lista de Horas</h1>
@@ -26,83 +45,6 @@
                     <div class="card-body">
 
                         <div class="container-fluid">
-                            <style>
-                                .col-form-label {
-                                    width: 100%;
-                                }
-
-                                .form-control {
-                                    width: 100%;
-                                }
-
-                                .btn-block {
-                                    width: 100%;
-                                }
-                            </style>
-
-                            <form onsubmit="return sumHours();">
-
-                                <div class="row align-items-center" style="position: initial; margin: 3%; text-align: center;">
-                                    <div class="col-lg-3">
-                                        <div class="form-group">
-                                            <div class="col-lg-3">
-                                                <label for="inputDate" class="col-form-label">Cédula:</label>
-                                            </div>
-                                            <div class="col-lg-8">
-                                                <input style="width:100% " type="text" class="form-control" name="Cedula" id="PersonalId">
-                                            </div>
-
-
-                                        </div>
-
-
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <div class="form-group">
-                                            <div class="col-lg-4">
-                                                <label for="inputDate" class="col-form-label">Entrada:</label>
-                                            </div>
-                                            <div class="col-lg-8">
-                                                <input type="date" class="form-control" name="EntryTime" id="date">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <div class="form-group">
-                                            <div class="col-lg-3">
-                                                <label for="inputDate" class="col-form-label">Salida:</label>
-                                            </div>
-                                            <div class="col-lg-8">
-                                                <input type="date" class="form-control" name="ExitTime" id="date">
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="col-lg-3" style="margin-top: 3.5%">
-                                        <div class="row align-items-end">
-                                            <div class="col-lg-6">
-                                                <button type="submit" id="buscarBtn" class="btn btn-primary btn-block" disabled>Buscar</button>
-
-                                            </div>
-                                            <div class="col-lg-5">
-                                                <input id="TotalWorkHours" name="TotalWorkHours" type="text" class="form-control" readonly disabled value="@ViewBag.TotalWorkHours" />
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-
-
-                                </div>
-
-                                <span id="validationMessage" style="color: red; display: block; margin-top: 5px; text-align: center"></span>
-                                <span id="validationID" style="color: red; display: block; margin-top: 5px; text-align: center"></span>
-
-
-                            </form>
-
-                            <br />
 
                             @if (ViewBag.MsjPantallaPostivo != null)
                             {
@@ -118,28 +60,45 @@
                             }
 
                             <br />
+                            <!-- General Form Elements -->
+                            @using (Html.BeginForm("AllHours", "Teachers", FormMethod.Post, new { id = "" }))
+                            {
+                                <div class="row">
+                                    <div class="col-lg-6">
+
+                                        <div class="form-group">
+                                            <label class="col-form-label">Fecha Inicio</label>
+                                            @*@Html.TextBoxFor(x => x.StartDay, new { @type = "date", @id = "EntryTime", @class = "form-control" })*@
+                                            <div class="validation-message text-danger" id="validationMessage"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Fecha Fin</label>
+                                            @*@Html.TextBoxFor(x => x.EndDate, new { @type = "date", @id = "ExitTime", @class = "form-control" })*@
+                                        </div>
+                                    </div>
+                                </div>
+
+                            }
+                            <br />
+
                             <div class="row">
                                 <div class="col-12">
                                     <div class="table-responsive">
                                         <table id="DataTable" class="table table-hover text-center" width="100%">
                                             <thead>
                                                 <tr>
-                                                    <th style="text-align:center">Cédula</th>
-                                                    <th style="text-align:center">Nombre</th>
                                                     <th style="text-align:center">Entrada</th>
                                                     <th style="text-align:center">Salida</th>
-                                                    <th style="text-align:center">Total de Horas</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 @foreach (var item in Model)
                                                 {
                                                     <tr>
-                                                        <td>@item.PersonalID</td>
-                                                        <td>@item.Name</td>
                                                         <td>@(item.EntryTime.HasValue ? item.EntryTime.Value.ToString("yyyy-MM-dd HH:mm:ss") : "Registro Pendiente.")</td>
                                                         <td>@(item.ExitTime.HasValue ? item.ExitTime.Value.ToString("yyyy-MM-dd HH:mm:ss") : "Registro Pendiente.")</td>
-                                                        <td>@item.TotalHours</td>
                                                     </tr>
                                                 }
                                             </tbody>
@@ -219,7 +178,7 @@
         buscarBtn.disabled = !(entryTime && exitTime && cedula);
 
         // Mostrar un mensaje de validación si el botón está deshabilitado
-        validationMessage.innerText = buscarBtn.disabled ? "* Por favor, completa todos los campos.": "";
+        validationMessage.innerText = buscarBtn.disabled ? "* Por favor, completa todos los campos." : "";
     }
 
     // Llamar a la función validateDates cuando se cambie el valor de las fechas o la cédula
@@ -228,7 +187,7 @@
     document.querySelector('input[name="Cedula"]').addEventListener('input', validateDates);
 
 
- 
+
 
     document.querySelector('#PersonalId').addEventListener('keyup', function () {
         var id = this.value;

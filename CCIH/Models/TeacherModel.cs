@@ -5,6 +5,7 @@ using System.Data.SqlTypes;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
+using System.Text.RegularExpressions;
 using System.Web;
 
 namespace CCIH.Models
@@ -13,11 +14,11 @@ namespace CCIH.Models
     {
         UtilitiesModel apiEnviroment = new UtilitiesModel();
 
-        public List<TeacherEnt> RequestTeacher()
+        public List<TeacherEnt> RequestTeachers()
         {
             using (var client = new HttpClient())
             {
-                string url = apiEnviroment.getApiUrl() + "api/RequestTeacher";
+                string url = apiEnviroment.getApiUrl() + "api/RequestTeachers";
                 String Token = HttpContext.Current.Session["TokenUser"].ToString();
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
                 HttpResponseMessage resp = client.GetAsync(url).Result;
@@ -115,6 +116,21 @@ namespace CCIH.Models
                  if (resp.IsSuccessStatusCode)
                 {
                   return resp.Content.ReadFromJsonAsync<List<TeacherEnt>>().Result;
+                }
+
+                return new List<TeacherEnt>();
+            }
+        }
+
+        public List<TeacherEnt> SeeOfficeLoByTeacher(long i)
+        {
+            using (var client = new HttpClient())
+            {
+                string url = apiEnviroment.getApiUrl() + "api/SeeOfficeLoByTeacher?i=" + i;
+                HttpResponseMessage resp = client.GetAsync(url).Result;
+                if (resp.IsSuccessStatusCode)
+                {
+                    return resp.Content.ReadFromJsonAsync<List<TeacherEnt>>().Result;
                 }
 
                 return new List<TeacherEnt>();

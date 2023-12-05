@@ -21,10 +21,13 @@ namespace CCIH.Controllers
         IdentificationsModel modelIdentifications = new IdentificationsModel();
 
 
+
         [Authorize]
         public ActionResult Index()
         {
             var data = model.RequestUsers();
+
+
 
             foreach (var item in data)
             {
@@ -37,6 +40,7 @@ namespace CCIH.Controllers
                     }
                 }
             }
+
             if ((int)Session["MensajePositivo"] == 1)
             {
                 ViewBag.MsjPantallaPostivo = "Operacion Exitosa";

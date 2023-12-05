@@ -48,10 +48,5 @@ namespace CCIH.Entities
         public DateTime StartDay { get; set; }
         public DateTime EndDate { get; set; }
 
-
-
-
-
-
     }
 }

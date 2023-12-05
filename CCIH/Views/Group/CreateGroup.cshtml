@@ -56,7 +56,7 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Informacion del Usuario</h5>
+                        <h5 class="card-title">Información del Grupo</h5>
 
                         <div class="row">
                             <div class="col-lg-6">
@@ -66,7 +66,7 @@
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="GroupNameId" class="col-form-label">Nombre de Grupo</label>
-                                            @Html.TextBoxFor(m => m.GroupName, new { @type = "text", @placeholder = "El nombre del grupo es automatico", @id = "GroupNameId", @class = "form-control", @readonly = "readonly" })
+                                            @Html.TextBoxFor(m => m.GroupName, new { @type = "text", @placeholder = "El nombre del grupo es automatico", @id = "GroupNameId", @class = "form-control", @readonly = "readonly", @style = "background-color: #f1f1f1;" })
                                             <div class="validation-message text-danger" id="GroupNameMessage"></div>
                                         </div>
                                     </div>
@@ -85,14 +85,16 @@
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="StudentsNumberId" class="col-form-label">Número de estudiantes</label>
-                                            @Html.TextBoxFor(m => m.StudentsNumber, new { @type = "text", @placeholder = "Número de estudiantes", @class = "form-control", @id = "StudentsNumberId", @readonly = "readonly" })
+                                            @Html.TextBoxFor(m => m.StudentsNumber, new { @type = "text", @placeholder = "Número de estudiantes", @class = "form-control", @id = "StudentsNumberId", @readonly = "readonly", @style = "background-color: #f1f1f1;" })
                                             <div class="validation-message text-danger" id="StudentsNumberValidationMessage"></div>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="ListStatus" class="col-form-label">Curso</label>
+
                                             @Html.DropDownListFor(m => m.CourseId, ViewBag.Course as List<SelectListItem>, new { @class = "form-control", @id = "CourseNameList" })
+
                                             <div class="validation-message text-danger" id="CourseNameValidationMessage"></div>
                                         </div>
                                     </div>

@@ -42,9 +42,9 @@ namespace CCIH.Controllers
      
         public ActionResult RequestTeacher()
         {
-            var teachers = modelTeacher.RequestTeacher();
+            var data = modelTeacher.RequestTeachers();
             
-                return View(teachers);
+                return View(data);
         }
 
         [HttpPost]
@@ -102,27 +102,27 @@ namespace CCIH.Controllers
         }
 
 
-       [HttpGet]
-        public ActionResult AllHours()
+        [HttpGet]
+        public ActionResult AllHours(long i)
         {
 
-            var totalHours = modelTeacher.TotalWorkHours();
-            return View(totalHours);
+            var data = modelTeacher.SeeOfficeLoByTeacher(i);
 
-
+            return View(data);
 
         }
 
-        //[HttpPost]
-        //public ActionResult SumHours(DateTime EntryTime, DateTime ExitExit)
-        //{
-        //    var teachers = modelTeacher.TotalWorkHours().Where(t => t.EntryTime >= EntryTime && t.ExitTime <= ExitExit).ToList();
-        //    decimal sumTotal = teachers.Sum(t => t.TotalWorkHours);
+        [HttpPost]
+        public ActionResult AllHours(TeacherEnt ent)
+        {
 
-        //    ViewBag.TotalWorkHours = sumTotal;
-        //    return RedirectToAction("AllHours", "Teacher");
+            var data = "";
 
-        //}
+            return View(data);
+
+        }
+
+
 
     }
 

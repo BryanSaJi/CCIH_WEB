@@ -10,6 +10,7 @@ using static System.Net.Mime.MediaTypeNames;
 using System.Windows.Controls.Primitives;
 using System.Diagnostics.Eventing.Reader;
 using System.Text.RegularExpressions;
+using System.Windows.Controls;
 
 namespace CCIH.Controllers
 {
@@ -461,6 +462,9 @@ namespace CCIH.Controllers
                     Selected = true
                 });
             }
+
+            ComboCourse = ComboCourse.OrderBy(x => x.Text).ToList();
+
             ViewBag.Course = ComboCourse;
 
 

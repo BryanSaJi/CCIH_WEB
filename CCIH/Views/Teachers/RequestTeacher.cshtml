@@ -85,14 +85,13 @@
                                                     <tr>
                                                         <td>@item.PersonalID</td>
                                                         <td>@item.Name</td>
-                                                        <td>@item.GroupId</td>
-                                                        <td>@item.CourseName</td>
-                                                        <td>@item.StatusName</td>
+                                                        <td>@item.LastName</td>
+                                                        <td>@item.SecLastName</td>
+                                                        <td>@item.Email</td>
 
 
 
                                                         <td style="text-align:center">
-                                                            <a type="submit" class="btn btn-sm text-white" style="background-color: #5f81e8;" href="@Url.Action("EditGroup", "Group", new { i = item.PersonalID })"><i class="bi bi-pencil-square"></i> Editar</a>
                                                             <a type="submit" class="btn btn-sm text-white" style="background-color: #5f81e8;" href="@Url.Action("AllHours", "Teachers", new { i = item.UserId })"><i class="bi bi-search"></i> Ver Horas</a>
                                                         </td>
                                                     </tr>
