@@ -33,6 +33,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="@Url.Action("Index","Admin")">Inicio</a></li>
                 <li class="breadcrumb-item">Profesores</li>
+                <li class="breadcrumb-item">Lista de Profesores</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -68,7 +69,6 @@
                                             <tr>
                                                 <th style="text-align:center">Cedula</th>
                                                 <th style="text-align:center">Nombre</th>
-                                                <th style="text-align:center">Apellido</th>
                                                 <th style="text-align:center">Grupo</th>
                                                 <th style="text-align:center" >Curso</th>
                                                 <th style="text-align:center">Estado del Grupo</th>
@@ -85,17 +85,15 @@
                                                     <tr>
                                                         <td>@item.PersonalID</td>
                                                         <td>@item.Name</td>
-                                                        <td>@item.LastName</td>
                                                         <td>@item.GroupId</td>
                                                         <td>@item.CourseName</td>
-                                                        
                                                         <td>@item.StatusName</td>
 
 
 
                                                         <td style="text-align:center">
-                                                            <a type="submit" class="btn btn-outline-info btn-sm" href="@Url.Action("EditUser", "User", new { i = item.PersonalID })"><i class="bi bi-pencil-square"></i> Editar</a>
-                                                            <a type="submit" class="btn btn-outline-info btn-sm" href="@Url.Action("AllHours", "Teachers", new { i = item.UserId })"><i class="bi bi-search"></i> Ver Horas</a>
+                                                            <a type="submit" class="btn btn-sm text-white" style="background-color: #5f81e8;" href="@Url.Action("EditGroup", "Group", new { i = item.PersonalID })"><i class="bi bi-pencil-square"></i> Editar</a>
+                                                            <a type="submit" class="btn btn-sm text-white" style="background-color: #5f81e8;" href="@Url.Action("AllHours", "Teachers", new { i = item.UserId })"><i class="bi bi-search"></i> Ver Horas</a>
                                                         </td>
                                                     </tr>
                                                
