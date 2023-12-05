@@ -71,11 +71,10 @@
                                         <thead>
                                             <tr>
                                                 <th>Cedula del cliente</th>
-                                                <th>Numero de Pago</th>
                                                 <th>Metodo de pago</th>
                                                 <th>Monto</th>
-                                                <th>Cedula del empleado</th>
                                                 <th>Ingreso/Egreso</th>
+                                                <th>Motivo</th>
                                                 <th>Fecha</th>
 
                                             </tr>
@@ -85,11 +84,10 @@
                                             {
                                                 <tr>
                                                     <td>@item.PersonalID</td>
-                                                    <td>@item.PaymentsId</td>
                                                     <td>@item.PaymentTypeId</td>
                                                     <td>@item.Amount</td>
-                                                    <td>@item.EmployeeId</td>
                                                     <td>@item.IncomeOutcomeId</td>
+                                                    <td>@item.ReasonId</td>
                                                     <td>@item.CreationDate</td>
                                                     <td style="text-align:center">
                                                         <a type="submit" class="btn btn-outline-info btn-sm" href="@Url.Action("EditPayment", "Payments", new { i = item.PaymentsId })"><i class="bi bi-pencil-square"></i>Editar</a>

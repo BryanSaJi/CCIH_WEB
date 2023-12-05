@@ -62,9 +62,8 @@
                                     <div class="col-lg-6">
 
                                         <div class="form-group">
-                                            <label for="PaymentsIdField" class="col-form-label">Numero de pago</label>
-                                            @Html.TextBoxFor(m => m.PaymentsId, new { @onkeyup = "ConsultPeopleInfo()", @type = "text", @placeholder = "Digite el numero de pago", @id = "PaymentsId", @class = "form-control" })
-                                            <div class="validation-message text-danger" id="validationMessage"></div>
+                                            <label class="col-form-label">Metodo de pago</label>
+                                            @Html.DropDownListFor(m => m.PaymentTypeId, ViewBag.PaymentType as List<SelectListItem>, "Seleccione el metodo de pago", new { @class = "form-control", id = "PaymentType" })
                                         </div>
                                     </div>
                                 </div>
@@ -75,15 +74,15 @@
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label class="col-form-label">Metodo de pago</label>
-                                            @Html.DropDownListFor(m => m.PaymentTypeId, ViewBag.PaymentType as List<SelectListItem>, "Seleccione el metodo de pago", new { @class = "form-control", id = "PaymentType" })
+                                            <label for="AmountField" class="col-form-label">Monto</label>
+                                            @Html.TextBoxFor(m => m.Amount, new { @type = "text", @placeholder = "Digite el monto", @id = "AmountField", @class = "form-control" })
+                                            <div class="validation-message text-danger" id="nameValidationMessage"></div>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label for="AmountField" class="col-form-label">Monto</label>
-                                            @Html.TextBoxFor(m => m.Amount, new { @type = "text", @placeholder = "Digite el monto", @id = "AmountField", @class = "form-control" })
-                                            <div class="validation-message text-danger" id="nameValidationMessage"></div>
+                                            <label class="col-form-label">Ingreso/Egreso</label>
+                                            @Html.DropDownListFor(m => m.IncomeOutcomeId, ViewBag.IncomeOutcome as List<SelectListItem>, "Seleccione si es ingreso o egreso", new { @class = "form-control", id = "IncomeOutcomeId" })
                                         </div>
                                     </div>
                                 </div>
@@ -93,31 +92,21 @@
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label for="EmployeeField" class="col-form-label">Cedula del empleado</label>
-                                            @Html.TextBoxFor(m => m.EmployeeId, new { @type = "text", @placeholder = "Identificacion del empleado", @class = "form-control", id = "employeeId" })
-                                            <div class="validation-message text-danger" id="lastNameValidationMessage"></div>
+                                            <label class="col-form-label">Motivo</label>
+                                            @Html.DropDownListFor(m => m.ReasonId, ViewBag.Reason as List<SelectListItem>, "Seleccione el motivo", new { @class = "form-control", id = "IncomeOutcomeId" })
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label class="col-form-label">Ingreso/Egreso</label>
-                                            @Html.DropDownListFor(m => m.IncomeOutcomeId, ViewBag.IncomeOutcome as List<SelectListItem>, "Ingreso/Egreso", new { @class = "form-control", id = "IncomeOutcomeId" })
+                                            <label for="CreationDate" class="col-form-label">Fecha</label>
+                                            @Html.TextBoxFor(m => m.CreationDate, new { @onkeyup = "validateDateOfBirth()", @type = "date", id = "Birthdate", @class = "form-control" })
+                                            <div class="validation-message text-danger" id="validationMessagedate"></div>
                                         </div>
                                     </div>
                                 </div>
 
+
                                 <!-- Row 4 -->
-
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label for="CreationDate" class="col-form-label">Fecha</label>
-                                        @Html.TextBoxFor(m => m.CreationDate, new { @onkeyup = "validateDateOfBirth()", @type = "date", id = "Birthdate", @class = "form-control" })
-                                        <div class="validation-message text-danger" id="validationMessagedate"></div>
-                                    </div>
-                                </div>
-
-
-                                <!-- Row 5 -->
 
                                 <div class="row">
                                     <div class="col-lg-6">

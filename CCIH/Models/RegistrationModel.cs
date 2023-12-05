@@ -6,9 +6,11 @@ using System.Linq;
 using System.Net.Http.Json;
 using System.Net.Http;
 using System.Web;
+using System.Web.Mvc;
 
 namespace CCIH.Models
 {
+    [Authorize]
     public class RegistrationModel
     {
         UtilitiesModel apiEnviroment = new UtilitiesModel();

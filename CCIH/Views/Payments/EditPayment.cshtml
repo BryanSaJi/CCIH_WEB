@@ -60,9 +60,9 @@
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label for="PaymentsId" class="col-form-label">Nombre</label>
-                                            @Html.TextBoxFor(m => m.PaymentsId, new { @type = "text", @placeholder = "Digite el Numero de pago", @id = "PaymentsIField", @class = "form-control" })
-                                            <div class="validation-message text-danger" id="nameValidationMessage"></div>
+                                            <label for="PaymentType" class="col-form-label">Metodo de pago</label>
+                                            @Html.DropDownListFor(m => m.PaymentTypeId, ViewBag.PaymentType as List<SelectListItem>, "Seleccione el Metodo de Pago", new { @class = "form-control", id = "PaymentType" })
+                                            <div class="validation-message text-danger" id="ValidationMessageRol"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -72,28 +72,9 @@
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label for="PaymentType" class="col-form-label">Metodo de pago</label>
-                                            @Html.DropDownListFor(m => m.PaymentTypeId, ViewBag.PaymentType as List<SelectListItem>, "Seleccione el Metodo de Pago", new { @class = "form-control", id = "PaymentType" })
-                                            <div class="validation-message text-danger" id="ValidationMessageRol"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label for="slnFIELD" class="col-form-label">Segundo Apellido</label>
+                                            <label for="slnFIELD" class="col-form-label">Monto</label>
                                             @Html.TextBoxFor(m => m.Amount, new { @type = "text", @placeholder = "Digite el monto", @id = "AmountField", @class = "form-control" })
                                             <div class="validation-message text-danger" id="slnFIELDValidationMessage"></div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Row 3 -->
-
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label for="EmployeeField" class="col-form-label">Cedula del empleado</label>
-                                            @Html.TextBoxFor(m => m.EmployeeId, new { @type = "text", @placeholder = "Identificacion del empleado", @class = "form-control", id = "employeeId" })
-                                            <div class="validation-message text-danger" id="lastNameValidationMessage"></div>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
@@ -105,10 +86,16 @@
                                     </div>
                                 </div>
 
-
-                                <!-- Row 4 -->
+                                <!-- Row 3 -->
 
                                 <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="Reason" class="col-form-label">Motivo</label>
+                                            @Html.DropDownListFor(m => m.ReasonId, ViewBag.Reason as List<SelectListItem>, "Motivo", new { @class = "form-control", id = "Reason" })
+                                            <div class="validation-message text-danger" id="ValidationMessageRol"></div>
+                                        </div>
+                                    </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="CreationDate" class="col-form-label">Fecha</label>
@@ -118,9 +105,8 @@
                                     </div>
                                 </div>
 
-                               
 
-                                <!-- Row 5 -->
+                                <!-- Row 4 -->
 
                                 <div class="row">
                                     <div class="col-lg-6">

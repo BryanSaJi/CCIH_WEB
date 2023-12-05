@@ -14,5 +14,6 @@ namespace CCIH.Entities
         public long EmployeeId { get; set; }
         public long PaymentTypeId { get; set; }
         public long IncomeOutcomeId { get; set; }
+        public long ReasonId { get; set; }
     }
 }

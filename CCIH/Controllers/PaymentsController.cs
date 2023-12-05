@@ -14,6 +14,7 @@ namespace CCIH.Controllers
         PaymentsModel model = new PaymentsModel();
         PaymentTypeModel modelPaymentType = new PaymentTypeModel();
         IncomeOutcomeModel modelIncomeOutcome = new IncomeOutcomeModel();
+        ReasonModel modelReason = new ReasonModel();
 
 
         public ActionResult Index()
@@ -91,8 +92,21 @@ namespace CCIH.Controllers
             }
             ViewBag.IncomeOutcome = ComboIncomeOutcome;
 
+            var Reason = modelReason.RequestReasonScrollDown();
+            var ComboReason = new List<SelectListItem>();
+            foreach (var item in Reason)
+            {
+                ComboReason.Add(new SelectListItem
+                {
+                    Text = item.Name,
+                    Value = item.ReasonId.ToString()
+                });
+            }
+            ViewBag.Reason = ComboReason;
+
             return View();
         }
+    }
 
 
     [HttpGet]
