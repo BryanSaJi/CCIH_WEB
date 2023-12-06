@@ -105,16 +105,21 @@
 
         <ul class="sidebar-nav" id="sidebar-nav">
 
-            <li class="nav-item">
-                <a class="nav-link " href="@Url.Action("Index","Admin")">
-                    <i class="bi bi-grid"></i>
-                    <span>Inicio</span>
-                </a>
-            </li><!-- End Dashboard Nav -->
 
 
             @if (Session["IdRoleUser"].ToString() == "1")
             {
+
+
+                <li class="nav-item">
+                    <a class="nav-link " href="@Url.Action("Index","Admin")">
+                        <i class="bi bi-grid"></i>
+                        <span>Inicio</span>
+                    </a>
+                </li>
+                <!-- End Dashboard Nav -->
+
+
                 <li class="nav-item">
                     <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
                         <i class="bi bi-menu-button-wide"></i><span>Matriculas</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -205,42 +210,6 @@
                 </li>
                 @*End Matriculas Nav*@
 
-                <li class="nav-item">
-                    <a class="nav-link collapsed" data-bs-target="#Profesores-nav" data-bs-toggle="collapse" href="#">
-                        <i class="bi bi-menu-button-wide"></i><span>Profesores</span><i class="bi bi-chevron-down ms-auto"></i>
-                    </a>
-                    <ul id="Profesores-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-
-                        <li>
-                            <a href="@Url.Action("RequestTeacher","Teachers")">
-                                <i class="bi bi-circle"></i><span>Lista de Profesores</span>
-                            </a>
-                        </li>
-                        @*<li>
-                         <a href="@Url.Action("AssingTeacher","Teachers")">
-                            <i class="bi bi-circle"></i><span>Asignación de Cursos</span>
-                         </a>
-                    </li>*@
-
-                        @if (Session["IdRoleUser"].ToString() == "1" || Session["IdRoleUser"].ToString() == "5")
-                        {
-                            <li>
-                                <a href="@Url.Action("TimeMarkTeacher","Teachers")">
-                                    <i class="bi bi-circle"></i><span>Marcar Asistencia</span>
-                                </a>
-                            </li>
-                        }
-
-
-                        <li>
-                            <a href="@Url.Action("Index","Teachers")">
-                                <i class="bi bi-circle"></i><span>Historial de Marcas</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                @*End Matriculas Nav*@
-
 
 
                 <li class="nav-item">
@@ -266,6 +235,42 @@
 
             }
 
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#Profesores-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-menu-button-wide"></i><span>Profesores</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="Profesores-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+            
+                    @if (Session["IdRoleUser"].ToString() == "1")
+                    {
+                        <li>
+                            <a href="@Url.Action("RequestTeacher","Teachers")">
+                                <i class="bi bi-circle"></i><span>Lista de Profesores</span>
+                            </a>
+                        </li>
+                    }
+
+                    @if (Session["IdRoleUser"].ToString() == "1" || Session["IdRoleUser"].ToString() == "5")
+                    {
+                        <li>
+                            <a href="@Url.Action("TimeMarkTeacher","Teachers")">
+                                <i class="bi bi-circle"></i><span>Marcar Asistencia</span>
+                            </a>
+                        </li>
+                    }
+
+                    @if (Session["IdRoleUser"].ToString() == "1" )
+                    {
+                        <li>
+                            <a href="@Url.Action("Index", "Teachers", new { userId = Session["UserId"] })">
+                                <i class="bi bi-circle"></i><span>Todas las Marcas</span>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </li>
+            @*End Teachers Nav*@
 
 
         </ul>
