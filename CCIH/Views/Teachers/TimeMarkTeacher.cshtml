@@ -17,49 +17,55 @@
             </ol>
         </nav>
     </div><!-- End Page Title -->
+    <section class="section">
+        <div class="card">
+            <div class="card-body">
+                <style>
+                    #clock {
+                        font-size: 10vh;
+                        font-weight: bold;
+                    }
 
-    <style>
-        #clock {
-            font-size: 10vh;
-            font-weight: bold;
-        }
+                    #date {
+                        font-size: 5vh;
+                        margin-top: -10px;
+                    }
 
-        #date {
-            font-size: 5vh;
-            margin-top: -10px;
-        }
-
-        #button-container {
-            margin-top: 20px;
-        }
-    </style>
-
-
-    <div class="container" style="position: center; text-align:center">
-        <div id="clock"></div>
-        <div id="date"></div>
-
-        <form id="formIngreso" asp-action="EntryMark" asp-controller="TeachersController" method="post">
-            <input type="hidden" name="i" value="1" />
-            <button id="ingreso" type="button" class="btn btn-success" style="display: inline-block; margin: 20px; font-size: 3vh; border-radius: 5px; height: 10vh; width:35vh ">
-                <i class="bi bi-hourglass-top" style="margin-right: 5px;"></i>Registrar Ingreso
-            </button>
-            <div id="msj-ingreso"></div>
-        </form>
-
-        <form id="formSalida" asp-action="ExitMark" asp-controller="TeachersController" method="post">
-            <input type="hidden" name="i" value="2" />
-            <input type="hidden" name="Office_SH_ID" value="@Session["Office_SH_ID"]" />
-            <button id="salida" type="button" class="btn btn-danger" style="display: inline-block; margin: 20px; font-size: 3vh; border-radius: 5px; height: 10vh; width:35vh " disabled>
-                <i class="bi bi-hourglass-bottom" style="margin-right: 5px;"></i>Registrar Salida
-            </button>
-            <div id="msj-salida"></div>
-        </form>
-
-    </div>
+                    #button-container {
+                        margin-top: 20px;
+                    }
+                </style>
 
 
+                <div class="container" style="position: center; text-align:center">
+                    <div id="clock"></div>
+                    <div id="date"></div>
+
+                    <form id="formIngreso" asp-action="EntryMark" asp-controller="TeachersController" method="post">
+                        <input type="hidden" name="i" value="1" />
+                        <button id="ingreso" type="button" class="btn btn-success" style="display: inline-block; margin: 20px; font-size: 3vh; border-radius: 5px; height: 10vh; width:35vh ">
+                            <i class="bi bi-hourglass-top" style="margin-right: 5px;"></i>Registrar Ingreso
+                        </button>
+                        <div id="msj-ingreso"></div>
+                    </form>
+
+                    <form id="formSalida" asp-action="ExitMark" asp-controller="TeachersController" method="post">
+                        <input type="hidden" name="i" value="2" />
+                        <input type="hidden" name="Office_SH_ID" value="@Session["Office_SH_ID"]" />
+                        <button id="salida" type="button" class="btn btn-danger" style="display: inline-block; margin: 20px; font-size: 3vh; border-radius: 5px; height: 10vh; width:35vh " disabled>
+                            <i class="bi bi-hourglass-bottom" style="margin-right: 5px;"></i>Registrar Salida
+                        </button>
+                        <div id="msj-salida"></div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </section>
 </main>
+
+
+
 
 <script>
     var ingresoClicked = false;
@@ -88,9 +94,9 @@
 
 
 
-  
- 
-        window.onload = function () {
+
+
+    window.onload = function () {
         var ingresoDisabled = sessionStorage.getItem('ingresoDisabled') === 'true';
         var salidaDisabled = sessionStorage.getItem('salidaDisabled') === 'true';
 
@@ -98,63 +104,63 @@
         document.getElementById('salida').disabled = salidaDisabled;
     };
 
-        document.getElementById('ingreso').addEventListener('click', function (event) {
-            event.preventDefault();
+    document.getElementById('ingreso').addEventListener('click', function (event) {
+        event.preventDefault();
 
         fetch('/Teachers/TimeMarkTeacher', {
             method: 'POST',
-        body: new FormData(document.getElementById('formIngreso'))
+            body: new FormData(document.getElementById('formIngreso'))
         })
             .then(response => {
                 if (response.ok) {
-            showTemporaryMessage('Registro de ingreso exitoso', 'msj-ingreso', 'green');
-        document.getElementById('ingreso').disabled = true;
-        document.getElementById('salida').disabled = false;
- 
-        sessionStorage.setItem('ingresoDisabled', 'true');
-        sessionStorage.setItem('salidaDisabled', 'false');
+                    showTemporaryMessage('Registro de ingreso exitoso', 'msj-ingreso', 'green');
+                    document.getElementById('ingreso').disabled = true;
+                    document.getElementById('salida').disabled = false;
+
+                    sessionStorage.setItem('ingresoDisabled', 'true');
+                    sessionStorage.setItem('salidaDisabled', 'false');
                 } else {
-            showTemporaryMessage('Error al registrar ingreso', 'msj-ingreso', 'red');
+                    showTemporaryMessage('Error al registrar ingreso', 'msj-ingreso', 'red');
                 }
             })
             .catch(error => {
-            showTemporaryMessage('Error de red', 'msj-ingreso', 'red');
+                showTemporaryMessage('Error de red', 'msj-ingreso', 'red');
             });
     });
 
-        document.getElementById('salida').addEventListener('click', function (event) {
-            event.preventDefault();
+    document.getElementById('salida').addEventListener('click', function (event) {
+        event.preventDefault();
 
         fetch('/Teachers/TimeMarkTeacher', {
             method: 'POST',
-        body: new FormData(document.getElementById('formSalida'))
+            body: new FormData(document.getElementById('formSalida'))
         })
             .then(response => {
                 if (response.ok) {
-            showTemporaryMessage('Registro de salida exitoso', 'msj-salida', 'green');
-        document.getElementById('salida').disabled = true;
-        document.getElementById('ingreso').disabled = false;
- 
-        sessionStorage.setItem('salidaDisabled', 'true');
-        sessionStorage.setItem('ingresoDisabled', 'false');
+                    showTemporaryMessage('Registro de salida exitoso', 'msj-salida', 'green');
+                    document.getElementById('salida').disabled = true;
+                    document.getElementById('ingreso').disabled = false;
+
+                    sessionStorage.setItem('salidaDisabled', 'true');
+                    sessionStorage.setItem('ingresoDisabled', 'false');
                 } else {
-            showTemporaryMessage('Error al registrar salida', 'msj-salida', 'red');
+                    showTemporaryMessage('Error al registrar salida', 'msj-salida', 'red');
                 }
             })
             .catch(error => {
-            showTemporaryMessage('Error de red', 'msj-salida', 'red');
+                showTemporaryMessage('Error de red', 'msj-salida', 'red');
             });
     });
 
-        function showTemporaryMessage(message, containerId, textColor) {
+    function showTemporaryMessage(message, containerId, textColor) {
         var messageContainer = document.getElementById(containerId);
         messageContainer.innerHTML = '<div style="padding: 10px; margin-top: 10px; border-radius: 5px; color: ' + textColor + ';">' + message + '</div>';
         setTimeout(function () {
             messageContainer.innerHTML = '';
         }, 5000);
     }
-   
-  
+
+
 </script>
 
 
