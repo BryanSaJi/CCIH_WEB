@@ -89,66 +89,65 @@ namespace CCIH.Controllers
 
 
 
-        [HttpGet]
-        public ActionResult AllHours(long? userId, DateTime? startDate, DateTime? endDate)
-        {
-            try
-            {
+        //[HttpGet]
+        //public ActionResult AllHours(long? userId, DateTime? startDate, DateTime? endDate)
+        //{
+        //    try
+        //    {
             
-                var data = modelTeacher.SeeHours();
+        //        var data = modelTeacher.SeeHours();
 
                
-                data = data.Where(m => m.UserId == userId).ToList();
+        //        data = data.Where(m => m.UserId == userId).ToList();
 
                
-                if (startDate.HasValue && endDate.HasValue)
-                {
-                    data = data
-                        .Where(m => m.EntryTime >= startDate.Value && m.EntryTime <= endDate.Value)
-                        .ToList();
-                }
+        //        if (startDate.HasValue && endDate.HasValue)
+        //        {
+        //            data = data
+        //                .Where(m => m.EntryTime >= startDate.Value && m.EntryTime <= endDate.Value)
+        //                .ToList();
+        //        }
 
-                // Calcular el total de horas
-                double totalHours = CalcularTotalHoras(data);
+        //        // Calcular el total de horas
+        //        double totalHours = CalcularTotalHoras(data);
 
-                // Almacenar el total de horas en ViewBag para mostrarlo en la vista
-                ViewBag.TotalHours = totalHours;
+        //        // Almacenar el total de horas en ViewBag para mostrarlo en la vista
+        //        ViewBag.TotalHours = totalHours;
 
-                return View(data);
-            }
-            catch (Exception ex)
-            {
+        //        return View(data);
+        //    }
+        //    catch (Exception ex)
+        //    {
                 
-                return View(new List<TeacherEnt>());  
-            }
-        }
+        //        return View(new List<TeacherEnt>());  
+        //    }
+        //}
 
-        private double CalcularTotalHoras(List<TeacherEnt> data)
-        {
+        //private double CalcularTotalHoras(List<TeacherEnt> data)
+        //{
 
-            double totalHours = 0;
+        //    double totalHours = 0;
 
-            foreach (var mark in data)
-            {
-                if (mark.EntryTime.HasValue && mark.ExitTime.HasValue)
-                {
-                    totalHours += (mark.ExitTime.Value - mark.EntryTime.Value).TotalHours;
-                }
-            }
+        //    foreach (var mark in data)
+        //    {
+        //        if (mark.EntryTime.HasValue && mark.ExitTime.HasValue)
+        //        {
+        //            totalHours += (mark.ExitTime.Value - mark.EntryTime.Value).TotalHours;
+        //        }
+        //    }
 
-            return totalHours;
-        }
-
+        //    return totalHours;
+        //}
 
         [HttpGet]
         public ActionResult AllHours()
         {
+           
+           
+                var data = modelTeacher.TotalWorkHours();
 
-            var data = modelTeacher.SeeHours();
-             double totalHours = CalcularTotalHoras(data);
-            return View(totalHours);
+                return View(data);
             
-          
         }
 
 

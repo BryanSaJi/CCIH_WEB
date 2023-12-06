@@ -7,7 +7,7 @@
 }
 
 
-<heah>
+<head>
 
     <link rel="stylesheet" href="~/assets/Administration/css/datatable/jquery.dataTables.min.css" />
     <link rel="stylesheet" href="~/assets/Administration/css/datatable/buttons.dataTables.min.css" />
@@ -24,7 +24,7 @@
 
 
 
-</heah>
+</head>
 
 <main id="main" class="main">
     <div class="pagetitle">
@@ -61,7 +61,7 @@
 
                             <br />
                             <!-- General Form Elements -->
-                          
+
                             <br />
 
                             <div class="row">
@@ -70,16 +70,20 @@
                                         <table id="DataTable" class="table table-hover text-center" width="100%">
                                             <thead>
                                                 <tr>
+                                                    <th style="text-align:center">Cédula</th>
                                                     <th style="text-align:center">Entrada</th>
                                                     <th style="text-align:center">Salida</th>
+                                                    <th style="text-align:center">Suma de Horas</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 @foreach (var item in Model)
                                                 {
                                                     <tr>
-                                                        <td>@(item.EntryTime.HasValue ? item.EntryTime.Value.ToString("yyyy-MM-dd HH:mm:ss") : "Registro Pendiente.")</td>
-                                                        <td>@(item.ExitTime.HasValue ? item.ExitTime.Value.ToString("yyyy-MM-dd HH:mm:ss") : "Registro Pendiente.")</td>
+                                                        <td>@item.PersonalID</td>
+                                                        <td>@item.EntryTime</td>
+                                                        <td>@item.ExitTime</td>
+                                                        <td>@item.TotalHours</td>
                                                     </tr>
                                                 }
                                             </tbody>
@@ -88,99 +92,16 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-lg-2 order-lg-3 ms-auto">
-                                <button type="button" class="btn btn-secondary m-0 mb-3" onclick="window.history.back();">Regresar</button>
-                            </div>
-                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-2 order-lg-3 ms-auto">
+                        <button type="button" class="btn btn-secondary m-0 mb-3" onclick="window.history.back();">Regresar</button>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 </main><!-- End #main -->
-
-<script>
-    function sumHours() {
-        // Obtener el número de cédula ingresado
-        var cedulaInput = document.querySelector('input[name="Cedula"]').value;
-
-        // Agarrar toda la información
-        var tableRows = document.querySelectorAll("#DataTable tbody tr");
-        var totalHours = 0;
-        var totalMinutes = 0;
-        var totalSeconds = 0;
-
-        // Recorrer fila por fila
-        tableRows.forEach(function (row) {
-            // Agarra la Cédula
-            var cedulaCell = row.cells[0].innerText;
-
-            // Verificar si la cédula coincide con la ingresada
-            if (cedulaCell === cedulaInput) {
-                // Obtener el valor de la celda TotalHours
-                var totalHoursCell = row.cells[4].innerText;
-
-                // Dividir la cadena en partes (hora, minuto, segundo)
-                var parts = totalHoursCell.split(':');
-
-                // Sumar
-                totalHours += parseInt(parts[0]) || 0; // Si no se puede convertir a número, sumar 0
-                totalMinutes += parseInt(parts[1]) || 0;
-                totalSeconds += parseInt(parts[2]) || 0;
-            }
-        });
-
-        // Ajusta los minutos y segundos si superan sus respectivos límites
-        totalMinutes += Math.floor(totalSeconds / 60);
-        totalSeconds %= 60;
-
-        totalHours += Math.floor(totalMinutes / 60);
-        totalMinutes %= 60;
-
-        var formattedTotal = formatTime(totalHours) + ":" + formatTime(totalMinutes) + ":" + formatTime(totalSeconds);
-        document.getElementById("TotalWorkHours").value = formattedTotal;
-        document.getElementById("validationMessage").innerText = ""; // Limpiar el mensaje de validación
-        return false;
-    }
-
-    function formatTime(time) {
-        return time < 10 ? "0" + time : time;
-    }
-
-    function validateDates() {
-        var entryTime = document.querySelector('input[name="EntryTime"]').value;
-        var exitTime = document.querySelector('input[name="ExitTime"]').value;
-        var cedula = document.querySelector('input[name="Cedula"]').value;
-        var buscarBtn = document.getElementById('buscarBtn');
-        var validationMessage = document.getElementById('validationMessage');
-
-        // Deshabilitar el botón si alguna de las fechas o la cédula no está ingresada
-        buscarBtn.disabled = !(entryTime && exitTime && cedula);
-
-        // Mostrar un mensaje de validación si el botón está deshabilitado
-        validationMessage.innerText = buscarBtn.disabled ? "* Por favor, completa todos los campos." : "";
-    }
-
-    // Llamar a la función validateDates cuando se cambie el valor de las fechas o la cédula
-    document.querySelector('input[name="EntryTime"]').addEventListener('input', validateDates);
-    document.querySelector('input[name="ExitTime"]').addEventListener('input', validateDates);
-    document.querySelector('input[name="Cedula"]').addEventListener('input', validateDates);
-
-
-
-
-    document.querySelector('#PersonalId').addEventListener('keyup', function () {
-        var id = this.value;
-        var validationMessage = document.querySelector('#validationID');
-        if (!/^\d+$/.test(id)) {
-            validationMessage.innerHTML = "* El campo Cédula solo permite numeros.";
-            this.style.borderColor = "FireBrick";
-        } else {
-            validationMessage.innerHTML = "";
-            this.style.borderColor = "Green";
-        }
-    });
-
-
-</script>
+ 

@@ -119,8 +119,9 @@ namespace CCIH.Models
         {
             using (var client = new HttpClient())
             {
-                 string url = apiEnviroment.getApiUrl() + "api/TotalWorkHours";
-                 HttpResponseMessage resp = client.GetAsync(url).Result;
+                string url = apiEnviroment.getApiUrl() + "api/TotalWorkHours";
+
+                HttpResponseMessage resp = client.GetAsync(url).Result;
                  if (resp.IsSuccessStatusCode)
                 {
                   return resp.Content.ReadFromJsonAsync<List<TeacherEnt>>().Result;
