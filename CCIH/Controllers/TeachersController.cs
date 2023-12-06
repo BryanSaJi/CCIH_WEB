@@ -21,23 +21,18 @@ namespace CCIH.Controllers
         RoleModel modelRole = new RoleModel();
         StateModel modelState = new StateModel();
         TeacherModel modelTeacher = new TeacherModel();
- 
+
+
         [HttpGet]
         public ActionResult Index()
         {
-            var teachers = modelTeacher.MarkHistory();
-
-            return View(teachers);
+        
+            var data = modelTeacher.MarkHistory();
+            return View(data);
 
         }
 
-        [HttpGet]
-        public ActionResult AssingTeacher()
-        {
-            return View();
-        }
-
-
+       
 
      
         public ActionResult RequestTeacher()
@@ -94,34 +89,77 @@ namespace CCIH.Controllers
 
 
 
-        public ActionResult MarkHistory()
+        [HttpGet]
+        public ActionResult AllHours(long? userId, DateTime? startDate, DateTime? endDate)
         {
-            var teachers = modelTeacher.MarkHistory();
+            try
+            {
+            
+                var data = modelTeacher.SeeHours();
 
-            return View(teachers);
+               
+                data = data.Where(m => m.UserId == userId).ToList();
+
+               
+                if (startDate.HasValue && endDate.HasValue)
+                {
+                    data = data
+                        .Where(m => m.EntryTime >= startDate.Value && m.EntryTime <= endDate.Value)
+                        .ToList();
+                }
+
+                // Calcular el total de horas
+                double totalHours = CalcularTotalHoras(data);
+
+                // Almacenar el total de horas en ViewBag para mostrarlo en la vista
+                ViewBag.TotalHours = totalHours;
+
+                return View(data);
+            }
+            catch (Exception ex)
+            {
+                
+                return View(new List<TeacherEnt>());  
+            }
+        }
+
+        private double CalcularTotalHoras(List<TeacherEnt> data)
+        {
+
+            double totalHours = 0;
+
+            foreach (var mark in data)
+            {
+                if (mark.EntryTime.HasValue && mark.ExitTime.HasValue)
+                {
+                    totalHours += (mark.ExitTime.Value - mark.EntryTime.Value).TotalHours;
+                }
+            }
+
+            return totalHours;
         }
 
 
         [HttpGet]
-        public ActionResult AllHours(long i)
+        public ActionResult AllHours()
         {
 
-            var data = modelTeacher.SeeOfficeLoByTeacher(i);
-
-            return View(data);
-
+            var data = modelTeacher.SeeHours();
+             double totalHours = CalcularTotalHoras(data);
+            return View(totalHours);
+            
+          
         }
 
-        [HttpPost]
-        public ActionResult AllHours(TeacherEnt ent)
+
+
+
+
+        public ActionResult TotalWorkHours()
         {
-
-            var data = "";
-
+            var data = modelTeacher.TotalWorkHours();
             return View(data);
-
         }
-
 
 
     }

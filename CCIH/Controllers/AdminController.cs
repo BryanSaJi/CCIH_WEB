@@ -33,7 +33,10 @@ namespace CCIH.Controllers
         public ActionResult Index()
         {
 
-            var preRegistrationData = modelRegistration.RequetsPreRegistrations();
+          if(Session["IdRoleUser"].ToString() == "1")
+          {
+
+                var preRegistrationData = modelRegistration.RequetsPreRegistrations();
             var TodayRegistrationData = modelRegistration.RequestRegistrationsToday();
 
             decimal total = 0;
@@ -50,6 +53,15 @@ namespace CCIH.Controllers
             Session["CedulaCliente"] = "";
 
             return View();
+          }
+           else
+            {
+                int userId = Convert.ToInt32(Session["UserId"]);
+                var data = modelUser.RequestUser(userId);
+                return View(data);
+               
+            
+            }
         }
 
         public ActionResult CreateRole()

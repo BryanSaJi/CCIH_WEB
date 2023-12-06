@@ -87,25 +87,33 @@ namespace CCIH.Models
           }
         }
 
-
-        public List<TeacherEnt> MarkHistory()
-        {
-            using (var client = new HttpClient())
-            {
-                string url = apiEnviroment.getApiUrl() + "api/MarkHistory";
-
-                //String Token = HttpContext.Current.Session["TokenUser"].ToString();
-                //client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
-                HttpResponseMessage resp = client.GetAsync(url).Result;
-
-                if (resp.IsSuccessStatusCode)
+         public List<TeacherEnt> MarkHistory()
+         {
+                try
                 {
-                    return resp.Content.ReadFromJsonAsync<List<TeacherEnt>>().Result;
+                    using (var client = new HttpClient())
+                    {
+                        string url = apiEnviroment.getApiUrl() + "api/MarkHistory";
+
+                        //String Token = HttpContext.Current.Session["TokenUser"].ToString();
+                        //client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
+                        HttpResponseMessage resp = client.GetAsync(url).Result;
+
+                        if (resp.IsSuccessStatusCode)
+                        {
+                            return resp.Content.ReadFromJsonAsync<List<TeacherEnt>>().Result;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                   
                 }
 
                 return new List<TeacherEnt>();
-            }
-        }
+         }
+        
+
 
         public List<TeacherEnt> TotalWorkHours()
         {
@@ -122,11 +130,15 @@ namespace CCIH.Models
             }
         }
 
-        public List<TeacherEnt> SeeOfficeLoByTeacher(long i)
+
+        public List<TeacherEnt> SeeHours()
         {
             using (var client = new HttpClient())
             {
-                string url = apiEnviroment.getApiUrl() + "api/SeeOfficeLoByTeacher?i=" + i;
+                string url = apiEnviroment.getApiUrl() + "api/SeeHours";
+
+                // String Token = HttpContext.Current.Session["TokenUser"].ToString();
+                //client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
                 HttpResponseMessage resp = client.GetAsync(url).Result;
                 if (resp.IsSuccessStatusCode)
                 {
@@ -136,6 +148,7 @@ namespace CCIH.Models
                 return new List<TeacherEnt>();
             }
         }
+
 
 
 

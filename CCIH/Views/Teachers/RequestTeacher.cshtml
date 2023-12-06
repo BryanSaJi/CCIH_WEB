@@ -69,9 +69,9 @@
                                             <tr>
                                                 <th style="text-align:center">Cedula</th>
                                                 <th style="text-align:center">Nombre</th>
-                                                <th style="text-align:center">Grupo</th>
-                                                <th style="text-align:center" >Curso</th>
-                                                <th style="text-align:center">Estado del Grupo</th>
+                                                <th style="text-align:center">Apellido</th>
+                                                <th style="text-align:center">Segundo Apellido</th>
+                                                <th style="text-align:center">Correo</th>
                                                 <th style="text-align:center">Acción</th>
 
 
@@ -88,11 +88,13 @@
                                                         <td>@item.LastName</td>
                                                         <td>@item.SecLastName</td>
                                                         <td>@item.Email</td>
+                                                  
 
 
 
                                                         <td style="text-align:center">
-                                                            <a type="submit" class="btn btn-sm text-white" style="background-color: #5f81e8;" href="@Url.Action("AllHours", "Teachers", new { i = item.UserId })"><i class="bi bi-search"></i> Ver Horas</a>
+                                                               <a type="submit" class="btn btn-sm text-white" style="background-color: #5f81e8;" href="@Url.Action("TotalWorkHours", "Teachers", new { i = item.UserId })"><i class="bi bi-search"></i> Calcular Horas</a>
+
                                                         </td>
                                                     </tr>
                                                

@@ -1,0 +1,138 @@
+﻿@model IEnumerable<CCIH.Entities.TeacherEnt>
+
+
+
+@{
+    ViewBag.Title = "TotalWorkHours";
+    Layout = "~/Views/Shared/_Layout_Administration.cshtml";
+}
+
+<heah>
+
+    <link rel="stylesheet" href="~/assets/Administration/css/datatable/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="~/assets/Administration/css/datatable/buttons.dataTables.min.css" />
+
+    <script defer src="~/assets/Administration/js/DataTable/code.jquery.com_jquery-3.7.0.js"></script>
+    <script defer src="~/assets/Administration/js/DataTable/cdn.datatables.net_1.13.5_js_jquery.dataTables.min.js"></script>
+    <script defer src="~/assets/Administration/js/DataTable/cdn.datatables.net_buttons_2.4.1_js_dataTables.buttons.min.js"></script>
+    <script defer src="~/assets/Administration/js/DataTable/cdnjs.cloudflare.com_ajax_libs_jszip_3.10.1_jszip.min.js"></script>
+    <script defer src="~/assets/Administration/js/DataTable/cdnjs.cloudflare.com_ajax_libs_pdfmake_0.1.53_pdfmake.min.js"></script>
+    <script defer src="~/assets/Administration/js/DataTable/cdnjs.cloudflare.com_ajax_libs_pdfmake_0.1.53_vfs_fonts.js"></script>
+    <script defer src="~/assets/Administration/js/DataTable/cdn.datatables.net_buttons_2.4.1_js_buttons.html5.min.js"></script>
+    <script defer src="~/assets/Administration/js/DataTable/cdn.datatables.net_buttons_2.4.1_js_buttons.print.min.js"></script>
+    <script defer src="~/assets/Administration/js/DataTable/DataTable.js"></script>
+
+
+</heah>
+
+
+
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h1>Cálculo de Horas</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="@Url.Action("Index","Admin")">Inicio</a></li>
+                <li class="breadcrumb-item">Profesores</li>
+                <li class="breadcrumb-item"> Cálculo de horas</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+
+                        <div class="container-fluid">
+
+                            @if (ViewBag.MsjPantallaPostivo != null)
+                            {
+                                <div id="mensajePositivo" style="text-align:center" class="alert alert-success" role="alert">
+                                    @ViewBag.MsjPantallaPostivo
+                                </div>
+                            }
+                            @if (ViewBag.MsjPantallaNegativo != null)
+                            {
+                                <div id="mensajeNegativo" style="text-align:center" class="alert alert-danger" role="alert">
+                                    @ViewBag.MsjPantallaNegativo
+                                </div>
+                            }
+
+                            <br />
+                            <!-- General Form Elements -->
+
+                            <br />
+
+                            <!-- Resto de tu código de la vista -->
+
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="d-flex flex-column">
+                                            <form method="post" action="@Url.Action("AllHours", "Teachers")">
+                                                <!-- Resto del formulario -->
+
+                                                <div class="row mb-3">
+                                                    <div class="col-md-6">
+                                                        <label for="startDate">Fecha de inicio:</label>
+                                                        <input type="date" id="startDate" name="startDate" class="form-control" required />
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label for="endDate">Fecha de fin:</label>
+                                                        <input type="date" id="endDate" name="endDate" class="form-control" required />
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <button type="submit" class="btn btn-primary">Calcular Horas</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+
+                                            <div class="row mt-4">
+                                                <div class="col-md-12">
+                                                    <div class="result-box p-3 border">
+                                                        @if (ViewBag.TotalHours != null && ViewBag.TotalHours.HasValue)
+                                                        {
+                                                            <p>Total de horas: @ViewBag.TotalHours.Value</p>
+                                                        }
+                                                        else
+                                                        {
+                                                            <p>No horas no disponible</p>
+                                                        }
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+
+                                            <div class="row mb-3">
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        
+
+                        <!-- Resto de tu código de la vista -->
+
+
+                        <div class="row">
+                            <div class="col-lg-2 order-lg-3 ms-auto">
+                                <button type="button" class="btn btn-secondary m-0 mb-3" onclick="window.history.back();">Regresar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main><!-- End #main -->
