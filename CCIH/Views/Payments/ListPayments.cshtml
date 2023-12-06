@@ -1,15 +1,13 @@
-﻿@model IEnumerable<CCIH.Entities.PaymentsEnt>
-
+﻿
 @{
     ViewBag.Title = "ListPayments";
     Layout = "~/Views/Shared/_Layout_Administration.cshtml";
 }
 
-<heah>
 
+<heah>
     <link rel="stylesheet" href="~/assets/Administration/css/datatable/jquery.dataTables.min.css" />
     <link rel="stylesheet" href="~/assets/Administration/css/datatable/buttons.dataTables.min.css" />
-
     <script defer src="~/assets/Administration/js/DataTable/code.jquery.com_jquery-3.7.0.js"></script>
     <script defer src="~/assets/Administration/js/DataTable/cdn.datatables.net_1.13.5_js_jquery.dataTables.min.js"></script>
     <script defer src="~/assets/Administration/js/DataTable/cdn.datatables.net_buttons_2.4.1_js_dataTables.buttons.min.js"></script>
@@ -19,119 +17,98 @@
     <script defer src="~/assets/Administration/js/DataTable/cdn.datatables.net_buttons_2.4.1_js_buttons.html5.min.js"></script>
     <script defer src="~/assets/Administration/js/DataTable/cdn.datatables.net_buttons_2.4.1_js_buttons.print.min.js"></script>
     <script defer src="~/assets/Administration/js/DataTable/DataTable.js"></script>
-
-
-
 </heah>
-
 <main id="main" class="main">
-
     <div class="pagetitle">
         <h1>Lista de Pagos</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a>Inicio</a></li>
+                <li class="breadcrumb-item"><a href="@Url.Action("Index","Admin")">Inicio</a></li>
                 <li class="breadcrumb-item">Pagos</li>
-                <li class="breadcrumb-item active">Listado de Pagos</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
-
     <section class="section">
-
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        </br>
-
-                        @if (ViewBag.MsjPantallaPostivo != null)
-                        {
-                            <div id="mensajePositivo" style="text-align:center" class="alert alert-success" role="alert">
-                                @ViewBag.MsjPantallaPostivo
-                            </div>
-                        }
-                        @if (ViewBag.MsjPantallaNegativo != null)
-                        {
-                            <div id="mensajeNegativo" style="text-align:center" class="alert alert-danger" role="alert">
-                                @ViewBag.MsjPantallaNegativo
-                            </div>
-                        }
-
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <a href="@Url.Action("RegisterPayments","Payments")" class="btn btn-primary">Registrar Pago</a>
-                            </div>
-                        </div>
                         <br />
                         <div class="row">
+                            <br>
                             <div class="col-12">
-                                <div class="table-responsive">
-                                    <table id="DataTable" class="table table-hover text-center" width="100%">
-                                        <thead>
-                                            <tr>
-                                                <th>Cedula del cliente</th>
-                                                <th>Metodo de pago</th>
-                                                <th>Monto</th>
-                                                <th>Ingreso/Egreso</th>
-                                                <th>Motivo</th>
-                                                <th>Fecha</th>
-
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach (var item in Model)
-                                            {
+                                <div class="card">
+                                    <div class="card-body">
+                                        <br>
+                                        @if (ViewBag.MsjPantallaPostivo != null)
+                                        {
+                                            <div id="mensajePositivo" style="text-align:center" class="alert alert-success" role="alert">
+                                                @ViewBag.MsjPantallaPostivo
+                                            </div>
+                                        }
+                                        @if (ViewBag.MsjPantallaNegativo != null)
+                                        {
+                                            <div id="mensajeNegativo" style="text-align:center" class="alert alert-danger" role="alert">
+                                                @ViewBag.MsjPantallaNegativo
+                                            </div>
+                                        }
+                                        <table id="DataTable" class="table table-hover" style="width: 100% !important;">
+                                            <thead>
                                                 <tr>
-                                                    <td>@item.PersonalID</td>
-                                                    <td>@item.PaymentTypeId</td>
-                                                    <td>@item.Amount</td>
-                                                    <td>@item.IncomeOutcomeId</td>
-                                                    <td>@item.ReasonId</td>
-                                                    <td>@item.CreationDate</td>
-                                                    <td style="text-align:center">
-                                                        <a type="submit" class="btn btn-outline-info btn-sm" href="@Url.Action("EditPayment", "Payments", new { i = item.PaymentsId })"><i class="bi bi-pencil-square"></i>Editar</a>
-                                                    </td>
+                                                    <th>Cedula del cliente</th>
+                                                    <th>Metodo de pago</th>
+                                                    <th>Monto</th>
+                                                    <th>Ingreso/Egreso</th>
+                                                    <th>Motivo</th>
+                                                    <th>Fecha</th>
                                                 </tr>
-                                            }
-                                        </tbody>
-                                    </table>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var item in Model)
+                                                {
+                                                    <tr>
+                                                        <td style="text-align: center;">@item.PersonalID</td>
+                                                        <td style="text-align: center;">@item.PaymentTypeId</td>
+                                                        <td style="text-align: center;">@item.Amount</td>
+                                                        <td style="text-align: center;">@item.IncomeOutcomeId</td>
+                                                        <td style="text-align: center;">@item.ReasonId</td>
+                                                        <td style="text-align: center;">@item.CreationDate.ToString("yyyy-MM-dd")</td>
+                                                        <td style="text-align:center">
+                                                            <a type="submit" class="btn btn-sm text-white" style="background-color: #5f81e8;" href="@Url.Action("EditPayment","Payment", new { i = item.PaymentsId })">Consultar</a>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <a href="@Url.Action("Index", "Admin")" class="btn btn-secondary">Regresar</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-2 order-lg-3 ms-auto">
-                            <button type="button" class="btn btn-secondary m-0 mb-3" onclick="window.history.back();">Regresar</button>
-                        </div>
-                    </div>
-
                 </div>
             </div>
         </div>
     </section>
-
 </main><!-- End #main -->
 
-
-
-
 <script>
-
-
     // Esperar 5 segundos y luego ocultar el mensaje
     setTimeout(function () {
-        var mensajeDiv = document.getElementById('mensajePositivo');
+        var mensajeDiv = document.getElementById('mensaje');
         if (mensajeDiv != null) {
             mensajeDiv.style.display = 'none';
         }
-
         var mensajeDiv2 = document.getElementById('mensajeNegativo');
         if (mensajeDiv2 != null) {
             mensajeDiv2.style.display = 'none';
         }
 
-        Session["MensajePositivo"] = 0;
     }, 5000); // 5000 milisegundos = 5 segundos
-
 </script>
+
+

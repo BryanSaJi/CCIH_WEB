@@ -265,7 +265,9 @@
     <Content Include="assets\Administration\js\DataTable\cdnjs.cloudflare.com_ajax_libs_pdfmake_0.1.53_vfs_fonts.js" />
     <Content Include="assets\Administration\js\DataTable\code.jquery.com_jquery-3.7.0.js" />
     <Content Include="assets\Administration\js\DataTable\Datatable.js" />
+    <Content Include="assets\Administration\js\DataTable\PaymentsValidation.js" />
     <Content Include="assets\Administration\js\GroupValidation.js" />
+    <Content Include="assets\Administration\js\PaymentValidation.js" />
     <Content Include="assets\Administration\js\RegistrationFormValidation.js" />
     <Content Include="assets\Administration\js\RegistrationValidation.js" />
     <Content Include="assets\Administration\js\SetPeople.js" />

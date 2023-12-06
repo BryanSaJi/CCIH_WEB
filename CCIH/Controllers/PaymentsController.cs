@@ -106,75 +106,76 @@ namespace CCIH.Controllers
 
             return View();
         }
+    
+
+
+    [HttpGet]
+    public ActionResult EditPayment(long i)
+    {
+        Session["MensajeNegativo"] = 0;
+        Session["MensajePositivo"] = 0;
+        var data = model.RequestPayment(i);
+        return View(data);
+    }
+
+    [HttpPost]
+    public ActionResult EditPayment(PaymentsEnt ent)
+    {
+        Session["MensajeNegativo"] = 0;
+        Session["MensajePositivo"] = 0;
+        try
+        {
+
+            var resp = model.EditPayment(ent);
+
+            if (resp > 0)
+            {
+                Session["MensajePositivo"] = 1;
+                return RedirectToAction("ListPayment");
+            }
+
+            else
+            {
+                Session["MensajeNegativo"] = 1;
+                return View("ListPayment");
+            }
+        }
+        catch (Exception ex)
+        {
+            return View("Error");
+        }
+    }
+
+    [HttpGet]
+    public ActionResult DeletePayment(long i)
+    {
+        try
+        {
+
+            var resp = model.DeletePayment(i);
+
+            if (resp > 0)
+                return RedirectToAction("ListPayments", "Payments");
+            else
+            {
+                ViewBag.Msj = "No se ha podido eliminar el pago";
+                return View("ListPayments");
+            }
+        }
+        catch (Exception ex)
+        {
+            return View("Error");
+        }
     }
 
 
-    //[HttpGet]
-    //public ActionResult EditPayment(long i)
-    //{
-    //    Session["MensajeNegativo"] = 0;
-    //    Session["MensajePositivo"] = 0;
-    //    var data = model.RequestPayment(i);
-    //    return View(data);
-    //}
 
-    //[HttpPost]
-    //public ActionResult EditPayment(PaymentsEnt ent)
-    //{
-    //    Session["MensajeNegativo"] = 0;
-    //    Session["MensajePositivo"] = 0;
-    //    try
-    //    {
+    [HttpGet]
+    public List<PaymentsEnt> ListPaymentsScrollDown()
+    {
+        var data = model.RequestPaymentsScrollDown();
+        return data;
+    }
 
-    //        var resp = model.EditPayment(ent);
-
-    //        if (resp > 0)
-    //        {
-    //            Session["MensajePositivo"] = 1;
-    //            return RedirectToAction("ListRoles");
-    //        }
-
-    //        else
-    //        {
-    //            Session["MensajeNegativo"] = 1;
-    //            return View("ListRoles");
-    //        }
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        return View("Error");
-    //    }
-    //}
-
-    //[HttpGet]
-    //public ActionResult DeletePayment(long i)
-    //{
-    //    try
-    //    {
-
-    //        var resp = model.DeletePayment(i);
-
-    //        if (resp > 0)
-    //            return RedirectToAction("ListPayments", "Payments");
-    //        else
-    //        {
-    //            ViewBag.Msj = "No se ha podido eliminar el pago";
-    //            return View("ListPayments");
-    //        }
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        return View("Error");
-    //    }
-    //}
-
-
-
-    //[HttpGet]
-    //public List<PaymentsEnt> ListPaymentsScrollDown()
-    //{
-    //    var data = model.RequestPaymentsScrollDown();
-    //    return data;
-    //}
-
+}
 }
