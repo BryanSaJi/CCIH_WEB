@@ -107,10 +107,11 @@ namespace CCIH.Models
                 }
                 catch (Exception ex)
                 {
-                   
-                }
+                var exept = ex.Message;
 
-                return new List<TeacherEnt>();
+            }
+
+            return new List<TeacherEnt>();
          }
         
 

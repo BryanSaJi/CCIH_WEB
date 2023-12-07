@@ -85,6 +85,8 @@ namespace CCIH.Controllers
             }
             catch (Exception ex)
             {
+                var exept = ex.Message;
+
                 return View("Error");
             }
         }
@@ -161,6 +163,8 @@ namespace CCIH.Controllers
             }
             catch (Exception ex)
             {
+                var exept = ex.Message;
+
                 Session["MensajeNegativo"] = 1;
                 return RedirectToAction("ChangePassword");
             }
@@ -275,6 +279,8 @@ namespace CCIH.Controllers
             }
             catch (Exception ex)
             {
+                var exept = ex.Message;
+
                 return View("Error");
             }
         }

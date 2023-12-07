@@ -684,6 +684,7 @@ namespace CCIH.Controllers
             }
             catch (Exception ex)
             {
+                var exept = ex.Message;
                 return View("Error");
             }
         }
@@ -714,6 +715,8 @@ namespace CCIH.Controllers
             }
             catch (Exception ex)
             {
+                var exept = ex.Message;
+
                 return View("Error");
             }
         }
@@ -763,6 +766,8 @@ namespace CCIH.Controllers
             }
             catch (Exception ex)
             {
+                var exept = ex.Message;
+
                 return View("Error");
             }
         }
@@ -793,6 +798,8 @@ namespace CCIH.Controllers
             }
             catch (Exception ex)
             {
+                var exept = ex.Message;
+
                 return View("Error");
             }
         }
@@ -842,6 +849,8 @@ namespace CCIH.Controllers
             }
             catch (Exception ex)
             {
+                var exept = ex.Message;
+
                 return View("Error");
             }
         }
@@ -883,6 +892,8 @@ namespace CCIH.Controllers
             }
             catch (Exception ex)
             {
+                var exept = ex.Message;
+
                 return View("Error");
             }
         }
@@ -905,6 +916,8 @@ namespace CCIH.Controllers
             }
             catch (Exception ex)
             {
+                var exept = ex.Message;
+
                 return Json(new { success = false, message = "Error al limpiar la sesión." }, JsonRequestBehavior.AllowGet);
             }
         }

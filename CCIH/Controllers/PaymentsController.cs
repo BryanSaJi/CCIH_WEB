@@ -56,8 +56,10 @@ namespace CCIH.Controllers
             }
         }
         catch (Exception ex)
-        {
-            return View("Error");
+            {
+                var exept = ex.Message;
+
+                return View("Error");
         }
     }
 
@@ -141,8 +143,10 @@ namespace CCIH.Controllers
             }
         }
         catch (Exception ex)
-        {
-            return View("Error");
+            {
+                var exept = ex.Message;
+
+                return View("Error");
         }
     }
 
@@ -164,7 +168,9 @@ namespace CCIH.Controllers
         }
         catch (Exception ex)
         {
-            return View("Error");
+                var exept = ex.Message;
+
+                return View("Error");
         }
     }
 
