@@ -3,31 +3,38 @@
 @{
     ViewBag.Title = "Login";
     string errorMessage = TempData["ErrorMessage"] as string;
-    Layout = "~/Views/Shared/_LayoutWithoutFooter.cshtml";
 
 }
 
-<main>
-    <div class="container d-flex align-items-center justify-content-center vh-100">
-        <div class="row">
-            <div class="col">
+
+
+
+<section id="hero">
+    <div class="container position-relative" data-aos="zoom-in" data-aos-delay="100">
+        <div class="row justify-content-center align-items-center h-1">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5" style="margin-top: -30px">
                 <div class="card-body p-2 text-center" style="background-color: rgba(0, 0, 0, 0.5);">
+
+                    @if (ViewBag.Msj != null)
+                    {
+                        <div id="Msj" class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" role="alert">
+                            @ViewBag.Msj
+                        </div>
+                    }
+
+                    <div id="error-message" class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" role="alert" style="display: none;">
+
+                    </div>
+
+
 
                     @using (Html.BeginForm("Login", "Home", FormMethod.Post, new { id = "loginForm" }))
                     {
                         <div class="mb-md-5 mt-md-4 pb-1">
-                            <h2 class="text-white fw-bold mb-2 text-uppercase">Inicio de sesion</h2>
-                            <p class="text-white mb-5">Por favor ingrese su usuario y contraseña</p>
+                            <h2 class="fw-bold mb-2 text-uppercase">Inicio de sesion</h2>
+                            <p class="text-white-50 mb-5">Por favor ingrese su usuario y contraseña</p>
 
-                            @if (ViewBag.Msj != null)
-                            {
-                                <div id="Msj" class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" role="alert">
-                                    @ViewBag.Msj
-                                </div>
-                            }
-                            <div id="error-message" class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" role="alert" style="display: none;"></div>
-
-                            <div class="form-outline form-white mb-4" id="form" style="width: 70%; margin: auto;">
+                            <div class="form-outline form-white mb-4" id="form" style="width: 60%; margin: auto;">
                                 <label class="text-white" for="LoginUsuario" style="text-align:left">Usuario</label>
                                 @Html.TextBoxFor(
                                         m => m.UserName,
@@ -42,7 +49,7 @@
 
                             </div>
 
-                            <div class="form-outline form-white mb-4" style="width: 70%; margin: auto;">
+                            <div class="form-outline form-white mb-4" style="width: 60%; margin: auto;">
                                 <label class="text-white" for="LoginContraseña" style="text-align:left">Contraseña</label>
                                 @Html.TextBoxFor(
                                         m => m.UserPw,
@@ -57,7 +64,7 @@
 
                             </div>
 
-                            <button class="btn btn-lg px-5" id="btn" type="submit" style="background-color: #5f81e8; color: white;">Entrar</button>
+                            <button class="btn btn-outline-light btn-lg px-5" id="btn" type="submit">Entrar</button>
                             <br />
                             <br />
                             <a class="text-white-50 mb-2" href="/Home/loginReset">Olvidé mi contraseña</a>
@@ -67,7 +74,7 @@
             </div>
         </div>
     </div>
-</main>
+</section>
 
 
 <script>
