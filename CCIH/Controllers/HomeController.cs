@@ -45,6 +45,7 @@ namespace CCIH.Controllers
             return View();
         }
 
+        [HttpGet]
         public ActionResult Login()
         {
             Session.Clear();
