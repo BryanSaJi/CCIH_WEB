@@ -39,23 +39,21 @@
 
     <header id="header" class="fixed-top">
         <div class="container d-flex align-items-center">
-            <a href="/Home/index"><img src="~/assets/Home/img/Icono.png" align="left" style="width=" 60" height="60" " /></a>
-            <h1 class="logo me-auto"><a href="/Home/index">Centro Cultural de Idiomas Heredia</a></h1>
+            <a href="@Url.Action("Index","Home")"><img src="~/assets/Home/img/Icono.png" align="left" style="width=" 60" height="60" " /></a>
+            <h1 class="logo me-auto"><a href="@Url.Action("Index","Home")">Centro Cultural de Idiomas Heredia</a></h1>
 
             <nav id="navbar" class="navbar order-last order-lg-0">
                 <ul>
-                    <li><a class="active" href="/Home/index">Inicio</a></li>
-                    <li><a href="/Home/About">Acerca</a></li>
-                    <li class="dropdown">
-                        <a href="@Url.Action("Courses","Home")"><span>Cursos</span> </a>
-                    </li>
-                    <li><a href="/Home/Contact">Contacto</a></li>
+                    <li><a href="@Url.Action("Index","Home")">Inicio</a></li>
+                    <li><a href="@Url.Action("About","Home")">Acerca</a></li>
+                    <li><a href="@Url.Action("Courses","Home")"><span>Cursos</span> </a></li>
+                    <li><a href="@Url.Action("Contact","Home")">Contacto</a></li>
                     <li><a href="@Url.Action("PreRegister","Home")">Prematricular</a></li>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav><!-- .navbar -->
 
-            <a href="/Home/Login" class="get-started-btn">Iniciar Sesion</a>
+            <a href="@Url.Action("Login","Home")" class="get-started-btn">Iniciar Sesion</a>
 
         </div>
     </header>
@@ -84,10 +82,9 @@
                     <div class="col-lg-2 col-md-6 footer-links">
                         <h4>Rutas Rápidas</h4>
                         <ul>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">Inicio</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">Acerca de</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">Profesores</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">Contacto</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="@Url.Action("Index","Home")">Inicio</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="@Url.Action("About","Home")">Acerca de</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="@Url.Action("Contact","Home")">Contacto</a></li>
                         </ul>
                     </div>
 

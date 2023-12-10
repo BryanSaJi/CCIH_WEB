@@ -9,7 +9,7 @@
     <section id="popular-courses" class="courses" style="margin-top: 50px">
         <div class="container" style="text-align: justify">
 
-            <div class="section-title">
+            <div class="section-title" style="padding-bottom:0;">
                 <h2 style="margin-top:10px">Cursos</h2>
                 <p style="margin:1%">Cursos más Populares</p>
             </div>
@@ -35,11 +35,11 @@
                                         @foreach (var curso in Model.Skip(i).Take(1))
                                         {
                                             <div class="col-md-6 col-lg-6 col-xl-6 mx-auto mb-4">
-                                                <div class="card">
+                                                <div class="card" style="width:100%;">
                                                     <a href="#"><img src="../assets/Home/img/@curso.image" class="card-img-top" alt="..."></a>
                                                     <div class="card-body">
                                                         <h4 class="card-title">@curso.CourseName</h4>
-                                                        <p class="card-text">45% Descuento</p>
+                                                        <p class="card-text text-success">45% Descuento</p>
                                                         <h3><a href="@Url.Action("Eng_Intensive_V","Home")">@curso.ModalityName</a></h3>
                                                         <h3><a href="@Url.Action("Eng_Intensive_V","Home")">@curso.LevelCourseName</a></h3>
                                                         <p class="card-text">@curso.Description</p>
@@ -54,10 +54,10 @@
                     </div>
                 </div>
                 <a class="carousel-control-prev text-light btn-sm" href="#carouselControls" role="button" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon bg-black" aria-hidden="true"></span>
+                    <span class="carousel-control-prev-icon" style="background-color:#5f81e8; color: white;"  aria-hidden="true"></span>
                 </a>
                 <a class="carousel-control-next text-light btn-sm" href="#carouselControls" role="button" data-bs-slide="next">
-                    <span class="carousel-control-next-icon bg-black " aria-hidden="true"></span>
+                    <span class="carousel-control-next-icon" style="background-color:#5f81e8; color: white;" aria-hidden="true"></span>
                 </a>
             </div>
             <!-- Modal -->
