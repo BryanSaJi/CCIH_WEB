@@ -169,6 +169,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\CourseController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\IdentificationsController.cs" />
     <Compile Include="Controllers\IncomeOutcomeController.cs" />
@@ -510,9 +511,11 @@
     <Content Include="assets\Home\img\Iconos\Editar.png" />
     <Content Include="assets\Home\img\Iconos\Guardar.png" />
     <Content Include="assets\Home\img\Iconos\Icono.png" />
+    <Content Include="assets\Home\img\not-found.svg" />
     <Content Include="assets\Home\img\trainers\trainer-1.jpg" />
     <Content Include="assets\Home\img\trainers\trainer-2.jpg" />
     <Content Include="assets\Home\img\trainers\trainer-3.jpg" />
+    <Content Include="assets\Home\js\Prematricula.js" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -785,6 +788,8 @@
     <Content Include="Views\Group\SetPeople.cshtml" />
     <Content Include="Views\Group\ShowGroups.cshtml" />
     <Content Include="Views\Teachers\TotalWorkHours.cshtml" />
+    <Content Include="Views\Error\ErrorHome.cshtml" />
+    <Content Include="Views\Error\ErrorAdministration.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

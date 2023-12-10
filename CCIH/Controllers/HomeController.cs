@@ -7,6 +7,7 @@ using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Web.Services.Description;
 
 namespace CCIH.Controllers
 {
@@ -36,8 +37,16 @@ namespace CCIH.Controllers
 
         public ActionResult Courses()
         {
-            var data = modelCourse.RequestCourseScrollDown();
-            return View(data);
+            try
+            {
+                var data = modelCourse.RequestCourseScrollDown();
+                return View(data);
+            }
+            catch (Exception ex)
+            {
+                var message = ex.Message;
+                return RedirectToAction("ErrorHome", "Error");
+            }
         }
 
         public ActionResult Teachers()
@@ -94,48 +103,56 @@ namespace CCIH.Controllers
 
         public ActionResult PreRegister()
         {
-            //Crusos
-            var course = modelCourse.RequestCourseScrollDown();
-            var ComboCourse = new List<SelectListItem>();
-            foreach (var item in course)
-            {
-                if (item.CourseID <= 3)
+            try {
+                //Crusos
+                var course = modelCourse.RequestCourseScrollDown();
+                var ComboCourse = new List<SelectListItem>();
+                foreach (var item in course)
                 {
-                    ComboCourse.Add(new SelectListItem
+                    if (item.CourseID <= 3)
                     {
-                        Text = item.CourseName,
-                        Value = item.CourseID.ToString()
-                    }) ; 
+                        ComboCourse.Add(new SelectListItem
+                        {
+                            Text = item.CourseName,
+                            Value = item.CourseID.ToString()
+                        });
+                    }
                 }
-            }
 
-            //Modalidad
-            var Modality = modelModality.RequestModalityScrollDown();
-            var ComboModality = new List<SelectListItem>();
-            foreach (var item in Modality)
-            {
-                ComboModality.Add(new SelectListItem
+                //Modalidad
+                var Modality = modelModality.RequestModalityScrollDown();
+                var ComboModality = new List<SelectListItem>();
+                foreach (var item in Modality)
                 {
-                    Text = item.Name,
-                    Value = item.ModalityId.ToString()
-                });
-            }
+                    ComboModality.Add(new SelectListItem
+                    {
+                        Text = item.Name,
+                        Value = item.ModalityId.ToString()
+                    });
+                }
 
-            //level
-            var level = modelLevel.RequestLevelCourseScrollDown();
-            var Combolevel = new List<SelectListItem>();
-            foreach (var item in level)
-            {
-                Combolevel.Add(new SelectListItem
+                //level
+                var level = modelLevel.RequestLevelCourseScrollDown();
+                var Combolevel = new List<SelectListItem>();
+                foreach (var item in level)
                 {
-                    Text = item.Name,
-                    Value = item.LevelCourseId.ToString()
-                });
+                    Combolevel.Add(new SelectListItem
+                    {
+                        Text = item.Name,
+                        Value = item.LevelCourseId.ToString()
+                    });
+                }
+                ViewBag.Course = ComboCourse;
+                ViewBag.Modality = ComboModality;
+                ViewBag.level = Combolevel;
+                return View();
             }
-            ViewBag.Course = ComboCourse;
-            ViewBag.Modality = ComboModality;
-            ViewBag.level = Combolevel;
-            return View();
+            catch (Exception ex)
+            {
+                var message = ex.Message;
+                return RedirectToAction("ErrorHome", "Error");
+            }
+            
         }
 
         public ActionResult PreRegistrationCourse(PreRegistrationEnt ent)
@@ -159,10 +176,8 @@ namespace CCIH.Controllers
             catch (Exception ex)
             {
                 var exept = ex.Message;
-
-                return View("Error");
+                return RedirectToAction("ErrorHome", "Error");
             }
-
         }
 
         [HttpPost]
@@ -196,7 +211,6 @@ namespace CCIH.Controllers
             catch (Exception ex)
             {
                 var exept = ex.Message;
-
                 TempData["ErrorMessage"] = "Usuario o Contrasena incorrecto.";
                 return View("Login");
             }
