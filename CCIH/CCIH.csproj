@@ -230,6 +230,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\Administration\css\DataTable\1.5.1_css_dataTables.dateTime.min.css" />
     <Content Include="assets\Administration\css\DataTable\buttons.dataTables.min.css" />
     <Content Include="assets\Administration\css\DataTable\jquery.dataTables.min.css" />
     <Content Include="assets\Administration\css\style.css" />
@@ -257,6 +258,9 @@
     <Content Include="assets\Administration\img\slides-2.jpg" />
     <Content Include="assets\Administration\img\slides-3.jpg" />
     <Content Include="assets\Administration\js\ConsultPeopleAPI.js" />
+    <Content Include="assets\Administration\js\DataTable\1.5.1_js_dataTables.dateTime.min.js" />
+    <Content Include="assets\Administration\js\DataTable\2.29.2_moment.min.js" />
+    <Content Include="assets\Administration\js\DataTable\bootstrap-datepicker.es.js" />
     <Content Include="assets\Administration\js\DataTable\cdn.datatables.net_1.13.5_js_jquery.dataTables.min.js" />
     <Content Include="assets\Administration\js\DataTable\cdn.datatables.net_buttons_2.4.1_js_buttons.html5.min.js" />
     <Content Include="assets\Administration\js\DataTable\cdn.datatables.net_buttons_2.4.1_js_buttons.print.min.js" />
@@ -265,15 +269,17 @@
     <Content Include="assets\Administration\js\DataTable\cdnjs.cloudflare.com_ajax_libs_pdfmake_0.1.53_pdfmake.min.js" />
     <Content Include="assets\Administration\js\DataTable\cdnjs.cloudflare.com_ajax_libs_pdfmake_0.1.53_vfs_fonts.js" />
     <Content Include="assets\Administration\js\DataTable\code.jquery.com_jquery-3.7.0.js" />
-    <Content Include="assets\Administration\js\DataTable\Datatable.js" />
-    <Content Include="assets\Administration\js\DataTable\PaymentsValidation.js" />
+    <Content Include="assets\Administration\js\DataTable\DataTableHoras.js" />
+    <Content Include="assets\Administration\js\DataTable\DataTableGroups.js" />
+    <Content Include="assets\Administration\js\DataTable\DataTableUsers.js" />
+    <Content Include="assets\Administration\js\DataTable\DataTablePreregistration.js" />
+    <Content Include="assets\Administration\js\DataTable\DataTableCustomers.js" />
+    <Content Include="assets\Administration\js\DataTable\DataTableRegistration.js" />
     <Content Include="assets\Administration\js\GroupValidation.js" />
     <Content Include="assets\Administration\js\PaymentValidation.js" />
-    <Content Include="assets\Administration\js\RegistrationFormValidation.js" />
     <Content Include="assets\Administration\js\RegistrationValidation.js" />
     <Content Include="assets\Administration\js\SetPeople.js" />
     <Content Include="assets\Administration\js\UserValidations.js" />
-    <Content Include="assets\Administration\js\UserFormValidation.js" />
     <Content Include="assets\Administration\js\main.js" />
     <Content Include="assets\Administration\scss\Readme.txt" />
     <Content Include="assets\Administration\vendor\apexcharts\apexcharts.amd.js" />

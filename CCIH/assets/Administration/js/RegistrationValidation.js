@@ -1,4 +1,6 @@
 
+
+
 //////////////////////     Esperar 5 segundos y luego ocultar el mensaje     ////////////////////////////////////////////
 
 setTimeout(function () {
@@ -16,40 +18,78 @@ setTimeout(function () {
 
 }, 5000); // 5000 milisegundos = 5 segundos
 
+/// FORM
+
+document.addEventListener("DOMContentLoaded", function () {
+    var preRegistrationForm = document.getElementById("RegistrationForm");
+    var preRegistrationFormButton = document.getElementById("RegistrationFormButton");
+
+    preRegistrationFormButton.addEventListener("click", function (event) {
+        event.preventDefault(); // Evitar el envío automático del formulario
+
+        if (isFormValid(preRegistrationForm)) {
+            // Si el formulario es válido, muestra el modal de éxito
+            $("#successModal").modal("show");
+        } else {
+            emptyfields(preRegistrationForm);
+            $("#errorModal").modal("show");
+
+        }
+    });
+
+    function isFormValid(form) {
+        // Valida si todos los campos del formulario están llenos
+        var formInputs = form.querySelectorAll("input, textarea, select");
+        for (var i = 0; i < formInputs.length; i++) {
+            if (formInputs[i].value.trim() === "") {
+                return false; // El formulario no está completo
+            } else {
+                formInputs[i].style.borderColor = "Green";
+            }
+        }
+        return true; // El formulario está completo
+    }
+
+    function emptyfields(form) {
+        // Valida si todos los campos del formulario están llenos
+        var formInputs = form.querySelectorAll("input, textarea, select");
+        for (var i = 0; i < formInputs.length; i++) {
+            if (formInputs[i].value.trim() === "") {
+                formInputs[i].style.borderColor = "FireBrick";
+            } else {
+                formInputs[i].style.borderColor = "Green";
+            }
+        }
+        return true; // El formulario está completo
+    }
+});
 
 
-////////////////////////////  id   ///////////////////////////////////////////////////////////////////
+/////////////////////////////// Cedula  ////////////////////////////////////////////////////////////////
 
-var documentID = document.getElementById("PersonalId").value;
-
-if (documentID == "") {
-    document.getElementById("PersonalId").style.borderColor = "FireBrick";
-}
-else {
-    document.getElementById("PersonalId").style.borderColor = "Green";
-}
-
-document.querySelector('#PersonalId').addEventListener('keyup', function () {
-    var id = this.value;
+document.querySelector('#PersonalId').addEventListener('input', function () {
+    var cedula = this.value;
     var validationMessage = document.querySelector('#validationMessage');
-    if (!/^\d+$/.test(id)) {
-        validationMessage.innerHTML = "Cedula solo permite numeros.";
+
+    if (cedula.trim() === "") {
+        validationMessage.innerHTML = "";
+        this.style.borderColor = ""; // Restaurar el color del borde
+    } else if (!/^\d+$/.test(cedula)) {
+        validationMessage.innerHTML = "Cedula solo permite números.";
+        this.style.borderColor = "FireBrick";
+    } else if (cedula.length < 9) {
+        validationMessage.innerHTML = "Telefono debe ser mínimo de 9 dígitos.";
         this.style.borderColor = "FireBrick";
     } else {
         validationMessage.innerHTML = "";
         this.style.borderColor = "Green";
     }
+
+
 });
 
 ////////////////////////////  Cursos   ///////////////////////////////////////////////////////////////////
 
-var documentListaCursos = document.getElementById("ListaCursos").value;
-if (documentListaCursos == "") {
-    document.getElementById("ListaCursos").style.borderColor = "FireBrick";
-}
-else {
-    document.getElementById("ListaCursos").style.borderColor = "Green";
-}
 
 document.querySelector('#ListaCursos').addEventListener('input', function () {
     var dato = this.value;
@@ -62,13 +102,7 @@ document.querySelector('#ListaCursos').addEventListener('input', function () {
 
 ////////////////////////////  Modalidad   ///////////////////////////////////////////////////////////////////
 
-var documentListaModalidad = document.getElementById("ListaModalidad").value;
-if (documentListaModalidad == "") {
-    document.getElementById("ListaModalidad").style.borderColor = "FireBrick";
-}
-else {
-    document.getElementById("ListaModalidad").style.borderColor = "Green";
-}
+
 
 document.querySelector('#ListaModalidad').addEventListener('input', function () {
     var dato = this.value;
@@ -81,13 +115,7 @@ document.querySelector('#ListaModalidad').addEventListener('input', function () 
 
 ////////////////////////////  Nivel   ///////////////////////////////////////////////////////////////////
 
-var documentListaNivel = document.getElementById("ListaNivel").value;
-if (documentListaNivel == "") {
-    document.getElementById("ListaNivel").style.borderColor = "FireBrick";
-}
-else {
-    document.getElementById("ListaNivel").style.borderColor = "Green";
-}
+
 
 document.querySelector('#ListaNivel').addEventListener('input', function () {
     var dato = this.value;
@@ -100,13 +128,7 @@ document.querySelector('#ListaNivel').addEventListener('input', function () {
 
 ////////////////////////////  Horario   ///////////////////////////////////////////////////////////////////
 
-var documentListaHorario = document.getElementById("ListaHorario").value;
-if (documentListaHorario == "") {
-    document.getElementById("ListaHorario").style.borderColor = "FireBrick";
-}
-else {
-    document.getElementById("ListaHorario").style.borderColor = "Green";
-}
+
 
 document.querySelector('#ListaHorario').addEventListener('input', function () {
     var dato = this.value;
@@ -119,13 +141,7 @@ document.querySelector('#ListaHorario').addEventListener('input', function () {
 
 ////////////////////////////  Monto   ///////////////////////////////////////////////////////////////////
 
-var documentMonto = document.getElementById("Monto").value;
-if (documentMonto == "") {
-    document.getElementById("Monto").style.borderColor = "FireBrick";
-}
-else {
-    document.getElementById("Monto").style.borderColor = "Green";
-}
+
 
 document.querySelector('#Monto').addEventListener('keyup', function () {
     var dato = this.value;
@@ -141,13 +157,7 @@ document.querySelector('#Monto').addEventListener('keyup', function () {
 
 /////////////////////////////// Fecha matricula  ////////////////////////////////////////////////////////////////
 
-var documentfechamatricula = document.getElementById("fechamatricula").value;
-if (documentfechamatricula == "") {
-    document.getElementById("fechamatricula").style.borderColor = "FireBrick";
-}
-else {
-    document.getElementById("fechamatricula").style.borderColor = "Green";
-}
+
 
 document.querySelector('#fechamatricula').addEventListener('input', function () {
     var Birthdate = this.value;
@@ -160,14 +170,7 @@ document.querySelector('#fechamatricula').addEventListener('input', function () 
 
 /////////////////////////////// DayPay  ////////////////////////////////////////////////////////////////
 
-var documentDayPay = document.getElementById("DayPay").value;
 
-if (documentDayPay == "") {
-    document.getElementById("DayPay").style.borderColor = "FireBrick";
-}
-else {
-    document.getElementById("DayPay").style.borderColor = "Green";
-}
 
 document.querySelector('#DayPay').addEventListener('keyup', function () {
     var dato = this.value;
@@ -183,13 +186,7 @@ document.querySelector('#DayPay').addEventListener('keyup', function () {
 
 /////////////////////////////// Comentario  ////////////////////////////////////////////////////////////////
 
-var documentComment = document.getElementById("Comment").value;
-if (documentComment == "") {
-    document.getElementById("Comment").style.borderColor = "FireBrick";
-}
-else {
-    document.getElementById("Comment").style.borderColor = "Green";
-}
+
 
 document.querySelector('#Comment').addEventListener('input', function () {
     var Birthdate = this.value;

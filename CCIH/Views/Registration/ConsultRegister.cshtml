@@ -117,7 +117,7 @@
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="" class="col-form-label">Fecha de Matricula</label>
-                                            @Html.TextBoxFor(m => m.RegistrationDate, new { @type = "text", @class = "form-control" })
+                                            @Html.TextBoxFor(m => m.RegistrationDate, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control" })
                                             <div class="validation-message text-danger" id="registValidationMessage"></div>
                                         </div>
                                     </div>

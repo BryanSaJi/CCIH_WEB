@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" href="~/assets/Administration/css/datatable/jquery.dataTables.min.css" />
     <link rel="stylesheet" href="~/assets/Administration/css/datatable/buttons.dataTables.min.css" />
+    <link rel="stylesheet" href="~/assets/Administration/css/datatable/1.5.1_css_dataTables.dateTime.min.css" />
 
     <script defer src="~/assets/Administration/js/DataTable/code.jquery.com_jquery-3.7.0.js"></script>
     <script defer src="~/assets/Administration/js/DataTable/cdn.datatables.net_1.13.5_js_jquery.dataTables.min.js"></script>
@@ -20,7 +21,10 @@
     <script defer src="~/assets/Administration/js/DataTable/cdnjs.cloudflare.com_ajax_libs_pdfmake_0.1.53_vfs_fonts.js"></script>
     <script defer src="~/assets/Administration/js/DataTable/cdn.datatables.net_buttons_2.4.1_js_buttons.html5.min.js"></script>
     <script defer src="~/assets/Administration/js/DataTable/cdn.datatables.net_buttons_2.4.1_js_buttons.print.min.js"></script>
-    <script defer src="~/assets/Administration/js/DataTable/DataTable.js"></script>
+    <script defer src="~/assets/Administration/js/DataTable/2.29.2_moment.min.js"></script>
+    <script defer src="~/assets/Administration/js/DataTable/1.5.1_js_dataTables.dateTime.min.js"></script>
+
+    <script defer src="~/assets/Administration/js/DataTable/DataTableHoras.js"></script>
 
 
 
@@ -62,7 +66,30 @@
                             <br />
                             <!-- General Form Elements -->
 
-                            <br />
+
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <table border="0" cellspacing="5" cellpadding="5">
+                                        <tbody>
+                                            <tr>
+                                                <td>Fecha Inicio:</td>
+                                                <td><input type="text" id="min" name="min" class="form-control"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Fecha Fin:</td>
+                                                <td><input type="text" id="max" name="max" class="form-control"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="col-md-2">
+                                    Total de Horas
+                                    <input type="text" id="TotalHoras" name="TotalHoras" class="form-control" readonly>
+                                </div>
+                            </div>
+                            
+                            <br>
 
                             <div class="row">
                                 <div class="col-12">
@@ -70,7 +97,7 @@
                                         <table id="DataTable" class="table table-hover text-center" width="100%">
                                             <thead>
                                                 <tr>
-                                                    <th style="text-align:center">Cédula</th>
+                                                    <th style="text-align:center">Nombre</th>
                                                     <th style="text-align:center">Entrada</th>
                                                     <th style="text-align:center">Salida</th>
                                                     <th style="text-align:center">Suma de Horas</th>
@@ -80,9 +107,23 @@
                                                 @foreach (var item in Model)
                                                 {
                                                     <tr>
-                                                        <td>@item.PersonalID</td>
-                                                        <td>@item.EntryTime</td>
-                                                        <td>@item.ExitTime</td>
+                                                        <td>@item.Name</td>
+                                                        @if (@item.EntryTime.ToString() == "1/1/0001 00:00:00")
+                                                        {
+                                                            <td>Pendiente</td>
+                                                        }
+                                                        else
+                                                        {
+                                                            <td>@item.EntryTime</td>
+                                                        }
+                                                        @if (@item.ExitTime.ToString() == "1/1/0001 00:00:00")
+                                                        {
+                                                            <td>Pendiente</td>
+                                                        }
+                                                        else
+                                                        {
+                                                            <td>@item.ExitTime</td>
+                                                        }
                                                         <td>@item.TotalHours</td>
                                                     </tr>
                                                 }

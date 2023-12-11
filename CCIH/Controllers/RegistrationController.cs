@@ -71,6 +71,7 @@ namespace CCIH.Controllers
             var datos = modelRegistration.RequetsPreRegistrations();
             Session["PreRegisterPending"] = datos.Count;
 
+            datos = datos.OrderByDescending(x => x.DatePreRegistration).ToList();
 
             return View(datos);
         }
@@ -329,6 +330,8 @@ namespace CCIH.Controllers
                     ViewBag.MsjPantallaPostivo = "Se ha guardado la informacion del cliente";
                 }
             }
+
+            datos = datos.OrderByDescending(x => x.CreationDate).ToList();
             return View(datos);
         }
 

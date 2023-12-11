@@ -202,6 +202,7 @@ namespace CCIH.Controllers
             }
 
             var data = modelRegistration.RequestRegistrations();
+            data = data.OrderByDescending(x => x.RegistrationDate).ToList();
 
             return View(data);
 

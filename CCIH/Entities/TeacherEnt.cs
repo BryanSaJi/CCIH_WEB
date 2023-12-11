@@ -41,8 +41,8 @@ namespace CCIH.Entities
 
         public int TotalWorkHours { get; set; }
 
-        public DateTime? EntryTime { get; set; }
-        public DateTime? ExitTime { get; set; }
+        public DateTime? EntryTime { get; set; } = default(DateTime?);
+        public DateTime? ExitTime { get; set; } = default(DateTime?);
         public string TotalHours { get; set; }
 
         public DateTime StartDate { get; set; }

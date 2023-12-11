@@ -9,13 +9,16 @@ using System.Net.Http.Json;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
+using System.Web.Mvc;
 
 namespace CCIH.Models
 {
+    [Authorize]
     public class UserModel
     {
         UtilitiesModel apiEnviroment = new UtilitiesModel();
 
+        [AllowAnonymous]
         public UserEnt Login(UserEnt ent)
         {
             using (var custom = new HttpClient())
@@ -269,7 +272,7 @@ namespace CCIH.Models
         }
 
 
-
+        [AllowAnonymous]
         public int RestoreUserPassword(UserEnt ent)
         {
             using (var custom = new HttpClient())

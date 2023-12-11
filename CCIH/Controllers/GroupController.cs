@@ -32,7 +32,7 @@ namespace CCIH.Controllers
 
 
 
-
+        [Authorize]
         [HttpGet]
         public ActionResult SetPeople(bool init, long groupIdP)
         {
@@ -225,7 +225,7 @@ namespace CCIH.Controllers
 
         /*-----------------------------------------------------------------------------------------------------------*/
 
-
+        [Authorize]
         [HttpGet]
         public ActionResult RemovePeople(bool init, long groupIdP)
         {
@@ -431,6 +431,7 @@ namespace CCIH.Controllers
 
 
         /*-----------------------------------------------------------------------------------------------------------*/
+        [Authorize]
         [HttpGet]
         public ActionResult CreateGroup()
         {
@@ -558,7 +559,7 @@ namespace CCIH.Controllers
         }
 
 
-
+        [Authorize]
         [HttpGet]
         public ActionResult ShowGroups()
         {
@@ -566,7 +567,7 @@ namespace CCIH.Controllers
             return View(Data);
         }
 
-
+        [Authorize]
         [HttpGet]
         public ActionResult EditGroup(long i)
         {
@@ -659,7 +660,7 @@ namespace CCIH.Controllers
         }
 
 
-
+        [Authorize]
         [HttpPost]
         public ActionResult SendInfoEditGroup(GroupEnt groupEnt)
         {
@@ -690,7 +691,7 @@ namespace CCIH.Controllers
         }
 
 
-
+        [Authorize]
         [HttpPost]
         public ActionResult SendInfoCreateGroup(GroupEnt groupEnt)
         {
@@ -721,7 +722,7 @@ namespace CCIH.Controllers
             }
         }
 
-
+        [Authorize]
         [HttpPost]
         public ActionResult AssignGroupToStudent(long groupId, string personalId)
         {
@@ -772,7 +773,7 @@ namespace CCIH.Controllers
             }
         }
 
-
+        [Authorize]
         [HttpPost]
         public ActionResult AssignTeacherToGroup(long groupId, long teacherId)
         {
@@ -804,7 +805,7 @@ namespace CCIH.Controllers
             }
         }
 
-
+        [Authorize]
         [HttpPost]
         public ActionResult RemoveStudentFromGroup(long groupId, string personalId)
         {
@@ -856,7 +857,7 @@ namespace CCIH.Controllers
         }
 
 
-
+        [Authorize]
         [HttpPost]
         public ActionResult RemoveTeacherFromGroup(long groupId)
         {

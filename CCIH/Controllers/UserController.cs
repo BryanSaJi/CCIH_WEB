@@ -28,15 +28,22 @@ namespace CCIH.Controllers
             var data = model.RequestUsers();
 
 
-
             foreach (var item in data)
             {
                 var Status = modelState.RequestStatusScrollDown();
+                var rol = modelRole.RequestRoles();
                 foreach (var item2 in Status)
                 {
                     if (item.StatusId == item2.StatusId)
                     {
                         item.StatusName = item2.Name;
+                    }
+                }
+                foreach (var item2 in rol)
+                {
+                    if (item.IdRol == item2.IdRol)
+                    {
+                        item.RolName = item2.Name;
                     }
                 }
             }
@@ -49,6 +56,8 @@ namespace CCIH.Controllers
             {
                 ViewBag.MsjPantallaNegativo = "Operacion sin Exito";
             }
+
+            data = data.OrderByDescending(x => x.LastActivity).ToList();
             return View(data);
         }
 

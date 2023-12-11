@@ -17,124 +17,61 @@ setTimeout(function () {
 }, 5000); // 5000 milisegundos = 5 segundos
 
 
-///////////////////////////////// DateOfBirt  ////////////////////////////////////////////////////////////////
+    document.addEventListener("DOMContentLoaded", function () {
+        var preRegistrationForm = document.getElementById("UserForm");
+    var preRegistrationFormButton = document.getElementById("UserFormButton");
 
-function validateDateOfBirth() {
-    const today = new Date();
-    const inputDate = new Date(document.getElementById('Birthdate').value);
-    const age = today.getFullYear() - inputDate.getFullYear();
+    preRegistrationFormButton.addEventListener("click", function (event) {
+        event.preventDefault(); // Evitar el envío automático del formulario
 
-    if (today.getMonth() < inputDate.getMonth() || (today.getMonth() === inputDate.getMonth() && today.getDate() < inputDate.getDate())) {
-        age--;
-    }
+    if (isFormValid(preRegistrationForm)) {
+        // Si el formulario es válido, muestra el modal de éxito
+        $("#successModal").modal("show");
+            } else {
+        emptyfields(preRegistrationForm);
+    $("#errorModal").modal("show");
 
-    if (age < 6) {
-        document.getElementById('validationMessagedate').textContent = 'La persona debe tener al menos 6 annos de edad.';
-        document.getElementById('UserFormButton').disabled = true;
-    } else {
-        document.getElementById('validationMessagedate').textContent = '';
-        document.getElementById('UserFormButton').disabled = false;
-    }
-}
+            }
+        });
 
-document.getElementById('Birthdate').addEventListener('change', validateDateOfBirth);
+    function isFormValid(form) {
+            // Valida si todos los campos del formulario están llenos
+            var formInputs = form.querySelectorAll("input, textarea, select");
+    for (var i = 0; i < formInputs.length; i++) {
+                if (formInputs[i].value.trim() === "") {
+                    return false; // El formulario no está completo
+                } else {
+        formInputs[i].style.borderColor = "Green";
+                }
+            }
+    return true; // El formulario está completo
+        }
 
-////////////////////////////  id   ///////////////////////////////////////////////////////////////////
-
-var documentID = document.getElementById("PersonalId").value;
-
-if (documentID == "") {
-    document.getElementById("PersonalId").style.borderColor = "FireBrick";
-}
-else {
-    document.getElementById("PersonalId").style.borderColor = "Green";
-}
-
-document.querySelector('#PersonalId').addEventListener('keyup', function () {
-    var id = this.value;
-    var validationMessage = document.querySelector('#validationMessage');
-    if (!/^\d+$/.test(id)) {
-        validationMessage.innerHTML = "Cedula solo permite numeros.";
-        this.style.borderColor = "FireBrick";
-    } else {
-        validationMessage.innerHTML = "";
-        this.style.borderColor = "Green";
-    }
-});
-
-/////////////////////////////// name  ////////////////////////////////////////////////////////////////
-
-    if (document.getElementById("nameField").value != "") {
-        document.getElementById("nameField").style.borderColor = "Green";
-    }
-
-document.querySelector('#nameField').addEventListener('input', function () {
-    var name = this.value;
-    var validationMessage = document.querySelector('#nameValidationMessage');
-    if (!/^[A-Za-zÁÉÍÓÚáéíóúñÑ\s]+$/.test(name)) {
-        validationMessage.innerHTML = "Nombre solo permite letras.";
-        this.style.borderColor = "FireBrick";
-    } else {
-        validationMessage.innerHTML = "";
-        this.style.borderColor = "Green";
-    }
-});
-
-/////////////////////////////// lastname  ////////////////////////////////////////////////////////////////
-
-if (document.getElementById("lastNameField").value != "") {
-    document.getElementById("lastNameField").style.borderColor = "Green";
-}
-
-document.querySelector('#lastNameField').addEventListener('input', function () {
-    var lastname = this.value;
-    var validationMessage = document.querySelector('#lastNameValidationMessage');
-    if (!/^[A-Za-zÁÉÍÓÚáéíóúñÑ\s]+$/.test(lastname)) {
-        validationMessage.innerHTML = "Primer apellido solo permite letras.";
-        this.style.borderColor = "FireBrick";
-    } else {
-        validationMessage.innerHTML = "";
-        this.style.borderColor = "Green";
-    }
-
-
-});
-
-/////////////////////////////// Slastname  ////////////////////////////////////////////////////////////////
-
-if (document.getElementById("slnFIELD").value != "") {
-    document.getElementById("slnFIELD").style.borderColor = "Green";
-}
-
-document.querySelector('#slnFIELD').addEventListener('input', function () {
-    var slastname = this.value;
-    var validationMessage = document.querySelector('#slnFIELDValidationMessage');
-    if (!/^[A-Za-zÁÉÍÓÚáéíóúñÑ\s]+$/.test(slastname)) {
-        validationMessage.innerHTML = "Segundo apellido solo permite letras.";
-        this.style.borderColor = "FireBrick";
-    } else {
-        validationMessage.innerHTML = "";
-        this.style.borderColor = "Green";
-    }
-
-});
+    function emptyfields(form) {
+            // Valida si todos los campos del formulario están llenos
+            var formInputs = form.querySelectorAll("input, textarea, select");
+    for (var i = 0; i < formInputs.length; i++) {
+                if (formInputs[i].value.trim() === "") {
+        formInputs[i].style.borderColor = "FireBrick";
+                } else {
+        formInputs[i].style.borderColor = "Green";
+                }
+            }
+    return true; // El formulario está completo
+        }
+    });
 
 /////////////////////////////// email  ////////////////////////////////////////////////////////////////
-
-var DocumentEmail = document.getElementById("email").value;
-
-if (DocumentEmail == "") {
-    document.getElementById("email").style.borderColor = "FireBrick";
-}
-else {
-    document.getElementById("email").style.borderColor = "Green";
-}
 
 document.querySelector('#email').addEventListener('keyup', function () {
     var email = this.value;
     var validationMessage = document.querySelector('#emailValidationMessage');
-    if (!isValidEmail(email)) {
-        validationMessage.innerHTML = "Por favor, ingrese un correo electronico valido, ejemplo: correo@email.com";
+
+    if (email.trim() === "") {
+        validationMessage.innerHTML = "";
+        this.style.borderColor = ""; // Restaurar el color del borde
+    } else if (!isValidEmail(email)) {
+        validationMessage.innerHTML = "Por favor, ingrese un correo electrónico válido, ejemplo: correo@email.com";
         this.style.borderColor = "FireBrick";
     } else {
         validationMessage.innerHTML = "";
@@ -147,21 +84,64 @@ function isValidEmail(email) {
     return emailPattern.test(email);
 }
 
-/////////////////////////////// phone  ////////////////////////////////////////////////////////////////
-var DocumentPhone = document.getElementById("cel").value;
 
-if (DocumentPhone == "") {
-    document.getElementById("cel").style.borderColor = "FireBrick";
-}
-else {
-    document.getElementById("cel").style.borderColor = "Green";
-}
+/////////////////////////////// phone  ////////////////////////////////////////////////////////////////
 
 document.querySelector('#cel').addEventListener('input', function () {
     var phone = this.value;
     var validationMessage = document.querySelector('#PhoneValidationMessage');
-    if (!/^\d+$/.test(phone)) {
-        validationMessage.innerHTML = "Telefono solo permite numeros.";
+
+    if (phone.trim() === "") {
+        validationMessage.innerHTML = "";
+        this.style.borderColor = ""; // Restaurar el color del borde
+    } else if (!/^\d+$/.test(phone)) {
+        validationMessage.innerHTML = "Telefono solo permite números.";
+        this.style.borderColor = "FireBrick";
+    } else if (phone.length < 8) {
+        validationMessage.innerHTML = "Telefono debe ser mínimo de 8 dígitos.";
+        this.style.borderColor = "FireBrick";
+    } else {
+        validationMessage.innerHTML = "";
+        this.style.borderColor = "Green";
+    }
+});
+/////////////////////////////// Cedula  ////////////////////////////////////////////////////////////////
+
+document.querySelector('#PersonalId').addEventListener('input', function () {
+    var cedula = this.value;
+    var validationMessage = document.querySelector('#validationMessage');
+
+    if (cedula.trim() === "") {
+        validationMessage.innerHTML = "";
+        this.style.borderColor = ""; // Restaurar el color del borde
+    } else if (!/^\d+$/.test(cedula)) {
+        validationMessage.innerHTML = "Cedula solo permite números.";
+        this.style.borderColor = "FireBrick";
+    } else if (cedula.length < 9) {
+        validationMessage.innerHTML = "Telefono debe ser mínimo de 9 dígitos.";
+        this.style.borderColor = "FireBrick";
+    } else {
+        validationMessage.innerHTML = "";
+        this.style.borderColor = "Green";
+    }
+
+    
+});
+
+
+
+
+/////////////////////////////// name  ////////////////////////////////////////////////////////////////
+
+document.querySelector('#nameField').addEventListener('input', function () {
+    var name = this.value;
+    var validationMessage = document.querySelector('#nameValidationMessage');
+
+    if (name.trim() === "") {
+        validationMessage.innerHTML = "";
+        this.style.borderColor = ""; // Restaurar el color del borde
+    } else if (!/^[A-Za-zÁÉÍÓÚáéíóúñÑ\s]+$/.test(name)) {
+        validationMessage.innerHTML = "Nombre solo permite letras.";
         this.style.borderColor = "FireBrick";
     } else {
         validationMessage.innerHTML = "";
@@ -169,100 +149,103 @@ document.querySelector('#cel').addEventListener('input', function () {
     }
 });
 
-/////////////////////////////// Fecha Nacimiento  ////////////////////////////////////////////////////////////////
+/////////////////////////////// apellido 1  ////////////////////////////////////////////////////////////////
 
-var documentBirthDate = document.getElementById("Birthdate").value;
-if (documentBirthDate == "") {
-    document.getElementById("Birthdate").style.borderColor = "FireBrick";
-}
-else {
-    document.getElementById("Birthdate").style.borderColor = "Green";
-}
+document.querySelector('#lastNameField').addEventListener('input', function () {
+    var name = this.value;
+    var validationMessage = document.querySelector('#lastNameValidationMessage');
 
-document.querySelector('#Birthdate').addEventListener('input', function () {
-    var Birthdate = this.value;
-    if (Birthdate != null) {
-        this.style.borderColor = "Green";
-    } else {
+    if (name.trim() === "") {
+        validationMessage.innerHTML = "";
+        this.style.borderColor = ""; // Restaurar el color del borde
+    } else if (!/^[A-Za-zÁÉÍÓÚáéíóúñÑ\s]+$/.test(name)) {
+        validationMessage.innerHTML = "Apellido solo permite letras.";
         this.style.borderColor = "FireBrick";
+    } else {
+        validationMessage.innerHTML = "";
+        this.style.borderColor = "Green";
     }
 });
 
-/////////////////////////////// Identifications  ////////////////////////////////////////////////////////////////
+/////////////////////////////// apellido 2  ////////////////////////////////////////////////////////////////
 
-var documentIdentifications = document.getElementById("Identifications").value;
-if (documentIdentifications == "") {
-    document.getElementById("Identifications").style.borderColor = "FireBrick";
-}
-else {
-    document.getElementById("Identifications").style.borderColor = "Green";
-}
+document.querySelector('#slnFIELD').addEventListener('input', function () {
+    var name = this.value;
+    var validationMessage = document.querySelector('#slnFIELDValidationMessage');
+
+    if (name.trim() === "") {
+        validationMessage.innerHTML = "";
+        this.style.borderColor = ""; // Restaurar el color del borde
+    } else if (!/^[A-Za-zÁÉÍÓÚáéíóúñÑ\s]+$/.test(name)) {
+        validationMessage.innerHTML = "Apellido solo permite letras.";
+        this.style.borderColor = "FireBrick";
+    } else {
+        validationMessage.innerHTML = "";
+        this.style.borderColor = "Green";
+    }
+});
+
+///////////////////////////////// Identifications  ////////////////////////////////////////////////////////////////
 
 document.querySelector('#Identifications').addEventListener('input', function () {
-    var Identifications = this.value;
-    if (Identifications > 0) {
+    var validationMessage = document.querySelector('#validationIdentifications');
+    var Curso = this.value;
+    if (Curso > 0) {
         this.style.borderColor = "Green";
+        validationMessage.innerHTML = "";
     } else {
         this.style.borderColor = "FireBrick";
+        validationMessage.innerHTML = "Seleccione un tipo de cedula.";
+
     }
 });
 
-/////////////////////////////// Rol  ////////////////////////////////////////////////////////////////
-
-var documentRol = document.getElementById("Rol").value;
-if (documentRol == "") {
-    document.getElementById("Rol").style.borderColor = "FireBrick";
-}
-else {
-    document.getElementById("Rol").style.borderColor = "Green";
-}
+/////////////////////////////////// Rol  ////////////////////////////////////////////////////////////////
 
 document.querySelector('#Rol').addEventListener('input', function () {
-    var rol = this.value;
-    if (rol > 0) {
+    var validationMessage = document.querySelector('#validationRol');
+    var Curso = this.value;
+    if (Curso > 0) {
         this.style.borderColor = "Green";
+        validationMessage.innerHTML = "";
     } else {
         this.style.borderColor = "FireBrick";
+        validationMessage.innerHTML = "Seleccione un rol.";
+
     }
 });
 
-/////////////////////////////// Address  ////////////////////////////////////////////////////////////////
+/////////////////////////////////// Address  ////////////////////////////////////////////////////////////////
 
-if (document.getElementById("Address").value == "") {
-    document.getElementById("Address").style.borderColor = "FireBrick";
-}
-else {
-    document.getElementById("Address").style.borderColor = "Green";
-}
+document.querySelector('#Address').addEventListener('input', function () {
+    var name = this.value;
+    var validationMessage = document.querySelector('#ValidationMessageDirection');
 
-document.querySelector('#Address').addEventListener('keyup', function () {
-    var Address = this.value;
-    if (Address != "") {
-        this.style.borderColor = "Green";
+    if (name.trim() === "") {
+        validationMessage.innerHTML = "";
+        this.style.borderColor = ""; // Restaurar el color del borde
     } else {
-        this.style.borderColor = "FireBrick";
+        validationMessage.innerHTML = "";
+        this.style.borderColor = "Green";
     }
 });
 
+/////////////////////////////////// Fecha Nacimiento  ////////////////////////////////////////////////////////////////
 
-///////////////////////////////// Status  ////////////////////////////////////////////////////////////////
+function validateDateOfBirth() {
+    const today = new Date();
+    const inputDate = new Date(document.getElementById('Birthdate').value);
+    const age = today.getFullYear() - inputDate.getFullYear();
 
-var documentStatusList = document.getElementById("StatusList").value;
-if (documentStatusList == "") {
-    document.getElementById("StatusList").style.borderColor = "FireBrick";
-}
-else {
-    document.getElementById("StatusList").style.borderColor = "Green";
-}
-
-document.querySelector('#StatusList').addEventListener('input', function () {
-    var rol = this.value;
-    if (rol > 0) {
-        this.style.borderColor = "Green";
-    } else {
-        this.style.borderColor = "FireBrick";
+    if (today.getMonth() < inputDate.getMonth() || (today.getMonth() === inputDate.getMonth() && today.getDate() < inputDate.getDate())) {
+        age--;
     }
-});
 
+    if (age < 6) {
+        document.getElementById('validationMessagedate').textContent = 'La persona debe tener al menos 6 annos de edad.';
+    } else {
+        document.getElementById('validationMessagedate').textContent = '';
+    }
+}
 
-
+document.getElementById('Birthdate').addEventListener('change', validateDateOfBirth);

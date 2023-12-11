@@ -9,6 +9,7 @@
 
     <link rel="stylesheet" href="~/assets/Administration/css/datatable/jquery.dataTables.min.css" />
     <link rel="stylesheet" href="~/assets/Administration/css/datatable/buttons.dataTables.min.css" />
+    <link rel="stylesheet" href="~/assets/Administration/css/datatable/1.5.1_css_dataTables.dateTime.min.css" />
 
     <script defer src="~/assets/Administration/js/DataTable/code.jquery.com_jquery-3.7.0.js"></script>
     <script defer src="~/assets/Administration/js/DataTable/cdn.datatables.net_1.13.5_js_jquery.dataTables.min.js"></script>
@@ -18,8 +19,11 @@
     <script defer src="~/assets/Administration/js/DataTable/cdnjs.cloudflare.com_ajax_libs_pdfmake_0.1.53_vfs_fonts.js"></script>
     <script defer src="~/assets/Administration/js/DataTable/cdn.datatables.net_buttons_2.4.1_js_buttons.html5.min.js"></script>
     <script defer src="~/assets/Administration/js/DataTable/cdn.datatables.net_buttons_2.4.1_js_buttons.print.min.js"></script>
-    <script defer src="~/assets/Administration/js/DataTable/DataTable.js"></script>
 
+    <script defer src="~/assets/Administration/js/DataTable/2.29.2_moment.min.js"></script>
+    <script defer src="~/assets/Administration/js/DataTable/1.5.1_js_dataTables.dateTime.min.js"></script>
+
+    <script defer src="~/assets/Administration/js/DataTable/DataTableRegistration.js"></script>
 
 </heah>
 
@@ -33,85 +37,114 @@
                 <li class="breadcrumb-item">Matriculas</li>
             </ol>
         </nav>
-    </div><!-- End Page Title -->
+    </div>
 
-    <section class="section">
-        <div class="row">
-            <div class="col-lg-12">
+<section class="section">
+    <div class="row">
+        <div class="col-lg-12">
 
-                <div class="card">
-                    <div class="card-body">
+            <div class="card">
+                <div class="card-body">
 
-                        <br />
-                        @if (ViewBag.MsjPantallaPostivo != null)
-                        {
-                            <div id="mensajePositivo" style="text-align:center" class="alert alert-success" role="alert">
-                                @ViewBag.MsjPantallaPostivo
-                            </div>
-                        }
-                        @if (ViewBag.MsjPantallaNegativo != null)
-                        {
-                            <div id="mensajeNegativo" style="text-align:center" class="alert alert-danger" role="alert">
-                                @ViewBag.MsjPantallaNegativo
-                            </div>
-                        }
-                        <br />
-                        <div class="row">
-                            <br>
-                            <div class="col-12">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <br />
-                                        <table id="DataTable" class="table table-hover" style="width: 100% !important;">
-                                            <thead>
+                    <br />
+                    @if (ViewBag.MsjPantallaPostivo != null)
+                    {
+                        <div id="mensajePositivo" style="text-align:center" class="alert alert-success" role="alert">
+                            @ViewBag.MsjPantallaPostivo
+                        </div>
+                    }
+                    @if (ViewBag.MsjPantallaNegativo != null)
+                    {
+                        <div id="mensajeNegativo" style="text-align:center" class="alert alert-danger" role="alert">
+                            @ViewBag.MsjPantallaNegativo
+                        </div>
+                    }
+                    <br />
+                    <div class="row">
+                        <br>
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+
+
+                                    <br />
+
+                                    <table border="0" cellspacing="5" cellpadding="5">
+                                        <tbody>
+                                            <tr>
+                                                <td>Fecha Inicio:</td>
+                                                <td><input type="text" id="min" name="min" class="form-control"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Fecha Fin:</td>
+                                                <td><input type="text" id="max" name="max" class="form-control"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <br />
+                                    <table id="DataTable" class="table table-hover display nowrap" style="width: 100% !important;">
+                                        <thead>
+                                            <tr>
+                                                <th>Cedula</th>
+                                                <th>Nombre</th>
+                                                <th>Telefono</th>
+                                                <th>Curso</th>
+                                                <th>Modalidad</th>
+                                                <th>Nivel</th>
+                                                <th>Fecha</th>
+                                                <th>Estado</th>
+                                                <th>Accion</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            @foreach (var item in Model)
+                                            {
                                                 <tr>
-                                                    <th>Cedula</th>
-                                                    <th>Nombre</th>
-                                                    <th>Telefono</th>
-                                                    <th>Curso</th>
-                                                    <th>Modalidad</th>
-                                                    <th>Nivel</th>
-                                                    <th>Fecha</th>
-                                                    <th>Estado</th>
-                                                    <th>Accion</th>
+                                                    <td>@item.PersonalID</td>
+                                                    <td>@item.Name</td>
+                                                    <td>@item.Phone</td>
+                                                    <td>@item.CourseName</td>
+                                                    <td>@item.Modality</td>
+                                                    <td>@item.Level</td>
+                                                    <td>@item.RegistrationDate.ToString("dd-MM-yyyy")</td>
+                                                    <td>@item.Status</td>
+                                                    <td style="text-align:center">
+                                                        <a type="submit" class="btn btn-sm text-white" style="background-color: #5f81e8;" href="@Url.Action("ConsultRegister","Registration", new { i = item.RegistrationId})">Consultar</a>
+                                                    </td>
                                                 </tr>
-                                            </thead>
-                                            <tbody>
-
-                                                @foreach (var item in Model)
-                                                {
-                                                    <tr>
-                                                        <td>@item.PersonalID</td>
-                                                        <td>@item.Name</td>
-                                                        <td>@item.Phone</td>
-                                                        <td>@item.CourseName</td>
-                                                        <td>@item.Modality</td>
-                                                        <td>@item.Level</td>
-                                                        <td>@item.RegistrationDate.ToShortDateString()</td>
-                                                        <td>@item.Status</td>
-                                                        <td style="text-align:center">
-                                                            <a type="submit" class="btn btn-sm text-white" style="background-color: #5f81e8;" href="@Url.Action("ConsultRegister","Registration", new { i = item.RegistrationId})">Consultar</a>
-                                                        </td>
-                                                    </tr>
-                                                }
-                                        </table>
-                                    </div>
+                                            }
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th>Cedula</th>
+                                                <th>Nombre</th>
+                                                <th>Telefono</th>
+                                                <th>Curso</th>
+                                                <th>Modalidad</th>
+                                                <th>Nivel</th>
+                                                <th>Fecha</th>
+                                                <th>Estado</th>
+                                                <th>Accion</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
                                 </div>
+                            </div>
 
-                                <div class="row">
-                                    <div class="col-12">
-                                        <a href="@Url.Action("Index", "Admin")" class="btn btn-secondary">Regresar</a>
-                                    </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <a href="@Url.Action("Index", "Admin")" class="btn btn-secondary">Regresar</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
     </section>
-
-</main><!-- End #main -->
-
+</main>
 
 
 <script>
@@ -130,7 +163,7 @@
 
         Session["MensajePositivo"] = 0;
 
+
     }, 5000); // 5000 milisegundos = 5 segundos
-
-
 </script>
+

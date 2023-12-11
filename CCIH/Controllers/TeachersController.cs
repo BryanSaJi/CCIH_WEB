@@ -11,6 +11,7 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.Ajax.Utilities;
+using System.Windows.Markup.Localizer;
 
 namespace CCIH.Controllers
 {
@@ -89,64 +90,26 @@ namespace CCIH.Controllers
 
 
 
-        //[HttpGet]
-        //public ActionResult AllHours(long? userId, DateTime? startDate, DateTime? endDate)
-        //{
-        //    try
-        //    {
-            
-        //        var data = modelTeacher.SeeHours();
-
-               
-        //        data = data.Where(m => m.UserId == userId).ToList();
-
-               
-        //        if (startDate.HasValue && endDate.HasValue)
-        //        {
-        //            data = data
-        //                .Where(m => m.EntryTime >= startDate.Value && m.EntryTime <= endDate.Value)
-        //                .ToList();
-        //        }
-
-        //        // Calcular el total de horas
-        //        double totalHours = CalcularTotalHoras(data);
-
-        //        // Almacenar el total de horas en ViewBag para mostrarlo en la vista
-        //        ViewBag.TotalHours = totalHours;
-
-        //        return View(data);
-        //    }
-        //    catch (Exception ex)
-        //    {
-                
-        //        return View(new List<TeacherEnt>());  
-        //    }
-        //}
-
-        //private double CalcularTotalHoras(List<TeacherEnt> data)
-        //{
-
-        //    double totalHours = 0;
-
-        //    foreach (var mark in data)
-        //    {
-        //        if (mark.EntryTime.HasValue && mark.ExitTime.HasValue)
-        //        {
-        //            totalHours += (mark.ExitTime.Value - mark.EntryTime.Value).TotalHours;
-        //        }
-        //    }
-
-        //    return totalHours;
-        //}
+       
 
         [HttpGet]
-        public ActionResult AllHours()
+        public ActionResult AllHours(long i)
         {
-           
-           
-                var data = modelTeacher.TotalWorkHours();
+            var data = modelTeacher.TotalWorkHours();
 
-                return View(data);
+            List<TeacherEnt> dato = new List<TeacherEnt>(); // Inicializa dato como una lista vacía
+
+            foreach (var item in data)
+                {
+                        if (item.UserId == i)
+                        {
+                         dato.Add(item);
+                        }
+                }
+
+            dato = dato.OrderByDescending(x => x.EntryTime).ToList();
+
+            return View(dato);
             
         }
 

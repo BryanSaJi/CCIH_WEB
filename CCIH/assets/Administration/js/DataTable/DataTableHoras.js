@@ -1,0 +1,113 @@
+﻿
+
+
+function sumarColumnaTotal() {
+    let totalSegundos = 0;
+
+    // Obtener la referencia de la tabla
+    let tabla = document.getElementById('DataTable');
+
+    // Iterar sobre las filas de la tabla (comenzando desde 1 para omitir la fila de encabezado)
+    for (let i = 1; i < tabla.rows.length; i++) {
+        // Obtener el valor de la celda en la columna "Suma de Horas" (cuarta columna)
+        let valorCelda = tabla.rows[i].cells[3].innerText;
+
+        console.log('La suma total de horas es: ' + valorCelda);
+
+        if (valorCelda.trim() !== '') {
+            let partes = valorCelda.split(':');
+            totalSegundos += parseInt(partes[0]) * 3600;  // horas a segundos
+            totalSegundos += parseInt(partes[1]) * 60;    // minutos a segundos
+            totalSegundos += parseInt(partes[2]);         // segundos
+        }
+    }
+
+    // Calcular las horas, minutos y segundos totales
+    let totalHoras = Math.floor(totalSegundos / 3600);
+    totalSegundos %= 3600;
+    let totalMinutos = Math.floor(totalSegundos / 60);
+    let totalSegundosRestantes = totalSegundos % 60;
+
+    // Mostrar la suma en la consola (puedes hacer lo que quieras con el valor)
+    let inputTotalHoras = document.getElementById('TotalHoras');
+    inputTotalHoras.value = totalHoras + ':' + totalMinutos + ':' + totalSegundosRestantes;
+}
+
+let minDate, maxDate;
+
+// Custom filtering function which will search data in column four between two values
+DataTable.ext.search.push(function (settings, data, dataIndex) {
+    let min = minDate.val();
+    let max = maxDate.val();
+
+    let dateString = data[1];
+    let date = moment(dateString, "DD/MM/YYYY HH:mm:ss").toDate();
+
+    // Formatear min y max al formato DD/MM/YY si no son nulos
+    if (min !== null) {
+        min = moment(min, "DD/MM/YYYY HH:mm:ss").add(6, 'hours').toDate();
+    }
+    if (max !== null) {
+        max = moment(max, "DD/MM/YYYY HH:mm:ss").add(29, 'hours').toDate();
+    }
+
+    if (
+        (min === null && max === null) ||
+        (min === null && date <= max) ||
+        (min <= date && max === null) ||
+        (min <= date && date <= max)
+    ) {
+        sumarColumnaTotal();
+        return true;
+    }
+
+    return false;
+});
+
+// Create date inputs
+minDate = new DateTime('#min', {
+    format: 'MMMM Do YYYY'
+});
+
+
+maxDate = new DateTime('#max', {
+    format: 'MMMM Do YYYY'
+});
+
+// DataTables initialisation with buttons
+let table = new DataTable('#DataTable', {
+    dom: 'Bfrtlip', // B: Buttons, l: Length changing, f: Filtering, r: pRocessing, t: Table, i: Information, p: Pagination
+    "language": {
+        "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
+    },
+    buttons: [
+        {
+            extend: 'excelHtml5',
+            text: '<i class="ri-file-excel-2-line text-success" style="font-size: 150%;"></i>',
+            titleAttr: 'Excel',
+            className: 'btn btn-outline-primary',
+        },
+        {
+            extend: 'pdfHtml5',
+            text: '<i class="bi bi-file-earmark-pdf text-danger" style="font-size: 150%;"></i>',
+            titleAttr: 'PDF',
+            className: 'btn btn-success',
+        },
+        {
+            extend: 'print',
+            text: '<i class="bi bi-printer-fill text-primary" style="font-size: 150%;"></i>',
+            titleAttr: 'print',
+            className: 'btn btn-success',
+        }, 'colvis'
+    ],
+    responsive: true,
+    scrollX: true,
+});
+
+table.buttons().container()
+    .appendTo('#example_wrapper .col-md-6:eq(0)');
+
+// Refilter the table
+document.querySelectorAll('#min, #max').forEach((el) => {
+    el.addEventListener('change', () => table.draw());
+});
