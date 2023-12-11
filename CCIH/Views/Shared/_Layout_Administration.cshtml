@@ -118,6 +118,72 @@
                     </a>
                 </li>
                 <!-- End Dashboard Nav -->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" data-bs-target="#Marcas-nav" data-bs-toggle="collapse" href="#">
+                        <i class="bi bi-menu-button-wide"></i><span>Ingreso y Salida</span><i class="bi bi-chevron-down ms-auto"></i>
+                    </a>
+                    <ul id="Marcas-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+
+
+
+                        @if (Session["IdRoleUser"].ToString() == "1" || Session["IdRoleUser"].ToString() == "5")
+                        {
+                            <li>
+                                <a href="@Url.Action("TimeMarkTeacher","Teachers")">
+                                    <i class="bi bi-circle"></i><span>Marcar Asistencia</span>
+                                </a>
+                            </li>
+                        }
+
+                        @if (Session["IdRoleUser"].ToString() == "1")
+                        {
+                            <li>
+                                <a href="@Url.Action("Index", "Teachers", new { userId = Session["UserId"] })">
+                                    <i class="bi bi-circle"></i><span>Todas las Marcas</span>
+                                </a>
+                            </li>
+
+
+
+
+                        }
+
+
+
+
+                    </ul>
+                </li>
+                @*End Marcas Nav*@
+
+                <li class="nav-item">
+                    <a class="nav-link collapsed" data-bs-target="#Grupos-nav" data-bs-toggle="collapse" href="#">
+                        <i class="bi bi-menu-button-wide"></i><span>Grupos</span><i class="bi bi-chevron-down ms-auto"></i>
+                    </a>
+                    <ul id="Grupos-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                        <li>
+                            <a href="@Url.Action("CreateGroup","Group")">
+                                <i class="bi bi-circle"></i><span>Agregar Grupo</span>
+                            </a>
+                        </li>
+                        <li>
+
+                            <a href="@Url.Action("ShowGroups","Group")">
+                                <i class="bi bi-circle"></i><span>Ver Grupos </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("SetPeople","Group", new { init = true, groupIdP = 0 })">
+                                <i class="bi bi-circle"></i><span>Asignar Personas</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("RemovePeople","Group", new { init = true, groupIdP = 0 })">
+                                <i class="bi bi-circle"></i><span>Remover Personas</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                @*End Matriculas Nav*@
 
 
                 <li class="nav-item">
@@ -156,60 +222,6 @@
                 </li><!-- End Matriculas Nav -->
 
 
-                <li class="nav-item">
-                    <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-                        <i class="bi bi-journal-text"></i><span>Usuarios</span><i class="bi bi-chevron-down ms-auto"></i>
-                    </a>
-                    <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                        <li>
-                            <a href="@Url.Action("Index","User")">
-                                <i class="bi bi-circle"></i><span>Lista de Usuarios</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="@Url.Action("Customer","Admin")">
-                                <i class="bi bi-circle"></i><span>Registrar Usuario</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="@Url.Action("ListRoles","Role")">
-                                <i class="bi bi-circle"></i><span>Administrar Roles</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li><!-- End Usarios Nav -->
-
-
-                <li class="nav-item">
-                    <a class="nav-link collapsed" data-bs-target="#Grupos-nav" data-bs-toggle="collapse" href="#">
-                        <i class="bi bi-menu-button-wide"></i><span>Grupos</span><i class="bi bi-chevron-down ms-auto"></i>
-                    </a>
-                    <ul id="Grupos-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                        <li>
-                            <a href="@Url.Action("CreateGroup","Group")">
-                                <i class="bi bi-circle"></i><span>Agregar Grupo</span>
-                            </a>
-                        </li>
-                        <li>
-
-                            <a href="@Url.Action("ShowGroups","Group")">
-                                <i class="bi bi-circle"></i><span>Ver Grupos </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="@Url.Action("SetPeople","Group", new { init = true, groupIdP = 0 })">
-                                <i class="bi bi-circle"></i><span>Asignar Personas</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="@Url.Action("RemovePeople","Group", new { init = true, groupIdP = 0 })">
-                                <i class="bi bi-circle"></i><span>Remover Personas</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                @*End Matriculas Nav*@
-
 
 
                 <!--<li class="nav-item">
@@ -246,7 +258,14 @@
                     {
                         <li>
                             <a href="@Url.Action("RequestTeacher","Teachers")">
-                                <i class="bi bi-circle"></i><span>Horas Profesores</span>
+                                <i class="bi bi-circle"></i><span>Lista de Profesores</span>
+                            </a>
+                        </li>
+
+
+                        <li>
+                            <a href="@Url.Action("RequestTeachersSchedules","Teachers")">
+                                <i class="bi bi-circle"></i><span>Lista de Horarios</span>
                             </a>
                         </li>
                     }
@@ -256,31 +275,28 @@
             @*End Teachers Nav*@
 
             <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#Marcacion-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-menu-button-wide"></i><span>Marcacion</span><i class="bi bi-chevron-down ms-auto"></i>
+                <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-journal-text"></i><span>Usuarios</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
-                <ul id="Marcacion-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-
-                    @if (Session["IdRoleUser"].ToString() == "1" || Session["IdRoleUser"].ToString() == "5")
-                    {
-                        <li>
-                            <a href="@Url.Action("TimeMarkTeacher","Teachers")">
-                                <i class="bi bi-circle"></i><span>Marcar Entrada/Salida</span>
-                            </a>
-                        </li>
-                    }
-
-                    @if (Session["IdRoleUser"].ToString() == "1")
-                    {
-                        <li>
-                            <a href="@Url.Action("Index", "Teachers", new { userId = Session["UserId"] })">
-                                <i class="bi bi-circle"></i><span>Todas las Marcas</span>
-                            </a>
-                        </li>
-                    }
+                <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="@Url.Action("Index","User")">
+                            <i class="bi bi-circle"></i><span>Lista de Usuarios</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Customer","Admin")">
+                            <i class="bi bi-circle"></i><span>Registrar Usuario</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("ListRoles","Role")">
+                            <i class="bi bi-circle"></i><span>Administrar Roles</span>
+                        </a>
+                    </li>
                 </ul>
-            </li>
-            @*End Teachers Nav*@
+            </li><!-- End Usarios Nav -->
+
 
 
         </ul>

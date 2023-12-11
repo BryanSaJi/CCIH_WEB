@@ -151,7 +151,23 @@ namespace CCIH.Models
             }
         }
 
+        public List<TeacherEnt> RequestTeachersSchedules()
+        {
+            using (var client = new HttpClient())
+            {
+                string url = apiEnviroment.getApiUrl() + "api/RequestTeachersSchedules";
+                //String Token = HttpContext.Current.Session["TokenUser"].ToString();
+                //client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
+                HttpResponseMessage resp = client.GetAsync(url).Result;
 
+                if (resp.IsSuccessStatusCode)
+                {
+                    return resp.Content.ReadFromJsonAsync<List<TeacherEnt>>().Result;
+                }
+
+                return new List<TeacherEnt>();
+            }
+        }
 
 
     }

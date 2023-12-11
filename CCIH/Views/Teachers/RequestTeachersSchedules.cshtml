@@ -6,26 +6,7 @@
 }
 
 
-<heah>
-    <link rel="stylesheet" href="~/assets/Administration/css/datatable/jquery.dataTables.min.css" />
-    <link rel="stylesheet" href="~/assets/Administration/css/datatable/buttons.dataTables.min.css" />
-    <link rel="stylesheet" href="~/assets/Administration/css/datatable/1.5.1_css_dataTables.dateTime.min.css" />
 
-    <script defer src="~/assets/Administration/js/DataTable/code.jquery.com_jquery-3.7.0.js"></script>
-    <script defer src="~/assets/Administration/js/DataTable/cdn.datatables.net_1.13.5_js_jquery.dataTables.min.js"></script>
-    <script defer src="~/assets/Administration/js/DataTable/cdn.datatables.net_buttons_2.4.1_js_dataTables.buttons.min.js"></script>
-    <script defer src="~/assets/Administration/js/DataTable/cdnjs.cloudflare.com_ajax_libs_jszip_3.10.1_jszip.min.js"></script>
-    <script defer src="~/assets/Administration/js/DataTable/cdnjs.cloudflare.com_ajax_libs_pdfmake_0.1.53_pdfmake.min.js"></script>
-    <script defer src="~/assets/Administration/js/DataTable/cdnjs.cloudflare.com_ajax_libs_pdfmake_0.1.53_vfs_fonts.js"></script>
-    <script defer src="~/assets/Administration/js/DataTable/cdn.datatables.net_buttons_2.4.1_js_buttons.html5.min.js"></script>
-    <script defer src="~/assets/Administration/js/DataTable/cdn.datatables.net_buttons_2.4.1_js_buttons.print.min.js"></script>
-    <script defer src="~/assets/Administration/js/DataTable/2.29.2_moment.min.js"></script>
-    <script defer src="~/assets/Administration/js/DataTable/1.5.1_js_dataTables.dateTime.min.js"></script>
-
-    <script defer src="~/assets/Administration/js/DataTable/DataTableUsers.js"></script>
-
-
-</heah>
 
 
 <main id="main" class="main">
@@ -81,7 +62,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-
+                                           
                                             @foreach (var item in Model)
                                             {
 
@@ -90,11 +71,10 @@
 
                                                     <td>@item.PersonalID</td>
                                                     <td>@item.Name</td>
-                                                    <td>@(item.EntryTime.HasValue ? item.EntryTime.Value.ToString("yyyy-MM-dd HH:mm:ss") : "Registro Pendiente.")</td>
-                                                    <td>@(item.ExitTime.HasValue ? item.ExitTime.Value.ToString("yyyy-MM-dd HH:mm:ss") : "Registro Pendiente.")</td>
-
+                                                    <td>@item.Schedule</td>
                                                 </tr>
 
+                                      
 
                                             }
 

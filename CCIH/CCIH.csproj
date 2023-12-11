@@ -796,6 +796,7 @@
     <Content Include="Views\Teachers\TotalWorkHours.cshtml" />
     <Content Include="Views\Error\ErrorHome.cshtml" />
     <Content Include="Views\Error\ErrorAdministration.cshtml" />
+    <Content Include="Views\Teachers\RequestTeachersSchedules.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
