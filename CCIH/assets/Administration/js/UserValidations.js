@@ -2,18 +2,10 @@
 //////////////////////     Esperar 5 segundos y luego ocultar el mensaje     ////////////////////////////////////////////
 
 setTimeout(function () {
-    var mensajeDiv = document.getElementById('mensajePositivo');
+    var mensajeDiv = document.getElementById('mensaje');
     if (mensajeDiv != null) {
         mensajeDiv.style.display = 'none';
     }
-
-    var mensajeDiv2 = document.getElementById('mensajeNegativo');
-    if (mensajeDiv2 != null) {
-        mensajeDiv2.style.display = 'none';
-    }
-
-    Session["MensajePositivo"] = 0;
-
 }, 5000); // 5000 milisegundos = 5 segundos
 
 
@@ -71,7 +63,7 @@ document.querySelector('#email').addEventListener('keyup', function () {
         validationMessage.innerHTML = "";
         this.style.borderColor = ""; // Restaurar el color del borde
     } else if (!isValidEmail(email)) {
-        validationMessage.innerHTML = "Por favor, ingrese un correo electrónico válido, ejemplo: correo@email.com";
+        validationMessage.innerHTML = "Por favor, ingrese un correo electronico valido, ejemplo: correo@email.com";
         this.style.borderColor = "FireBrick";
     } else {
         validationMessage.innerHTML = "";
@@ -95,10 +87,10 @@ document.querySelector('#cel').addEventListener('input', function () {
         validationMessage.innerHTML = "";
         this.style.borderColor = ""; // Restaurar el color del borde
     } else if (!/^\d+$/.test(phone)) {
-        validationMessage.innerHTML = "Telefono solo permite números.";
+        validationMessage.innerHTML = "Telefono solo permite numeros.";
         this.style.borderColor = "FireBrick";
     } else if (phone.length < 8) {
-        validationMessage.innerHTML = "Telefono debe ser mínimo de 8 dígitos.";
+        validationMessage.innerHTML = "Telefono debe ser minimo de 8 digitos.";
         this.style.borderColor = "FireBrick";
     } else {
         validationMessage.innerHTML = "";
@@ -115,10 +107,10 @@ document.querySelector('#PersonalId').addEventListener('input', function () {
         validationMessage.innerHTML = "";
         this.style.borderColor = ""; // Restaurar el color del borde
     } else if (!/^\d+$/.test(cedula)) {
-        validationMessage.innerHTML = "Cedula solo permite números.";
+        validationMessage.innerHTML = "Cedula solo permite numeros.";
         this.style.borderColor = "FireBrick";
     } else if (cedula.length < 9) {
-        validationMessage.innerHTML = "Telefono debe ser mínimo de 9 dígitos.";
+        validationMessage.innerHTML = "Telefono debe ser minimo de 9 dígitos.";
         this.style.borderColor = "FireBrick";
     } else {
         validationMessage.innerHTML = "";
@@ -242,7 +234,7 @@ function validateDateOfBirth() {
     }
 
     if (age < 6) {
-        document.getElementById('validationMessagedate').textContent = 'La persona debe tener al menos 6 annos de edad.';
+        document.getElementById('validationMessagedate').textContent = 'La edad debe ser mayor a 6.';
     } else {
         document.getElementById('validationMessagedate').textContent = '';
     }

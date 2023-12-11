@@ -192,13 +192,15 @@ namespace CCIH.Controllers
     
         public ActionResult ConsultRegistrations()
         {
-            if ((int)Session["MensajePositivo"] == 1)
+            if (TempData.ContainsKey("RespuestaPositivaEditarMatricula"))
             {
-                ViewBag.MsjPantallaPostivo = "Se ha actualizado la informacion de la matricula";
+                ViewBag.MsjPantallaPositivo = "Informacion de la matricula actualizada.";
+                TempData.Remove("RespuestaPositivaEditarMatricula");
             }
-            if ((int)Session["MensajeNegativo"] == 1)
+            if (TempData.ContainsKey("RespuestaNegativaEditarMatricula"))
             {
-                ViewBag.MsjPantallaNegativo = "No se ha actualizado la informacion de la matricula";
+                ViewBag.MsjPantallaNegativo = "No se pudo actualizar la matricula.";
+                TempData.Remove("RespuestaNegativaEditarMatricula");
             }
 
             var data = modelRegistration.RequestRegistrations();

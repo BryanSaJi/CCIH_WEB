@@ -29,6 +29,8 @@ namespace CCIH.Controllers
         {
         
             var data = modelTeacher.MarkHistory();
+
+
             return View(data);
 
         }

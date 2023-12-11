@@ -47,15 +47,15 @@
                 <div class="card-body">
 
                     <br />
-                    @if (ViewBag.MsjPantallaPostivo != null)
+                    @if (ViewBag.MsjPantallaPositivo != null)
                     {
-                        <div id="mensajePositivo" style="text-align:center" class="alert alert-success" role="alert">
-                            @ViewBag.MsjPantallaPostivo
+                        <div id="mensaje" style="text-align:center" class="alert alert-success" role="alert">
+                            @ViewBag.MsjPantallaPositivo
                         </div>
                     }
                     @if (ViewBag.MsjPantallaNegativo != null)
                     {
-                        <div id="mensajeNegativo" style="text-align:center" class="alert alert-danger" role="alert">
+                        <div id="mensaje" style="text-align:center" class="alert alert-danger" role="alert">
                             @ViewBag.MsjPantallaNegativo
                         </div>
                     }
@@ -133,7 +133,7 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-1">
                                     <a href="@Url.Action("Index", "Admin")" class="btn btn-secondary">Regresar</a>
                                 </div>
                             </div>
@@ -154,11 +154,6 @@
         var mensajeDiv = document.getElementById('mensaje');
         if (mensajeDiv != null) {
             mensajeDiv.style.display = 'none';
-        }
-
-        var mensajeDiv2 = document.getElementById('mensajeNegativo');
-        if (mensajeDiv2 != null) {
-            mensajeDiv2.style.display = 'none';
         }
 
         Session["MensajePositivo"] = 0;

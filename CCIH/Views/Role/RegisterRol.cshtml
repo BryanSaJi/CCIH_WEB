@@ -1,5 +1,4 @@
-﻿
-@model CCIH.Entities.RoleEnt
+﻿@model CCIH.Entities.RoleEnt
 @{
     ViewBag.Title = "CrearRol";
     Layout = "~/Views/Shared/_Layout_Administration.cshtml";
@@ -7,7 +6,7 @@
 
 <main id="main" class="main">
 
-    <div class="pagetitle" >
+    <div class="pagetitle">
         <h1>Matriculas Activas</h1>
         <nav>
             <ol class="breadcrumb">
@@ -26,13 +25,13 @@
                     <div class="card-body">
                         <h3 class="card-title">Crear Rol:</h3>
 
-                        @using (Html.BeginForm("RegisterRole", "Role", FormMethod.Post))
+                        @using (Html.BeginForm("CreateRole", "Role", FormMethod.Post))
                         {
 
                             <div class="row mb-3 mx-auto">
                                 <div class="col-md-8 mx-auto">
                                     <div class="form-floating mb-3 mb-md-0">
-                                        @Html.TextBoxFor(m => m.IdRole, new { @type = "text", @placeholder = "Nombre del Rol", @class = "form-control" })
+                                        @Html.TextBoxFor(m => m.Name, new { @type = "text", @placeholder = "Nombre del Rol", @class = "form-control" })
                                         <label for="inputRolName">Nombre del Rol</label>
                                     </div>
                                 </div>
@@ -40,20 +39,23 @@
                             <div class="row mb-3 mx-auto">
                                 <div class="col-md-8 mx-auto">
                                     <div class="form-floating">
-                                        @Html.TextBoxFor(m => m.IdUser, new { @type = "text", @class = "form-control", @Value = @Session["IdUser"].ToString(), @disabled = "disabled" })
+                                        @Html.TextBoxFor(m => m.UserId, new { @type = "text", @class = "form-control", @Value = @Session["IdUser"].ToString(), @disabled = "disabled" })
                                         <label for="inputLastName">Id Usuario que crea Rol</label>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="d-flex justify-content-between">
-                                        <button type="submit" class="btn btn-primary btn-block">Crear Rol</button>
+
+                            
+
+                            <div class="row text-center">
+                                <div class="col-6">
                                         <a href="@Url.Action("Index", "Admin")" class="btn btn-secondary">Regresar</a>
-                                    </div>
+                                </div>
+                                <div class="col-6">
+                                        <button type="submit" class="btn btn-primary btn-block">Crear Rol</button>
                                 </div>
                             </div>
-                           
+
 
                         }
 

@@ -19,14 +19,6 @@ namespace CCIH.Controllers
         public ActionResult ListRoles()
         {
             var data = model.RequestRoles();
-            if ((int)Session["MensajePositivo"] == 1)
-            {
-                ViewBag.MsjPantallaPostivo = "Operacion Exitosa";
-            }
-            if ((int)Session["MensajeNegativo"] == 1)
-            {
-                ViewBag.MsjPantallaNegativo = "Operacion sin Exito";
-            }
             return View(data);
         }
 
@@ -58,7 +50,7 @@ namespace CCIH.Controllers
 
 
         [HttpGet]
-        public ActionResult RegisterRole()
+        public ActionResult RegisterRol()
         {
             return View();
         }
@@ -67,16 +59,12 @@ namespace CCIH.Controllers
         [HttpGet]
         public ActionResult EditRole(long i)
         {
-            Session["MensajeNegativo"] = 0;
-            Session["MensajePositivo"] = 0;
             var data = model.RequestRole(i);
             return View(data);
         }
         [HttpPost]
         public ActionResult EditRole(RoleEnt ent)
         {
-            Session["MensajeNegativo"] = 0;
-            Session["MensajePositivo"] = 0;
             try
             {
 
@@ -84,13 +72,11 @@ namespace CCIH.Controllers
 
                 if (resp > 0)
                 {
-                    Session["MensajePositivo"] = 1;
                     return RedirectToAction("ListRoles");
                 }
                         
                 else
                 {
-                    Session["MensajeNegativo"] = 1;
                     return View("ListRoles");
                 }
             }

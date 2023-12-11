@@ -33,12 +33,10 @@ namespace CCIH.Controllers
         public ActionResult CreateRegistration(RegistrationEnt ent)
         {
             ent.StatusId = 1;
-            int cedula = int.Parse(ent.PersonalID);
+            //var datos = modelUser.RequestUserByPersonalID(ent.PersonalID);
 
-            var datos = modelUser.RequestUser(cedula);
-
-            if (datos != null)
-                ent.UserId = datos.UserId;
+            //if (datos != null)
+            //    ent.UserId = datos.UserId;
 
             try
             {
@@ -61,7 +59,7 @@ namespace CCIH.Controllers
             {
                 var exept = ex.Message;
 
-                return View("Error");
+                return RedirectToAction("ErrorAdministration", "Error");
             }
         }
 
@@ -82,8 +80,6 @@ namespace CCIH.Controllers
             
 
             var data = modelRegistration.RequestRegistration(i);
-            Session["MensajeNegativo"] = 0;
-            Session["MensajePositivo"] = 0;
             //Estatus
             var state = modelState.RequestStatusScrollDown();
             var ComboState = new List<SelectListItem>();
@@ -112,6 +108,7 @@ namespace CCIH.Controllers
                     });
                 }
             }
+            ViewBag.Course = ComboCourse;
 
             //Modalidad
             var modality = modelModality.RequestModalityScrollDown();
@@ -270,12 +267,12 @@ namespace CCIH.Controllers
 
             if (resp > 0)
             {
-                Session["MensajePositivo"] = 1;
+                TempData["RespuestaPositivaEditarMatricula"] = true;
                 return RedirectToAction("ConsultRegistrations", "Admin");
             }
             else
             {
-                Session["MensajeNegativo"] = 1;
+                TempData["RespuestaNegativaEditarMatricula"] = true;
                 return RedirectToAction("ConsultRegistrations", "Admin");
             }
         }
@@ -324,11 +321,6 @@ namespace CCIH.Controllers
                 {
                     item.StatusName = "Activo";                              
                 }
-
-                if((int)Session["MensajePositivo"] == 1)
-                {
-                    ViewBag.MsjPantallaPostivo = "Se ha guardado la informacion del cliente";
-                }
             }
 
             datos = datos.OrderByDescending(x => x.CreationDate).ToList();
@@ -339,7 +331,6 @@ namespace CCIH.Controllers
         [HttpGet]
         public ActionResult SeeCustomer(long i)
         {
-            Session["MensajePositivo"] = 0;
             var datos = modelUser.RequestUser(i);
 
             var registrations = modelRegistration.RequestRegistrations();

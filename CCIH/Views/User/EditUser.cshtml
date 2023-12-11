@@ -25,18 +25,7 @@
         </div><!-- End Page Title -->
 
 
-        @if (ViewBag.MsjPantallaPostivo != null)
-        {
-            <div id="mensajePositivo" style="text-align:center" class="alert alert-success" role="alert">
-                @ViewBag.MsjPantallaPostivo
-            </div>
-        }
-        @if (ViewBag.MsjPantallaNegativo != null)
-        {
-            <div id="mensajeNegativo" style="text-align:center" class="alert alert-danger" role="alert">
-                @ViewBag.MsjPantallaNegativo
-            </div>
-        }
+        
 
         <section class="section">
             <div class="row">
@@ -45,10 +34,24 @@
                     <div class="card-body">
                         <h5 class="card-title">Informacion del Usuario</h5>
 
+                        @if (ViewBag.MsjPantallaPositivo != null)
+                        {
+                            <div id="mensaje" style="text-align:center" class="alert alert-success" role="alert">
+                                @ViewBag.MsjPantallaPositivo
+                            </div>
+                        }
+                        @if (ViewBag.MsjPantallaNegativo != null)
+                        {
+                            <div id="mensaje" style="text-align:center" class="alert alert-danger" role="alert">
+                                @ViewBag.MsjPantallaNegativo
+                            </div>
+                        }
+
                         <div class="row">
                             <div class="col-lg-6">
 
                                 <!-- Row 1 -->
+                                @Html.HiddenFor(m => m.UserId)
 
                                 <div class="row">
                                     <div class="col-lg-6">

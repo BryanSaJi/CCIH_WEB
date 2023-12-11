@@ -21,12 +21,7 @@
             </nav>
         </div><!-- End Page Title -->
 
-        @if (ViewBag.MsjPantalla != null)
-        {
-            <div id="mensajeNegativo" style="text-align:center" class="alert alert-danger" role="alert">
-                @ViewBag.MsjPantalla
-            </div>
-        }
+
 
         <section class="section">
             <div class="row">
@@ -34,7 +29,12 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Matricula</h5>
-
+                        @if (ViewBag.MsjPantalla != null)
+                        {
+                            <div id="mensajeNegativo" style="text-align:center" class="alert alert-danger" role="alert">
+                                @ViewBag.MsjPantalla
+                            </div>
+                        }
                         <div class="row">
                             <div class="col-lg-6">
                                 <!-- General Form Elements -->
@@ -43,7 +43,7 @@
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="personalIDField" class="col-form-label">Cedula</label>
-                                            @Html.TextBoxFor(m => m.PersonalID, new { @onkeyup = "ConsultUserInfo()", @type = "text", @placeholder = "Digite la Cédula", @class = "form-control", id = "PersonalId", @Value = @Session["CedulaCliente"].ToString() })
+                                            @Html.TextBoxFor(m => m.PersonalID, new { @type = "text", @placeholder = "Digite la Cédula", @class = "form-control", id = "PersonalId", @Value = @Session["CedulaCliente"].ToString() })
                                             <div class="validation-message text-danger" id="validationMessage"></div>
                                         </div>
                                     </div>

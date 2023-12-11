@@ -7,9 +7,9 @@
 
 <heah>
 
-
     <link rel="stylesheet" href="~/assets/Administration/css/datatable/jquery.dataTables.min.css" />
     <link rel="stylesheet" href="~/assets/Administration/css/datatable/buttons.dataTables.min.css" />
+    <link rel="stylesheet" href="~/assets/Administration/css/datatable/1.5.1_css_dataTables.dateTime.min.css" />
 
     <script defer src="~/assets/Administration/js/DataTable/code.jquery.com_jquery-3.7.0.js"></script>
     <script defer src="~/assets/Administration/js/DataTable/cdn.datatables.net_1.13.5_js_jquery.dataTables.min.js"></script>
@@ -19,7 +19,10 @@
     <script defer src="~/assets/Administration/js/DataTable/cdnjs.cloudflare.com_ajax_libs_pdfmake_0.1.53_vfs_fonts.js"></script>
     <script defer src="~/assets/Administration/js/DataTable/cdn.datatables.net_buttons_2.4.1_js_buttons.html5.min.js"></script>
     <script defer src="~/assets/Administration/js/DataTable/cdn.datatables.net_buttons_2.4.1_js_buttons.print.min.js"></script>
-    <script defer src="~/assets/Administration/js/DataTable/DataTable.js"></script>
+    <script defer src="~/assets/Administration/js/DataTable/2.29.2_moment.min.js"></script>
+    <script defer src="~/assets/Administration/js/DataTable/1.5.1_js_dataTables.dateTime.min.js"></script>
+
+    <script defer src="~/assets/Administration/js/DataTable/DataTableUsers.js"></script>
 
 
 </heah>
@@ -45,25 +48,29 @@
                 <div class="card">
                     <div class="card-body">
                         <br />
-                        @if (ViewBag.MsjPantallaPostivo != null)
-                        {
-                            <div style="text-align:center" class="alert alert-success" role="alert">
-                                @ViewBag.MsjPantallaPostivo
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <a href="@Url.Action("RegisterRol","Role")" class="btn btn-sm text-white" style="background-color: #5f81e8;">Crear nuevo Rol</a>
                             </div>
-                        }
-                        @if (ViewBag.MsjPantallaNegativo != null)
-                        {
-                            <div style="text-align:center" class="alert alert-danger" role="alert">
-                                @ViewBag.MsjPantallaNegativo
-                            </div>
-                        }
-                        
-                        <br />
+                        </div>
+                        <br>
                         <div class="row">
                             <br>
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
+                                        @if (ViewBag.MsjPantallaPostivo != null)
+                                        {
+                                            <div style="text-align:center" class="alert alert-success" role="alert">
+                                                @ViewBag.MsjPantallaPostivo
+                                            </div>
+                                        }
+                                        @if (ViewBag.MsjPantallaNegativo != null)
+                                        {
+                                            <div style="text-align:center" class="alert alert-danger" role="alert">
+                                                @ViewBag.MsjPantallaNegativo
+                                            </div>
+                                        }
                                         <br />
                                         <table id="DataTable" class="table table-hover" style="width: 100%">
                                             <thead>
@@ -93,11 +100,8 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-12">
-                                        <div class="d-flex justify-content-between">
-                                            <a href="@Url.Action("RegisterRole","Role")" class="btn btn-primary">Registrar Rol</a>
-                                            <a href="@Url.Action("Index", "Admin")" class="btn btn-secondary">Regresar</a>
-                                        </div>
+                                    <div class="col-1">
+                                        <a href="@Url.Action("Index", "Admin")" class="btn btn-secondary">Regresar</a>
                                     </div>
                                 </div>
 

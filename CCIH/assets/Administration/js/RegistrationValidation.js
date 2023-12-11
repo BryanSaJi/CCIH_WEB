@@ -4,17 +4,10 @@
 //////////////////////     Esperar 5 segundos y luego ocultar el mensaje     ////////////////////////////////////////////
 
 setTimeout(function () {
-    var mensajeDiv = document.getElementById('mensajePositivo');
+    var mensajeDiv = document.getElementById('mensaje');
     if (mensajeDiv != null) {
         mensajeDiv.style.display = 'none';
     }
-
-    var mensajeDiv2 = document.getElementById('mensajeNegativo');
-    if (mensajeDiv2 != null) {
-        mensajeDiv2.style.display = 'none';
-    }
-
-    Session["MensajePositivo"] = 0;
 
 }, 5000); // 5000 milisegundos = 5 segundos
 
@@ -75,10 +68,10 @@ document.querySelector('#PersonalId').addEventListener('input', function () {
         validationMessage.innerHTML = "";
         this.style.borderColor = ""; // Restaurar el color del borde
     } else if (!/^\d+$/.test(cedula)) {
-        validationMessage.innerHTML = "Cedula solo permite números.";
+        validationMessage.innerHTML = "Cedula solo permite numeros.";
         this.style.borderColor = "FireBrick";
     } else if (cedula.length < 9) {
-        validationMessage.innerHTML = "Telefono debe ser mínimo de 9 dígitos.";
+        validationMessage.innerHTML = "Telefono debe ser minimo de 9 dígitos.";
         this.style.borderColor = "FireBrick";
     } else {
         validationMessage.innerHTML = "";
@@ -88,28 +81,55 @@ document.querySelector('#PersonalId').addEventListener('input', function () {
 
 });
 
+
+/////////////////////////////// name  ////////////////////////////////////////////////////////////////
+
+document.querySelector('#nameField').addEventListener('input', function () {
+    var name = this.value;
+    var validationMessage = document.querySelector('#nameValidationMessage');
+
+    if (name.trim() === "") {
+        validationMessage.innerHTML = "";
+        this.style.borderColor = ""; // Restaurar el color del borde
+    } else if (!/^[A-Za-zÁÉÍÓÚáéíóúñÑ\s]+$/.test(name)) {
+        validationMessage.innerHTML = "Nombre solo permite letras.";
+        this.style.borderColor = "FireBrick";
+    } else {
+        validationMessage.innerHTML = "";
+        this.style.borderColor = "Green";
+    }
+});
+
+
 ////////////////////////////  Cursos   ///////////////////////////////////////////////////////////////////
 
 
 document.querySelector('#ListaCursos').addEventListener('input', function () {
-    var dato = this.value;
-    if (dato > 0) {
+    var validationMessage = document.querySelector('#validationCurso');
+    var Curso = this.value;
+    if (Curso > 0) {
         this.style.borderColor = "Green";
+        validationMessage.innerHTML = "";
     } else {
         this.style.borderColor = "FireBrick";
+        validationMessage.innerHTML = "Seleccione un Curso.";
+
     }
 });
 
 ////////////////////////////  Modalidad   ///////////////////////////////////////////////////////////////////
 
 
-
 document.querySelector('#ListaModalidad').addEventListener('input', function () {
-    var dato = this.value;
-    if (dato > 0) {
+    var validationMessage = document.querySelector('#validationModalidad');
+    var Curso = this.value;
+    if (Curso > 0) {
         this.style.borderColor = "Green";
+        validationMessage.innerHTML = "";
     } else {
         this.style.borderColor = "FireBrick";
+        validationMessage.innerHTML = "Seleccione una Modalidad.";
+
     }
 });
 
@@ -118,11 +138,15 @@ document.querySelector('#ListaModalidad').addEventListener('input', function () 
 
 
 document.querySelector('#ListaNivel').addEventListener('input', function () {
-    var dato = this.value;
-    if (dato > 0) {
+    var validationMessage = document.querySelector('#validationHorario');
+    var Curso = this.value;
+    if (Curso > 0) {
         this.style.borderColor = "Green";
+        validationMessage.innerHTML = "";
     } else {
         this.style.borderColor = "FireBrick";
+        validationMessage.innerHTML = "Seleccione un Nivel.";
+
     }
 });
 
@@ -131,11 +155,15 @@ document.querySelector('#ListaNivel').addEventListener('input', function () {
 
 
 document.querySelector('#ListaHorario').addEventListener('input', function () {
-    var dato = this.value;
-    if (dato > 0) {
+    var validationMessage = document.querySelector('#validationHorario');
+    var Curso = this.value;
+    if (Curso > 0) {
         this.style.borderColor = "Green";
+        validationMessage.innerHTML = "";
     } else {
         this.style.borderColor = "FireBrick";
+        validationMessage.innerHTML = "Seleccione un Horario.";
+
     }
 });
 
@@ -161,16 +189,16 @@ document.querySelector('#Monto').addEventListener('keyup', function () {
 
 document.querySelector('#fechamatricula').addEventListener('input', function () {
     var Birthdate = this.value;
+    var validationMessage = document.querySelector('#ValidationMessageMonto');
     if (Birthdate != null) {
         this.style.borderColor = "Green";
     } else {
         this.style.borderColor = "FireBrick";
+        validationMessage.innerHTML = "Seleccione la fecha de la matricula.";
     }
 });
 
 /////////////////////////////// DayPay  ////////////////////////////////////////////////////////////////
-
-
 
 document.querySelector('#DayPay').addEventListener('keyup', function () {
     var dato = this.value;
@@ -194,5 +222,7 @@ document.querySelector('#Comment').addEventListener('input', function () {
         this.style.borderColor = "Green";
     } else {
         this.style.borderColor = "FireBrick";
+        validationMessage.innerHTML = "Digite un comentario.";
+
     }
 });

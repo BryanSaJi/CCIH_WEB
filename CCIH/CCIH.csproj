@@ -271,6 +271,7 @@
     <Content Include="assets\Administration\js\DataTable\code.jquery.com_jquery-3.7.0.js" />
     <Content Include="assets\Administration\js\DataTable\DataTableHoras.js" />
     <Content Include="assets\Administration\js\DataTable\DataTableGroups.js" />
+    <Content Include="assets\Administration\js\DataTable\DataTableTeachers.js" />
     <Content Include="assets\Administration\js\DataTable\DataTableUsers.js" />
     <Content Include="assets\Administration\js\DataTable\DataTablePreregistration.js" />
     <Content Include="assets\Administration\js\DataTable\DataTableCustomers.js" />

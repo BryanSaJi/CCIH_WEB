@@ -48,14 +48,6 @@ namespace CCIH.Controllers
                 }
             }
 
-            if ((int)Session["MensajePositivo"] == 1)
-            {
-                ViewBag.MsjPantallaPostivo = "Operacion Exitosa";
-            }
-            if ((int)Session["MensajeNegativo"] == 1)
-            {
-                ViewBag.MsjPantallaNegativo = "Operacion sin Exito";
-            }
 
             data = data.OrderByDescending(x => x.LastActivity).ToList();
             return View(data);
@@ -77,18 +69,15 @@ namespace CCIH.Controllers
                     if (ent.IdRol == 3)
                     {
                         Session["CedulaCliente"] = ent.PersonalID;
-                        Session["MensajePositivo"] = 1;
                         return RedirectToAction("CreateRegister", "Admin");
                     }
                     else
                     {
-                        Session["MensajePositivo"] = 1;
                         return RedirectToAction("Index", "User");
                     }
                 }
                 else
                 {
-                    Session["MensajeNegativo"] = 4;
                     return RedirectToAction("Customer", "Admin");
                 }
             }
@@ -146,8 +135,6 @@ namespace CCIH.Controllers
         [HttpPost]
         public ActionResult ChangePassword(UserEnt ent)
         {
-            Session["MensajeNegativo"] = 0;
-            Session["MensajePositivo"] = 0;
             try
             {
                 ent.UserId = long.Parse(Session["IdUser"].ToString());
@@ -161,20 +148,15 @@ namespace CCIH.Controllers
                     if (ent.UserPw != ent.NewUserPw)
                     {
                         var resp = model.ChangePassword(ent);
-                        Session["MensajePositivo"] = 1;
                         return RedirectToAction("ChangePassword");
                     }
-                    Session["MensajeNegativo"] = 2;
                     return RedirectToAction("ChangePassword");
                 }
-                Session["MensajeNegativo"] = 3;
                 return RedirectToAction("ChangePassword");
             }
             catch (Exception ex)
             {
                 var exept = ex.Message;
-
-                Session["MensajeNegativo"] = 1;
                 return RedirectToAction("ChangePassword");
             }
         }
@@ -248,17 +230,16 @@ namespace CCIH.Controllers
             }
             ViewBag.Identifications = ComboIdentifications;
 
-            if ((int)Session["MensajePositivo"] == 1)
+            if (TempData.ContainsKey("RespuestaPositivaEditarUsuario"))
             {
-                ViewBag.MsjPantallaPostivo = "El usuario fue modificado de manera correcta";
+                ViewBag.MsjPantallaPositivo = "Informacion del Usuario actualizada.";
+                TempData.Remove("RespuestaPositivaEditarUsuario");
             }
-
-
-            if ((int)Session["MensajeNegativo"] == 2)
+            if (TempData.ContainsKey("RespuestaNegativaEditarUsuario"))
             {
-                ViewBag.MsjPantallaNegativo = "No se ha podido modificar la informacion del perfil";
+                ViewBag.MsjPantallaNegativo = "No se pudo actualizar el usuario.";
+                TempData.Remove("RespuestaNegativaEditarUsuario");
             }
-
 
             return View(data);
         }
@@ -273,24 +254,21 @@ namespace CCIH.Controllers
                 var resp = model.Edituser(ent);
 
                 if (resp > 0)
-                    if (ent.IdRol == 3)
-                    {
-                        return RedirectToAction("EditUser", "User", new { i = ent.UserId });
-                    }
-                    else
-                    {
-                        return RedirectToAction("EditUser", "User", new { i = ent.UserId }); 
-                    }
+                {
+                    TempData["RespuestaPositivaEditarUsuario"] = true;
+                    return RedirectToAction("EditUser", "User", new { i = ent.UserId });
+                }
                 else
                 {
-                    return View("Index");
+                    TempData["RespuestaNegativaEditarUsuario"] = true;
+                    return RedirectToAction("EditUser", "User", new { i = ent.UserId });
                 }
             }
             catch (Exception ex)
             {
                 var exept = ex.Message;
 
-                return View("Error");
+                return RedirectToAction("ErrorAdministration", "Error");
             }
         }
 
