@@ -151,7 +151,9 @@ namespace CCIH.Controllers
             try
             {
 
-                ent.EmployeeId =  long.Parse(Session["IdUser"].ToString());
+                //ent.EmployeeId =  long.Parse(Session["IdUser"].ToString());
+
+                ent.EmployeeId = 7;
 
                 var resp = model.CreatePayment(ent);
 
