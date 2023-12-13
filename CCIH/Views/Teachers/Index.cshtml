@@ -6,7 +6,7 @@
 }
 
 
-<heah>
+<head>
     <link rel="stylesheet" href="~/assets/Administration/css/datatable/jquery.dataTables.min.css" />
     <link rel="stylesheet" href="~/assets/Administration/css/datatable/buttons.dataTables.min.css" />
     <link rel="stylesheet" href="~/assets/Administration/css/datatable/1.5.1_css_dataTables.dateTime.min.css" />
@@ -19,16 +19,12 @@
     <script defer src="~/assets/Administration/js/DataTable/cdnjs.cloudflare.com_ajax_libs_pdfmake_0.1.53_vfs_fonts.js"></script>
     <script defer src="~/assets/Administration/js/DataTable/cdn.datatables.net_buttons_2.4.1_js_buttons.html5.min.js"></script>
     <script defer src="~/assets/Administration/js/DataTable/cdn.datatables.net_buttons_2.4.1_js_buttons.print.min.js"></script>
-    <script defer src="~/assets/Administration/js/DataTable/2.29.2_moment.min.js"></script>
-    <script defer src="~/assets/Administration/js/DataTable/1.5.1_js_dataTables.dateTime.min.js"></script>
-<<<<<<< Updated upstream
 
     <script defer src="~/assets/Administration/js/DataTable/DataTableUsers.js"></script>
 
-=======
->>>>>>> Stashed changes
 
-</heah>
+</head>
+
 
 
 <main id="main" class="main">
@@ -72,7 +68,7 @@
                             <!-- General Form Elements -->
 
 
-                            <div class="row">
+                            @*<div class="row">
                                 <div class="col-md-10">
                                     <table border="0" cellspacing="5" cellpadding="5">
                                         <tbody>
@@ -87,7 +83,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                            </div>
+                            </div>*@
 
                             <br>
 
@@ -127,24 +123,34 @@
                                                         }
                                                     </tr>
                                                 }
+
+
                                             </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th style="text-align:center">Cedula</th>
+                                                    <th style="text-align:center">Nombre</th>
+                                                    <th style="text-align:center">Entrada</th>
+                                                    <th style="text-align:center">Salida</th>
+                                                </tr>
+                                            </tfoot>
                                         </table>
+
+
                                     </div>
                                 </div>
                             </div>
                         </div>
-
+                        <div class="row">
+                            <div class="col-1">
+                                <button type="button" class="btn btn-secondary m-0 mb-3" onclick="window.history.back();">Regresar</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-1">
-                        <button type="button" class="btn btn-secondary m-0 mb-3" onclick="window.history.back();">Regresar</button>
-                    </div>
-                </div>
+                
             </div>
         </div>
     </section>
 </main><!-- End #main -->
 
-<script defer src="~/assets/Administration/js/DataTable/cdn.datatables.net_buttons_2.4.1_js_dataTables.buttons.min.js"></script>
-<script defer src="~/assets/Administration/js/DataTable/DataTableTeachers.js"></script>

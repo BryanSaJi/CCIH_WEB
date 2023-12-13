@@ -53,9 +53,9 @@
                                         <table id="eample" class="table table-hover" style="width: 100% !important;">
                                             <thead>
                                                 <tr>
-                                                    <th>IdCurso</th>
-                                                    <th>Nombre</th>
-                                                    <th>Accion</th>
+                                                    <th style="text-align:center">IdCurso</th>
+                                                    <th style="text-align:center">Nombre</th>
+                                                    <th style="text-align:center">Accion</th>
                                                 </tr>
                                             </thead>
 
@@ -66,7 +66,7 @@
                                                         <td>@item.CourseID</td>
                                                         <td>@item.Name</td>
                                                         <td style="text-align:center">
-                                                            <a type="submit" class="btn btn-outline-success btn-sm" href="@Url.Action("ConsultRegister","Registration", new { i = item.CourseID })"><i class="bi bi-check-circle"></i>Detalle</a>
+                                                            <a type="submit" style="color: #5f81e8" class="btn btn-outline-success btn-sm" href="@Url.Action("ConsultRegister","Registration", new { i = item.CourseID })"><i class="bi bi-check-circle"></i>Detalle</a>
                                                         </td>
                                                     </tr>
                                                 }

@@ -71,20 +71,20 @@
                                         <table id="DataTable" class="table table-hover" style="width: 100% !important;">
                                             <thead>
                                                 <tr>
-                                                    <th>Nombre</th>
-                                                    <th>Apellido</th>
-                                                    <th>Telefono</th>
-                                                    <th>Fecha</th>
-                                                    <th>Curso</th>
-                                                    <th>Modalidad</th>
-                                                    <th>Nivel</th>
-                                                    <th>Accion</th>
+                                                    <th style="text-align:center">Nombre</th>
+                                                    <th style="text-align:center">Apellido</th>
+                                                    <th style="text-align:center">Telefono</th>
+                                                    <th style="text-align:center">Fecha</th>
+                                                    <th style="text-align:center">Curso</th>
+                                                    <th style="text-align:center">Modalidad</th>
+                                                    <th style="text-align:center">Nivel</th>
+                                                    <th style="text-align:center">Accion</th>
                                                 </tr>
                                             </thead>
-                                            <tbody">
+                                            <tbody>
                                                 @foreach (var item in Model)
                                                 {
-                                                    <tr>
+                                                    <tr style="text-align:center">
                                                         <td>@item.Name</td>
                                                         <td>@item.LastName</td>
                                                         <td>@item.Phone</td>
@@ -93,12 +93,25 @@
                                                         <td>@item.Modality</td>
                                                         <td>@item.Level</td>
                                                         <td style="text-align:center">
-                                                            <a type="submit" class="btn btn-outline-success btn-sm" href="@Url.Action("ContactPreRegistration","Registration", new { q = item.PreRegistrationId })"><i class="bi bi-check-circle"></i>Contactado</a>
+                                                            <a type="submit" class="btn btn-success btn-sm" href="@Url.Action("ContactPreRegistration","Registration", new { q = item.PreRegistrationId })"><i class="bi bi-check-circle"></i>Contactado</a>
                                                         </td>
 
 
                                                     </tr>
                                                 }
+                                            <tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th style="text-align:center">Nombre</th>
+                                                    <th style="text-align:center">Apellido</th>
+                                                    <th style="text-align:center">Telefono</th>
+                                                    <th style="text-align:center">Fecha</th>
+                                                    <th style="text-align:center">Curso</th>
+                                                    <th style="text-align:center">Modalidad</th>
+                                                    <th style="text-align:center">Nivel</th>
+                                                    <th style="text-align:center">Accion</th>
+                                                </tr>
+                                            </tfoot>
                                         </table>
                                     </div>
                                 </div>

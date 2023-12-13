@@ -94,20 +94,20 @@
                                         <table id="DataTable" class="table table-hover" style="width: 100% !important;">
                                             <thead>
                                                 <tr>
-                                                    <th>Cedula</th>
-                                                    <th>Nombre</th>
-                                                    <th>Apellido</th>
-                                                    <th>Telefono</th>
-                                                    <th>Email</th>
-                                                    <th>Creacion</th>
-                                                    <th>Estado</th>
-                                                    <th>Accion</th>
+                                                    <th style="text-align:center">Cedula</th>
+                                                    <th style="text-align:center">Nombre</th>
+                                                    <th style="text-align:center">Apellido</th>
+                                                    <th style="text-align:center">Telefono</th>
+                                                    <th style="text-align:center">Email</th>
+                                                    <th style="text-align:center">Creacion</th>
+                                                    <th style="text-align:center">Estado</th>
+                                                    <th style="text-align:center">Accion</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 @foreach (var item in Model)
                                                 {
-                                                    <tr>
+                                                    <tr style="text-align:center">
                                                         <td>@item.PersonalID</td>
                                                         <td>@item.Name</td>
                                                         <td>@item.LastName</td>
@@ -121,6 +121,18 @@
                                                     </tr>
                                                 }
                                             </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th style="text-align:center">Cedula</th>
+                                                    <th style="text-align:center">Nombre</th>
+                                                    <th style="text-align:center">Apellido</th>
+                                                    <th style="text-align:center">Telefono</th>
+                                                    <th style="text-align:center">Email</th>
+                                                    <th style="text-align:center">Creacion</th>
+                                                    <th style="text-align:center">Estado</th>
+                                                    <th style="text-align:center">Accion</th>
+                                                </tr>
+                                            </tfoot>
                                         </table>
                                     </div>
                                 </div>

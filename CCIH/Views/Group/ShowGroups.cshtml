@@ -58,49 +58,57 @@
                                                 @ViewBag.MsjPantallaNegativo
                                             </div>
                                         }
-                                        <table id="DataTable" class="table table-hover" style="width: 100% !important;">
-                                            <thead>
-                                                <tr>
-                                                    <th>Grupo</th>
-                                                    <th>Horario</th>
-                                                    <th>Profesor</th>
-                                                    <th>Fecha Inicio</th>
-                                                    <th>Fecha Final</th>
-                                                    <th>Maximo Estudiantes</th>
-                                                    <th>Numero Estudiantes</th>
-                                                    <th>Estado</th>
-                                                    <th>Acciones</th>
+                                    <table id="DataTable" class="table table-hover" style="width: 100% !important;">
+                                        <thead>
+                                            <tr>
+                                                <th style="text-align:center">Grupo</th>
+                                                <th style="text-align:center">Horario</th>
+                                                <th style="text-align:center">Profesor</th>
+                                                <th style="text-align:center">Fecha Inicio</th>
+                                                <th style="text-align:center">Fecha Final</th>
+                                                <th style="text-align:center">Maximo Estudiantes</th>
+                                                <th style="text-align:center">Numero Estudiantes</th>
+                                                <th style="text-align:center">Estado</th>
+                                                <th style="text-align:center">Acciones</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            @foreach (var item in Model)
+                                            {
+                                                <tr style="text-align:center">
+                                                    <td>@item.GroupName</td>
+                                                    <td>@item.ScheduleDescription</td>
+                                                    <td>@item.TeacherName</td>
+                                                    <td>@item.StartDate.ToString("yyyy-MM-dd")</td>
+                                                    <td>@item.EndDate.ToString("yyyy-MM-dd")</td>
+                                                    <td>@item.MaxStudentsNumber</td>
+                                                    <td>@item.StudentsNumber</td>
+                                                    <td>@item.StatusName</td>
+
+                                                    <td style="text-align:center">
+                                                        <a type="submit" class="btn  text-white" style="background-color: #5f81e8; display: inline-flex; margin-bottom: 5px" href="@Url.Action("EditGroup","Group", new { i = item.GroupId })"><i class="bi bi-pencil-square"></i>Editar</a>
+
+                                                        <a type="submit" class="btn  text-white" style="background-color: #5f81e8; display: inline-flex; margin-bottom: 5px" href="@Url.Action("ShowStudentsInGroup","Group", new { groupId = item.GroupId })"><i class="bi bi-person"></i></a>
+                                                    </td>
                                                 </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach (var item in Model)
-                                                {
-                                                    <tr>
-                                                        <td>@item.GroupName</td>
-                                                        <td>@item.ScheduleDescription</td>
-                                                        <td>@item.TeacherName</td>
-                                                        <td>@item.StartDate.ToString("yyyy-MM-dd")</td>
-                                                        <td>@item.EndDate.ToString("yyyy-MM-dd")</td>
-                                                        <td>@item.MaxStudentsNumber</td>
-                                                        <td>@item.StudentsNumber</td>
-                                                        <td>@item.StatusName</td>
-                                                        <td>
-                                                            <div class="row ">
-                                                                <div class="col-lg-6">
-                                                                    <a type="submit" class="btn btn-sm text-white" style="background-color: #5f81e8;" href="@Url.Action("EditGroup","Group", new { i = item.GroupId })">Editar</a>
-                                                                </div>
-                                                            </div>
-                                                            <br />
-                                                            <div class="row ">
-                                                                <div class="col-lg-6">
-                                                                    <a type="submit" class="btn btn-sm text-white" style="background-color: #5f81e8;" href="@Url.Action("ShowStudentsInGroup","Group", new { groupId = item.GroupId })">Estudiantes</a>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                }
-                                            </tbody>
-                                        </table>
+                                            }
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th style="text-align:center">Grupo</th>
+                                                <th style="text-align:center">Horario</th>
+                                                <th style="text-align:center">Profesor</th>
+                                                <th style="text-align:center">Fecha Inicio</th>
+                                                <th style="text-align:center">Fecha Final</th>
+                                                <th style="text-align:center">Maximo Estudiantes</th>
+                                                <th style="text-align:center">Numero Estudiantes</th>
+                                                <th style="text-align:center">Estado</th>
+                                                <th style="text-align:center">Acciones</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+
                                     </div>
                                 </div>
                                 <div class="row">

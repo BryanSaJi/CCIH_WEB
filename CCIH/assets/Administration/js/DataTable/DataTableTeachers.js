@@ -59,7 +59,7 @@ DataTable.ext.search.push(function (settings, data, dataIndex) {
         (min <= date && max === null) ||
         (min <= date && date <= max)
     ) {
-        sumarColumnaTotal();
+       
         return true;
     }
 
