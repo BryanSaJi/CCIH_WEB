@@ -196,7 +196,7 @@ namespace CCIH.Models
 
 
 
-        public int Edituser(UserEnt entidad)
+        public int EditUser(UserEnt entidad)
         {
             using (var client = new HttpClient())
             {

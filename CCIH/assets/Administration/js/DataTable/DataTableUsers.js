@@ -28,7 +28,8 @@
                     className: 'btn btn-success',
                 }, 'colvis'
             ],
-            responsive: true
+            responsive: true,
+            scrollX: true
         });
         table.buttons().container()
             .appendTo('#example_wrapper .col-md-6:eq(0)');

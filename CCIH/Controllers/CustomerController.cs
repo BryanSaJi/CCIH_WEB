@@ -32,7 +32,7 @@ namespace CCIH.Controllers
         [HttpPost]
         public ActionResult EditCustomer(UserEnt ent)
         {
-            var data = UserModel.Edituser(ent);
+            var data = UserModel.EditUser(ent);
             return RedirectToAction("SeeCustomers", "Registration");
         }
 

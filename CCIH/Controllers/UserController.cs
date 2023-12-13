@@ -251,7 +251,7 @@ namespace CCIH.Controllers
             try
             {
 
-                var resp = model.Edituser(ent);
+                var resp = model.EditUser(ent);
 
                 if (resp > 0)
                 {

@@ -172,10 +172,7 @@
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\IdentificationsController.cs" />
-    <Compile Include="Controllers\IncomeOutcomeController.cs" />
     <Compile Include="Controllers\PaymentsController.cs" />
-    <Compile Include="Controllers\PaymentTypeController.cs" />
-    <Compile Include="Controllers\ReasonController.cs" />
     <Compile Include="Controllers\StateController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RegistrationController.cs" />
@@ -184,7 +181,6 @@
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Entities\ActionLogEnt.cs" />
     <Compile Include="Entities\AssignationEnt.cs" />
-    <Compile Include="Entities\ReasonEnt.cs" />
     <Compile Include="Entities\ContactEnt.cs" />
     <Compile Include="Entities\CustomerEnt.cs" />
     <Compile Include="Entities\CourseEnt.cs" />
@@ -192,10 +188,8 @@
     <Compile Include="Entities\GradeEnt.cs" />
     <Compile Include="Entities\GroupEnt.cs" />
     <Compile Include="Entities\IdentificatiosnEnt.cs" />
-    <Compile Include="Entities\IncomeOutcomeEnt.cs" />
     <Compile Include="Entities\LevelCourseEnt.cs" />
     <Compile Include="Entities\PaymentsEnt.cs" />
-    <Compile Include="Entities\PaymentTypeEnt.cs" />
     <Compile Include="Entities\PreRegistrationEnt.cs" />
     <Compile Include="Entities\ScheduleEnt.cs" />
     <Compile Include="Entities\RegistrationEnt.cs" />
@@ -212,10 +206,7 @@
     <Compile Include="Models\CustomerModel.cs" />
     <Compile Include="Models\CourseModel.cs" />
     <Compile Include="Models\IdentificationsModel.cs" />
-    <Compile Include="Models\IncomeOutcomeModel.cs" />
     <Compile Include="Models\PaymentsModel.cs" />
-    <Compile Include="Models\PaymentTypeModel.cs" />
-    <Compile Include="Models\ReasonModel.cs" />
     <Compile Include="Models\StateModel.cs" />
     <Compile Include="Entities\ModalityEnt.cs" />
     <Compile Include="Models\GroupModel.cs" />
@@ -783,7 +774,6 @@
     <Content Include="Views\Registration\SeeCustomer.cshtml" />
     <Content Include="Views\State\Index.cshtml" />
     <Content Include="Views\Teachers\Index.cshtml" />
-    <Content Include="Views\Payments\RegisterPayments.cshtml" />
     <Content Include="Views\Teachers\TimeMarkTeacher.cshtml" />
     <Content Include="Views\Teachers\AllHours.cshtml" />
     <Content Include="Views\Payments\ListPayments.cshtml" />
@@ -798,13 +788,14 @@
     <Content Include="Views\Error\ErrorHome.cshtml" />
     <Content Include="Views\Error\ErrorAdministration.cshtml" />
     <Content Include="Views\Teachers\RequestTeachersSchedules.cshtml" />
+    <Content Include="Views\Payments\CreatePayments.cshtml" />
+    <Content Include="Views\Payments\DeletePayment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Captcha\" />
     <Folder Include="Data\" />
     <Folder Include="Views\Identifications\" />
-    <Folder Include="Views\Reason\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
