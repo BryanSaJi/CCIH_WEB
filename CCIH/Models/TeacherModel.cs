@@ -1,11 +1,8 @@
 ﻿using CCIH.Entities;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlTypes;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
-using System.Text.RegularExpressions;
 using System.Web;
 
 namespace CCIH.Models
@@ -156,18 +153,24 @@ namespace CCIH.Models
             using (var client = new HttpClient())
             {
                 string url = apiEnviroment.getApiUrl() + "api/RequestTeachersSchedules";
-                //String Token = HttpContext.Current.Session["TokenUser"].ToString();
-                //client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
-                HttpResponseMessage resp = client.GetAsync(url).Result;
-
-                if (resp.IsSuccessStatusCode)
+                String Token = HttpContext.Current.Session["TokenUser"]?.ToString(); 
+                if (!string.IsNullOrEmpty(Token))
                 {
-                    return resp.Content.ReadFromJsonAsync<List<TeacherEnt>>().Result;
-                }
+                    client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
+                    HttpResponseMessage resp = client.PostAsync(url, null).Result; 
 
-                return new List<TeacherEnt>();
+                    if (resp.IsSuccessStatusCode)
+                    {
+                        return resp.Content.ReadFromJsonAsync<List<TeacherEnt>>().Result;
+                    }
+
+                    return new List<TeacherEnt>();
+                }
             }
+
+            return new List<TeacherEnt>();
         }
+
 
 
     }

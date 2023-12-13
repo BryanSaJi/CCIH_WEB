@@ -131,28 +131,12 @@ namespace CCIH.Controllers
         [HttpGet]
         public ActionResult RequestTeachersSchedules()
         {
-    
             var data = modelTeacher.RequestTeachersSchedules();
             return View(data);
-
-            }
-         
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
+
+}
 
 
 
