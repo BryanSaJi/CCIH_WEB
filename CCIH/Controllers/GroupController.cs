@@ -27,7 +27,16 @@ namespace CCIH.Controllers
         // GET: Group
         public ActionResult Index()
         {
-            return View();
+            try
+            {
+                return View();
+            }
+            catch (Exception ex)
+            {
+                var exept = ex.Message;
+                return RedirectToAction("ErrorAdministration", "Error");
+            }
+            
         }
 
 
@@ -36,80 +45,69 @@ namespace CCIH.Controllers
         [HttpGet]
         public ActionResult SetPeople(bool init, long groupIdP)
         {
-            var DataStudents = UserModel.SeeAllUserStudentsOutGroup();
-
-
-
-            //Groups
-            var Group = GroupModel.RequestGroupScrollDown();
-
-            var ComboGroup = new List<SelectListItem>();
-
-
-
-
-            if (init)
+            try
             {
-                ComboGroup.Add(new SelectListItem
-                {
-                    Text = "Seleccionar Grupo",
-                    Value = 0.ToString(),
-                    Selected = true
-                });
-            }
-            else
-            {
-                ComboGroup.Add(new SelectListItem
-                {
-                    Text = "Seleccionar Grupo",
-                    Value = 0.ToString()
-                });
-            }
+                var DataStudents = UserModel.SeeAllUserStudentsOutGroup();
 
-            foreach (var item in Group)
-            {
+
+
+                //Groups
+                var Group = GroupModel.RequestGroupScrollDown();
+
+                var ComboGroup = new List<SelectListItem>();
+
+
+
+
                 if (init)
                 {
                     ComboGroup.Add(new SelectListItem
                     {
-                        Text = item.GroupName,
-                        Value = item.GroupId.ToString(),
-
+                        Text = "Seleccionar Grupo",
+                        Value = 0.ToString(),
+                        Selected = true
                     });
                 }
                 else
                 {
                     ComboGroup.Add(new SelectListItem
                     {
-                        Text = item.GroupName,
-                        Value = item.GroupId.ToString(),
-                        Selected = true
+                        Text = "Seleccionar Grupo",
+                        Value = 0.ToString()
                     });
                 }
 
-            }
-            ViewBag.Group = ComboGroup;
-
-
-            //Teacher
-            var Teacher = UserModel.SeeAllUserTeacher();
-            var ComboTeacher = new List<SelectListItem>();
-
-
-            if (init)
-            {
-                ComboTeacher.Add(new SelectListItem
+                foreach (var item in Group)
                 {
-                    Text = "Sin Profesor",
-                    Value = 0.ToString(),
-                    Selected = true
-                });
-            }
-            else
-            {
+                    if (init)
+                    {
+                        ComboGroup.Add(new SelectListItem
+                        {
+                            Text = item.GroupName,
+                            Value = item.GroupId.ToString(),
 
-                var dataGroups = GroupModel.SeeGroupsByGroupId(groupIdP);
-                if (dataGroups.TeacherId == 0)
+                        });
+                    }
+                    else
+                    {
+                        ComboGroup.Add(new SelectListItem
+                        {
+                            Text = item.GroupName,
+                            Value = item.GroupId.ToString(),
+                            Selected = true
+                        });
+                    }
+
+                }
+                ViewBag.Group = ComboGroup;
+
+
+                //Teacher
+                var Teacher = UserModel.SeeAllUserTeacher();
+                var ComboTeacher = new List<SelectListItem>();
+
+
+                if (init)
                 {
                     ComboTeacher.Add(new SelectListItem
                     {
@@ -118,108 +116,128 @@ namespace CCIH.Controllers
                         Selected = true
                     });
                 }
-            }
-
-            foreach (var item in Teacher)
-            {
-                if (init)
-                {
-                    ComboTeacher.Add(new SelectListItem
-                    {
-                        Text = item.Name + " " + item.LastName,
-                        Value = item.EmployeeId.ToString(),
-
-                    });
-                }
                 else
                 {
-                    ComboTeacher.Add(new SelectListItem
+
+                    var dataGroups = GroupModel.SeeGroupsByGroupId(groupIdP);
+                    if (dataGroups.TeacherId == 0)
                     {
-                        Text = item.Name + " " + item.LastName,
-                        Value = item.EmployeeId.ToString(),
+                        ComboTeacher.Add(new SelectListItem
+                        {
+                            Text = "Sin Profesor",
+                            Value = 0.ToString(),
+                            Selected = true
+                        });
+                    }
+                }
+
+                foreach (var item in Teacher)
+                {
+                    if (init)
+                    {
+                        ComboTeacher.Add(new SelectListItem
+                        {
+                            Text = item.Name + " " + item.LastName,
+                            Value = item.EmployeeId.ToString(),
+
+                        });
+                    }
+                    else
+                    {
+                        ComboTeacher.Add(new SelectListItem
+                        {
+                            Text = item.Name + " " + item.LastName,
+                            Value = item.EmployeeId.ToString(),
+                            Selected = true
+                        });
+                    }
+                }
+                ViewBag.Teacher = ComboTeacher;
+
+
+                //Schedule
+                var Schedule = ScheduleModel.RequestScheduleScrollDown();
+                var ComboSchedule = new List<SelectListItem>();
+
+                ComboSchedule.Add(new SelectListItem
+                {
+                    Text = "Sin Horario",
+                    Value = 0.ToString(),
+                    Selected = true
+                });
+
+
+
+                foreach (var item in Schedule)
+                {
+                    ComboSchedule.Add(new SelectListItem
+                    {
+                        Text = item.Description,
+                        Value = item.ScheduleId.ToString(),
                         Selected = true
                     });
                 }
+                ViewBag.Schedule = ComboSchedule;
+
+
+
+                SetPeopleEnt setPeopleEnt = new SetPeopleEnt();
+
+                setPeopleEnt.StudentsOutGroup = DataStudents;
+
+                if (!init)
+                {
+                    var dataGroup = GroupModel.SeeGroupsByGroupId(groupIdP);
+                    setPeopleEnt.GroupEnt = dataGroup;
+
+                }
+
+
+                if (!init)
+                {
+                    if ((int)Session["MensajePositivo"] == 1)
+                    {
+
+                        ViewBag.MsjPantallaPostivo = "El Estudiante fue asignado de manera correcta";
+                    }
+
+
+                    if ((int)Session["MensajeNegativo"] == 2)
+                    {
+
+                        ViewBag.MsjPantallaNegativo = "No se ha podido asignar el Estudiante";
+                    }
+
+                    if ((int)Session["MensajePositivo"] == 3)
+                    {
+
+                        ViewBag.MsjPantallaPostivo = "El Profesor fue asignado de manera correcta";
+                    }
+
+
+                    if ((int)Session["MensajeNegativo"] == 4)
+                    {
+
+                        ViewBag.MsjPantallaNegativo = "No se ha podido asignar el Profesor";
+                    }
+
+                    if ((int)Session["MensajeNegativo"] == 5)
+                    {
+
+                        ViewBag.MsjPantallaNegativo = "No se ha podido asignar el Estudiante porque excede el maximo de alumnos";
+                    }
+
+                }
+
+
+                return View(setPeopleEnt);
             }
-            ViewBag.Teacher = ComboTeacher;
-
-
-            //Schedule
-            var Schedule = ScheduleModel.RequestScheduleScrollDown();
-            var ComboSchedule = new List<SelectListItem>();
-
-            ComboSchedule.Add(new SelectListItem
+            catch (Exception ex)
             {
-                Text = "Sin Horario",
-                Value = 0.ToString(),
-                Selected = true
-            });
-
-
-
-            foreach (var item in Schedule)
-            {
-                ComboSchedule.Add(new SelectListItem
-                {
-                    Text = item.Description,
-                    Value = item.ScheduleId.ToString(),
-                    Selected = true
-                });
+                var exept = ex.Message;
+                return RedirectToAction("ErrorAdministration", "Error");
             }
-            ViewBag.Schedule = ComboSchedule;
-
-
-
-            SetPeopleEnt setPeopleEnt = new SetPeopleEnt();
-
-            setPeopleEnt.StudentsOutGroup = DataStudents;
-
-            if (!init)
-            {
-                var dataGroup = GroupModel.SeeGroupsByGroupId(groupIdP);
-                setPeopleEnt.GroupEnt = dataGroup;
-
-            }
-
-
-            if (!init)
-            {
-                if ((int)Session["MensajePositivo"] == 1)
-                {
-
-                    ViewBag.MsjPantallaPostivo = "El Estudiante fue asignado de manera correcta";
-                }
-
-
-                if ((int)Session["MensajeNegativo"] == 2)
-                {
-
-                    ViewBag.MsjPantallaNegativo = "No se ha podido asignar el Estudiante";
-                }
-
-                if ((int)Session["MensajePositivo"] == 3)
-                {
-
-                    ViewBag.MsjPantallaPostivo = "El Profesor fue asignado de manera correcta";
-                }
-
-
-                if ((int)Session["MensajeNegativo"] == 4)
-                {
-
-                    ViewBag.MsjPantallaNegativo = "No se ha podido asignar el Profesor";
-                }
-
-                if ((int)Session["MensajeNegativo"] == 5)
-                {
-
-                    ViewBag.MsjPantallaNegativo = "No se ha podido asignar el Estudiante porque excede el maximo de alumnos";
-                }
-
-            }
-
-
-            return View(setPeopleEnt);
+            
         }
 
 
@@ -229,80 +247,70 @@ namespace CCIH.Controllers
         [HttpGet]
         public ActionResult RemovePeople(bool init, long groupIdP)
         {
-            var DataStudents = UserModel.SeeAllUserStudentsInGroupID(groupIdP);
-            var dataGroups = GroupModel.SeeGroupsByGroupId(groupIdP);
 
-
-            //Groups
-            var Group = GroupModel.RequestGroupScrollDown();
-
-            var ComboGroup = new List<SelectListItem>();
-
-
-
-
-            if (init)
+            try
             {
-                ComboGroup.Add(new SelectListItem
-                {
-                    Text = "Seleccionar Grupo",
-                    Value = 0.ToString(),
-                    Selected = true
-                });
-            }
-            else
-            {
-                ComboGroup.Add(new SelectListItem
-                {
-                    Text = "Seleccionar Grupo",
-                    Value = 0.ToString()
-                });
-            }
+                var DataStudents = UserModel.SeeAllUserStudentsInGroupID(groupIdP);
+                var dataGroups = GroupModel.SeeGroupsByGroupId(groupIdP);
 
-            foreach (var item in Group)
-            {
+
+                //Groups
+                var Group = GroupModel.RequestGroupScrollDown();
+
+                var ComboGroup = new List<SelectListItem>();
+
+
+
+
                 if (init)
                 {
                     ComboGroup.Add(new SelectListItem
                     {
-                        Text = item.GroupName,
-                        Value = item.GroupId.ToString(),
-
+                        Text = "Seleccionar Grupo",
+                        Value = 0.ToString(),
+                        Selected = true
                     });
                 }
                 else
                 {
                     ComboGroup.Add(new SelectListItem
                     {
-                        Text = item.GroupName,
-                        Value = item.GroupId.ToString(),
-                        Selected = true
+                        Text = "Seleccionar Grupo",
+                        Value = 0.ToString()
                     });
                 }
 
-            }
-            ViewBag.Group = ComboGroup;
-
-
-            //Teacher
-            var Teacher = UserModel.SeeAllUserTeacher();
-            var ComboTeacher = new List<SelectListItem>();
-
-
-            if (init)
-            {
-                ComboTeacher.Add(new SelectListItem
+                foreach (var item in Group)
                 {
-                    Text = "Sin Profesor",
-                    Value = 0.ToString(),
-                    Selected = true
-                });
-            }
-            else
-            {
+                    if (init)
+                    {
+                        ComboGroup.Add(new SelectListItem
+                        {
+                            Text = item.GroupName,
+                            Value = item.GroupId.ToString(),
+
+                        });
+                    }
+                    else
+                    {
+                        ComboGroup.Add(new SelectListItem
+                        {
+                            Text = item.GroupName,
+                            Value = item.GroupId.ToString(),
+                            Selected = true
+                        });
+                    }
+
+                }
+                ViewBag.Group = ComboGroup;
 
 
-                if (dataGroups.TeacherId == 0)
+                //Teacher
+                var Teacher = UserModel.SeeAllUserTeacher();
+                var ComboTeacher = new List<SelectListItem>();
+
+
+                if (init)
                 {
                     ComboTeacher.Add(new SelectListItem
                     {
@@ -311,122 +319,143 @@ namespace CCIH.Controllers
                         Selected = true
                     });
                 }
-            }
-
-
-            foreach (var item in Teacher)
-            {
-
-
-                if (init)
-                {
-                    ComboTeacher.Add(new SelectListItem
-                    {
-                        Text = item.Name + " " + item.LastName,
-                        Value = item.EmployeeId.ToString(),
-
-                    });
-                }
                 else
                 {
-                    if (dataGroups.TeacherName == item.Name + " " + item.LastName)
+
+
+                    if (dataGroups.TeacherId == 0)
+                    {
+                        ComboTeacher.Add(new SelectListItem
+                        {
+                            Text = "Sin Profesor",
+                            Value = 0.ToString(),
+                            Selected = true
+                        });
+                    }
+                }
+
+
+                foreach (var item in Teacher)
+                {
+
+
+                    if (init)
                     {
                         ComboTeacher.Add(new SelectListItem
                         {
                             Text = item.Name + " " + item.LastName,
                             Value = item.EmployeeId.ToString(),
-                            Selected = true
+
                         });
+                    }
+                    else
+                    {
+                        if (dataGroups.TeacherName == item.Name + " " + item.LastName)
+                        {
+                            ComboTeacher.Add(new SelectListItem
+                            {
+                                Text = item.Name + " " + item.LastName,
+                                Value = item.EmployeeId.ToString(),
+                                Selected = true
+                            });
+                        }
+
+
+                    }
+                }
+                ViewBag.Teacher = ComboTeacher;
+
+
+                //Schedule
+                var Schedule = ScheduleModel.RequestScheduleScrollDown();
+                var ComboSchedule = new List<SelectListItem>();
+
+                ComboSchedule.Add(new SelectListItem
+                {
+                    Text = "Sin Horario",
+                    Value = 0.ToString(),
+                    Selected = true
+                });
+
+
+
+                foreach (var item in Schedule)
+                {
+                    ComboSchedule.Add(new SelectListItem
+                    {
+                        Text = item.Description,
+                        Value = item.ScheduleId.ToString(),
+                        Selected = true
+                    });
+                }
+                ViewBag.Schedule = ComboSchedule;
+
+
+
+                SetPeopleEnt setPeopleEnt = new SetPeopleEnt();
+
+                setPeopleEnt.StudentsInGroup = DataStudents;
+
+                if (!init)
+                {
+                    var dataGroup = GroupModel.SeeGroupsByGroupId(groupIdP);
+                    setPeopleEnt.GroupEnt = dataGroup;
+
+                }
+
+
+                if (!init)
+                {
+                    if ((int)Session["MensajePositivo"] == 1)
+                    {
+
+                        ViewBag.MsjPantallaPostivo = "El Estudiante fue removido de manera correcta";
                     }
 
 
+                    if ((int)Session["MensajeNegativo"] == 2)
+                    {
+
+                        ViewBag.MsjPantallaNegativo = "No se ha podido remover el Estudiante";
+                    }
+
+                    if ((int)Session["MensajePositivo"] == 3)
+                    {
+
+                        ViewBag.MsjPantallaPostivo = "El Profesor fue removido de manera correcta";
+                    }
+
+
+                    if ((int)Session["MensajeNegativo"] == 4)
+                    {
+
+                        ViewBag.MsjPantallaNegativo = "No se ha podido remover el Profesor";
+                    }
+
+                    if ((int)Session["MensajeNegativo"] == 5)
+                    {
+
+                        ViewBag.MsjPantallaNegativo = "No se ha podido remover el Estudiante porque excede el minimo de alumnos";
+                    }
+
+                    if ((int)Session["MensajeNegativo"] == 6)
+                    {
+
+                        ViewBag.MsjPantallaNegativo = "El grupo no cuenta con profesores para remover";
+                    }
+
                 }
+
+
+                return View(setPeopleEnt);
             }
-            ViewBag.Teacher = ComboTeacher;
-
-
-            //Schedule
-            var Schedule = ScheduleModel.RequestScheduleScrollDown();
-            var ComboSchedule = new List<SelectListItem>();
-
-            ComboSchedule.Add(new SelectListItem
+            catch (Exception ex)
             {
-                Text = "Sin Horario",
-                Value = 0.ToString(),
-                Selected = true
-            });
-
-
-
-            foreach (var item in Schedule)
-            {
-                ComboSchedule.Add(new SelectListItem
-                {
-                    Text = item.Description,
-                    Value = item.ScheduleId.ToString(),
-                    Selected = true
-                });
-            }
-            ViewBag.Schedule = ComboSchedule;
-
-
-
-            SetPeopleEnt setPeopleEnt = new SetPeopleEnt();
-
-            setPeopleEnt.StudentsInGroup = DataStudents;
-
-            if (!init)
-            {
-                var dataGroup = GroupModel.SeeGroupsByGroupId(groupIdP);
-                setPeopleEnt.GroupEnt = dataGroup;
-
-            }
-
-
-            if (!init)
-            {
-                if ((int)Session["MensajePositivo"] == 1)
-                {
-
-                    ViewBag.MsjPantallaPostivo = "El Estudiante fue removido de manera correcta";
-                }
-
-
-                if ((int)Session["MensajeNegativo"] == 2)
-                {
-
-                    ViewBag.MsjPantallaNegativo = "No se ha podido remover el Estudiante";
-                }
-
-                if ((int)Session["MensajePositivo"] == 3)
-                {
-
-                    ViewBag.MsjPantallaPostivo = "El Profesor fue removido de manera correcta";
-                }
-
-
-                if ((int)Session["MensajeNegativo"] == 4)
-                {
-
-                    ViewBag.MsjPantallaNegativo = "No se ha podido remover el Profesor";
-                }
-
-                if ((int)Session["MensajeNegativo"] == 5)
-                {
-
-                    ViewBag.MsjPantallaNegativo = "No se ha podido remover el Estudiante porque excede el minimo de alumnos";
-                }
-
-                if ((int)Session["MensajeNegativo"] == 6)
-                {
-
-                    ViewBag.MsjPantallaNegativo = "El grupo no cuenta con profesores para remover";
-                }
-
+                var exept = ex.Message;
+                return RedirectToAction("ErrorAdministration", "Error");
             }
 
-
-            return View(setPeopleEnt);
+            
         }
 
 
@@ -437,14 +466,22 @@ namespace CCIH.Controllers
         [HttpGet]
         public ActionResult ShowStudentsInGroup(long groupId)
         {
+            try
+            {
+                var DataStudents = UserModel.SeeAllUserStudentsInGroupID(groupId);
+
+                SetPeopleEnt setPeopleEnt = new SetPeopleEnt();
+
+                setPeopleEnt.StudentsInGroup = DataStudents;
+
+                return View(setPeopleEnt);
+            }
+            catch (Exception ex)
+            {
+                var exept = ex.Message;
+                return RedirectToAction("ErrorAdministration", "Error");
+            }
             
-            var DataStudents = UserModel.SeeAllUserStudentsInGroupID(groupId);
-
-            SetPeopleEnt setPeopleEnt = new SetPeopleEnt();
-
-            setPeopleEnt.StudentsInGroup = DataStudents;
-
-            return View(setPeopleEnt);
         }
 
 
@@ -453,116 +490,126 @@ namespace CCIH.Controllers
         [HttpGet]
         public ActionResult CreateGroup()
         {
-            GroupEnt ent = new GroupEnt();
-            ent.CourseId = 0;
-            ent.ScheduleId = 0;
-            ent.TeacherId = 0;
-            ent.StartDate = DateTime.Now;
-            ent.EndDate = DateTime.Now;
-            ent.GroupName = "El nombre del grupo es automatico";
-
-            //Course
-            var Course = CourseModel.RequestCourseScrollDown();
-            var ComboCourse = new List<SelectListItem>();
-
-            ComboCourse.Add(new SelectListItem
+            try
             {
-                Text = "Sin Curso",
-                Value = 0.ToString(),
-                Selected = true
-            });
+                GroupEnt ent = new GroupEnt();
+                ent.CourseId = 0;
+                ent.ScheduleId = 0;
+                ent.TeacherId = 0;
+                ent.StartDate = DateTime.Now;
+                ent.EndDate = DateTime.Now;
+                ent.GroupName = "El nombre del grupo es automatico";
 
-            foreach (var item in Course)
-            {
+                //Course
+                var Course = CourseModel.RequestCourseScrollDown();
+                var ComboCourse = new List<SelectListItem>();
+
                 ComboCourse.Add(new SelectListItem
                 {
-                    Text = item.CourseName + " " + item.ModalityName + " " + item.LevelCourseName,
-                    Value = item.CourseID.ToString(),
+                    Text = "Sin Curso",
+                    Value = 0.ToString(),
                     Selected = true
                 });
-            }
 
-            ComboCourse = ComboCourse.OrderBy(x => x.Text).ToList();
-
-            ViewBag.Course = ComboCourse;
-
-
-            //Teacher
-            var Teacher = UserModel.SeeAllUserTeacher();
-            var ComboTeacher = new List<SelectListItem>();
-
-
-            ComboTeacher.Add(new SelectListItem
-            {
-                Text = "Sin Profesor",
-                Value = 0.ToString(),
-                Selected = true
-            });
-
-
-            foreach (var item in Teacher)
-            {
-                ComboTeacher.Add(new SelectListItem
+                foreach (var item in Course)
                 {
-                    Text = item.Name + " " + item.LastName,
-                    Value = item.EmployeeId.ToString(),
-                    Selected = true
-                });
-            }
-            ViewBag.Teacher = ComboTeacher;
-
-
-
-            //Schedule
-            var Schedule = ScheduleModel.RequestScheduleScrollDown();
-            var ComboSchedule = new List<SelectListItem>();
-
-            ComboSchedule.Add(new SelectListItem
-            {
-                Text = "Sin Horario",
-                Value = 0.ToString(),
-                Selected = true
-            });
-
-
-
-            foreach (var item in Schedule)
-            {
-                ComboSchedule.Add(new SelectListItem
-                {
-                    Text = item.Description,
-                    Value = item.ScheduleId.ToString(),
-                    Selected = true
-                });
-            }
-            ViewBag.Schedule = ComboSchedule;
-
-
-
-            //Status
-            var Status = StateModel.RequestStatusScrollDown();
-            var ComboStatus = new List<SelectListItem>();
-
-            foreach (var item in Status)
-            {
-                if (item.StatusId >= 1 && item.StatusId <= 2)
-                {
-                    ComboStatus.Add(new SelectListItem
+                    ComboCourse.Add(new SelectListItem
                     {
-                        Text = item.Name,
-                        Value = item.StatusId.ToString(),
+                        Text = item.CourseName + " " + item.ModalityName + " " + item.LevelCourseName,
+                        Value = item.CourseID.ToString(),
                         Selected = true
                     });
-
                 }
 
+                ComboCourse = ComboCourse.OrderBy(x => x.Text).ToList();
+
+                ViewBag.Course = ComboCourse;
+
+
+                //Teacher
+                var Teacher = UserModel.SeeAllUserTeacher();
+                var ComboTeacher = new List<SelectListItem>();
+
+
+                ComboTeacher.Add(new SelectListItem
+                {
+                    Text = "Sin Profesor",
+                    Value = 0.ToString(),
+                    Selected = true
+                });
+
+
+                foreach (var item in Teacher)
+                {
+                    ComboTeacher.Add(new SelectListItem
+                    {
+                        Text = item.Name + " " + item.LastName,
+                        Value = item.EmployeeId.ToString(),
+                        Selected = true
+                    });
+                }
+                ViewBag.Teacher = ComboTeacher;
+
+
+
+                //Schedule
+                var Schedule = ScheduleModel.RequestScheduleScrollDown();
+                var ComboSchedule = new List<SelectListItem>();
+
+                ComboSchedule.Add(new SelectListItem
+                {
+                    Text = "Sin Horario",
+                    Value = 0.ToString(),
+                    Selected = true
+                });
+
+
+
+                foreach (var item in Schedule)
+                {
+                    ComboSchedule.Add(new SelectListItem
+                    {
+                        Text = item.Description,
+                        Value = item.ScheduleId.ToString(),
+                        Selected = true
+                    });
+                }
+                ViewBag.Schedule = ComboSchedule;
+
+
+
+                //Status
+                var Status = StateModel.RequestStatusScrollDown();
+                var ComboStatus = new List<SelectListItem>();
+
+                foreach (var item in Status)
+                {
+                    if (item.StatusId >= 1 && item.StatusId <= 2)
+                    {
+                        ComboStatus.Add(new SelectListItem
+                        {
+                            Text = item.Name,
+                            Value = item.StatusId.ToString(),
+                            Selected = true
+                        });
+
+                    }
+
+                }
+                ViewBag.Status = ComboStatus;
+
+
+
+
+                return View(ent);
             }
-            ViewBag.Status = ComboStatus;
+            catch (Exception ex)
+            {
+                var exept = ex.Message;
+                return RedirectToAction("ErrorAdministration", "Error");
+            }
 
             
-
-
-            return View(ent);
         }
 
 
@@ -570,118 +617,136 @@ namespace CCIH.Controllers
         [HttpGet]
         public ActionResult ShowGroups()
         {
-            var Data = GroupModel.RequestGroupScrollDown();
-
-
-            if ((int)Session["MensajePositivo"] == 1)
+            try
             {
+                var Data = GroupModel.RequestGroupScrollDown();
 
-                ViewBag.MsjPantallaPostivo = "El Grupo fue creado de manera correcta";
+
+                if ((int)Session["MensajePositivo"] == 1)
+                {
+
+                    ViewBag.MsjPantallaPostivo = "El Grupo fue creado de manera correcta";
+                }
+
+
+                if ((int)Session["MensajeNegativo"] == 2)
+                {
+
+                    ViewBag.MsjPantallaNegativo = "No se ha podido crear Grupo";
+                }
+
+
+                if ((int)Session["MensajePositivo"] == 3)
+                {
+
+                    ViewBag.MsjPantallaPostivo = "El Grupo fue modificado de manera correcta";
+                }
+
+
+                if ((int)Session["MensajeNegativo"] == 4)
+                {
+
+                    ViewBag.MsjPantallaNegativo = "No se ha podido modificar la informacion del Grupo";
+                }
+
+                return View(Data);
             }
-
-
-            if ((int)Session["MensajeNegativo"] == 2)
+            catch (Exception ex)
             {
-
-                ViewBag.MsjPantallaNegativo = "No se ha podido crear Grupo";
+                var exept = ex.Message;
+                return RedirectToAction("ErrorAdministration", "Error");
             }
-
-
-            if ((int)Session["MensajePositivo"] == 3)
-            {
-
-                ViewBag.MsjPantallaPostivo = "El Grupo fue modificado de manera correcta";
-            }
-
-
-            if ((int)Session["MensajeNegativo"] == 4)
-            {
-
-                ViewBag.MsjPantallaNegativo = "No se ha podido modificar la informacion del Grupo";
-            }
-
-            return View(Data);
+            
         }
 
         [Authorize]
         [HttpGet]
         public ActionResult EditGroup(long i)
         {
-
-            var data = GroupModel.SeeGroupsByGroupId(i);
-
-
-            //Course
-            var Course = CourseModel.RequestCourseScrollDown();
-            var ComboCourse = new List<SelectListItem>();
-
-            foreach (var item in Course)
+            try
             {
-                ComboCourse.Add(new SelectListItem
+                var data = GroupModel.SeeGroupsByGroupId(i);
+
+
+                //Course
+                var Course = CourseModel.RequestCourseScrollDown();
+                var ComboCourse = new List<SelectListItem>();
+
+                foreach (var item in Course)
                 {
-                    Text = item.CourseName + " " + item.ModalityName + " " + item.LevelCourseName,
-                    Value = item.CourseID.ToString(),
-                    Selected = true
-                });
-            }
-            ViewBag.Course = ComboCourse;
-
-
-            //Teacher
-            var Teacher = UserModel.SeeAllUserTeacher();
-            var ComboTeacher = new List<SelectListItem>();
-
-            foreach (var item in Teacher)
-            {
-                ComboTeacher.Add(new SelectListItem
-                {
-                    Text = item.Name + " " + item.LastName,
-                    Value = item.EmployeeId.ToString(),
-                    Selected = true
-                });
-            }
-            ViewBag.Teacher = ComboTeacher;
-
-
-
-            //Schedule
-            var Schedule = ScheduleModel.RequestScheduleScrollDown();
-            var ComboSchedule = new List<SelectListItem>();
-            foreach (var item in Schedule)
-            {
-                ComboSchedule.Add(new SelectListItem
-                {
-                    Text = item.Description,
-                    Value = item.ScheduleId.ToString(),
-                    Selected = true
-                });
-            }
-            ViewBag.Schedule = ComboSchedule;
-
-
-
-            //Status
-            var Status = StateModel.RequestStatusScrollDown();
-            var ComboStatus = new List<SelectListItem>();
-            foreach (var item in Status)
-            {
-                if (item.StatusId >= 1 && item.StatusId <= 2)
-                {
-                    ComboStatus.Add(new SelectListItem
+                    ComboCourse.Add(new SelectListItem
                     {
-                        Text = item.Name,
-                        Value = item.StatusId.ToString(),
+                        Text = item.CourseName + " " + item.ModalityName + " " + item.LevelCourseName,
+                        Value = item.CourseID.ToString(),
                         Selected = true
                     });
+                }
+                ViewBag.Course = ComboCourse;
+
+
+                //Teacher
+                var Teacher = UserModel.SeeAllUserTeacher();
+                var ComboTeacher = new List<SelectListItem>();
+
+                foreach (var item in Teacher)
+                {
+                    ComboTeacher.Add(new SelectListItem
+                    {
+                        Text = item.Name + " " + item.LastName,
+                        Value = item.EmployeeId.ToString(),
+                        Selected = true
+                    });
+                }
+                ViewBag.Teacher = ComboTeacher;
+
+
+
+                //Schedule
+                var Schedule = ScheduleModel.RequestScheduleScrollDown();
+                var ComboSchedule = new List<SelectListItem>();
+                foreach (var item in Schedule)
+                {
+                    ComboSchedule.Add(new SelectListItem
+                    {
+                        Text = item.Description,
+                        Value = item.ScheduleId.ToString(),
+                        Selected = true
+                    });
+                }
+                ViewBag.Schedule = ComboSchedule;
+
+
+
+                //Status
+                var Status = StateModel.RequestStatusScrollDown();
+                var ComboStatus = new List<SelectListItem>();
+                foreach (var item in Status)
+                {
+                    if (item.StatusId >= 1 && item.StatusId <= 2)
+                    {
+                        ComboStatus.Add(new SelectListItem
+                        {
+                            Text = item.Name,
+                            Value = item.StatusId.ToString(),
+                            Selected = true
+                        });
+
+                    }
 
                 }
+                ViewBag.Status = ComboStatus;
 
+
+
+                return View(data);
             }
-            ViewBag.Status = ComboStatus;
+            catch (Exception ex)
+            {
+                var exept = ex.Message;
+                return RedirectToAction("ErrorAdministration", "Error");
+            }
 
             
-
-            return View(data);
         }
 
 
@@ -711,7 +776,7 @@ namespace CCIH.Controllers
             catch (Exception ex)
             {
                 var exept = ex.Message;
-                return View("Error");
+                return RedirectToAction("ErrorAdministration", "Error");
             }
         }
 
@@ -743,7 +808,7 @@ namespace CCIH.Controllers
             {
                 var exept = ex.Message;
 
-                return View("Error");
+                return RedirectToAction("ErrorAdministration", "Error");
             }
         }
 
@@ -794,7 +859,7 @@ namespace CCIH.Controllers
             {
                 var exept = ex.Message;
 
-                return View("Error");
+                return RedirectToAction("ErrorAdministration", "Error");
             }
         }
 
@@ -826,7 +891,7 @@ namespace CCIH.Controllers
             {
                 var exept = ex.Message;
 
-                return View("Error");
+                return RedirectToAction("ErrorAdministration", "Error");
             }
         }
 
@@ -877,7 +942,7 @@ namespace CCIH.Controllers
             {
                 var exept = ex.Message;
 
-                return View("Error");
+                return RedirectToAction("ErrorAdministration", "Error");
             }
         }
 
@@ -920,7 +985,7 @@ namespace CCIH.Controllers
             {
                 var exept = ex.Message;
 
-                return View("Error");
+                return RedirectToAction("ErrorAdministration", "Error");
             }
         }
 

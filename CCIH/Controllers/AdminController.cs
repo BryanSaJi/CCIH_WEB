@@ -32,73 +32,89 @@ namespace CCIH.Controllers
         
         public ActionResult Index()
         {
+            try {
+                if (Session["IdRoleUser"].ToString() == "1")
+                {
 
-          if(Session["IdRoleUser"].ToString() == "1")
-          {
+                    var preRegistrationData = modelRegistration.RequetsPreRegistrations();
+                    var TodayRegistrationData = modelRegistration.RequestRegistrationsToday();
 
-                var preRegistrationData = modelRegistration.RequetsPreRegistrations();
-            var TodayRegistrationData = modelRegistration.RequestRegistrationsToday();
+                    decimal total = 0;
+                    foreach (var item in TodayRegistrationData)
+                    {
+                        total = item.Amount + total;
+                    }
+                    Session["MensajePositivo"] = 0;
+                    Session["MensajeNegativo"] = 0;
+                    Session["CedulaCliente"] = null;
+                    Session["PreRegisterPending"] = preRegistrationData.Count;
+                    Session["RegisterToday"] = TodayRegistrationData.Count;
+                    Session["TotalRegisterToday"] = total;
+                    Session["CedulaCliente"] = "";
 
-            decimal total = 0;
-            foreach (var item in TodayRegistrationData)
-            {
-                total = item.Amount + total;
+                    return View();
+                }
+                else
+                {
+                    int userId = Convert.ToInt32(Session["UserId"]);
+                    var data = modelUser.RequestUser(userId);
+                    return View(data);
+
+
+                }
             }
-            Session["MensajePositivo"] = 0;
-            Session["MensajeNegativo"] = 0;
-            Session["CedulaCliente"] = null;
-            Session["PreRegisterPending"] = preRegistrationData.Count;
-            Session["RegisterToday"] = TodayRegistrationData.Count;
-            Session["TotalRegisterToday"] = total;
-            Session["CedulaCliente"] = "";
+            catch (Exception ex) {
+                var exept = ex.Message;
 
-            return View();
-          }
-           else
-            {
-                int userId = Convert.ToInt32(Session["UserId"]);
-                var data = modelUser.RequestUser(userId);
-                return View(data);
-               
+                return RedirectToAction("ErrorHome", "Error");
+            }
             
-            }
+
+            
         }
 
         public ActionResult CreateRole()
         {
-
-            var roles = modelRole.RequestRolesScrollDown();
-            var ComboRoles = new List<SelectListItem>();
-            foreach (var item in roles)
+            try
             {
-                ComboRoles.Add(new SelectListItem
+                var roles = modelRole.RequestRolesScrollDown();
+                var ComboRoles = new List<SelectListItem>();
+                foreach (var item in roles)
                 {
-                    Text = item.Name,
-                    Value = item.IdRol.ToString()
-                });
-            }
-            ViewBag.Roles = ComboRoles;
+                    ComboRoles.Add(new SelectListItem
+                    {
+                        Text = item.Name,
+                        Value = item.IdRol.ToString()
+                    });
+                }
+                ViewBag.Roles = ComboRoles;
 
-            var state = modelState.RequestStatusScrollDown();
-            var ComboState = new List<SelectListItem>();
-            foreach (var item in state)
+                var state = modelState.RequestStatusScrollDown();
+                var ComboState = new List<SelectListItem>();
+                foreach (var item in state)
+                {
+                    ComboState.Add(new SelectListItem
+                    {
+                        Text = item.Name,
+                        Value = item.StatusId.ToString()
+                    });
+                }
+                ViewBag.state = ComboState;
+
+
+                return View();
+            }
+            catch (Exception ex)
             {
-                ComboState.Add(new SelectListItem
-                {
-                    Text = item.Name,
-                    Value = item.StatusId.ToString()
-                });
+                var exept = ex.Message;
+                return RedirectToAction("ErrorAdministration", "Error");
             }
-            ViewBag.state = ComboState;
-
-
-            return View();
         }
 
         public ActionResult CreateRegister()
         {
-
-                //Status
+            try
+            {//Status
                 var State = modelState.RequestStatusScrollDown();
                 var ComboState = new List<SelectListItem>();
                 foreach (var item in State)
@@ -110,23 +126,23 @@ namespace CCIH.Controllers
                     });
                 }
 
-            //Crusos
-            var course = modelCourse.RequestCourseScrollDown();
-            var ComboCourse = new List<SelectListItem>();
-            foreach (var item in course)
-            {
-                if (item.CourseID <= 3)
+                //Crusos
+                var course = modelCourse.RequestCourseScrollDown();
+                var ComboCourse = new List<SelectListItem>();
+                foreach (var item in course)
                 {
-                    ComboCourse.Add(new SelectListItem
+                    if (item.CourseID <= 3)
                     {
-                        Text = item.CourseName,
-                        Value = item.CourseID.ToString()
-                    });
+                        ComboCourse.Add(new SelectListItem
+                        {
+                            Text = item.CourseName,
+                            Value = item.CourseID.ToString()
+                        });
+                    }
                 }
-            }
 
-            //Modalidad
-            var Modality = modelModality.RequestModalityScrollDown();
+                //Modalidad
+                var Modality = modelModality.RequestModalityScrollDown();
                 var ComboModality = new List<SelectListItem>();
                 foreach (var item in Modality)
                 {
@@ -187,69 +203,91 @@ namespace CCIH.Controllers
                     TempData.Remove("RespuestaNegativaMatricula");
                 }
 
-            return View();
+                return View();
+            }catch (Exception ex)
+            {
+                var exept = ex.Message;
+                return RedirectToAction("ErrorAdministration", "Error");
+            }
+                
         }
     
         public ActionResult ConsultRegistrations()
         {
-            if (TempData.ContainsKey("RespuestaPositivaEditarMatricula"))
+            try
             {
-                ViewBag.MsjPantallaPositivo = "Informacion de la matricula actualizada.";
-                TempData.Remove("RespuestaPositivaEditarMatricula");
+                if (TempData.ContainsKey("RespuestaPositivaEditarMatricula"))
+                {
+                    ViewBag.MsjPantallaPositivo = "Informacion de la matricula actualizada.";
+                    TempData.Remove("RespuestaPositivaEditarMatricula");
+                }
+                if (TempData.ContainsKey("RespuestaNegativaEditarMatricula"))
+                {
+                    ViewBag.MsjPantallaNegativo = "No se pudo actualizar la matricula.";
+                    TempData.Remove("RespuestaNegativaEditarMatricula");
+                }
+
+                var data = modelRegistration.RequestRegistrations();
+                data = data.OrderByDescending(x => x.RegistrationDate).ToList();
+
+                return View(data);
             }
-            if (TempData.ContainsKey("RespuestaNegativaEditarMatricula"))
+            catch (Exception ex)
             {
-                ViewBag.MsjPantallaNegativo = "No se pudo actualizar la matricula.";
-                TempData.Remove("RespuestaNegativaEditarMatricula");
+                var exept = ex.Message;
+                return RedirectToAction("ErrorAdministration", "Error");
             }
-
-            var data = modelRegistration.RequestRegistrations();
-            data = data.OrderByDescending(x => x.RegistrationDate).ToList();
-
-            return View(data);
 
         }
 
         public ActionResult Customer()
         {
-
-            var roles = modelRole.RequestRolesScrollDown();
-            var ComboRoles = new List<SelectListItem>();
-            foreach (var item in roles)
+            try
             {
-                ComboRoles.Add(new SelectListItem
+                var roles = modelRole.RequestRolesScrollDown();
+                var ComboRoles = new List<SelectListItem>();
+                foreach (var item in roles)
                 {
-                    Text = item.Name,
-                    Value = item.IdRol.ToString()
-                });
-            }
-            ViewBag.Rol = ComboRoles;
+                    ComboRoles.Add(new SelectListItem
+                    {
+                        Text = item.Name,
+                        Value = item.IdRol.ToString()
+                    });
+                }
+                ViewBag.Rol = ComboRoles;
 
-            var State = modelState.RequestStatusScrollDown();
-            var ComboState = new List<SelectListItem>();
-            foreach (var item in State)
+                var State = modelState.RequestStatusScrollDown();
+                var ComboState = new List<SelectListItem>();
+                foreach (var item in State)
+                {
+                    ComboState.Add(new SelectListItem
+                    {
+                        Text = item.Name,
+                        Value = item.StatusId.ToString()
+                    });
+                }
+                ViewBag.State = ComboState;
+
+                var Identifications = modelIdentifications.RequestIdentificationsScrollDown();
+                var ComboIdentifications = new List<SelectListItem>();
+                foreach (var item in Identifications)
+                {
+                    ComboIdentifications.Add(new SelectListItem
+                    {
+                        Text = item.Name,
+                        Value = item.IdentificationsId.ToString()
+                    });
+                }
+                ViewBag.Identifications = ComboIdentifications;
+
+                return View();
+            }
+            catch (Exception ex)
             {
-                ComboState.Add(new SelectListItem
-                {
-                    Text = item.Name,
-                    Value = item.StatusId.ToString()
-                });
+                var exept = ex.Message;
+                return RedirectToAction("ErrorAdministration", "Error");
             }
-            ViewBag.State = ComboState;
-
-            var Identifications = modelIdentifications.RequestIdentificationsScrollDown();
-            var ComboIdentifications = new List<SelectListItem>();
-            foreach (var item in Identifications)
-            {
-                ComboIdentifications.Add(new SelectListItem
-                {
-                    Text = item.Name,
-                    Value = item.IdentificationsId.ToString()
-                });
-            }
-            ViewBag.Identifications = ComboIdentifications;
-
-            return View();
+            
         }
 
 

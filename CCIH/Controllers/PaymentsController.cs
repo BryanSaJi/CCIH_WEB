@@ -24,63 +24,72 @@ namespace CCIH.Controllers
         [HttpGet]
         public ActionResult EditPayment(long i)
         {
-            var data = model.RequestPayment(i);
-
-
-
-            var Status = model.RequestPaymentTypeScrollDown();
-            var ComboType = new List<SelectListItem>();
-            foreach (var item in Status)
+            try
             {
-                ComboType.Add(new SelectListItem
+                var data = model.RequestPayment(i);
+
+
+
+                var Status = model.RequestPaymentTypeScrollDown();
+                var ComboType = new List<SelectListItem>();
+                foreach (var item in Status)
                 {
-                    Text = item.Name,
-                    Value = item.PaymentTypeId.ToString()
-                });
-            }
-            ViewBag.PayType = ComboType;
+                    ComboType.Add(new SelectListItem
+                    {
+                        Text = item.Name,
+                        Value = item.PaymentTypeId.ToString()
+                    });
+                }
+                ViewBag.PayType = ComboType;
 
-        
-            var rol = model.RequestIncomeOutcomeScrollDown();
-            var ComboInOut = new List<SelectListItem>();
-            foreach (var item in rol)
-            {
-                ComboInOut.Add(new SelectListItem
+
+                var rol = model.RequestIncomeOutcomeScrollDown();
+                var ComboInOut = new List<SelectListItem>();
+                foreach (var item in rol)
                 {
-                    Text = item.Name,
-                    Value = item.IncomeOutcomeId.ToString()
-                });
-            }
-            ViewBag.IncomeOutcome = ComboInOut;
+                    ComboInOut.Add(new SelectListItem
+                    {
+                        Text = item.Name,
+                        Value = item.IncomeOutcomeId.ToString()
+                    });
+                }
+                ViewBag.IncomeOutcome = ComboInOut;
 
-            var Motive = model.RequestPaymentMotiveScrollDown();
-            var ComboMotive = new List<SelectListItem>();
-            foreach (var item in Motive)
-            {
-                ComboMotive.Add(new SelectListItem
+                var Motive = model.RequestPaymentMotiveScrollDown();
+                var ComboMotive = new List<SelectListItem>();
+                foreach (var item in Motive)
                 {
-                    Text = item.Name,
-                    Value = item.id_Motive.ToString()
-                });
+                    ComboMotive.Add(new SelectListItem
+                    {
+                        Text = item.Name,
+                        Value = item.id_Motive.ToString()
+                    });
 
+                }
+                ViewBag.Motive = ComboMotive;
+
+
+
+
+                if (TempData.ContainsKey("RespuestaPositivaEditarUsuario"))
+                {
+                    ViewBag.MsjPantallaPositivo = "Información del Pago actualizada.";
+                    TempData.Remove("RespuestaPositivaEditarUsuario");
+                }
+                if (TempData.ContainsKey("RespuestaNegativaEditarUsuario"))
+                {
+                    ViewBag.MsjPantallaNegativo = "No se pudo actualizar el Pago.";
+                    TempData.Remove("RespuestaNegativaEditarUsuario");
+                }
+
+                return View(data);
             }
-             ViewBag.Motive = ComboMotive;
-
-
-
-
-            if (TempData.ContainsKey("RespuestaPositivaEditarUsuario"))
+            catch (Exception ex)
             {
-                ViewBag.MsjPantallaPositivo = "Información del Pago actualizada.";
-                TempData.Remove("RespuestaPositivaEditarUsuario");
+                var exept = ex.Message;
+                return RedirectToAction("ErrorAdministration", "Error");
             }
-            if (TempData.ContainsKey("RespuestaNegativaEditarUsuario"))
-            {
-                ViewBag.MsjPantallaNegativo = "No se pudo actualizar el Pago.";
-                TempData.Remove("RespuestaNegativaEditarUsuario");
-            }
-
-            return View(data);
+            
         }
 
 
@@ -119,8 +128,17 @@ namespace CCIH.Controllers
         [HttpGet]
         public ActionResult ListPayments()
         {
-            var resp = model.ListOfPays();
-            return View(resp);
+            try
+            {
+                var resp = model.ListOfPays();
+                return View(resp);
+            }
+            catch (Exception ex)
+            {
+                var exept = ex.Message;
+                return RedirectToAction("ErrorAdministration", "Error");
+            }
+            
 
         }
 
@@ -158,44 +176,53 @@ namespace CCIH.Controllers
         [HttpGet]
         public ActionResult CreatePayments()
         {
-            var PaymentType = model.RequestPaymentTypeScrollDown();
-            var ComboPaymentType = new List<SelectListItem>();
-            foreach (var item in PaymentType)
+            try
             {
-                ComboPaymentType.Add(new SelectListItem
+                var PaymentType = model.RequestPaymentTypeScrollDown();
+                var ComboPaymentType = new List<SelectListItem>();
+                foreach (var item in PaymentType)
                 {
-                    Text = item.Name,
-                    Value = item.PaymentTypeId.ToString()
-                });
+                    ComboPaymentType.Add(new SelectListItem
+                    {
+                        Text = item.Name,
+                        Value = item.PaymentTypeId.ToString()
+                    });
+                }
+                ViewBag.PaymentType = ComboPaymentType;
+
+
+                var IncomeOutcome = model.RequestIncomeOutcomeScrollDown();
+                var ComboIncomeOutcome = new List<SelectListItem>();
+                foreach (var item in IncomeOutcome)
+                {
+                    ComboIncomeOutcome.Add(new SelectListItem
+                    {
+                        Text = item.Name,
+                        Value = item.IncomeOutcomeId.ToString()
+                    });
+                }
+                ViewBag.IncomeOutcome = ComboIncomeOutcome;
+
+                var Motive = model.RequestPaymentMotiveScrollDown();
+                var ComboMotive = new List<SelectListItem>();
+                foreach (var item in Motive)
+                {
+                    ComboMotive.Add(new SelectListItem
+                    {
+                        Text = item.Name,
+                        Value = item.id_Motive.ToString()
+                    });
+                }
+                ViewBag.Reason = ComboMotive;
+
+                return View();
             }
-            ViewBag.PaymentType = ComboPaymentType;
-
-
-            var IncomeOutcome = model.RequestIncomeOutcomeScrollDown();
-            var ComboIncomeOutcome = new List<SelectListItem>();
-            foreach (var item in IncomeOutcome)
+            catch (Exception ex)
             {
-                ComboIncomeOutcome.Add(new SelectListItem
-                {
-                    Text = item.Name,
-                    Value = item.IncomeOutcomeId.ToString()
-                });
+                var exept = ex.Message;
+                return RedirectToAction("ErrorAdministration", "Error");
             }
-            ViewBag.IncomeOutcome = ComboIncomeOutcome;
-
-            var Motive = model.RequestPaymentMotiveScrollDown();
-            var ComboMotive = new List<SelectListItem>();
-            foreach (var item in Motive)
-            {
-                ComboMotive.Add(new SelectListItem
-                {
-                    Text = item.Name,
-                    Value = item.id_Motive.ToString()
-                });
-            }
-            ViewBag.Reason = ComboMotive;
-
-            return View();
+            
         }
     
     
@@ -212,6 +239,7 @@ namespace CCIH.Controllers
         [HttpGet]
         public List<PaymentsEnt> RequestPaymentMotiveScrollDown()
         {
+
             var data = model.RequestPaymentMotiveScrollDown();
             return data;
         }
@@ -252,7 +280,7 @@ namespace CCIH.Controllers
             }
             catch (Exception ex)
             {
-                return View("Error");
+                return RedirectToAction("ErrorAdministration", "Error");
             }
         }
 

@@ -15,7 +15,7 @@ using System.Windows.Documents;
 
 namespace CCIH.Controllers
 {
-    [Authorize]
+    
     public class CourseController : Controller
     {
 
@@ -26,185 +26,140 @@ namespace CCIH.Controllers
 
         public ActionResult Index()
         {
-            var data = modelCourse.RequestCourseScrollDown();
-            return View(data);
+            try
+            {
+                var data = modelCourse.RequestCourseScrollDown();
+                return View(data);
+            }
+            catch (Exception ex)
+            {
+                var exept = ex.Message;
+                return RedirectToAction("ErrorAdministration", "Error");
+            }
+           
         }
+
 
         [AllowAnonymous]
         public ActionResult ObtenerCursosDesdeBaseDeDatos(string name)
         {
+            try
+            {
+                var list = modelCourse.SeeCoursesFiltered(name).ToList();
 
-            var list = modelCourse.SeeCoursesFiltered(name).ToList();
+                // Convertir la lista de cursos a JSON
+                var jsonCursos = Json(list, JsonRequestBehavior.AllowGet);
 
-            // Convertir la lista de cursos a JSON
-            var jsonCursos = Json(list, JsonRequestBehavior.AllowGet);
-
-            // Devolver los datos JSON
-            return jsonCursos;
+                // Devolver los datos JSON
+                return jsonCursos;
+            }
+            catch (Exception ex)
+            {
+                var exept = ex.Message;
+                return RedirectToAction("ErrorAdministration", "Error");
+            }
+            
         }
 
-
+        [Authorize]
         [HttpGet]
         public ActionResult ShowCourses()
         {
-            var Data = modelCourse.RequestCourseScrollDown();
-
-            if ((int)Session["MensajePositivo"] == 1)
+            try
             {
+                var Data = modelCourse.RequestCourseScrollDown();
 
-                ViewBag.MsjPantallaPostivo = "El curso fue modificado de manera correcta.";
+                if ((int)Session["MensajePositivo"] == 1)
+                {
+
+                    ViewBag.MsjPantallaPostivo = "El curso fue modificado de manera correcta.";
+                }
+
+
+                if ((int)Session["MensajeNegativo"] == 2)
+                {
+
+                    ViewBag.MsjPantallaNegativo = "No se ha podido modificar el curso.";
+                }
+
+
+                if ((int)Session["MensajePositivo"] == 3)
+                {
+
+                    ViewBag.MsjPantallaPostivo = "El curso fue agregado de manera correcta.";
+                }
+
+
+                if ((int)Session["MensajeNegativo"] == 4)
+                {
+
+                    ViewBag.MsjPantallaNegativo = "No se ha podido agregar el curso.";
+                }
+
+                return View(Data);
             }
-
-
-            if ((int)Session["MensajeNegativo"] == 2)
+            catch (Exception ex)
             {
-
-                ViewBag.MsjPantallaNegativo = "No se ha podido modificar el curso.";
+                var exept = ex.Message;
+                return RedirectToAction("ErrorAdministration", "Error");
             }
-
-
-            if ((int)Session["MensajePositivo"] == 3)
-            {
-
-                ViewBag.MsjPantallaPostivo = "El curso fue agregado de manera correcta.";
-            }
-
-
-            if ((int)Session["MensajeNegativo"] == 4)
-            {
-
-                ViewBag.MsjPantallaNegativo = "No se ha podido agregar el curso.";
-            }
-
-            return View(Data);
+            
         }
 
 
-
+        [Authorize]
         [HttpGet]
         public ActionResult EditCourse(long courseId)
         {
 
-
-
-
-            var resp = modelCourse.RequestCourseByID(courseId);
-
-
-            //CourseName
-            var CourseCatalog = modelCourse.SeeCourseCatalog();
-            var ComboCourse = new List<SelectListItem>();
-
-            foreach (var item in CourseCatalog)
+            try
             {
-                if (resp.CourseName == item.CourseName)
+                var resp = modelCourse.RequestCourseByID(courseId);
+
+
+                //CourseName
+                var CourseCatalog = modelCourse.SeeCourseCatalog();
+                var ComboCourse = new List<SelectListItem>();
+
+                foreach (var item in CourseCatalog)
                 {
-                    ComboCourse.Add(new SelectListItem
+                    if (resp.CourseName == item.CourseName)
                     {
-                        Text = item.CourseName,
-                        Value = item.CourseCatalogId.ToString(),
-                        Selected = true
-                    });
-                }
-                else
-                {
-
-                    ComboCourse.Add(new SelectListItem
+                        ComboCourse.Add(new SelectListItem
+                        {
+                            Text = item.CourseName,
+                            Value = item.CourseCatalogId.ToString(),
+                            Selected = true
+                        });
+                    }
+                    else
                     {
-                        Text = item.CourseName,
-                        Value = item.CourseCatalogId.ToString(),
-                        Selected = false
-                    });
-                }
 
-            }
-            ViewBag.CourseName = ComboCourse;
-
-
-            //Modality
-            var Modality = modalityModel.RequestModalityScrollDown();
-            var ComboModality = new List<SelectListItem>();
-            foreach (var item in Modality)
-            {
-
-
-                if (resp.ModalityName == item.Name)
-                {
-                    ComboModality.Add(new SelectListItem
-                    {
-                        Text = item.Name,
-                        Value = item.ModalityId.ToString(),
-                        Selected = true
-                    });
+                        ComboCourse.Add(new SelectListItem
+                        {
+                            Text = item.CourseName,
+                            Value = item.CourseCatalogId.ToString(),
+                            Selected = false
+                        });
+                    }
 
                 }
-                else
+                ViewBag.CourseName = ComboCourse;
+
+
+                //Modality
+                var Modality = modalityModel.RequestModalityScrollDown();
+                var ComboModality = new List<SelectListItem>();
+                foreach (var item in Modality)
                 {
 
-                    ComboModality.Add(new SelectListItem
+
+                    if (resp.ModalityName == item.Name)
                     {
-                        Text = item.Name,
-                        Value = item.ModalityId.ToString(),
-                        Selected = false
-                    });
-
-                }
-            }
-
-
-            ViewBag.Modality = ComboModality;
-
-
-            //Level
-            var Level = LevelModel.RequestLevelCourseScrollDown();
-            var ComboLevel = new List<SelectListItem>();
-            foreach (var item in Level)
-            {
-
-                if (resp.LevelCourseName == item.Name)
-                {
-                    ComboLevel.Add(new SelectListItem
-                    {
-                        Text = item.Name,
-                        Value = item.LevelCourseId.ToString(),
-                        Selected = true
-                    });
-
-                }
-                else
-                {
-
-                    ComboLevel.Add(new SelectListItem
-                    {
-                        Text = item.Name,
-                        Value = item.LevelCourseId.ToString(),
-                        Selected = false
-                    });
-
-                }
-
-
-
-            }
-            ViewBag.Level = ComboLevel;
-
-
-            //Status
-            var Status = StateModel.RequestStatusScrollDown();
-            var ComboStatus = new List<SelectListItem>();
-            foreach (var item in Status)
-            {
-
-
-                if (item.StatusId >= 1 && item.StatusId <= 2)
-                {
-
-                    if (resp.statusname == item.Name)
-                    {
-                        ComboStatus.Add(new SelectListItem
+                        ComboModality.Add(new SelectListItem
                         {
                             Text = item.Name,
-                            Value = item.StatusId.ToString(),
+                            Value = item.ModalityId.ToString(),
                             Selected = true
                         });
 
@@ -212,10 +167,43 @@ namespace CCIH.Controllers
                     else
                     {
 
-                        ComboStatus.Add(new SelectListItem
+                        ComboModality.Add(new SelectListItem
                         {
                             Text = item.Name,
-                            Value = item.StatusId.ToString(),
+                            Value = item.ModalityId.ToString(),
+                            Selected = false
+                        });
+
+                    }
+                }
+
+
+                ViewBag.Modality = ComboModality;
+
+
+                //Level
+                var Level = LevelModel.RequestLevelCourseScrollDown();
+                var ComboLevel = new List<SelectListItem>();
+                foreach (var item in Level)
+                {
+
+                    if (resp.LevelCourseName == item.Name)
+                    {
+                        ComboLevel.Add(new SelectListItem
+                        {
+                            Text = item.Name,
+                            Value = item.LevelCourseId.ToString(),
+                            Selected = true
+                        });
+
+                    }
+                    else
+                    {
+
+                        ComboLevel.Add(new SelectListItem
+                        {
+                            Text = item.Name,
+                            Value = item.LevelCourseId.ToString(),
                             Selected = false
                         });
 
@@ -224,26 +212,73 @@ namespace CCIH.Controllers
 
 
                 }
+                ViewBag.Level = ComboLevel;
 
+
+                //Status
+                var Status = StateModel.RequestStatusScrollDown();
+                var ComboStatus = new List<SelectListItem>();
+                foreach (var item in Status)
+                {
+
+
+                    if (item.StatusId >= 1 && item.StatusId <= 2)
+                    {
+
+                        if (resp.statusname == item.Name)
+                        {
+                            ComboStatus.Add(new SelectListItem
+                            {
+                                Text = item.Name,
+                                Value = item.StatusId.ToString(),
+                                Selected = true
+                            });
+
+                        }
+                        else
+                        {
+
+                            ComboStatus.Add(new SelectListItem
+                            {
+                                Text = item.Name,
+                                Value = item.StatusId.ToString(),
+                                Selected = false
+                            });
+
+                        }
+
+
+
+                    }
+
+                }
+                ViewBag.Status = ComboStatus;
+
+
+                if ((int)Session["MensajePositivo"] == 1)
+                {
+
+                    ViewBag.MsjPantallaPostivo = "El curso fue modificado de manera correcta.";
+                }
+
+
+                if ((int)Session["MensajeNegativo"] == 2)
+                {
+
+                    ViewBag.MsjPantallaNegativo = "No se ha podido modificar el curso.";
+                }
+
+
+                return View(resp);
             }
-            ViewBag.Status = ComboStatus;
-
-
-            if ((int)Session["MensajePositivo"] == 1)
+            catch (Exception ex)
             {
-
-                ViewBag.MsjPantallaPostivo = "El curso fue modificado de manera correcta.";
+                var exept = ex.Message;
+                return RedirectToAction("ErrorAdministration", "Error");
             }
 
 
-            if ((int)Session["MensajeNegativo"] == 2)
-            {
-
-                ViewBag.MsjPantallaNegativo = "No se ha podido modificar el curso.";
-            }
-
-
-            return View(resp);
+            
 
         }
 
@@ -254,103 +289,111 @@ namespace CCIH.Controllers
         public ActionResult AddCourse()
         {
 
-
-            //CourseName
-            var CourseCatalog = modelCourse.SeeCourseCatalog();
-            var ComboCourse = new List<SelectListItem>();
-
-            foreach (var item in CourseCatalog)
+            try
             {
+                //CourseName
+                var CourseCatalog = modelCourse.SeeCourseCatalog();
+                var ComboCourse = new List<SelectListItem>();
 
-                ComboCourse.Add(new SelectListItem
+                foreach (var item in CourseCatalog)
                 {
-                    Text = item.CourseName,
-                    Value = item.CourseCatalogId.ToString(),
-                    Selected = true
-                });
 
-
-            }
-            ViewBag.CourseName = ComboCourse;
-
-
-            //Modality
-            var Modality = modalityModel.RequestModalityScrollDown();
-            var ComboModality = new List<SelectListItem>();
-            foreach (var item in Modality)
-            {
-
-
-                ComboModality.Add(new SelectListItem
-                {
-                    Text = item.Name,
-                    Value = item.ModalityId.ToString(),
-                    Selected = true
-                });
-
-            }
-
-
-            ViewBag.Modality = ComboModality;
-
-
-            //Level
-            var Level = LevelModel.RequestLevelCourseScrollDown();
-            var ComboLevel = new List<SelectListItem>();
-            foreach (var item in Level)
-            {
-
-                ComboLevel.Add(new SelectListItem
-                {
-                    Text = item.Name,
-                    Value = item.LevelCourseId.ToString(),
-                    Selected = true
-                });
-
-
-            }
-            ViewBag.Level = ComboLevel;
-
-
-            //Status
-            var Status = StateModel.RequestStatusScrollDown();
-            var ComboStatus = new List<SelectListItem>();
-            foreach (var item in Status)
-            {
-
-                if (item.StatusId > 0 && item.StatusId < 3)
-                {
-                    ComboStatus.Add(new SelectListItem
+                    ComboCourse.Add(new SelectListItem
                     {
-                        Text = item.Name,
-                        Value = item.StatusId.ToString(),
+                        Text = item.CourseName,
+                        Value = item.CourseCatalogId.ToString(),
                         Selected = true
                     });
+
+
+                }
+                ViewBag.CourseName = ComboCourse;
+
+
+                //Modality
+                var Modality = modalityModel.RequestModalityScrollDown();
+                var ComboModality = new List<SelectListItem>();
+                foreach (var item in Modality)
+                {
+
+
+                    ComboModality.Add(new SelectListItem
+                    {
+                        Text = item.Name,
+                        Value = item.ModalityId.ToString(),
+                        Selected = true
+                    });
+
                 }
 
 
+                ViewBag.Modality = ComboModality;
+
+
+                //Level
+                var Level = LevelModel.RequestLevelCourseScrollDown();
+                var ComboLevel = new List<SelectListItem>();
+                foreach (var item in Level)
+                {
+
+                    ComboLevel.Add(new SelectListItem
+                    {
+                        Text = item.Name,
+                        Value = item.LevelCourseId.ToString(),
+                        Selected = true
+                    });
+
+
+                }
+                ViewBag.Level = ComboLevel;
+
+
+                //Status
+                var Status = StateModel.RequestStatusScrollDown();
+                var ComboStatus = new List<SelectListItem>();
+                foreach (var item in Status)
+                {
+
+                    if (item.StatusId > 0 && item.StatusId < 3)
+                    {
+                        ComboStatus.Add(new SelectListItem
+                        {
+                            Text = item.Name,
+                            Value = item.StatusId.ToString(),
+                            Selected = true
+                        });
+                    }
+
+
+                }
+                ViewBag.Status = ComboStatus;
+
+
+
+
+
+                if ((int)Session["MensajePositivo"] == 1)
+                {
+
+                    ViewBag.MsjPantallaPostivo = "El curso fue agregado de manera correcta.";
+                }
+
+
+                if ((int)Session["MensajeNegativo"] == 2)
+                {
+
+                    ViewBag.MsjPantallaNegativo = "No se ha podido agregar el curso.";
+                }
+
+
+                return View();
             }
-            ViewBag.Status = ComboStatus;
-
-
-
-
-
-            if ((int)Session["MensajePositivo"] == 1)
+            catch (Exception ex)
             {
-
-                ViewBag.MsjPantallaPostivo = "El curso fue agregado de manera correcta.";
+                var exept = ex.Message;
+                return RedirectToAction("ErrorAdministration", "Error");
             }
-
-
-            if ((int)Session["MensajeNegativo"] == 2)
-            {
-
-                ViewBag.MsjPantallaNegativo = "No se ha podido agregar el curso.";
-            }
-
-
-            return View();
+            
 
         }
 
@@ -364,94 +407,102 @@ namespace CCIH.Controllers
         public ActionResult SendInfoEditCourse(CourseEnt courseEnt, HttpPostedFileBase image)
         {
 
-
-            if (courseEnt.Description == null)
+            try
             {
-                courseEnt.Description = "Sin Descripcion";
-            }
-
-            if (courseEnt.image == null)
-            {
-                courseEnt.image = "Sin Imagen";
-            }
-
-
-            //if (image != null && image.ContentLength > 0)
-            //{
-
-
-            //    var fileName = Path.GetFileName(image.FileName);
-
-            //    string nombreSinExtension = Path.GetFileNameWithoutExtension(fileName);
-
-            //    // Obtener la extensión del archivo
-            //    string extension = Path.GetExtension(fileName);
-
-            //    // Generar un identificador único (GUID)
-            //    string identificadorUnico = Guid.NewGuid().ToString();
-
-            //    // Combinar el identificador único con el nombre del archivo original y la extensión
-            //    string newName = $"{nombreSinExtension}_{identificadorUnico}{extension}";
-
-            //    courseEnt.image = newName;
-
-
-            //    string path = Path.Combine(Server.MapPath("../assets/Administration/img/"), newName);
-            //    image.SaveAs(path);
-
-            //}
-
-
-            if (image != null && image.ContentLength > 0)
-            {
-                var fileName = Path.GetFileName(image.FileName);
-                string nombreSinExtension = Path.GetFileNameWithoutExtension(fileName);
-                string extension = Path.GetExtension(fileName);
-
-                using (MD5 md5 = MD5.Create())
+                if (courseEnt.Description == null)
                 {
-                    byte[] hash = md5.ComputeHash(Encoding.Default.GetBytes(fileName));
-                    string identificadorUnico = BitConverter.ToString(hash).Replace("-", "").Substring(0, 8);
-
-                    string newName = $"{nombreSinExtension}_{identificadorUnico}{extension}";
-                    courseEnt.image = newName;
-
-                    string path = Path.Combine(Server.MapPath("../assets/Administration/img/"), newName);
-                    image.SaveAs(path);
+                    courseEnt.Description = "Sin Descripcion";
                 }
-            }
 
-
-
-            var Data = 0;
-
-            if (courseEnt == null)
-            {
-                Session["MensajeNegativo"] = 2;
-            }
-            else
-            {
-
-                Data = modelCourse.EditCourse(courseEnt);
-
-                if (Data > 0)
+                if (courseEnt.image == null)
                 {
-                    Session["MensajePositivo"] = 1;
+                    courseEnt.image = "Sin Imagen";
                 }
-                else
+
+
+                //if (image != null && image.ContentLength > 0)
+                //{
+
+
+                //    var fileName = Path.GetFileName(image.FileName);
+
+                //    string nombreSinExtension = Path.GetFileNameWithoutExtension(fileName);
+
+                //    // Obtener la extensión del archivo
+                //    string extension = Path.GetExtension(fileName);
+
+                //    // Generar un identificador único (GUID)
+                //    string identificadorUnico = Guid.NewGuid().ToString();
+
+                //    // Combinar el identificador único con el nombre del archivo original y la extensión
+                //    string newName = $"{nombreSinExtension}_{identificadorUnico}{extension}";
+
+                //    courseEnt.image = newName;
+
+
+                //    string path = Path.Combine(Server.MapPath("../assets/Administration/img/"), newName);
+                //    image.SaveAs(path);
+
+                //}
+
+
+                if (image != null && image.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(image.FileName);
+                    string nombreSinExtension = Path.GetFileNameWithoutExtension(fileName);
+                    string extension = Path.GetExtension(fileName);
+
+                    using (MD5 md5 = MD5.Create())
+                    {
+                        byte[] hash = md5.ComputeHash(Encoding.Default.GetBytes(fileName));
+                        string identificadorUnico = BitConverter.ToString(hash).Replace("-", "").Substring(0, 8);
+
+                        string newName = $"{nombreSinExtension}_{identificadorUnico}{extension}";
+                        courseEnt.image = newName;
+
+                        string path = Path.Combine(Server.MapPath("../assets/Administration/img/"), newName);
+                        image.SaveAs(path);
+                    }
+                }
+
+
+
+                var Data = 0;
+
+                if (courseEnt == null)
                 {
                     Session["MensajeNegativo"] = 2;
                 }
+                else
+                {
+
+                    Data = modelCourse.EditCourse(courseEnt);
+
+                    if (Data > 0)
+                    {
+                        Session["MensajePositivo"] = 1;
+                    }
+                    else
+                    {
+                        Session["MensajeNegativo"] = 2;
+                    }
+                }
+
+
+
+                // Convertir la lista de cursos a JSON
+                var jsonCursos = Json(Data, JsonRequestBehavior.AllowGet);
+
+
+                // Devolver los datos JSON
+                return jsonCursos;
             }
-
-
-
-            // Convertir la lista de cursos a JSON
-            var jsonCursos = Json(Data, JsonRequestBehavior.AllowGet);
-
-
-            // Devolver los datos JSON
-            return jsonCursos;
+            catch (Exception ex)
+            {
+                var exept = ex.Message;
+                return RedirectToAction("ErrorAdministration", "Error");
+            }
+           
         }
 
 
@@ -461,94 +512,103 @@ namespace CCIH.Controllers
         public ActionResult SendInfoAddCourse(CourseEnt courseEnt, HttpPostedFileBase image)
         {
 
-
-            if (courseEnt.Description == null)
+            try
             {
-                courseEnt.Description = "Sin Descripcion";
-            }
-
-            if (courseEnt.image == null)
-            {
-                courseEnt.image = "Sin Imagen";
-            }
-
-
-            //if (image != null && image.ContentLength > 0)
-            //{
-
-
-            //    var fileName = Path.GetFileName(image.FileName);
-
-            //    string nombreSinExtension = Path.GetFileNameWithoutExtension(fileName);
-
-            //    // Obtener la extensión del archivo
-            //    string extension = Path.GetExtension(fileName);
-
-            //    // Generar un identificador único (GUID)
-            //    string identificadorUnico = Guid.NewGuid().ToString();
-
-            //    // Combinar el identificador único con el nombre del archivo original y la extensión
-            //    string newName = $"{nombreSinExtension}_{identificadorUnico}{extension}";
-
-            //    courseEnt.image = newName;
-
-
-            //    string path = Path.Combine(Server.MapPath("../assets/Administration/img/"), newName);
-            //    image.SaveAs(path);
-
-            //}
-
-            if (image != null && image.ContentLength > 0)
-            {
-                var fileName = Path.GetFileName(image.FileName);
-                string nombreSinExtension = Path.GetFileNameWithoutExtension(fileName);
-                string extension = Path.GetExtension(fileName);
-
-                using (MD5 md5 = MD5.Create())
+                if (courseEnt.Description == null)
                 {
-                    byte[] hash = md5.ComputeHash(Encoding.Default.GetBytes(fileName));
-                    string identificadorUnico = BitConverter.ToString(hash).Replace("-", "").Substring(0, 8);
-
-                    string newName = $"{nombreSinExtension}_{identificadorUnico}{extension}";
-                    courseEnt.image = newName;
-
-                    string path = Path.Combine(Server.MapPath("../assets/Administration/img/"), newName);
-                    image.SaveAs(path);
+                    courseEnt.Description = "Sin Descripcion";
                 }
-            }
 
-
-
-
-            var Data = 0;
-
-            if (courseEnt == null)
-            {
-                Session["MensajeNegativo"] = 4;
-            }
-            else
-            {
-
-                Data = modelCourse.CreateCourse(courseEnt);
-
-                if (Data > 0)
+                if (courseEnt.image == null)
                 {
-                    Session["MensajePositivo"] = 3;
+                    courseEnt.image = "Sin Imagen";
                 }
-                else
+
+
+                //if (image != null && image.ContentLength > 0)
+                //{
+
+
+                //    var fileName = Path.GetFileName(image.FileName);
+
+                //    string nombreSinExtension = Path.GetFileNameWithoutExtension(fileName);
+
+                //    // Obtener la extensión del archivo
+                //    string extension = Path.GetExtension(fileName);
+
+                //    // Generar un identificador único (GUID)
+                //    string identificadorUnico = Guid.NewGuid().ToString();
+
+                //    // Combinar el identificador único con el nombre del archivo original y la extensión
+                //    string newName = $"{nombreSinExtension}_{identificadorUnico}{extension}";
+
+                //    courseEnt.image = newName;
+
+
+                //    string path = Path.Combine(Server.MapPath("../assets/Administration/img/"), newName);
+                //    image.SaveAs(path);
+
+                //}
+
+                if (image != null && image.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(image.FileName);
+                    string nombreSinExtension = Path.GetFileNameWithoutExtension(fileName);
+                    string extension = Path.GetExtension(fileName);
+
+                    using (MD5 md5 = MD5.Create())
+                    {
+                        byte[] hash = md5.ComputeHash(Encoding.Default.GetBytes(fileName));
+                        string identificadorUnico = BitConverter.ToString(hash).Replace("-", "").Substring(0, 8);
+
+                        string newName = $"{nombreSinExtension}_{identificadorUnico}{extension}";
+                        courseEnt.image = newName;
+
+                        string path = Path.Combine(Server.MapPath("../assets/Administration/img/"), newName);
+                        image.SaveAs(path);
+                    }
+                }
+
+
+
+
+                var Data = 0;
+
+                if (courseEnt == null)
                 {
                     Session["MensajeNegativo"] = 4;
                 }
+                else
+                {
+
+                    Data = modelCourse.CreateCourse(courseEnt);
+
+                    if (Data > 0)
+                    {
+                        Session["MensajePositivo"] = 3;
+                    }
+                    else
+                    {
+                        Session["MensajeNegativo"] = 4;
+                    }
+                }
+
+
+
+                // Convertir la lista de cursos a JSON
+                var jsonCursos = Json(Data, JsonRequestBehavior.AllowGet);
+
+
+                // Devolver los datos JSON
+                return jsonCursos;
+            }
+            catch (Exception ex)
+            {
+                var exept = ex.Message;
+                return RedirectToAction("ErrorAdministration", "Error");
             }
 
-
-
-            // Convertir la lista de cursos a JSON
-            var jsonCursos = Json(Data, JsonRequestBehavior.AllowGet);
-
-
-            // Devolver los datos JSON
-            return jsonCursos;
+            
         }
 
 
@@ -581,88 +641,108 @@ namespace CCIH.Controllers
         [HttpGet]
         public ActionResult ShowCourseCatalog()
         {
-            var Data = modelCourse.SeeCourseCatalog();
-
-            if ((int)Session["MensajePositivo"] == 1)
+            try
             {
+                var Data = modelCourse.SeeCourseCatalog();
 
-                ViewBag.MsjPantallaPostivo = "El curso fue agregado al catalogo de manera correcta.";
+                if ((int)Session["MensajePositivo"] == 1)
+                {
+
+                    ViewBag.MsjPantallaPostivo = "El curso fue agregado al catalogo de manera correcta.";
+                }
+
+
+                if ((int)Session["MensajeNegativo"] == 2)
+                {
+
+                    ViewBag.MsjPantallaNegativo = "No se ha podido agregar el curso al catalogo.";
+                }
+
+                if ((int)Session["MensajePositivo"] == 3)
+                {
+
+                    ViewBag.MsjPantallaPostivo = "El curso fue modificado en el catalogo de manera correcta.";
+                }
+
+
+                if ((int)Session["MensajeNegativo"] == 4)
+                {
+
+                    ViewBag.MsjPantallaNegativo = "No se ha podido modificar el curso en el catalogo.";
+                }
+
+                if ((int)Session["MensajePositivo"] == 5)
+                {
+
+                    ViewBag.MsjPantallaPostivo = "El curso fue eliminado en el catalogo de manera correcta.";
+                }
+
+
+                if ((int)Session["MensajeNegativo"] == 6)
+                {
+
+                    ViewBag.MsjPantallaNegativo = "No se ha podido eliminar el curso en el catalogo.";
+                }
+
+                return View(Data);
             }
-
-
-            if ((int)Session["MensajeNegativo"] == 2)
+            catch (Exception ex)
             {
-
-                ViewBag.MsjPantallaNegativo = "No se ha podido agregar el curso al catalogo.";
+                var exept = ex.Message;
+                return RedirectToAction("ErrorAdministration", "Error");
             }
-
-            if ((int)Session["MensajePositivo"] == 3)
-            {
-
-                ViewBag.MsjPantallaPostivo = "El curso fue modificado en el catalogo de manera correcta.";
-            }
-
-
-            if ((int)Session["MensajeNegativo"] == 4)
-            {
-
-                ViewBag.MsjPantallaNegativo = "No se ha podido modificar el curso en el catalogo.";
-            }
-
-            if ((int)Session["MensajePositivo"] == 5)
-            {
-
-                ViewBag.MsjPantallaPostivo = "El curso fue eliminado en el catalogo de manera correcta.";
-            }
-
-
-            if ((int)Session["MensajeNegativo"] == 6)
-            {
-
-                ViewBag.MsjPantallaNegativo = "No se ha podido eliminar el curso en el catalogo.";
-            }
-
-            return View(Data);
+            
         }
 
 
         [AllowAnonymous]
         public ActionResult EditCourseCatalog(string courseName, string LastName)
         {
-            var courseId = modelCourse.SeeCoursesCatalogByName(LastName);
 
-            var Data = 0;
-
-            if (courseName.IsEmpty() || courseId <= 0)
+            try
             {
-                Session["MensajeNegativo"] = 4;
-            }
-            else
-            {
-                CourseCatalogEnt courseCatalogEnt = new CourseCatalogEnt();
-                courseCatalogEnt.CourseCatalogId = courseId;
-                courseCatalogEnt.CourseName = courseName;
+                var courseId = modelCourse.SeeCoursesCatalogByName(LastName);
 
-                Data = modelCourse.EditCourseCatalog(courseCatalogEnt);
+                var Data = 0;
 
-                if (Data > 0)
-                {
-                    Session["MensajePositivo"] = 3;
-                }
-                else
+                if (courseName.IsEmpty() || courseId <= 0)
                 {
                     Session["MensajeNegativo"] = 4;
                 }
+                else
+                {
+                    CourseCatalogEnt courseCatalogEnt = new CourseCatalogEnt();
+                    courseCatalogEnt.CourseCatalogId = courseId;
+                    courseCatalogEnt.CourseName = courseName;
+
+                    Data = modelCourse.EditCourseCatalog(courseCatalogEnt);
+
+                    if (Data > 0)
+                    {
+                        Session["MensajePositivo"] = 3;
+                    }
+                    else
+                    {
+                        Session["MensajeNegativo"] = 4;
+                    }
+                }
+
+
+
+                // Convertir la lista de cursos a JSON
+                var jsonCursos = Json(Data, JsonRequestBehavior.AllowGet);
+
+
+                // Devolver los datos JSON
+                return jsonCursos;
+            }
+            catch (Exception ex)
+            {
+                var exept = ex.Message;
+                return RedirectToAction("ErrorAdministration", "Error");
             }
 
-
-
-            // Convertir la lista de cursos a JSON
-            var jsonCursos = Json(Data, JsonRequestBehavior.AllowGet);
-
-
-            // Devolver los datos JSON
-            return jsonCursos;
+            
         }
 
 
@@ -671,43 +751,53 @@ namespace CCIH.Controllers
         public ActionResult DeleteCourseCatalog(string currentCourseName)
         {
 
-            var courseId = modelCourse.SeeCoursesCatalogByName(currentCourseName);
-
-
-            if (courseId != 0)
+            try
             {
+                var courseId = modelCourse.SeeCoursesCatalogByName(currentCourseName);
 
-                var Data = modelCourse.DeleteCoursesCatalog(courseId);
 
-                if (Data > 0)
+                if (courseId != 0)
                 {
-                    Session["MensajePositivo"] = 5;
+
+                    var Data = modelCourse.DeleteCoursesCatalog(courseId);
+
+                    if (Data > 0)
+                    {
+                        Session["MensajePositivo"] = 5;
+                    }
+                    else
+                    {
+                        Session["MensajeNegativo"] = 6;
+                    }
+
+                    // Convertir la lista de cursos a JSON
+                    var jsonCursos = Json(Data, JsonRequestBehavior.AllowGet);
+
+                    // Devolver los datos JSON
+                    return jsonCursos;
+
                 }
                 else
                 {
                     Session["MensajeNegativo"] = 6;
+
+                    var Data = 0;
+
+                    // Convertir la lista de cursos a JSON
+                    var jsonCursos = Json(Data, JsonRequestBehavior.AllowGet);
+
+                    // Devolver los datos JSON
+                    return jsonCursos;
                 }
 
-                // Convertir la lista de cursos a JSON
-                var jsonCursos = Json(Data, JsonRequestBehavior.AllowGet);
-
-                // Devolver los datos JSON
-                return jsonCursos;
-
             }
-            else
+            catch (Exception ex)
             {
-                Session["MensajeNegativo"] = 6;
-
-                var Data = 0;
-
-                // Convertir la lista de cursos a JSON
-                var jsonCursos = Json(Data, JsonRequestBehavior.AllowGet);
-
-                // Devolver los datos JSON
-                return jsonCursos;
+                var exept = ex.Message;
+                return RedirectToAction("ErrorAdministration", "Error");
             }
 
+            
 
         }
 
@@ -716,41 +806,49 @@ namespace CCIH.Controllers
         [HttpPost]
         public ActionResult CreateCourseCatalog(string courseName)
         {
-
-            var courseId = modelCourse.SeeCoursesCatalogByName(courseName);
-
-            if (courseId != 0)
+            try
             {
+                var courseId = modelCourse.SeeCoursesCatalogByName(courseName);
 
-                var Data = modelCourse.CreateCourseCatalog(courseName);
-
-                if (Data > 0)
+                if (courseId != 0)
                 {
-                    Session["MensajePositivo"] = 1;
+
+                    var Data = modelCourse.CreateCourseCatalog(courseName);
+
+                    if (Data > 0)
+                    {
+                        Session["MensajePositivo"] = 1;
+                    }
+                    else
+                    {
+                        Session["MensajeNegativo"] = 2;
+                    }
+
+                    // Convertir la lista de cursos a JSON
+                    var jsonCursos = Json(Data, JsonRequestBehavior.AllowGet);
+
+                    // Devolver los datos JSON
+                    return jsonCursos;
                 }
                 else
                 {
                     Session["MensajeNegativo"] = 2;
+
+                    var Data = 0;
+
+                    // Convertir la lista de cursos a JSON
+                    var jsonCursos = Json(Data, JsonRequestBehavior.AllowGet);
+
+                    // Devolver los datos JSON
+                    return jsonCursos;
                 }
-
-                // Convertir la lista de cursos a JSON
-                var jsonCursos = Json(Data, JsonRequestBehavior.AllowGet);
-
-                // Devolver los datos JSON
-                return jsonCursos;
             }
-            else
+            catch (Exception ex)
             {
-                Session["MensajeNegativo"] = 2;
-
-                var Data = 0;
-
-                // Convertir la lista de cursos a JSON
-                var jsonCursos = Json(Data, JsonRequestBehavior.AllowGet);
-
-                // Devolver los datos JSON
-                return jsonCursos;
+                var exept = ex.Message;
+                return RedirectToAction("ErrorAdministration", "Error");
             }
+            
 
         }
 

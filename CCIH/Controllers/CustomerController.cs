@@ -17,23 +17,50 @@ namespace CCIH.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            try
+            {
+                return View();
+            }
+            catch (Exception ex)
+            {
+                var exept = ex.Message;
+                return RedirectToAction("ErrorAdministration", "Error");
+            }
+            
         }
 
         [HttpPost]
         public ActionResult CreateCustomer(UserEnt ent)
         {
-            ent.IdRol = 3;
-            var data = UserModel.CreateUser(ent);
+            try
+            {
+                ent.IdRol = 3;
+                var data = UserModel.CreateUser(ent);
 
-            return RedirectToAction("SeeCustomers", "Registration");
+                return RedirectToAction("SeeCustomers", "Registration");
+            }
+            catch (Exception ex)
+            {
+                var exept = ex.Message;
+                return RedirectToAction("ErrorAdministration", "Error");
+            }
+            
         }
 
         [HttpPost]
         public ActionResult EditCustomer(UserEnt ent)
         {
-            var data = UserModel.EditUser(ent);
-            return RedirectToAction("SeeCustomers", "Registration");
+            try
+            {
+                var data = UserModel.EditUser(ent);
+                return RedirectToAction("SeeCustomers", "Registration");
+            }
+            catch (Exception ex)
+            {
+                var exept = ex.Message;
+                return RedirectToAction("ErrorAdministration", "Error");
+            }
+            
         }
 
     }
