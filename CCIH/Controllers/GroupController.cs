@@ -431,6 +431,24 @@ namespace CCIH.Controllers
 
 
         /*-----------------------------------------------------------------------------------------------------------*/
+
+
+        [Authorize]
+        [HttpGet]
+        public ActionResult ShowStudentsInGroup(long groupId)
+        {
+            
+            var DataStudents = UserModel.SeeAllUserStudentsInGroupID(groupId);
+
+            SetPeopleEnt setPeopleEnt = new SetPeopleEnt();
+
+            setPeopleEnt.StudentsInGroup = DataStudents;
+
+            return View(setPeopleEnt);
+        }
+
+
+        /*-----------------------------------------------------------------------------------------------------------*/
         [Authorize]
         [HttpGet]
         public ActionResult CreateGroup()
@@ -541,6 +559,20 @@ namespace CCIH.Controllers
             }
             ViewBag.Status = ComboStatus;
 
+            
+
+
+            return View(ent);
+        }
+
+
+        [Authorize]
+        [HttpGet]
+        public ActionResult ShowGroups()
+        {
+            var Data = GroupModel.RequestGroupScrollDown();
+
+
             if ((int)Session["MensajePositivo"] == 1)
             {
 
@@ -555,15 +587,19 @@ namespace CCIH.Controllers
             }
 
 
-            return View(ent);
-        }
+            if ((int)Session["MensajePositivo"] == 3)
+            {
+
+                ViewBag.MsjPantallaPostivo = "El Grupo fue modificado de manera correcta";
+            }
 
 
-        [Authorize]
-        [HttpGet]
-        public ActionResult ShowGroups()
-        {
-            var Data = GroupModel.RequestGroupScrollDown();
+            if ((int)Session["MensajeNegativo"] == 4)
+            {
+
+                ViewBag.MsjPantallaNegativo = "No se ha podido modificar la informacion del Grupo";
+            }
+
             return View(Data);
         }
 
@@ -643,18 +679,7 @@ namespace CCIH.Controllers
             }
             ViewBag.Status = ComboStatus;
 
-            if ((int)Session["MensajePositivo"] == 1)
-            {
-
-                ViewBag.MsjPantallaPostivo = "El Grupo fue modificado de manera correcta";
-            }
-
-
-            if ((int)Session["MensajeNegativo"] == 2)
-            {
-
-                ViewBag.MsjPantallaNegativo = "No se ha podido modificar la informacion del Grupo";
-            }
+            
 
             return View(data);
         }
@@ -674,11 +699,11 @@ namespace CCIH.Controllers
 
                 if (resp > 0)
                 {
-                    Session["MensajePositivo"] = 1;
+                    Session["MensajePositivo"] = 3;
                 }
                 else
                 {
-                    Session["MensajeNegativo"] = 2;
+                    Session["MensajeNegativo"] = 4;
                 }
 
                 return RedirectToAction("EditGroup", "Group", new { i = groupEnt.GroupId });

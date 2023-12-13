@@ -800,6 +800,7 @@
     <Content Include="Views\Course\ShowCourseCatalog.cshtml" />
     <Content Include="Views\Course\ShowCourses.cshtml" />
     <Content Include="Views\Schedule\ShowSchedules.cshtml" />
+    <Content Include="Views\Group\ShowStudentsInGroup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

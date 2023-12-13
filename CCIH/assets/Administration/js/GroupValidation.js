@@ -79,9 +79,9 @@ $(document).ready(function () {
         } else if (parseInt(maxStudents) > 20) {
             validationMessage.innerHTML = "El número máximo permitido es 20.";
             this.style.borderColor = "FireBrick";
-        } else if (parseInt(maxStudents) < studentsNumber) {
-            validationMessage.innerHTML = "El número máximo no puede ser menor que el número actual de estudiantes.";
-            this.style.borderColor = "FireBrick";
+        //} else if (parseInt(maxStudents) < studentsNumber) {
+        //    validationMessage.innerHTML = "El número máximo no puede ser menor que el número actual de estudiantes.";
+        //    this.style.borderColor = "FireBrick";
         } else {
             validationMessage.innerHTML = "";
             this.style.borderColor = "Green";
@@ -93,35 +93,35 @@ $(document).ready(function () {
 
     /////////////////////////////// StudentsNumberId  ////////////////////////////////////////////////////////////////
 
-    // Validación para el campo de número de estudiantes
-    var studentsNumberInput = document.getElementById("StudentsNumberId");
+    //// Validación para el campo de número de estudiantes
+    //var studentsNumberInput = document.getElementById("StudentsNumberId");
 
-    // Validación inicial para asegurarse de que el valor no exceda 20 al cargar la página
-    var studentsNumber = studentsNumberInput.value.trim();
-    if (parseInt(studentsNumber) > 20) {
-        studentsNumberInput.style.borderColor = "FireBrick";
-        document.getElementById('StudentsNumberValidationMessage').innerHTML = "El número máximo permitido es 20.";
-    }
+    //// Validación inicial para asegurarse de que el valor no exceda 20 al cargar la página
+    //var studentsNumber = studentsNumberInput.value.trim();
+    //if (parseInt(studentsNumber) > 20) {
+    //    studentsNumberInput.style.borderColor = "FireBrick";
+    //    document.getElementById('StudentsNumberValidationMessage').innerHTML = "El número máximo permitido es 20.";
+    //}
 
-    // Evento keyup para mostrar mensaje si se intenta modificar el campo de solo lectura
-    studentsNumberInput.addEventListener('keyup', function () {
-        var students = this.value.trim();
-        var validationMessage = document.getElementById('StudentsNumberValidationMessage');
+    //// Evento keyup para mostrar mensaje si se intenta modificar el campo de solo lectura
+    //studentsNumberInput.addEventListener('keyup', function () {
+    //    var students = this.value.trim();
+    //    var validationMessage = document.getElementById('StudentsNumberValidationMessage');
 
-        if (students === "") {
-            validationMessage.innerHTML = "El número de estudiantes es requerido.";
-            this.style.borderColor = "FireBrick";
-        } else if (!/^\d+$/.test(students)) {
-            validationMessage.innerHTML = "Ingrese un número válido.";
-            this.style.borderColor = "FireBrick";
-        } else if (parseInt(students) > 20) {
-            validationMessage.innerHTML = "El número máximo permitido es 20.";
-            this.style.borderColor = "FireBrick";
-        } else {
-            validationMessage.innerHTML = "";
-            this.style.borderColor = "Green";
-        }
-    });
+    //    if (students === "") {
+    //        validationMessage.innerHTML = "El número de estudiantes es requerido.";
+    //        this.style.borderColor = "FireBrick";
+    //    } else if (!/^\d+$/.test(students)) {
+    //        validationMessage.innerHTML = "Ingrese un número válido.";
+    //        this.style.borderColor = "FireBrick";
+    //    } else if (parseInt(students) > 20) {
+    //        validationMessage.innerHTML = "El número máximo permitido es 20.";
+    //        this.style.borderColor = "FireBrick";
+    //    } else {
+    //        validationMessage.innerHTML = "";
+    //        this.style.borderColor = "Green";
+    //    }
+    //});
 
 
 
@@ -194,7 +194,8 @@ $(document).ready(function () {
             data: formData,
             success: function (response) {
 
-                window.location.reload();
+                //window.location.reload();
+                window.location.href = '/Group/ShowGroups'; // Redirigir a la página deseada
             },
             error: function (error) {
                 // Manejar errores si los hay
@@ -213,7 +214,8 @@ $(document).ready(function () {
             data: formData,
             success: function (response) {
 
-                window.location.reload();
+                //window.location.reload();
+                window.location.href = '/Group/ShowGroups'; // Redirigir a la página deseada
             },
             error: function (error) {
                 // Manejar errores si los hay

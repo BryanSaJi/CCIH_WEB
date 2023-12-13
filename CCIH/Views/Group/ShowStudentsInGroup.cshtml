@@ -1,0 +1,117 @@
+﻿
+@{
+    ViewBag.Title = "ShowStudentsInGroup";
+    Layout = "~/Views/Shared/_Layout_Administration.cshtml";
+}
+
+
+<head>
+
+    <link rel="stylesheet" href="~/assets/Administration/css/datatable/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="~/assets/Administration/css/datatable/buttons.dataTables.min.css" />
+
+    <script defer src="~/assets/Administration/js/DataTable/code.jquery.com_jquery-3.7.0.js"></script>
+    <script defer src="~/assets/Administration/js/DataTable/cdn.datatables.net_1.13.5_js_jquery.dataTables.min.js"></script>
+    <script defer src="~/assets/Administration/js/DataTable/cdn.datatables.net_buttons_2.4.1_js_dataTables.buttons.min.js"></script>
+    <script defer src="~/assets/Administration/js/DataTable/cdnjs.cloudflare.com_ajax_libs_jszip_3.10.1_jszip.min.js"></script>
+    <script defer src="~/assets/Administration/js/DataTable/cdnjs.cloudflare.com_ajax_libs_pdfmake_0.1.53_pdfmake.min.js"></script>
+    <script defer src="~/assets/Administration/js/DataTable/cdnjs.cloudflare.com_ajax_libs_pdfmake_0.1.53_vfs_fonts.js"></script>
+    <script defer src="~/assets/Administration/js/DataTable/cdn.datatables.net_buttons_2.4.1_js_buttons.html5.min.js"></script>
+    <script defer src="~/assets/Administration/js/DataTable/cdn.datatables.net_buttons_2.4.1_js_buttons.print.min.js"></script>
+    <script defer src="~/assets/Administration/js/DataTable/DataTable.js"></script>
+
+
+
+</head>
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Estudiantes de Grupo</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a>Inicio</a></li>
+                <li class="breadcrumb-item">Usuarios</li>
+                <li class="breadcrumb-item active">Estudiantes de Grupo</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+
+
+    <section class="section">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+
+
+                        @if (ViewBag.MsjPantallaPostivo != null)
+                        {
+                            <div id="mensajePositivo" style="text-align:center" class="alert alert-success" role="alert">
+                                @ViewBag.MsjPantallaPostivo
+                            </div>
+                        }
+                        @if (ViewBag.MsjPantallaNegativo != null)
+                        {
+                            <div id="mensajeNegativo" style="text-align:center" class="alert alert-danger" role="alert">
+                                @ViewBag.MsjPantallaNegativo
+                            </div>
+                        }
+                        <br>
+
+
+
+
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="table-responsive">
+                                    <table id="DataTable" class="table table-hover text-center" width="100%">
+                                        <thead>
+                                            <tr style="text-align:center">
+                                                <th>Cedula</th>
+                                                <th>Nombre</th>
+                                                <th>Apellido 1</th>
+                                                <th>Apellido 2</th>
+                                                <th>Correo</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model.StudentsInGroup)
+                                            {
+                                                <tr>
+                                                    <td>@item.PersonalID</td>
+                                                    <td>@item.Name</td>
+                                                    <td>@item.LastName</td>
+                                                    <td>@item.SecLastName</td>
+                                                    <td>@item.Email</td>
+
+
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-1">
+                            <a href="@Url.Action("ShowGroups","Group")" class="btn btn-secondary">Regresar</a>
+                        </div>
+                    </div>
+                    <br />
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- End Modal-->
+
+
+</main><!-- End #main -->

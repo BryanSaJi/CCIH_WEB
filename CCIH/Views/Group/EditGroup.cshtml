@@ -56,6 +56,7 @@
         <!-- Asign the current entity  atributes -->
         
         @Html.HiddenFor(m => m.GroupId)
+        @Html.HiddenFor(m => m.StudentsNumber)
         
 
 
@@ -76,17 +77,11 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for="GroupNameId" class="col-form-label">Nombre de Grupo</label>
-                                        @Html.TextBoxFor(m => m.GroupName, new { @type = "text", @placeholder = "Ingrese el nombre del grupo", @id = "GroupNameId", @class = "form-control", @readonly = "readonly", @style = "background-color: #f1f1f1;" })
+                                        @Html.TextBoxFor(m => m.GroupName, new { @type = "text", @placeholder = "Generado Automaticamente", @id = "GroupNameId", @class = "form-control", @readonly = "readonly", @style = "background-color: #f1f1f1;" })
                                         <div class="validation-message text-danger" id="GroupNameMessage"></div>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label for="MaxStudentsNumberId" class="col-form-label">Maximo número de estudiantes</label>
-                                        @Html.TextBoxFor(m => m.MaxStudentsNumber, new { @type = "text", @placeholder = "Ingrese la cantidad maxima de estudiantes", @class = "form-control", @id = "MaxStudentsNumberId" })
-                                        <div class="validation-message text-danger" id="MaxStudentsNumberValidationMessage"></div>
-                                    </div>
-                                </div>
+                                
                             </div>
 
                             <!-- Row 2 -->
@@ -94,9 +89,9 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label for="StudentsNumberId" class="col-form-label">Número de estudiantes</label>
-                                        @Html.TextBoxFor(m => m.StudentsNumber, new { @type = "text", @placeholder = "Número de estudiantes", @class = "form-control", @id = "StudentsNumberId", @readonly = "readonly", @style = "background-color: #f1f1f1;" })
-                                        <div class="validation-message text-danger" id="StudentsNumberValidationMessage"></div>
+                                        <label for="MaxStudentsNumberId" class="col-form-label">Máximo de estudiantes</label>
+                                        @Html.TextBoxFor(m => m.MaxStudentsNumber, new { @type = "text", @placeholder = "Máximo de estudiantes", @class = "form-control", @id = "MaxStudentsNumberId" })
+                                        <div class="validation-message text-danger" id="MaxStudentsNumberValidationMessage"></div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">

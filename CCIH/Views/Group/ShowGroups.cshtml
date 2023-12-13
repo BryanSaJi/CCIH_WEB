@@ -61,13 +61,13 @@
                                         <table id="DataTable" class="table table-hover" style="width: 100% !important;">
                                             <thead>
                                                 <tr>
-                                                    <th>Nombre del Grupo</th>
+                                                    <th>Grupo</th>
                                                     <th>Horario</th>
                                                     <th>Profesor</th>
                                                     <th>Fecha Inicio</th>
                                                     <th>Fecha Final</th>
-                                                    <th>Maximo de estudiantes</th>
-                                                    <th>Numero de estudiantes</th>
+                                                    <th>Maximo Estudiantes</th>
+                                                    <th>Numero Estudiantes</th>
                                                     <th>Estado</th>
                                                     <th>Acciones</th>
                                                 </tr>
@@ -76,16 +76,26 @@
                                                 @foreach (var item in Model)
                                                 {
                                                     <tr>
-                                                        <td style="text-align: center;">@item.GroupName</td>
-                                                        <td style="text-align: center;">@item.ScheduleDescription</td>
-                                                        <td style="text-align: center;">@item.TeacherName</td>
-                                                        <td style="text-align: center;">@item.StartDate.ToString("yyyy-MM-dd")</td>
-                                                        <td style="text-align: center;">@item.EndDate.ToString("yyyy-MM-dd")</td>
-                                                        <td style="text-align: center;">@item.MaxStudentsNumber</td>
-                                                        <td style="text-align: center;">@item.StudentsNumber</td>
-                                                        <td style="text-align: center;">@item.StatusName</td>
-                                                        <td style="text-align:center">
-                                                            <a type="submit"  class="btn btn-sm text-white" style="background-color: #5f81e8;" href="@Url.Action("EditGroup","Group", new { i = item.GroupId })">Consultar</a>
+                                                        <td>@item.GroupName</td>
+                                                        <td>@item.ScheduleDescription</td>
+                                                        <td>@item.TeacherName</td>
+                                                        <td>@item.StartDate.ToString("yyyy-MM-dd")</td>
+                                                        <td>@item.EndDate.ToString("yyyy-MM-dd")</td>
+                                                        <td>@item.MaxStudentsNumber</td>
+                                                        <td>@item.StudentsNumber</td>
+                                                        <td>@item.StatusName</td>
+                                                        <td>
+                                                            <div class="row ">
+                                                                <div class="col-lg-6">
+                                                                    <a type="submit" class="btn btn-sm text-white" style="background-color: #5f81e8;" href="@Url.Action("EditGroup","Group", new { i = item.GroupId })">Editar</a>
+                                                                </div>
+                                                            </div>
+                                                            <br />
+                                                            <div class="row ">
+                                                                <div class="col-lg-6">
+                                                                    <a type="submit" class="btn btn-sm text-white" style="background-color: #5f81e8;" href="@Url.Action("ShowStudentsInGroup","Group", new { groupId = item.GroupId })">Estudiantes</a>
+                                                                </div>
+                                                            </div>
                                                         </td>
                                                     </tr>
                                                 }
@@ -107,18 +117,7 @@
     </section>
 </main><!-- End #main -->
 
-<script>
-    // Esperar 5 segundos y luego ocultar el mensaje
-    setTimeout(function () {
-        var mensajeDiv = document.getElementById('mensaje');
-        if (mensajeDiv != null) {
-            mensajeDiv.style.display = 'none';
-        }
-        var mensajeDiv2 = document.getElementById('mensajeNegativo');
-        if (mensajeDiv2 != null) {
-            mensajeDiv2.style.display = 'none';
-        }
-        
-    }, 5000); // 5000 milisegundos = 5 segundos
-</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="~/assets/Administration/js/SetPeople.js"></script>
+
 

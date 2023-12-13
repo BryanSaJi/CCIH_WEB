@@ -95,10 +95,58 @@
 
 
 <script>
+
+
     document.addEventListener('DOMContentLoaded', function () {
         var myCarousel = new bootstrap.Carousel(document.getElementById('carouselControls'), {
-            interval: 4000
+            interval: 2500
         });
+
+
+    });
+
+    document.getElementById('searchInput').addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+             var searchTerm = searchInput.value;
+
+        // Realizar la solicitud AJAX con Fetch API
+        $.ajax({
+            url: '@Url.Action("ObtenerCursosDesdeBaseDeDatos", "Course")',
+            type: 'GET',
+            data: { name: searchTerm },
+            success: function (data) {
+                /// Limpiar resultados anteriores
+                searchResults.innerHTML = '';
+
+
+                // Verificar si los datos son un objeto y contienen propiedades
+                data.forEach(curso => {
+                    var resultHtml = `
+                    <div class="col-lg-4 col-md-6 mb-3 d-flex align-items-stretch">
+                        <div class="card">
+                            <a href="#"><img src="../assets/Home/img/${curso.image}" class="card-img-top" alt="..."></a>
+                            <div class="card-body">
+                                <h4 class="card-title">${curso.CourseName}</h4>
+                                <p class="card-text">45% Descuento</p>
+                                <h3><a href="#">${curso.ModalityName}</a></h3>
+                                <h3><a href="#">${curso.LevelCourseName}</a></h3>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                    searchResults.innerHTML += resultHtml;
+                });
+
+
+                    // Abrir el modal después de cargar los resultados
+                    $('#searchModal').modal('show');
+
+            },
+            error: function (error) {
+                console.error('Error fetching data:', error);
+            }
+        });
+        }
     });
 
 
