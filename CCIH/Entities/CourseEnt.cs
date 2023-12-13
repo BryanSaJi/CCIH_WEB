@@ -19,6 +19,6 @@ namespace CCIH.Entities
         public long status { get; set; }
         public long CourseCatalogId { get; set; }
         public string CourseName { get; set; }
-       
+        public string statusname { get; set; }
     }
 }

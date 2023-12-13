@@ -183,7 +183,38 @@
                         </li>
                     </ul>
                 </li>
+
                 @*End Matriculas Nav*@
+
+
+                <li class="nav-item">
+                    <a class="nav-link collapsed" data-bs-target="#Cursos-nav" data-bs-toggle="collapse" href="#">
+                        <i class="bi bi-menu-button-wide"></i><span>Cursos</span><i class="bi bi-chevron-down ms-auto"></i>
+                    </a>
+                    <ul id="Cursos-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                        <li>
+                            <a href="@Url.Action("ShowCourseCatalog","Course")">
+                                <i class="bi bi-circle"></i><span>Ver Catalogo de Cursos</span>
+                            </a>
+                        </li>
+                        <li>
+
+                            <a href="@Url.Action("ShowSchedules","Schedule")">
+                                <i class="bi bi-circle"></i><span>Ver Horarios </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("ShowCourses","Course")">
+                                <i class="bi bi-circle"></i><span>Ver Cursos</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+
+
+                @*End Matriculas Nav*@
+
 
 
                 <li class="nav-item">
@@ -213,10 +244,10 @@
                             </a>
                         </li>
                         @*<li>
-                                <a href="@Url.Action("","")">
-                                    <i class="bi bi-circle"></i><span>Libros</span>
-                                </a>
-                            </li>*@
+                        <a href="@Url.Action("","")">
+                            <i class="bi bi-circle"></i><span>Libros</span>
+                        </a>
+                    </li>*@
 
                     </ul>
                 </li><!-- End Matriculas Nav -->

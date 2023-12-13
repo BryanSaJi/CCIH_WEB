@@ -173,6 +173,7 @@
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\IdentificationsController.cs" />
     <Compile Include="Controllers\PaymentsController.cs" />
+    <Compile Include="Controllers\ScheduleController.cs" />
     <Compile Include="Controllers\StateController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RegistrationController.cs" />
@@ -182,6 +183,7 @@
     <Compile Include="Entities\ActionLogEnt.cs" />
     <Compile Include="Entities\AssignationEnt.cs" />
     <Compile Include="Entities\ContactEnt.cs" />
+    <Compile Include="Entities\CourseCatalog.cs" />
     <Compile Include="Entities\CustomerEnt.cs" />
     <Compile Include="Entities\CourseEnt.cs" />
     <Compile Include="Entities\ErrorLogEnt.cs" />
@@ -249,6 +251,8 @@
     <Content Include="assets\Administration\img\slides-2.jpg" />
     <Content Include="assets\Administration\img\slides-3.jpg" />
     <Content Include="assets\Administration\js\ConsultPeopleAPI.js" />
+    <Content Include="assets\Administration\js\CourseCatalog.js" />
+    <Content Include="assets\Administration\js\CourseValidation.js" />
     <Content Include="assets\Administration\js\DataTable\1.5.1_js_dataTables.dateTime.min.js" />
     <Content Include="assets\Administration\js\DataTable\2.29.2_moment.min.js" />
     <Content Include="assets\Administration\js\DataTable\bootstrap-datepicker.es.js" />
@@ -270,6 +274,7 @@
     <Content Include="assets\Administration\js\GroupValidation.js" />
     <Content Include="assets\Administration\js\PaymentValidation.js" />
     <Content Include="assets\Administration\js\RegistrationValidation.js" />
+    <Content Include="assets\Administration\js\Schedules.js" />
     <Content Include="assets\Administration\js\SetPeople.js" />
     <Content Include="assets\Administration\js\UserValidations.js" />
     <Content Include="assets\Administration\js\main.js" />
@@ -790,6 +795,11 @@
     <Content Include="Views\Teachers\RequestTeachersSchedules.cshtml" />
     <Content Include="Views\Payments\CreatePayments.cshtml" />
     <Content Include="Views\Payments\DeletePayment.cshtml" />
+    <Content Include="Views\Course\AddCourse.cshtml" />
+    <Content Include="Views\Course\EditCourse.cshtml" />
+    <Content Include="Views\Course\ShowCourseCatalog.cshtml" />
+    <Content Include="Views\Course\ShowCourses.cshtml" />
+    <Content Include="Views\Schedule\ShowSchedules.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

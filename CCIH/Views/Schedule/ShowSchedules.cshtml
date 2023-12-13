@@ -1,0 +1,310 @@
+﻿
+@{
+    ViewBag.Title = "ShowSchedules";
+    Layout = "~/Views/Shared/_Layout_Administration.cshtml";
+}
+
+
+
+
+<head>
+    <link rel="stylesheet" href="~/assets/Administration/css/datatable/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="~/assets/Administration/css/datatable/buttons.dataTables.min.css" />
+    <script defer src="~/assets/Administration/js/DataTable/code.jquery.com_jquery-3.7.0.js"></script>
+    <script defer src="~/assets/Administration/js/DataTable/cdn.datatables.net_1.13.5_js_jquery.dataTables.min.js"></script>
+    <script defer src="~/assets/Administration/js/DataTable/cdn.datatables.net_buttons_2.4.1_js_dataTables.buttons.min.js"></script>
+    <script defer src="~/assets/Administration/js/DataTable/cdnjs.cloudflare.com_ajax_libs_jszip_3.10.1_jszip.min.js"></script>
+    <script defer src="~/assets/Administration/js/DataTable/cdnjs.cloudflare.com_ajax_libs_pdfmake_0.1.53_pdfmake.min.js"></script>
+    <script defer src="~/assets/Administration/js/DataTable/cdnjs.cloudflare.com_ajax_libs_pdfmake_0.1.53_vfs_fonts.js"></script>
+    <script defer src="~/assets/Administration/js/DataTable/cdn.datatables.net_buttons_2.4.1_js_buttons.html5.min.js"></script>
+    <script defer src="~/assets/Administration/js/DataTable/cdn.datatables.net_buttons_2.4.1_js_buttons.print.min.js"></script>
+    <script defer src="~/assets/Administration/js/DataTable/DataTable.js"></script>
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="~/assets/Administration/js/Schedules.js"></script>
+
+
+</head>
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h1>Lista de Horarios</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="@Url.Action("Index","Admin")">Inicio</a></li>
+                <li class="breadcrumb-item">Horarios</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <br />
+                        <div class="row">
+                            <br>
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <br>
+                                        @if (ViewBag.MsjPantallaPostivo != null)
+                                        {
+                                            <div id="mensajePositivo" style="text-align:center" class="alert alert-success" role="alert">
+                                                @ViewBag.MsjPantallaPostivo
+                                            </div>
+                                        }
+                                        @if (ViewBag.MsjPantallaNegativo != null)
+                                        {
+                                            <div id="mensajeNegativo" style="text-align:center" class="alert alert-danger" role="alert">
+                                                @ViewBag.MsjPantallaNegativo
+                                            </div>
+                                        }
+
+                                        <br>
+                                        <div>
+
+                                            <button type="button" class="btn btn-primary m-0 w-25" data-bs-toggle="modal" data-bs-target="#CreatebasicModal" id="UserFormButton">Agregar Horario</button>
+                                        </div>
+                                        <br>
+
+
+                                        <table id="DataTable" class="table table-hover" style="width: 100% !important;">
+                                            <thead>
+                                                <tr>
+                                                    <th>Descripcion de Horario</th>
+                                                    <th>Acciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var item in Model)
+                                                {
+                                                    <tr>
+                                                        <td style="text-align: center;">@item.Description</td>
+                                                        <td style="text-align:center">
+
+                                                            <button type="button" class="btn btn-primary m-0 w-25" data-bs-toggle="modal" data-bs-target="#EditbasicModal" id="EditFormButton">Editar</button>
+                                                            @if (false)
+                                                            {
+                                                                <button type="button" class="btn btn-primary m-0 w-25" data-bs-toggle="modal" data-bs-target="#DeletebasicModal" id="DeleteFormButton">Borrar</button>
+                                                            }
+
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <a href="@Url.Action("Index", "Admin")" class="btn btn-secondary">Regresar</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <div class="modal fade" id="CreatebasicModal" tabindex="-1">
+        <div class="modal-dialog justify-content-center align-items-center" style="margin-top: 15%">
+            <div class="modal-content justify-content-center align-items-center">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="dayStart">Día 1 Semanal</label>
+                                <select class="form-control" id="dayStart">
+                                    <option value="Lunes">Lunes</option>
+                                    <option value="Martes">Martes</option>
+                                    <option value="Miércoles">Miércoles</option>
+                                    <option value="Jueves">Jueves</option>
+                                    <option value="Viernes">Viernes</option>
+                                    <option value="Sábado">Sábado</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="dayEnd">Día 2 Semanal</label>
+                                <select class="form-control" id="dayEnd">
+                                    <option value="Lunes">Lunes</option>
+                                    <option value="Martes">Martes</option>
+                                    <option value="Miércoles">Miércoles</option>
+                                    <option value="Jueves">Jueves</option>
+                                    <option value="Viernes">Viernes</option>
+                                    <option value="Sábado">Sábado</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="timeStart">Hora de inicio</label>
+                                <select class="form-control" id="timeStart">
+                                    <option value="9AM">9AM</option>
+                                    <option value="10AM">10AM</option>
+                                    <option value="11AM">11AM</option>
+                                    <option value="12PM">12PM</option>
+                                    <option value="1PM">1PM</option>
+                                    <option value="2PM">2PM</option>
+                                    <option value="3PM">3PM</option>
+                                    <option value="4PM">4PM</option>
+                                    <option value="5PM">5PM</option>
+                                    <option value="6PM">6PM</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="timeEnd">Hora de finalización</label>
+                                <select class="form-control" id="timeEnd">
+                                    <option value="9AM">9AM</option>
+                                    <option value="10AM">10AM</option>
+                                    <option value="11AM">11AM</option>
+                                    <option value="12PM">12PM</option>
+                                    <option value="1PM">1PM</option>
+                                    <option value="2PM">2PM</option>
+                                    <option value="3PM">3PM</option>
+                                    <option value="4PM">4PM</option>
+                                    <option value="5PM">5PM</option>
+                                    <option value="6PM">6PM</option>
+                                    <option value="7PM">7PM</option>
+                                    <option value="8PM">8PM</option>
+                                    <option value="9PM">9PM</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-success" id="AddModalFormButton">Agregar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="modal fade" id="EditbasicModal" tabindex="-1">
+        <div class="modal-dialog justify-content-center align-items-center" style="margin-top: 15%">
+            <div class="modal-content justify-content-center align-items-center">
+                <div class="modal-header">
+                    <div class="form-group">
+                        <label for="timeStart">Descripcion del Horario</label>
+                        <input type="text" class="form-control" id="courseName" disabled>
+                    </div>
+                    
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="dayStart">Día 1 Semanal</label>
+                                <select class="form-control" id="EditdayStart">
+                                    <option value="Lunes">Lunes</option>
+                                    <option value="Martes">Martes</option>
+                                    <option value="Miércoles">Miércoles</option>
+                                    <option value="Jueves">Jueves</option>
+                                    <option value="Viernes">Viernes</option>
+                                    <option value="Sábado">Sábado</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="dayEnd">Día 2 Semanal</label>
+                                <select class="form-control" id="EditdayEnd">
+                                    <option value="Lunes">Lunes</option>
+                                    <option value="Martes">Martes</option>
+                                    <option value="Miércoles">Miércoles</option>
+                                    <option value="Jueves">Jueves</option>
+                                    <option value="Viernes">Viernes</option>
+                                    <option value="Sábado">Sábado</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="timeStart">Hora de inicio</label>
+                                <select class="form-control" id="EdittimeStart">
+                                    <option value="9AM">9AM</option>
+                                    <option value="10AM">10AM</option>
+                                    <option value="11AM">11AM</option>
+                                    <option value="12PM">12PM</option>
+                                    <option value="1PM">1PM</option>
+                                    <option value="2PM">2PM</option>
+                                    <option value="3PM">3PM</option>
+                                    <option value="4PM">4PM</option>
+                                    <option value="5PM">5PM</option>
+                                    <option value="6PM">6PM</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="timeEnd">Hora de finalización</label>
+                                <select class="form-control" id="EdittimeEnd">
+                                    <option value="9AM">9AM</option>
+                                    <option value="10AM">10AM</option>
+                                    <option value="11AM">11AM</option>
+                                    <option value="12PM">12PM</option>
+                                    <option value="1PM">1PM</option>
+                                    <option value="2PM">2PM</option>
+                                    <option value="3PM">3PM</option>
+                                    <option value="4PM">4PM</option>
+                                    <option value="5PM">5PM</option>
+                                    <option value="6PM">6PM</option>
+                                    <option value="7PM">7PM</option>
+                                    <option value="8PM">8PM</option>
+                                    <option value="9PM">9PM</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-success" id="EditModalFormButton">Guardar Cambios</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="DeletebasicModal" tabindex="-1">
+        <div class="modal-dialog justify-content-center align-items-center" style="margin-top: 15%">
+            <div class="modal-content justify-content-center align-items-center">
+                <div class="modal-header align-items-center">
+                    <h5 class="modal-title justify-content-center align-items-center"> Alerta   </h5>
+                </div>
+                <div class="modal-body" style="text-align:center">
+                    Desea borrar el horario?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-success" id="DeletetModalFormButton">Borrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</main><!-- End #main -->
+
+<script>
+    // Esperar 5 segundos y luego ocultar el mensaje
+    setTimeout(function () {
+        var mensajeDiv = document.getElementById('mensaje');
+        if (mensajeDiv != null) {
+            mensajeDiv.style.display = 'none';
+        }
+        var mensajeDiv2 = document.getElementById('mensajeNegativo');
+        if (mensajeDiv2 != null) {
+            mensajeDiv2.style.display = 'none';
+        }
+
+    }, 5000); // 5000 milisegundos = 5 segundos
+</script>
+
+
+
+
