@@ -87,8 +87,11 @@
                                                     <td>@item.StatusName</td>
 
                                                     <td style="text-align:center">
-                                                        <a type="submit" class="btn  text-white" style="background-color: #5f81e8; display: inline-flex; margin-bottom: 5px" href="@Url.Action("EditGroup","Group", new { i = item.GroupId })"><i class="bi bi-pencil-square"></i>Editar</a>
+                                                        @if (Session["IdRoleUser"].ToString() == "1")
+                                                        {
+                                                            <a type="submit" class="btn  text-white" style="background-color: #5f81e8; display: inline-flex; margin-bottom: 5px" href="@Url.Action("EditGroup","Group", new { i = item.GroupId })"><i class="bi bi-pencil-square"></i>Editar</a>
 
+                                                        }
                                                         <a type="submit" class="btn  text-white" style="background-color: #5f81e8; display: inline-flex; margin-bottom: 5px" href="@Url.Action("ShowStudentsInGroup","Group", new { groupId = item.GroupId })"><i class="bi bi-person"></i></a>
                                                     </td>
                                                 </tr>

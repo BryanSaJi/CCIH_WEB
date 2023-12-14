@@ -33,6 +33,8 @@ namespace CCIH.Controllers
         public ActionResult Index()
         {
             try {
+                Session["MensajePositivo"] = 0;
+                Session["MensajeNegativo"] = 0;
                 if (Session["IdRoleUser"].ToString() == "1")
                 {
 
@@ -44,8 +46,6 @@ namespace CCIH.Controllers
                     {
                         total = item.Amount + total;
                     }
-                    Session["MensajePositivo"] = 0;
-                    Session["MensajeNegativo"] = 0;
                     Session["CedulaCliente"] = null;
                     Session["PreRegisterPending"] = preRegistrationData.Count;
                     Session["RegisterToday"] = TodayRegistrationData.Count;

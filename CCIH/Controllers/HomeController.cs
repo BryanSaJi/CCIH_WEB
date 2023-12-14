@@ -244,5 +244,18 @@ namespace CCIH.Controllers
 
 
 
+
+
+
+
+
+
+        public ActionResult prueba()
+        {
+            return View();
+        }
+
+
+
     }
 }
