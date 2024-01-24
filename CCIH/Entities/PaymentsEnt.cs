@@ -7,7 +7,7 @@ namespace CCIH.Entities
 {
     public class PaymentsEnt
     {
-        public long REFERENCE { get; set; }
+
         public string PersonalID { get; set; }
         public DateTime CreationDate { get; set; }
         public Decimal Amount { get; set; }
@@ -16,7 +16,7 @@ namespace CCIH.Entities
         public long IncomeOutcomeId { get; set; }
         public long ReasonId { get; set; }
 
-        public string FullName { get; set; }
+        public string CustomName { get; set; }
         public string PaymentType { get; set; }
         public string IncomeOutcome { get; set; }
         public string Motivo { get; set; }

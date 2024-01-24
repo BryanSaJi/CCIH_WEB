@@ -26,6 +26,8 @@
     <script defer src="~/assets/Administration/js/DataTable/DataTableUsers.js"></script>
 
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 </heah>
 
 
@@ -62,13 +64,19 @@
                             </div>
                         }
 
-
+                        <div>
+                            <a type="submit" class="btn  text-white" href="@Url.Action("CreatePayments", "Payments")" style="background-color: #5f81e8; display: inline-block; margin-bottom: 5px; margin-top:10px">Ingresar Pago</a>
+                        </div>
                         <br />
                         <div class="row">
                             <div class="col-12">
                                 <div class="table-responsive">
                                     <table id="DataTable" class="table table-hover text-center" width="100%">
+
+
                                         <thead>
+
+
                                             <tr>
                                                 <th style="text-align:center"># Referencia </th>
                                                 <th style="text-align:center">Cedula</th>
@@ -87,22 +95,23 @@
 
                                             @foreach (var item in Model)
                                             {
-                                                <tr>
+                                                <tr class="payment-row" data-payment-id="@item.PaymentsId">
                                                     <td>@item.PaymentsId</td>
                                                     <td>@item.PersonalID</td>
-                                                    <td>@item.Name</td>
+                                                    <td>@item.CustomName</td>
                                                     <td>@item.CreationDate</td>
                                                     <td>@item.Amount</td>
                                                     <td>@item.PaymentType</td>
                                                     <td>@item.IncomeOutcome</td>
-                                                    <td>@item.Motivo</td>
-
-
+                                                    <td>@item.Coment</td>
 
                                                     <td>
                                                         <a type="submit" class="btn  text-white" href="@Url.Action("EditPayment", "Payments", new { i = item.PaymentsId })" style="background-color: #5f81e8; display: inline-block; margin-bottom: 5px;"><i class="bi bi-pencil-square"></i> Editar</a>
 
-                                                        <a type="submit" class="btn  text-white" href="@Url.Action("DeletePayment", "Payments", new { i = item.PaymentsId })" style="background-color: #e85f5f; display: inline-block; margin-bottom: 5px;"><i class="bi bi-trash"></i> </a>
+                                                        <a class="btn btn-danger text-white" href="#" onclick="openDeleteConfirmationModal(@item.PaymentsId)">
+                                                            <i class="bi bi-trash"></i> Eliminar
+                                                        </a>
+
                                                     </td>
 
 
@@ -141,48 +150,82 @@
                         </div>
                     </div>
 
+
+
                 </div>
             </div>
         </div>
+
     </section>
-</main><!-- End #main -->
- 
-<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmar Eliminación</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                ¿Estás seguro de que deseas eliminar este pago?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Eliminar</button>
+
+
+    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel">
+        <div class="modal-dialog justify-content-center align-items-center" style="margin-top: 15%">
+            <div class="modal-content justify-content-center align-items-center">
+                <div class="modal-header align-items-center">
+                    <h5 class="modal-title justify-content-center align-items-center"><i class="bi bi-award-fill text-danger"></i> Confirmar Eliminación <i class="bi bi-award-fill text-danger"></i></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="text-align:center">
+                    ¿Estás seguro de que deseas eliminar este pago?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-danger" id="confirmDeleteBtn">Eliminar</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
+
+</main><!-- End #main -->
+<!-- ... (código anterior) ... -->
 
 <script>
-    // Script para manejar la confirmación de eliminación
-    $(document).ready(function () {
-        $('#confirmDeleteBtn').on('click', function () {
-           
-            window.location.href = '@Url.Action("DeletePayment", "Payments")';
-        });
+    function openDeleteConfirmationModal(paymentId) {
+        $('#confirmDeleteBtn').data('payment-id', paymentId);
+        $('#confirmDeleteModal').modal('show');
+    }
+    // Agrega un estilo CSS para ocultar las filas al cargar la página
+    $('head').append('<style>.payment-row { display: none; }</style>');
 
-        // Asociar el evento click al botón de eliminar original
-        $('.delete-payment-btn').on('click', function () {
-            // Obtener el ID del pago desde el atributo data
-            var paymentId = $(this).data('payment-id');
-            // Setear el ID en el botón de confirmar eliminación
-            $('#confirmDeleteBtn').data('payment-id', paymentId);
-            // Mostrar el modal
-            $('#confirmDeleteModal').modal('show');
-        });
+    $(document).ready(function () {
+        var deletedPayments = JSON.parse(localStorage.getItem('deletedPayments')) || [];
+
+        for (var i = 0; i < deletedPayments.length; i++) {
+            // Elimina las filas correspondientes a los pagos eliminados
+            $('.payment-row[data-payment-id="' + deletedPayments[i] + '"]').remove();
+        }
+
+        // Muestra las filas después de cargar completamente la página
+        $('.payment-row').css('display', 'table-row');
     });
+
+
+    $('#confirmDeleteBtn').on('click', function () {
+        var paymentId = $(this).data('payment-id');
+
+        // Elimina la fila correspondiente al ID del pago
+        $('.payment-row[data-payment-id="' + paymentId + '"]').remove();
+
+        // Almacena el ID del pago eliminado
+        var deletedPayments = JSON.parse(localStorage.getItem('deletedPayments')) || [];
+        deletedPayments.push(paymentId);
+        localStorage.setItem('deletedPayments', JSON.stringify(deletedPayments));
+
+        $('#confirmDeleteModal').modal('hide');
+    });
+
+    // Verifica y elimina las filas eliminadas al cargar la página
+    $(document).ready(function () {
+        var deletedPayments = JSON.parse(localStorage.getItem('deletedPayments')) || [];
+
+        for (var i = 0; i < deletedPayments.length; i++) {
+            // Elimina las filas correspondientes a los pagos eliminados
+            $('.payment-row[data-payment-id="' + deletedPayments[i] + '"]').remove();
+        }
+    });
+
 </script>
+
+
+

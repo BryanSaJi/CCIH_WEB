@@ -28,32 +28,31 @@ namespace CCIH.Controllers
             {
                 var data = model.RequestPayment(i);
 
-
-
-                var Status = model.RequestPaymentTypeScrollDown();
-                var ComboType = new List<SelectListItem>();
-                foreach (var item in Status)
+                var PaymentType = model.RequestPaymentTypeScrollDown();
+                var ComboPaymentType = new List<SelectListItem>();
+               
+                foreach (var item in PaymentType)
                 {
-                    ComboType.Add(new SelectListItem
+                    ComboPaymentType.Add(new SelectListItem
                     {
                         Text = item.Name,
                         Value = item.PaymentTypeId.ToString()
                     });
                 }
-                ViewBag.PayType = ComboType;
+                ViewBag.PaymentType = ComboPaymentType;
 
 
-                var rol = model.RequestIncomeOutcomeScrollDown();
-                var ComboInOut = new List<SelectListItem>();
-                foreach (var item in rol)
+                var IncomeOutcome = model.RequestIncomeOutcomeScrollDown();
+                var ComboIncomeOutcome = new List<SelectListItem>();
+                foreach (var item in IncomeOutcome)
                 {
-                    ComboInOut.Add(new SelectListItem
+                    ComboIncomeOutcome.Add(new SelectListItem
                     {
                         Text = item.Name,
                         Value = item.IncomeOutcomeId.ToString()
                     });
                 }
-                ViewBag.IncomeOutcome = ComboInOut;
+                ViewBag.IncomeOutcome = ComboIncomeOutcome;
 
                 var Motive = model.RequestPaymentMotiveScrollDown();
                 var ComboMotive = new List<SelectListItem>();
@@ -64,34 +63,18 @@ namespace CCIH.Controllers
                         Text = item.Name,
                         Value = item.id_Motive.ToString()
                     });
-
                 }
-                ViewBag.Motive = ComboMotive;
+                ViewBag.Reason = ComboMotive;
 
-
-
-
-                if (TempData.ContainsKey("RespuestaPositivaEditarUsuario"))
-                {
-                    ViewBag.MsjPantallaPositivo = "Información del Pago actualizada.";
-                    TempData.Remove("RespuestaPositivaEditarUsuario");
-                }
-                if (TempData.ContainsKey("RespuestaNegativaEditarUsuario"))
-                {
-                    ViewBag.MsjPantallaNegativo = "No se pudo actualizar el Pago.";
-                    TempData.Remove("RespuestaNegativaEditarUsuario");
-                }
-
-                return View(data);
+                return View();
             }
             catch (Exception ex)
             {
                 var exept = ex.Message;
                 return RedirectToAction("ErrorAdministration", "Error");
             }
-            
-        }
 
+        }
 
 
 
@@ -100,7 +83,7 @@ namespace CCIH.Controllers
         {
             try
             {
-                ent.EmployeeId = long.Parse(Session["IdUser"].ToString());
+                //ent.EmployeeId = long.Parse(Session["IdUser"].ToString());
                 var resp = model.EditPayment(ent);
 
                 if (resp > 0)
@@ -138,7 +121,7 @@ namespace CCIH.Controllers
                 var exept = ex.Message;
                 return RedirectToAction("ErrorAdministration", "Error");
             }
-            
+
 
         }
 
@@ -152,8 +135,7 @@ namespace CCIH.Controllers
             {
 
                 //ent.EmployeeId =  long.Parse(Session["IdUser"].ToString());
-
-                ent.EmployeeId = 7;
+               //ent.EmployeeId = 7;
 
                 var resp = model.CreatePayment(ent);
 
