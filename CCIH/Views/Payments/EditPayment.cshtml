@@ -32,7 +32,21 @@
 
                 <div class="card" style="padding:40px">
                     <div class="card-bodyd-t">
-                        <h5 class="caritle">Ingresar Pagos </h5>
+                        <h5 class="card-title">Ingresar Pagos </h5>
+
+                        @if (ViewBag.MsjPantallaPositivo != null)
+                        {
+                            <div id="mensaje" style="text-align:center" class="alert alert-success" role="alert">
+                                @ViewBag.MsjPantallaPositivo
+                            </div>
+                        }
+                        @if (ViewBag.MsjPantallaNegativo != null)
+                        {
+                            <div id="mensaje" style="text-align:center" class="alert alert-danger" role="alert">
+                                @ViewBag.MsjPantallaNegativo
+                            </div>
+                        }
+
                         <div class="row">
                             <div class="col-lg-6">
 
@@ -44,7 +58,7 @@
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="personalIDField" class="col-form-label">Cédula del Cliente</label>
-                                            @Html.TextBoxFor(m => m.PersonalID, new { @onkeyup = "ConsultPeopleInfo()", @type = "text", @placeholder = "Digite la cedula", @id = "PersonalID", @class = "form-control" })
+                                            @Html.TextBoxFor(m => m.PersonalID, new { @onkeyup = "ConsultPeopleInfo()", @type = "text", @placeholder = "Digite la cedula", @id = "PersonalId", @class = "form-control" })
                                             <div class="validation-message text-danger" id="validationMessage"></div>
                                         </div>
                                     </div>
@@ -52,8 +66,8 @@
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="personalIDField" class="col-form-label">Nombre del Cliente</label>
-                                            @Html.TextBoxFor(m => m.CustomName, new { @onkeyup = "ConsultPeopleInfo()", @type = "text", @placeholder = "Digite la cedula", @id = "CustomName", @class = "form-control" })
-                                            <div class="validation-message text-danger" id="validationMessage"></div>
+                                            @Html.TextBoxFor(m => m.CustomName, new { @onkeyup = "ConsultPeopleInfo()", @type = "text", @placeholder = "Digite el nombre", @id = "CustomName", @class = "form-control" })
+                                            <div class="validation-message text-danger" id="nameValidationMessage"></div>
                                         </div>
                                     </div>
 
@@ -70,7 +84,7 @@
 
                                         <div class="form-group">
                                             <label for="PayType" class="col-form-label">Metodo de pago</label>
-                                            @Html.DropDownListFor(m => m.PaymentType, ViewBag.PaymentType as List<SelectListItem>, "Seleccione Método", new { @class = "form-control", id = "PayType" })
+                                            @Html.DropDownListFor(m => m.PaymentTypeId, ViewBag.PaymentType as List<SelectListItem>, "Seleccione Método", new { @class = "form-control", id = "PayType" })
                                             <div class="validation-message text-danger" id="PayTypeValidationMessage"></div>
                                         </div>
                                     </div>
@@ -93,7 +107,7 @@
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="IncomeOutcome" class="col-form-label">Ingreso/Egreso</label>
-                                            @Html.DropDownListFor(m => m.IncomeOutcome, ViewBag.IncomeOutcome as List<SelectListItem>, "Seleccione Meétodo", new { @class = "form-control", id = "PayType" })
+                                            @Html.DropDownListFor(m => m.IncomeOutcomeId, ViewBag.IncomeOutcome as List<SelectListItem>, "Seleccione Meétodo", new { @class = "form-control", id = "PayType" })
                                             <div class="validation-message text-danger" id="IncomeOutcomeValidationMessage"></div>
                                         </div>
                                     </div>
@@ -103,7 +117,7 @@
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="Motivo" class="col-form-label">Motivo</label>
-                                            @Html.DropDownListFor(m => m.Motivo, ViewBag.Reason as List<SelectListItem>, "Seleccione el Motivo", new { @class = "form-control", id = "Motive" })
+                                            @Html.DropDownListFor(m => m.id_Motive, ViewBag.Reason as List<SelectListItem>, "Seleccione el Motivo", new { @class = "form-control", id = "Motive" })
                                             <div class="validation-message text-danger" id="MotivovalidationMessage"></div>
                                         </div>
                                     </div>
@@ -200,135 +214,6 @@
 
     </main><!-- End #main -->
 }
+ 
+    <script src="~/assets/Administration/js/PaymentValidation.js"></script>
 
-<script>
-
-    ////////////////////////////////////////// VALIDACIONES  ////////////////////////////////////////////////////////////////
-
-
-
-    document.querySelector('#PersonalID').addEventListener('input', function () {
-        var cedula = this.value;
-        var validationMessage = document.querySelector('#validationMessage');
-
-        if (cedula.trim() === "") {
-            validationMessage.innerHTML = "";
-            this.style.borderColor = "";
-        } else if (!/^\d+$/.test(cedula)) {
-            validationMessage.innerHTML = "Cedula solo permite numeros.";
-            this.style.borderColor = "FireBrick";
-        } else if (cedula.length < 9) {
-            validationMessage.innerHTML = "Telefono debe ser minimo de 9 dígitos.";
-            this.style.borderColor = "FireBrick";
-        } else {
-            validationMessage.innerHTML = "";
-            this.style.borderColor = "Green";
-        }
-
-
-    });
-
-
-
-
-    document.querySelector('#CustomName').addEventListener('input', function () {
-        var name = this.value;
-        var validationMessage = document.querySelector('#ComentValidationMessage');
-
-        if (name.trim() === "") {
-            validationMessage.innerHTML = "";
-            this.style.borderColor = "";
-        } else if (!/^[A-Za-zÁÉÍÓÚáéíóúñÑ\s]+$/.test(name)) {
-            validationMessage.innerHTML = "Nombre solo permite letras.";
-            this.style.borderColor = "FireBrick";
-        } else {
-            validationMessage.innerHTML = "";
-            this.style.borderColor = "Green";
-        }
-    });
-
-
-
-    document.querySelector('#Type').addEventListener('input', function () {
-        var validationMessage = document.querySelector('#TypeValidationMessage');
-        var Curso = this.value;
-        if (Curso > 0) {
-            this.style.borderColor = "Green";
-            validationMessage.innerHTML = "";
-        } else {
-            this.style.borderColor = "FireBrick";
-            validationMessage.innerHTML = "Seleccione un tipo de cedula.";
-
-        }
-    });
-
-    document.querySelector('#Amount').addEventListener('input', function () {
-        var cedula = this.value;
-        var validationMessage = document.querySelector('#AmountvalidationMessage');
-
-        if (cedula.trim() === "") {
-            validationMessage.innerHTML = "";
-            this.style.borderColor = "";
-        } else if (!/^\d+$/.test(cedula)) {
-            validationMessage.innerHTML = "Cedula solo permite numeros.";
-            this.style.borderColor = "FireBrick";
-        } else if (cedula.length < 9) {
-            validationMessage.innerHTML = "Telefono debe ser minimo de 9 dígitos.";
-            this.style.borderColor = "FireBrick";
-        } else {
-            validationMessage.innerHTML = "";
-            this.style.borderColor = "Green";
-        }
-
-
-    });
-
-    document.querySelector('#PayType').addEventListener('input', function () {
-        var validationMessage = document.querySelector('#PayTypeValidationMessage');
-        var Curso = this.value;
-        if (Curso > 0) {
-            this.style.borderColor = "Green";
-            validationMessage.innerHTML = "";
-        } else {
-            this.style.borderColor = "FireBrick";
-            validationMessage.innerHTML = "Seleccione un tipo de cedula.";
-
-        }
-    });
-
-
-    document.querySelector('#Motive').addEventListener('input', function () {
-        var validationMessage = document.querySelector('#MotiveValidationMessage');
-        var Curso = this.value;
-        if (Curso > 0) {
-            this.style.borderColor = "Green";
-            validationMessage.innerHTML = "";
-        } else {
-            this.style.borderColor = "FireBrick";
-            validationMessage.innerHTML = "Seleccione un tipo de cedula.";
-
-        }
-    });
-
-
-
-    document.querySelector('#Coment').addEventListener('input', function () {
-        var name = this.value;
-        var validationMessage = document.querySelector('#ComentValidationMessage');
-
-        if (name.trim() === "") {
-            validationMessage.innerHTML = "";
-            this.style.borderColor = "";
-        } else if (!/^[A-Za-zÁÉÍÓÚáéíóúñÑ\s]+$/.test(name)) {
-            validationMessage.innerHTML = "Nombre solo permite letras.";
-            this.style.borderColor = "FireBrick";
-        } else {
-            validationMessage.innerHTML = "";
-            this.style.borderColor = "Green";
-        }
-    });
-
-
-
-
-</script>

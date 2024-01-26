@@ -99,17 +99,17 @@
                                                     <td>@item.PaymentsId</td>
                                                     <td>@item.PersonalID</td>
                                                     <td>@item.CustomName</td>
-                                                    <td>@item.CreationDate</td>
+                                                    <td>@item.CreationDate.ToShortDateString()</td>
                                                     <td>@item.Amount</td>
                                                     <td>@item.PaymentType</td>
                                                     <td>@item.IncomeOutcome</td>
                                                     <td>@item.Coment</td>
 
-                                                    <td>
+                                                    <td style="align-content:i">
                                                         <a type="submit" class="btn  text-white" href="@Url.Action("EditPayment", "Payments", new { i = item.PaymentsId })" style="background-color: #5f81e8; display: inline-block; margin-bottom: 5px;"><i class="bi bi-pencil-square"></i> Editar</a>
 
                                                         <a class="btn btn-danger text-white" href="#" onclick="openDeleteConfirmationModal(@item.PaymentsId)">
-                                                            <i class="bi bi-trash"></i> Eliminar
+                                                            <i class="bi bi-trash"></i>
                                                         </a>
 
                                                     </td>

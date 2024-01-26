@@ -58,7 +58,7 @@
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                                 <label for="PersonalId" class="col-form-label">Cedula del cliente</label>
-                                                @Html.TextBoxFor(m => m.PersonalID, new { @type = "text", @placeholder = "Digite el numero de cedula", @class = "form-control", id = "PersonalID" })
+                                                @Html.TextBoxFor(m => m.PersonalID, new { @type = "text", @placeholder = "Digite la cedula de cliente", @class = "form-control", id = "PersonalId" })
                                                 <div class="validation-message text-danger" id="validationMessage"></div>
                                             </div>
                                         </div>
@@ -66,8 +66,8 @@
 
                                             <div class="form-group">
                                                 <label for="Type" class="col-form-label">Nombre del Cliente</label>
-                                                @Html.TextBoxFor(m => m.CustomName, new { @type = "text", @placeholder = "Digite el numero de cedula", @class = "form-control", id = "Name" })
-                                                <div class="validation-message text-danger" id="NameValidationMessage"></div>
+                                                @Html.TextBoxFor(m => m.CustomName, new { @type = "text", @placeholder = "Digite el nombre del cliente", @class = "form-control", id = "nameField" })
+                                                <div class="validation-message text-danger" id="nameValidationMessage"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -90,7 +90,7 @@
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                                 <label for="Amount" class="col-form-label">Monto</label>
-                                                @Html.TextBoxFor(m => m.Amount, new { @type = "text", @placeholder = "Digite el monto", @id = "Amount", @class = "form-control" })
+                                                @Html.TextBoxFor(m => m.Amount, new { @type = "text", @placeholder = "Digite el monto", @id = "amount", @class = "form-control" })
                                                 <div class="validation-message text-danger" id="AmountValidationMessage"></div>
                                             </div>
                                         </div>

@@ -66,13 +66,35 @@ namespace CCIH.Controllers
                 }
                 ViewBag.Reason = ComboMotive;
 
-                return View();
+
+
+                if (TempData.ContainsKey("RespuestaPositivaEditarPago"))
+                {
+                    ViewBag.MsjPantallaPositivo = "Informacion del Pago actualizada.";
+                    TempData.Remove("RespuestaPositivaEditarPago");
+                }
+                if (TempData.ContainsKey("RespuestaNegativaEditarPago"))
+                {
+                    ViewBag.MsjPantallaNegativo = "No se pudo actualizar el pago.";
+                    TempData.Remove("RespuestaNegativaEditarPago");
+                }
+
+                return View(data);
+
+
+
+
+
+
             }
             catch (Exception ex)
             {
                 var exept = ex.Message;
                 return RedirectToAction("ErrorAdministration", "Error");
             }
+
+
+
 
         }
 
@@ -88,12 +110,12 @@ namespace CCIH.Controllers
 
                 if (resp > 0)
                 {
-                    TempData["RespuestaPositivaEditarUsuario"] = true;
+                    TempData["RespuestaPositivaEditarPago"] = true;
                     return RedirectToAction("EditPayment", "Payments", new { i = ent.PaymentsId });
                 }
                 else
                 {
-                    TempData["RespuestaNegativaEditarUsuario"] = true;
+                    TempData["RespuestaNegativaEditarPago"] = true;
                     return RedirectToAction("EditPayment", "Payments", new { i = ent.PaymentsId });
                 }
             }

@@ -1,12 +1,12 @@
 ﻿//////////////////////     Esperar 5 segundos y luego ocultar el mensaje     ////////////////////////////////////////////
 
 setTimeout(function () {
-    var mensajeDiv = document.getElementById('mensajePositivo');
+    var mensajeDiv = document.getElementById('mensaje');
     if (mensajeDiv != null) {
         mensajeDiv.style.display = 'none';
     }
 
-    var mensajeDiv2 = document.getElementById('mensajeNegativo');
+    var mensajeDiv2 = document.getElementById('mensaje');
     if (mensajeDiv2 != null) {
         mensajeDiv2.style.display = 'none';
     }
@@ -39,6 +39,26 @@ document.querySelector('#PersonalId').addEventListener('keyup', function () {
 });
 
 
+
+/////////////////////////////// name  ////////////////////////////////////////////////////////////////
+
+document.querySelector('#nameField').addEventListener('input', function () {
+    var name = this.value;
+    var validationMessage = document.querySelector('#nameValidationMessage');
+
+    if (name.trim() === "") {
+        validationMessage.innerHTML = "";
+        this.style.borderColor = ""; // Restaurar el color del borde
+    } else if (!/^[A-Za-zÁÉÍÓÚáéíóúñÑ\s]+$/.test(name)) {
+        validationMessage.innerHTML = "Nombre solo permite letras.";
+        this.style.borderColor = "FireBrick";
+    } else {
+        validationMessage.innerHTML = "";
+        this.style.borderColor = "Green";
+    }
+});
+
+
 /////////////////////////////// Amount  ////////////////////////////////////////////////////////////////
 var DocumentAmount = document.getElementById("amount").value;
 
@@ -53,7 +73,7 @@ document.querySelector('#Amount').addEventListener('input', function () {
     var Amount = this.value;
     var validationMessage = document.querySelector('#AmountValidationMessage');
     if (!/^\d+$/.test(Amount)) {
-        validationMessage.innerHTML = "El monto solo permite numeros.";
+        validationMessage.innerHTML = "Monto solo permite numeros.";
         this.style.borderColor = "FireBrick";
     } else {
         validationMessage.innerHTML = "";
