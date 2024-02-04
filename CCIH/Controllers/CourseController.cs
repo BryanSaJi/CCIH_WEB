@@ -460,7 +460,7 @@ namespace CCIH.Controllers
                         string newName = $"{nombreSinExtension}_{identificadorUnico}{extension}";
                         courseEnt.image = newName;
 
-                        string path = Path.Combine(Server.MapPath("../assets/Administration/img/"), newName);
+                        string path = Path.Combine(Server.MapPath("../assets/Home/img/"), newName);
                         image.SaveAs(path);
                     }
                 }
@@ -564,7 +564,7 @@ namespace CCIH.Controllers
                         string newName = $"{nombreSinExtension}_{identificadorUnico}{extension}";
                         courseEnt.image = newName;
 
-                        string path = Path.Combine(Server.MapPath("../assets/Administration/img/"), newName);
+                        string path = Path.Combine(Server.MapPath("../assets/Home/img/"), newName);
                         image.SaveAs(path);
                     }
                 }
@@ -623,7 +623,7 @@ namespace CCIH.Controllers
                 {
 
                     string fileName = Path.GetFileName(file.FileName);
-                    string path = Path.Combine(Server.MapPath("../assets/Administration/img/"), fileName);
+                    string path = Path.Combine(Server.MapPath("../assets/Home/img/"), fileName);
                     file.SaveAs(path);
                     return Json(new { success = true, message = "Imagen subida correctamente" });
                 }
