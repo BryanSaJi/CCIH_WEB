@@ -4,7 +4,7 @@
 //////////////////////     Esperar 5 segundos y luego ocultar el mensaje     ////////////////////////////////////////////
 
 setTimeout(function () {
-    var mensajeDiv = document.getElementById('mensaje');
+    var mensajeDiv = document.getElementById('MsjPantalla');
     if (mensajeDiv != null) {
         mensajeDiv.style.display = 'none';
     }

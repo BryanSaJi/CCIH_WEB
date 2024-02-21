@@ -810,7 +810,7 @@ namespace CCIH.Controllers
             {
                 var courseId = modelCourse.SeeCoursesCatalogByName(courseName);
 
-                if (courseId != 0)
+                if (courseId == 0)
                 {
 
                     var Data = modelCourse.CreateCourseCatalog(courseName);

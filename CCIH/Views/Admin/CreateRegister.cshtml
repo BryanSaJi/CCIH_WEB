@@ -31,8 +31,14 @@
                         <h5 class="card-title">Matricula</h5>
                         @if (ViewBag.MsjPantalla != null)
                         {
-                            <div id="mensajeNegativo" style="text-align:center" class="alert alert-danger" role="alert">
+                            <div id="MsjPantalla" style="text-align:center" class="alert alert-danger" role="alert">
                                 @ViewBag.MsjPantalla
+                            </div>
+                        }
+                        @if (ViewBag.MsjPantallaP != null)
+                        {
+                            <div id="MsjPantalla" style="text-align:center" class="alert alert-success" role="alert">
+                                @ViewBag.MsjPantallaP
                             </div>
                         }
                         <div class="row">

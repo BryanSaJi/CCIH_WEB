@@ -47,9 +47,21 @@ namespace CCIH.Controllers
                     }
                 }
             }
-
-
             data = data.OrderByDescending(x => x.LastActivity).ToList();
+
+
+            if (TempData.ContainsKey("RespuestaPositivaCrearUsuario")==true)
+            {
+                ViewBag.MsjPantallaPostivo = "Usuario creado con exito.";
+                TempData.Remove("RespuestaPositivaCrearUsuario");
+            }
+            if (TempData.ContainsKey("RespuestaNegativaCrearUsuario") == true)
+            {
+                ViewBag.MsjPantallaNegativo = "No se pudo crear el usuario.";
+                TempData.Remove("RespuestaNegativaCrearUsuario");
+            }
+
+
             return View(data);
         }
 
@@ -66,6 +78,7 @@ namespace CCIH.Controllers
 
                 if (resp > 0)
                 {
+                    TempData["RespuestaPositivaCrearUsuario"] = true;
                     if (ent.IdRol == 3)
                     {
                         Session["CedulaCliente"] = ent.PersonalID;
@@ -78,7 +91,8 @@ namespace CCIH.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("Customer", "Admin");
+                    TempData["RespuestaNegativaCrearUsuario"] = true;
+                    return RedirectToAction("Index", "User");
                 }
             }
             catch (Exception ex)

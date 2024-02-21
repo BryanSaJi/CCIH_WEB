@@ -203,6 +203,12 @@ namespace CCIH.Controllers
                     TempData.Remove("RespuestaNegativaMatricula");
                 }
 
+                if (TempData.ContainsKey("RespuestaPositivaCrearUsuario"))
+                {
+                    ViewBag.MsjPantallaP = "Usuario creado con exito, proceda a la matricula";
+                    TempData.Remove("RespuestaPositivaCrearUsuario");
+                }
+                
                 return View();
             }catch (Exception ex)
             {
